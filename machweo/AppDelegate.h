@@ -1,9 +1,9 @@
 //
 //  AppDelegate.h
-//  machweo
+//  tgrrn
 //
-//  Created by John Feldcamp on 1/7/15.
-//  Copyright (c) 2015 Zachary Feldcamp. All rights reserved.
+//  Created by Feldcamp, Zachary Satoshi on 10/19/14.
+//  Copyright (c) 2014 Feldcamp, Zachary Satoshi. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>

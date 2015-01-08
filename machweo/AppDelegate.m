@@ -1,12 +1,18 @@
 //
 //  AppDelegate.m
-//  machweo
+//  tgrrn
 //
-//  Created by John Feldcamp on 1/7/15.
-//  Copyright (c) 2015 Zachary Feldcamp. All rights reserved.
+//  Created by Feldcamp, Zachary Satoshi on 10/19/14.
+//  Copyright (c) 2014 Feldcamp, Zachary Satoshi. All rights reserved.
 //
 
 #import "AppDelegate.h"
+#import "Constants.h"
+#import "LevelCellParser.h"
+#import "ChapterCellParser.h"
+
+//#import "LevelCell.h"
+//#import "ChapterCell.h"
 
 @interface AppDelegate ()
 
@@ -14,9 +20,48 @@
 
 @implementation AppDelegate
 
+-(void)loadSingletons{
+    [Constants sharedInstance];
+    [LevelCellParser sharedInstance];
+    
+    
+//    for (NSString* key in [LevelCellParser sharedInstance].levels) {
+//        LevelCell* levelCell = [[LevelCellParser sharedInstance].levels objectForKey:key];
+//        NSLog(@"levelCell.name: %@", levelCell.name);
+//        NSLog(@"levelCell.imageName: %@", levelCell.imageName);
+//
+//    }
+    
+    [ChapterCellParser sharedInstance];
+    
+//    for (ChapterCell* chapterCell in [ChapterCellParser sharedInstance].chapters) {
+//        NSLog(@"chapterCell.name: %@", chapterCell.name);
+//        NSLog(@"chapterCell.imageName: %@", chapterCell.imageName);
+//        for (LevelCell* levelCell in chapterCell.levelCells) {
+//            NSLog(@"levelCell.name: %@", levelCell.name);
+//            NSLog(@"levelCell.imageName: %@", levelCell.imageName);
+//        }
+//
+//    }
+}
+
+#warning incomplete method
+-(void)setUpNavigationBar{
+   // UINavigationController* nav = (UINavigationController *)self.window.rootViewController;
+//    NSLog(@"nav: %@", nav);
+//    if ([nav respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        nav.interactivePopGestureRecognizer.enabled = NO;
+//    }
+    //nav.interactivePopGestureRecognizer.enabled = NO;
+
+    
+}
+            
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [self loadSingletons];
+    [self setUpNavigationBar];
     return YES;
 }
 

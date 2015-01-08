@@ -1,67 +1,150 @@
 //
 //  GameViewController.m
-//  machweo
+//  tgrrn
 //
-//  Created by John Feldcamp on 1/7/15.
-//  Copyright (c) 2015 Zachary Feldcamp. All rights reserved.
+//  Created by Feldcamp, Zachary Satoshi on 10/19/14.
+//  Copyright (c) 2014 Feldcamp, Zachary Satoshi. All rights reserved.
 //
 
 #import "GameViewController.h"
 #import "GameScene.h"
+#import "LoadingScene.h"
+#import "Constants.h"
 
-@implementation SKScene (Unarchive)
-
-+ (instancetype)unarchiveFromFile:(NSString *)file {
-    /* Retrieve scene file path from the application bundle */
-    NSString *nodePath = [[NSBundle mainBundle] pathForResource:file ofType:@"sks"];
-    /* Unarchive the file to an SKScene object */
-    NSData *data = [NSData dataWithContentsOfFile:nodePath
-                                          options:NSDataReadingMappedIfSafe
-                                            error:nil];
-    NSKeyedUnarchiver *arch = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-    [arch setClass:self forClassName:@"SKScene"];
-    SKScene *scene = [arch decodeObjectForKey:NSKeyedArchiveRootObjectKey];
-    [arch finishDecoding];
-    
-    return scene;
+@implementation GameViewController{
+    UILabel *scoreLabel;
+    UILabel *velocityLabel;
+    BOOL gameLoaded;
+    BOOL observersLoaded;
 }
 
-@end
+-(void)viewWillLayoutSubviews{
+    [super viewWillLayoutSubviews];
+    //if ([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
 
-@implementation GameViewController
+    //}
+    if (!gameLoaded) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = NO;
+        self.navigationController.navigationBarHidden = true;
+        gameLoaded = true;
+        [self initGame];
+    }
+    
+}
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    self.navigationController.navigationBarHidden = false;
 
-    // Configure the view.
+}
+
+-(void)initGame{
+
+    __weak GameViewController *weakSelf = self;
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
+        GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(1136, 640) forLevel:_levelToLoad];
+        newScene.backgroundColor = [UIColor lightGrayColor];
+        newScene.scaleMode = SKSceneScaleModeResizeFill;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            //[weakSelf initializeLabels];
+            if (!observersLoaded) {
+                [weakSelf setUpObservers];
+                observersLoaded = true;
+            }
+            [weakSelf refreshView];
+            [((SKView*)weakSelf.view) presentScene:newScene];
+        });
+
+    });
+    
     SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
-    /* Sprite Kit applies additional optimizations to improve rendering performance */
+   // skView.showsFPS = YES;
+    //skView.showsNodeCount = YES;
     skView.ignoresSiblingOrder = YES;
-    
-    // Create and configure the scene.
-    GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
-    [skView presentScene:scene];
+    [self refreshView];
+    LoadingScene* loadingScene = [[LoadingScene alloc] initWithSize:CGSizeMake(1136, 640)];
+    loadingScene.backgroundColor = [UIColor redColor];
+    loadingScene.scaleMode = SKSceneScaleModeResizeFill;
+    [skView presentScene:loadingScene];
+
 }
+
+-(void)refreshView{
+    // a fucking hack needed to keep the size of the view correct.
+    UIView* hackView = [UIView new];
+    [self.view addSubview:hackView];
+    [hackView removeFromSuperview];
+}
+
+-(void)setUpObservers{
+    __weak GameViewController *weakSelf = self;
+
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    [center addObserverForName:@"return to menu"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         [((SKView*)weakSelf.view) presentScene:nil];
+         [weakSelf returnToMenu];
+     }];
+    
+    [center addObserverForName:@"restart game"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         [weakSelf initGame];
+     }];
+    
+    [center addObserverForName:@"update velocity"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         [weakSelf updateVelocity:CGVectorFromString((NSString*)[notification.userInfo valueForKey:@"velocity"])];
+     }];
+
+}
+
+-(void)initializeLabels{
+    
+    velocityLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.view.frame.origin.x + 10, self.view.frame.origin.y + ((15/100) * self.view.frame.size.height), self.view.frame.size.width / 2, 20)];
+    velocityLabel.text = @"velocity: 0, 0";
+    velocityLabel.font=[UIFont boldSystemFontOfSize:15.0];
+    velocityLabel.textColor=[UIColor whiteColor];
+    velocityLabel.backgroundColor=[UIColor clearColor];
+    [self.view addSubview:velocityLabel];
+   
+
+}
+
+-(void)updateVelocity:(CGVector)velocity{
+    velocityLabel.text = [NSString stringWithFormat:@"velocity: %f, %f", velocity.dx, velocity.dy];
+    
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    SKView *skView = (SKView*)self.view;
+    [skView presentScene:nil];
+
+}
+
+-(void)returnToMenu{
+    [_restartButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+}
+
+
 
 - (BOOL)shouldAutorotate
 {
     return YES;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    } else {
-        return UIInterfaceOrientationMaskAll;
-    }
-}
 
 - (void)didReceiveMemoryWarning
 {
