@@ -15,7 +15,7 @@
 -(instancetype)initWithSize:(CGSize)size{
     if (self = [super initWithSize:size]){
         Constants *constants = [Constants sharedInstance];
-        loadingLabel = [SKLabelNode labelNodeWithText:@"GET PSYCHED! from sam's computer!"];
+        loadingLabel = [SKLabelNode labelNodeWithText:@"GET PSYCHED!"];
         loadingLabel.fontColor = constants.LOADING_LABEL_FONT_COLOR;
         loadingLabel.fontSize = constants.LOADING_LABEL_FONT_SIZE * constants.SCALE_COEFFICIENT.dy;
         loadingLabel.fontName = constants.LOADING_LABEL_FONT_NAME;
