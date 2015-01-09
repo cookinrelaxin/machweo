@@ -8,9 +8,5 @@
         <name>testParallaxLevel2</name>
         <imageName>levelCellTestBackgroundImage</imageName>
     </level>
-    <level>
-        <name>testParallaxLevel3</name>
-        <imageName>levelCellTestBackgroundImage</imageName>
-    </level>
 </levels>
 
