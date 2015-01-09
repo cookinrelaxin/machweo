@@ -227,8 +227,6 @@
 			isa = PBXGroup;
 			children = (
 				6509D28F1A5E290300F1BBA6 /* Main.storyboard */,
-				6509D2C01A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.h */,
-				6509D2911A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m */,
 				6509D2931A5E290300F1BBA6 /* CustomNavigationController.m */,
 				6509D2941A5E290300F1BBA6 /* CustomNavigationController.h */,
 				6509D2971A5E290300F1BBA6 /* GameScene.h */,
@@ -245,6 +243,8 @@
 				6509D2981A5E290300F1BBA6 /* Obstacle.m */,
 				6509D2CB1A5E290300F1BBA6 /* AppDelegate.h */,
 				6509D2A01A5E290300F1BBA6 /* AppDelegate.m */,
+				6509D2C01A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.h */,
+				6509D2911A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m */,
 				6509D2A31A5E290300F1BBA6 /* LevelSelectionCollectionViewController.h */,
 				6509D2A11A5E290300F1BBA6 /* LevelSelectionCollectionViewController.m */,
 				6509D2A21A5E290300F1BBA6 /* GameViewController.h */,

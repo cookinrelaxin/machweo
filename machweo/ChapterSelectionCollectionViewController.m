@@ -64,7 +64,7 @@
         NSIndexPath *selectedIndexPath = [[self.collectionView indexPathsForSelectedItems] objectAtIndex:0];
         ChapterCell* relevantChapter = [chapters objectAtIndex:selectedIndexPath.row];
         LevelSelectionCollectionViewController *destination = [segue destinationViewController];
-        destination.levels = [relevantChapter levelCells];
+        destination.chapter = relevantChapter;
     }
 }
 

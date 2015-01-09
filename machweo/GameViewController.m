@@ -10,6 +10,7 @@
 #import "GameScene.h"
 #import "LoadingScene.h"
 #import "Constants.h"
+#import "LevelSelectionCollectionViewController.h"
 
 @implementation GameViewController{
     UILabel *scoreLabel;
@@ -131,8 +132,26 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     SKView *skView = (SKView*)self.view;
     [skView presentScene:nil];
+    
+    if ([[segue identifier] isEqualToString:@"game to level selection"])
+    {
+        LevelSelectionCollectionViewController *destination = [segue destinationViewController];
+        destination.chapter = _currentChapter;
+    }
+
 
 }
+
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"chapter to level"])
+//    {
+//        NSIndexPath *selectedIndexPath = [[self.collectionView indexPathsForSelectedItems] objectAtIndex:0];
+//        ChapterCell* relevantChapter = [chapters objectAtIndex:selectedIndexPath.row];
+//        LevelSelectionCollectionViewController *destination = [segue destinationViewController];
+//        destination.levels = [relevantChapter levelCells];
+//    }
+//}
 
 -(void)returnToMenu{
     [_restartButton sendActionsForControlEvents:UIControlEventTouchUpInside];
