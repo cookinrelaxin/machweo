@@ -75,6 +75,28 @@
       "minimum-system-version" : "7.0",
       "filename" : "ipadLandscape2xTestLaunchImage.png",
       "scale" : "2x"
+    },
+    {
+      "orientation" : "portrait",
+      "idiom" : "iphone",
+      "extent" : "full-screen",
+      "filename" : "iphonePortrait1xiOS56TestLaunchImage.png",
+      "scale" : "1x"
+    },
+    {
+      "orientation" : "portrait",
+      "idiom" : "iphone",
+      "extent" : "full-screen",
+      "filename" : "iphonePortrait2xiOS56TestLaunchImage.png",
+      "scale" : "2x"
+    },
+    {
+      "orientation" : "portrait",
+      "idiom" : "iphone",
+      "extent" : "full-screen",
+      "filename" : "iphonePortraitRetina4iOS56TestLaunchImage.png",
+      "subtype" : "retina4",
+      "scale" : "2x"
     }
   ],
   "info" : {
