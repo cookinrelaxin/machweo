@@ -44,7 +44,7 @@
 
     __weak GameViewController *weakSelf = self;
     dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(1136, 640) forLevel:_levelToLoad];
+        GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) forLevel:_levelToLoad];
         newScene.backgroundColor = [UIColor lightGrayColor];
         newScene.scaleMode = SKSceneScaleModeResizeFill;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
@@ -64,7 +64,7 @@
     //skView.showsNodeCount = YES;
     skView.ignoresSiblingOrder = YES;
     [self refreshView];
-    LoadingScene* loadingScene = [[LoadingScene alloc] initWithSize:CGSizeMake(1136, 640)];
+    LoadingScene* loadingScene = [[LoadingScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
     loadingScene.backgroundColor = [UIColor redColor];
     loadingScene.scaleMode = SKSceneScaleModeResizeFill;
     [skView presentScene:loadingScene];
