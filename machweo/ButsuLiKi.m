@@ -9,12 +9,15 @@
 #import "ButsuLiKi.h"
 #import "Obstacle.h"
 #import "Line.h"
-@implementation ButsuLiKi
+@implementation ButsuLiKi{
+    float previousSlope;
+}
 
 -(void)resolveCollisions:(Player*)player withLineArray:(NSMutableArray*)LineArray{
     
     float yMin = player.position.y;
     player.roughlyOnLine = false;
+    previousSlope = player.currentSlope;
     player.currentSlope = 0.0f;
     
     for (Line *line in LineArray){
@@ -61,7 +64,10 @@
                 player.currentSlope = slope;
                 player.roughlyOnLine = true;
                 
-                if (rightNode == pointArray.lastObject) {
+//                if (rightNode == pointArray.lastObject) {
+//                    player.endOfLine = true;
+//                }
+                if ((rightNode == pointArray.lastObject) && (player.position.x > rightPoint.x)) {
                     player.endOfLine = true;
                 }
                 
@@ -193,10 +199,13 @@
         player.velocity = CGVectorMake(player.velocity.dx + [self calculateXForceGivenSlope:player.currentSlope], player.velocity.dy + [self calculateYForceGivenSlope:player.currentSlope]);
         player.velocity = CGVectorMake(player.velocity.dx + constants.AMBIENT_X_FORCE, player.velocity.dy);
         player.velocity = CGVectorMake(player.velocity.dx * constants.FRICTION_COEFFICIENT, player.velocity.dy * constants.FRICTION_COEFFICIENT);
+        if (player.velocity.dy < -1) {
+            player.velocity = CGVectorMake(player.velocity.dx, -1);
+        }
     }
-    //else{
+   else{
         player.velocity = CGVectorMake(player.velocity.dx, player.velocity.dy - constants.GRAVITY);
-   // }
+    }
     
     if ((player.velocity.dy < 0) && player.endOfLine) {
         player.endOfLine = false;
@@ -215,17 +224,27 @@
     if (player.velocity.dx > constants.MAX_PLAYER_VELOCITY_DX) {
         player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, player.velocity.dy);
     }
+    NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
 
 }
 
 -(float)calculateXForceGivenSlope:(float)slope{
     Constants *constants = [Constants sharedInstance];
+    if (fabsf(slope - previousSlope) < .001f) {
+        // NSLog(@"same slope. return 0");
+        return 0;
+    }
     return -slope * constants.GRAVITY;
 }
 
 -(float)calculateYForceGivenSlope:(float)slope{
-    return slope /*- constants.GRAVITY*/;
+    //NSLog(@"slope: %f", slope);
+    if (fabsf(slope - previousSlope) < .001f) {
+       // NSLog(@"same slope. return 0");
+        return 0;
 
+    }
+    return slope;
 }
 
 -(void)calculatePlayerPosition:(Player *)player withLineArray:(NSMutableArray*)lineArray{
@@ -233,7 +252,6 @@
 
     [self calculatePlayerVelocity:player];
     player.position = CGPointMake(player.position.x + player.velocity.dx * constants.PHYSICS_SCALAR_MULTIPLIER, player.position.y + player.velocity.dy * constants.PHYSICS_SCALAR_MULTIPLIER);
-    //player.position = CGPointMake(player.position.x * constants.SCALE_COEFFICIENT.dy, player.position.y * constants.SCALE_COEFFICIENT.dy);
     [self resolveCollisions:player withLineArray:lineArray];
     if (player.roughlyOnLine) {
         if (player.position.y < player.minYPosition) {
