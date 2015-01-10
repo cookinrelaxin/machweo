@@ -30,7 +30,6 @@ int midpoint(int n1, int n2)
     
     _IDEAL_SCREEN_SIZE = CGSizeMake(1136, 640);
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
-  
     _PLAYER_SIZE = 30;
     _OBSTACLE_Z_POSITION = 10;
     _PLAYER_Z_POSITION = _OBSTACLE_Z_POSITION + 1;
@@ -60,28 +59,18 @@ int midpoint(int n1, int n2)
     
     
     float scaleFactor = [[UIScreen mainScreen] scale];
-    CGSize scaledScreenSize = CGSizeMake(screenSize.width * scaleFactor, screenSize.height * scaleFactor);
-    float physicsScalarMultiplier = ((scaledScreenSize.width / _IDEAL_SCREEN_SIZE.width) + (scaledScreenSize.height / _IDEAL_SCREEN_SIZE.height)) / 2;
-
+    _PHYSICS_SCALAR_MULTIPLIER =_SCALE_COEFFICIENT.dy * scaleFactor;
+    NSLog(@"_SCALE_COEFFICIENT: %f",_SCALE_COEFFICIENT.dy);
+    NSLog(@"_PHYSICS_SCALAR_MULTIPLIER: %f", _PHYSICS_SCALAR_MULTIPLIER);
     
-    _AMBIENT_X_FORCE = .080 * physicsScalarMultiplier;
-    _MAX_PLAYER_VELOCITY_DX = 6 * physicsScalarMultiplier;
-    _MAX_PLAYER_VELOCITY_DY = 6 * physicsScalarMultiplier;
-    _MIN_PLAYER_VELOCITY_DX = -1 * physicsScalarMultiplier;
-    _MIN_PLAYER_VELOCITY_DY = -5 * physicsScalarMultiplier;
+    _AMBIENT_X_FORCE = .080;
+    _MAX_PLAYER_VELOCITY_DX = 6;
+    _MAX_PLAYER_VELOCITY_DY = 6;
+    _MIN_PLAYER_VELOCITY_DX = -1;
+    _MIN_PLAYER_VELOCITY_DY = -5;
     _FRICTION_COEFFICIENT = .99;
-    _GRAVITY = .2 * physicsScalarMultiplier;
-    
-//    
-//    NSLog(@"_AMBIENT_X_FORCE: %f", _AMBIENT_X_FORCE);
-//    NSLog(@"_MAX_PLAYER_VELOCITY_DX: %f", _MAX_PLAYER_VELOCITY_DX);
-//    NSLog(@"_MAX_PLAYER_VELOCITY_DY: %f", _MAX_PLAYER_VELOCITY_DY);
-//    NSLog(@"_MIN_PLAYER_VELOCITY_DX: %f", _MIN_PLAYER_VELOCITY_DX);
-//    NSLog(@"_MIN_PLAYER_VELOCITY_DY: %f", _MIN_PLAYER_VELOCITY_DY);
-//    NSLog(@"_GRAVITY: %f", _GRAVITY);
-    
+    _GRAVITY = .2;
 
- 
     return self;
 }
 

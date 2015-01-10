@@ -229,8 +229,11 @@
 }
 
 -(void)calculatePlayerPosition:(Player *)player withLineArray:(NSMutableArray*)lineArray{
+    Constants *constants = [Constants sharedInstance];
+
     [self calculatePlayerVelocity:player];
-    player.position = CGPointMake(player.position.x + player.velocity.dx, player.position.y + player.velocity.dy);
+    player.position = CGPointMake(player.position.x + player.velocity.dx * constants.PHYSICS_SCALAR_MULTIPLIER, player.position.y + player.velocity.dy * constants.PHYSICS_SCALAR_MULTIPLIER);
+    //player.position = CGPointMake(player.position.x * constants.SCALE_COEFFICIENT.dy, player.position.y * constants.SCALE_COEFFICIENT.dy);
     [self resolveCollisions:player withLineArray:lineArray];
     if (player.roughlyOnLine) {
         if (player.position.y < player.minYPosition) {

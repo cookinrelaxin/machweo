@@ -23,6 +23,9 @@ extern int midpoint(int n1, int n2);
 @property (readonly, nonatomic) double MIN_PLAYER_VELOCITY_DY;
 @property (readonly, nonatomic) double FRICTION_COEFFICIENT;
 
+@property (readonly, nonatomic) double PHYSICS_SCALAR_MULTIPLIER;
+
+
 @property (readonly, nonatomic) int PLAYER_SIZE;
 @property (readonly, nonatomic) int PLAYER_Z_POSITION;
 @property (readonly, nonatomic) int OBSTACLE_Z_POSITION;
