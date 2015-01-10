@@ -31,6 +31,8 @@
     SKLabelNode* restartButton;
     SKLabelNode* returnToMenuButton;
     
+    BOOL stopScrolling;
+    
 }
 
 -(void)dealloc{
@@ -354,27 +356,38 @@
 }
 
 - (void)centerCameraOnPlayer {
-    
-    currentDesiredPlayerPositionInView = CGPointMake(currentDesiredPlayerPositionInView.x, [self convertPointToView:player.position].y);
-    
-    CGPoint playerPreviousPosition = CGPointMake(player.xCoordinateOfLeftSide + player.size.width / 2, player.yCoordinateOfBottomSide + player.size.height / 2);
-    CGPoint playerCurrentPosition = player.position;
-    player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
-    CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
-    for (Line* line in arrayOfLines) {
-        for (int i = 0; i < line.nodeArray.count; i ++) {
-            NSValue* pointNode = [line.nodeArray objectAtIndex:i];
-            CGPoint pointNodePosition = pointNode.CGPointValue;
-            [line.nodeArray replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - differenceInPreviousAndCurrentPlayerPositions.dx, pointNodePosition.y)]];
+    if (!stopScrolling) {
+        currentDesiredPlayerPositionInView = CGPointMake(currentDesiredPlayerPositionInView.x, [self convertPointToView:player.position].y);
+        
+        CGPoint playerPreviousPosition = CGPointMake(player.xCoordinateOfLeftSide + player.size.width / 2, player.yCoordinateOfBottomSide + player.size.height / 2);
+        CGPoint playerCurrentPosition = player.position;
+        player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
+        CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
+        for (Line* line in arrayOfLines) {
+            for (int i = 0; i < line.nodeArray.count; i ++) {
+                NSValue* pointNode = [line.nodeArray objectAtIndex:i];
+                CGPoint pointNodePosition = pointNode.CGPointValue;
+                [line.nodeArray replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - differenceInPreviousAndCurrentPlayerPositions.dx, pointNodePosition.y)]];
+            }
         }
-    }
-    
-    _obstacles.position = CGPointMake(_obstacles.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _obstacles.position.y);
-    
-    for (SKSpriteNode* deco in _decorations.children) {
-        float fractionalCoefficient = deco.zPosition / _constants.OBSTACLE_Z_POSITION;
-        CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
-        deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y - parallaxAdjustedDifference.dy);
+        
+        _obstacles.position = CGPointMake(_obstacles.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _obstacles.position.y);
+        
+        for (SKSpriteNode* deco in _decorations.children) {
+            if ([deco.name isEqualToString:@"rightMostNode"]) {
+                CGPoint posInScene = [self convertPoint:deco.position fromNode:_decorations];
+                CGPoint posInView = [self convertPointToView:posInScene];
+                float rightEdge = posInView.x + (deco.size.width / 2);
+                if (rightEdge <= self.view.bounds.size.width){
+                    stopScrolling = true;
+                    return;
+                }
+
+            }
+            float fractionalCoefficient = deco.zPosition / _constants.OBSTACLE_Z_POSITION;
+            CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
+            deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y - parallaxAdjustedDifference.dy);
+        }
     }
 }
 

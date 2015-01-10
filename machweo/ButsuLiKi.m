@@ -224,7 +224,7 @@
     if (player.velocity.dx > constants.MAX_PLAYER_VELOCITY_DX) {
         player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, player.velocity.dy);
     }
-    NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
+   // NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
 
 }
 

@@ -16,7 +16,8 @@ typedef enum ElementVarieties
     name,
     xPosition,
     yPosition,
-    zPosition
+    zPosition,
+    isRightMostNode
 } Element;
 
 typedef enum NodeTypes
@@ -96,6 +97,10 @@ typedef enum NodeTypes
         currentElement = zPosition;
         return;
     }
+    if ([elementName isEqualToString:@"isRightMostNode"]) {
+        currentElement = isRightMostNode;
+        return;
+    }
 }
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
@@ -132,7 +137,7 @@ typedef enum NodeTypes
                 currentNode = nil;
             }
             //NSLog(@"name: %@", string);
-            currentNode.name = string;
+            //currentNode.name = string;
             return;
         }
         if (currentElement == xPosition) {
@@ -162,28 +167,34 @@ typedef enum NodeTypes
                 return;
             }
         }
+        if (currentElement == isRightMostNode) {
+            if ([string isEqualToString:@"yes"]) {
+                currentNode.name = @"rightMostNode";
+            }
+            return;
+        }
     }
 }
 
 -(void)loadWorld:(SKNode*)world withBackgrounds:(SKNode*)backgrounds withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations withScaleCoefficient:(CGVector)scaleCoefficient{
-    for (Obstacle *obstacle in obstacleArray) {
-        obstacle.size = CGSizeMake(obstacle.size.width * scaleCoefficient.dy, obstacle.size.height * scaleCoefficient.dy);
-        obstacle.position = CGPointMake(obstacle.position.x * scaleCoefficient.dy, obstacle.position.y * scaleCoefficient.dy);
-        obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
-        //im sorry for the magic number, but it should be the same as constants._PLAYER_AND_OBSTACLE_Z_POSITION;
-        obstacle.zPosition = 10;
-        
-        obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:obstacle.texture size:obstacle.size];
-        obstacle.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
-        obstacle.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
-        //obstacle.physicsBody.collisionBitMask = 3;
-        
-        // NSLog(@"obstacle.physicsBody.categoryBitMask: %d", obstacle.physicsBody.categoryBitMask);
-        // NSLog(@"obstacle.physicsBody.contactTestBitMask: %d", obstacle.physicsBody.contactTestBitMask);
-        
-        obstacle.physicsBody.dynamic = false;
-        [obstacles addChild:obstacle];
-    }
+//    for (Obstacle *obstacle in obstacleArray) {
+//        obstacle.size = CGSizeMake(obstacle.size.width * scaleCoefficient.dy, obstacle.size.height * scaleCoefficient.dy);
+//        obstacle.position = CGPointMake(obstacle.position.x * scaleCoefficient.dy, obstacle.position.y * scaleCoefficient.dy);
+//        obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
+//        //im sorry for the magic number, but it should be the same as constants._PLAYER_AND_OBSTACLE_Z_POSITION;
+//        obstacle.zPosition = 10;
+//        
+//        obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:obstacle.texture size:obstacle.size];
+//        obstacle.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
+//        obstacle.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
+//        //obstacle.physicsBody.collisionBitMask = 3;
+//        
+//        // NSLog(@"obstacle.physicsBody.categoryBitMask: %d", obstacle.physicsBody.categoryBitMask);
+//        // NSLog(@"obstacle.physicsBody.contactTestBitMask: %d", obstacle.physicsBody.contactTestBitMask);
+//        
+//        obstacle.physicsBody.dynamic = false;
+//        [obstacles addChild:obstacle];
+//    }
     
     for (SKSpriteNode *deco in decorationArray) {
         deco.size = CGSizeMake(deco.size.width * scaleCoefficient.dy, deco.size.height * scaleCoefficient.dy);
