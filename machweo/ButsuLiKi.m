@@ -194,9 +194,9 @@
         player.velocity = CGVectorMake(player.velocity.dx + constants.AMBIENT_X_FORCE, player.velocity.dy);
         player.velocity = CGVectorMake(player.velocity.dx * constants.FRICTION_COEFFICIENT, player.velocity.dy * constants.FRICTION_COEFFICIENT);
     }
-    else{
+    //else{
         player.velocity = CGVectorMake(player.velocity.dx, player.velocity.dy - constants.GRAVITY);
-    }
+   // }
     
     if ((player.velocity.dy < 0) && player.endOfLine) {
         player.endOfLine = false;
