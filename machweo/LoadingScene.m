@@ -20,7 +20,7 @@
         loadingLabel.fontSize = constants.LOADING_LABEL_FONT_SIZE * constants.SCALE_COEFFICIENT.dy;
         loadingLabel.fontName = constants.LOADING_LABEL_FONT_NAME;
         loadingLabel.zPosition = 10;
-        loadingLabel.position = CGPointMake(CGRectGetMidX(self.frame) * constants.SCALE_COEFFICIENT.dx, CGRectGetMidY(self.frame) * constants.SCALE_COEFFICIENT.dy);
+        loadingLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     
         [self addChild:loadingLabel];
     }
