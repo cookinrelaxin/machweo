@@ -56,7 +56,7 @@
         timerLabel = [SKLabelNode labelNodeWithFontNamed:@"helvetica"];
         timerLabel.fontSize = _constants.TIMER_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
         timerLabel.fontColor = _constants.TIMER_LABEL_FONT_COLOR;
-        timerLabel.position = CGPointMake(CGRectGetMidX(self.frame) * _constants.SCALE_COEFFICIENT.dx, timerLabel.fontSize / 4);
+        timerLabel.position = CGPointMake(CGRectGetMidX(self.frame), timerLabel.fontSize / 4);
         timerLabel.zPosition = _constants.HUD_Z_POSITION;
         [self addChild:timerLabel];
         
@@ -64,7 +64,7 @@
         restartButton.fontSize = _constants.RESTART_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
         restartButton.fontName = _constants.RESTART_LABEL_FONT_NAME;
         restartButton.fontColor = _constants.RESTART_LABEL_FONT_COLOR;
-        restartButton.position = CGPointMake(CGRectGetMaxX(self.frame) * _constants.SCALE_COEFFICIENT.dx - restartButton.fontSize * 2, restartButton.fontSize / 4);
+        restartButton.position = CGPointMake(CGRectGetMaxX(self.frame) - restartButton.fontSize * 2, restartButton.fontSize / 4);
         restartButton.zPosition = _constants.HUD_Z_POSITION;
         [self addChild:restartButton];
         
@@ -315,7 +315,7 @@
     //[[NSNotificationCenter defaultCenter] postNotificationName:@"return to menu" object:nil userInfo:nil];
     self.view.paused = true;
     
-    returnToMenuButton = [SKLabelNode labelNodeWithText:@"return to menu"];
+    returnToMenuButton = [SKLabelNode labelNodeWithText:@"you lose. return to menu?"];
     returnToMenuButton.fontSize = _constants.RETURN_TO_MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
     returnToMenuButton.fontName = _constants.RETURN_TO_MENU_LABEL_FONT_NAME;
     returnToMenuButton.fontColor = _constants.RETURN_TO_MENU_LABEL_FONT_COLOR;
@@ -323,6 +323,28 @@
     returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     returnToMenuButton.zPosition = _constants.HUD_Z_POSITION;
     [self addChild:returnToMenuButton];
+}
+
+-(void)checkForWonGame{
+    CGPoint playerPosInView = [self convertPointToView:player.position];
+    if (playerPosInView.x > (self.view.bounds.size.width + player.size.width / 2)) {
+        [self winGame];
+    }
+}
+
+-(void)winGame{
+    
+    self.view.paused = true;
+    
+    returnToMenuButton = [SKLabelNode labelNodeWithText:@"you win! return to menu?"];
+    returnToMenuButton.fontSize = _constants.RETURN_TO_MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
+    returnToMenuButton.fontName = _constants.RETURN_TO_MENU_LABEL_FONT_NAME;
+    returnToMenuButton.fontColor = _constants.RETURN_TO_MENU_LABEL_FONT_COLOR;
+    //returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame) * _constants.SCALE_COEFFICIENT.dx, CGRectGetMidY(self.frame) * _constants.SCALE_COEFFICIENT.dy);
+    returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    returnToMenuButton.zPosition = _constants.HUD_Z_POSITION;
+    [self addChild:returnToMenuButton];
+    
 }
 
 -(void)restartGame{
