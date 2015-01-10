@@ -198,7 +198,7 @@
     if (player.roughlyOnLine) {
         player.velocity = CGVectorMake(player.velocity.dx + [self calculateXForceGivenSlope:player.currentSlope], player.velocity.dy + [self calculateYForceGivenSlope:player.currentSlope]);
         player.velocity = CGVectorMake(player.velocity.dx + constants.AMBIENT_X_FORCE, player.velocity.dy);
-        player.velocity = CGVectorMake(player.velocity.dx * constants.FRICTION_COEFFICIENT, player.velocity.dy);
+        player.velocity = CGVectorMake(player.velocity.dx * constants.FRICTION_COEFFICIENT, player.velocity.dy * constants.FRICTION_COEFFICIENT);
         if (player.velocity.dy < -1) {
             player.velocity = CGVectorMake(player.velocity.dx, -1);
         }
@@ -238,7 +238,7 @@
 }
 
 -(float)calculateYForceGivenSlope:(float)slope{
-    //NSLog(@"slope: %f", slope);
+   // NSLog(@"slope: %f", slope);
     if (fabsf(slope - previousSlope) < .001f) {
        // NSLog(@"same slope. return 0");
         return 0;

@@ -68,7 +68,7 @@ int midpoint(int n1, int n2)
     _MAX_PLAYER_VELOCITY_DY = 6;
     _MIN_PLAYER_VELOCITY_DX = -1;
     _MIN_PLAYER_VELOCITY_DY = -5;
-    _FRICTION_COEFFICIENT = .980f;
+    _FRICTION_COEFFICIENT = .9825f;
     _GRAVITY = .20;
 
     return self;
