@@ -165,9 +165,12 @@
 
 -(void)removeLineIntersectionsBetween:(CGPoint)a and:(CGPoint)b{
     NSMutableArray* nodesToDeleteFromNodeArray = [NSMutableArray array];
-    for (Line *previousLine in arrayOfLines) {
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
+        Line* previousLine = [arrayOfLines objectAtIndex:i];
+   // for (Line *previousLine in arrayOfLines) {
         if (previousLine == arrayOfLines.lastObject) {
-            break;
+            return;
         }
         
         NSMutableArray *previousPointArray = previousLine.nodeArray;
@@ -186,8 +189,9 @@
         for (NSValue* node in nodesToDeleteFromNodeArray) {
             [previousPointArray removeObject:node];
         }
+        });
         
-    }
+   // }
     
 }
 
