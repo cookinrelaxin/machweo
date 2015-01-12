@@ -44,6 +44,7 @@
 		659B21D01A5E1C1300885C04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21CF1A5E1C1300885C04 /* main.m */; };
 		659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659B21DF1A5E1C1300885C04 /* Images.xcassets */; };
 		659B21EF1A5E1C1400885C04 /* machweoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21EE1A5E1C1400885C04 /* machweoTests.m */; };
+		78E28F981A637C17008CED9D /* testParallaxLevel2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78E28F971A637C17008CED9D /* testParallaxLevel2.xml */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		659B21E81A5E1C1400885C04 /* machweoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = machweoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		659B21ED1A5E1C1400885C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659B21EE1A5E1C1400885C04 /* machweoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = machweoTests.m; sourceTree = "<group>"; };
+		78E28F971A637C17008CED9D /* testParallaxLevel2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testParallaxLevel2.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 		6509D2B61A5E290300F1BBA6 /* levels */ = {
 			isa = PBXGroup;
 			children = (
+				78E28F971A637C17008CED9D /* testParallaxLevel2.xml */,
 				6509D2B71A5E290300F1BBA6 /* testParallaxLevel1.xml */,
 			);
 			path = levels;
@@ -385,6 +388,7 @@
 				6509D2E51A5E290300F1BBA6 /* levelCells.xml in Resources */,
 				6509D2E61A5E290300F1BBA6 /* levelCellTestBackgroundImage.png in Resources */,
 				6509D2E91A5E290300F1BBA6 /* brush7.png in Resources */,
+				78E28F981A637C17008CED9D /* testParallaxLevel2.xml in Resources */,
 				6509D2E31A5E290300F1BBA6 /* chapterCells.xml in Resources */,
 				659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */,
 				6509D2E11A5E290300F1BBA6 /* test_background_2_decoration.png in Resources */,
