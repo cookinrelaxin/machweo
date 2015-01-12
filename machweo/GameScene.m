@@ -230,27 +230,47 @@
 }
 
 -(void)drawLines{
+    float lineWidth =  player.size.height * _constants.BRUSH_FRACTION_OF_PLAYER_SIZE;
+    [self drawLinesWithThickness:lineWidth];
+}
+
+-(void)drawLinesWithThickness:(CGFloat)thickness{
     for (Line* line in arrayOfLines) {
         SKShapeNode* currentLineNode = [SKShapeNode node];
         currentLineNode.zPosition = _constants.LINE_Z_POSITION;
-        currentLineNode.strokeColor = [UIColor blackColor];
+        //currentLineNode.zPosition = _constants.OBSTACLE_Z_POSITION;
+        currentLineNode.strokeColor = line.color;
         currentLineNode.antialiased = false;
         currentLineNode.physicsBody = nil;
         currentLineNode.lineCap = kCGLineCapRound;
         CGMutablePathRef pathToDraw = CGPathCreateMutable();
         NSValue* firstPointNode = line.nodeArray.firstObject;
         CGPoint firstPointNodePosition = firstPointNode.CGPointValue;
-        currentLineNode.lineWidth = player.size.height * _constants.BRUSH_FRACTION_OF_PLAYER_SIZE;
+        currentLineNode.lineWidth = thickness - (thickness * .05f);
         CGPathMoveToPoint(pathToDraw, NULL, firstPointNodePosition.x, firstPointNodePosition.y);
         for (NSValue* pointNode in line.nodeArray) {
             CGPoint pointNodePosition = pointNode.CGPointValue;
             CGPathAddLineToPoint(pathToDraw, NULL, pointNodePosition.x, pointNodePosition.y);
         }
-        
         currentLineNode.path = pathToDraw;
         [shapeNodes addObject:currentLineNode];
         [self addChild:currentLineNode];
+        
+        SKShapeNode* outlineNode = [SKShapeNode node];
+        outlineNode.zPosition = currentLineNode.zPosition - 1;
+        outlineNode.strokeColor = [UIColor blackColor];
+        outlineNode.antialiased = false;
+        outlineNode.physicsBody = nil;
+        outlineNode.lineCap = kCGLineCapRound;
+        outlineNode.lineWidth = thickness;
+        CGPathRef thickPathToDraw = CGPathCreateCopyByStrokingPath(pathToDraw, NULL, thickness, currentLineNode.lineCap, currentLineNode.lineJoin, currentLineNode.miterLimit);
+        outlineNode.path = thickPathToDraw;
+        [shapeNodes addObject:outlineNode];
+        [self addChild:outlineNode];
+        
         CGPathRelease(pathToDraw);
+        CGPathRelease(thickPathToDraw);
+
     }
 }
 
