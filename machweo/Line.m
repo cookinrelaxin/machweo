@@ -13,20 +13,20 @@
 -(instancetype)init{
     _nodeArray = [NSMutableArray array];
     
-    int r = arc4random_uniform(3);
-    UIColor *brushColor;
-    switch (r) {
-        case 0:
-            brushColor = [UIColor redColor];
-            break;
-        case 1:
-            brushColor = [UIColor blueColor];
-            break;
-        case 2:
-            brushColor = [UIColor greenColor];
-            break;
-    }
-    _color = brushColor;
+//    int r = arc4random_uniform(3);
+//    UIColor *brushColor;
+//    switch (r) {
+//        case 0:
+//            brushColor = [UIColor redColor];
+//            break;
+//        case 1:
+//            brushColor = [UIColor blueColor];
+//            break;
+//        case 2:
+//            brushColor = [UIColor greenColor];
+//            break;
+//    }
+   // _color = brushColor;
 
     return self;
 }

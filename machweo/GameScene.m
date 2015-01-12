@@ -11,6 +11,7 @@
 #import "Obstacle.h"
 #import "Line.h"
 #import "ChunkLoader.h"
+#import "Brush.h"
 
 @implementation GameScene{
     Player *player;
@@ -32,6 +33,9 @@
     SKLabelNode* returnToMenuButton;
     
     BOOL stopScrolling;
+    Brush* testBrush;
+    
+    
     
 }
 
@@ -51,6 +55,8 @@
         physicsComponent = [[ButsuLiKi alloc] init];
         arrayOfLines = [NSMutableArray array];
         shapeNodes = [NSMutableArray array];
+        
+        testBrush = [Brush brushWithColors:@[[UIColor blackColor], [UIColor redColor], [UIColor brownColor], [UIColor grayColor], [UIColor cyanColor], [UIColor blackColor] ] lineThickness:5 andLineSpacing:5];
         
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         //init hud
@@ -230,53 +236,27 @@
 }
 
 -(void)dispatchLineDrawing{
-    float lineWidth =  player.size.height * _constants.BRUSH_FRACTION_OF_PLAYER_SIZE;
-    [self drawLinesWithThickness:lineWidth andYOffset:0 :NO];
+   // float lineWidth =  player.size.height * _constants.BRUSH_FRACTION_OF_PLAYER_SIZE;
+  //  int layerCount = 5;
+    
+    //for (int i = 0; i <= layerCount; i ++) {
+//        for (SKShapeNode* shapeNode in shapeNodes) {
+//            SKShapeNode* copy = [SKShapeNode copy];
+//            copy.position = CGPointMake(shapeNode.position.x, shapeNode.position.y - i * lineWidth);
+//            [self addChild:copy];
+//            [shapeNodes addObject:copy];
+//        }
+//    [self drawLinesWithThickness:lineWidth andYOffset:0 * lineWidth :NO :[UIColor blackColor]];
+//    [self drawLinesWithThickness:lineWidth andYOffset:1 * lineWidth :NO :[UIColor whiteColor]];
+//    [self drawLinesWithThickness:lineWidth andYOffset:2 * lineWidth :NO :[UIColor blackColor]];
+//    [self drawLinesWithThickness:lineWidth andYOffset:3 * lineWidth :NO :[UIColor whiteColor]];
+//    [self drawLinesWithThickness:lineWidth andYOffset:4 * lineWidth :NO :[UIColor blackColor]];
+
+    //}
+    [testBrush drawInScene:self forLines:arrayOfLines andShapeNodes:shapeNodes];
     
 }
 
--(void)drawLinesWithThickness:(CGFloat)thickness andYOffset:(int)yOffset :(BOOL)useOutline{
-    for (Line* line in arrayOfLines) {
-        SKShapeNode* currentLineNode = [SKShapeNode node];
-        currentLineNode.zPosition = _constants.LINE_Z_POSITION;
-        //currentLineNode.zPosition = _constants.OBSTACLE_Z_POSITION;
-        currentLineNode.strokeColor = line.color;
-        currentLineNode.antialiased = false;
-        currentLineNode.physicsBody = nil;
-        currentLineNode.lineCap = kCGLineCapRound;
-        CGMutablePathRef pathToDraw = CGPathCreateMutable();
-        NSValue* firstPointNode = line.nodeArray.firstObject;
-        CGPoint firstPointNodePosition = firstPointNode.CGPointValue;
-        currentLineNode.lineWidth = thickness - (thickness * .05f);
-        CGPathMoveToPoint(pathToDraw, NULL, firstPointNodePosition.x, firstPointNodePosition.y - yOffset);
-        for (NSValue* pointNode in line.nodeArray) {
-            CGPoint pointNodePosition = pointNode.CGPointValue;
-            CGPathAddLineToPoint(pathToDraw, NULL, pointNodePosition.x, pointNodePosition.y - yOffset);
-        }
-        currentLineNode.path = pathToDraw;
-        [shapeNodes addObject:currentLineNode];
-        [self addChild:currentLineNode];
-        
-        if (useOutline) {
-            
-            SKShapeNode* outlineNode = [SKShapeNode node];
-            outlineNode.zPosition = currentLineNode.zPosition - 1;
-            outlineNode.strokeColor = [UIColor blackColor];
-            outlineNode.antialiased = false;
-            outlineNode.physicsBody = nil;
-            outlineNode.lineCap = kCGLineCapRound;
-            outlineNode.lineWidth = thickness;
-            CGPathRef thickPathToDraw = CGPathCreateCopyByStrokingPath(pathToDraw, NULL, thickness, currentLineNode.lineCap, currentLineNode.lineJoin, currentLineNode.miterLimit);
-            outlineNode.path = thickPathToDraw;
-            [shapeNodes addObject:outlineNode];
-            [self addChild:outlineNode];
-            CGPathRelease(thickPathToDraw);
-        }
-
-        CGPathRelease(pathToDraw);
-
-    }
-}
 
 -(void)cleanUpShapeNodes{
     for (SKShapeNode* node in shapeNodes) {
@@ -293,17 +273,17 @@
 
 -(void)update:(CFTimeInterval)currentTime {
     
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+  //  dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
         if (currentTime >= (previousTime + 1)) {
             [self updateTimerLabel];
             previousTime = currentTime;
             timerTime ++;
         }
-    });
+    //});
 
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+  //  dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
         [self checkForOldLines];
-    });
+   // });
     [self deallocOldLines];
     
     [self cleanUpShapeNodes];

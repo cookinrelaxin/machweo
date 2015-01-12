@@ -13,7 +13,7 @@
 @property (nonatomic) BOOL complete;
 @property (nonatomic) BOOL belowPlayer;
 @property (nonatomic) BOOL shouldDeallocNodeArray;
-@property (nonatomic) UIColor* color;
+//@property (nonatomic) UIColor* color;
 
 @property (nonatomic) NSMutableArray *nodeArray;
 
