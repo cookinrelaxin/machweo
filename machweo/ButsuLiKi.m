@@ -15,15 +15,19 @@
 
 -(void)resolveCollisions:(Player*)player withLineArray:(NSMutableArray*)LineArray{
     
-    float yMin = player.position.y;
+   __block float yMin = player.position.y;
     player.roughlyOnLine = false;
     previousSlope = player.currentSlope;
     player.currentSlope = 0.0f;
     
-    for (Line *line in LineArray){
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_apply(LineArray.count, queue, ^(size_t i) {
+        Line* line = [LineArray objectAtIndex:i];
+    //for (Line *line in LineArray){
         NSMutableArray *pointArray = line.nodeArray;
         if (pointArray.count < 2) {
-            continue;
+            //continue;
+            return ;
         }
         
         int leftPointIndex = [self binarySearchForFlankingPoints:pointArray withPoint:player.position from:0 to:(int)pointArray.count - 1 forPlayerSize:player.size];
@@ -74,7 +78,8 @@
             }
         }
 
-    }
+    //}
+    });
 
         player.minYPosition = yMin;
 }

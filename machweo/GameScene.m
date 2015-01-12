@@ -234,7 +234,10 @@
 }
 
 -(void)drawLines{
+   // dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
+   // dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
     for (Line* line in arrayOfLines) {
+       // Line* line = [arrayOfLines objectAtIndex:i];
         SKShapeNode* currentLineNode = [SKShapeNode node];
         currentLineNode.zPosition = _constants.LINE_Z_POSITION;
         currentLineNode.strokeColor = [UIColor blackColor];
@@ -255,6 +258,7 @@
         [shapeNodes addObject:currentLineNode];
         [self addChild:currentLineNode];
         CGPathRelease(pathToDraw);
+   // });
     }
 }
 
@@ -367,17 +371,23 @@
         CGPoint playerCurrentPosition = player.position;
         player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
         CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
+        //dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
+        //dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
         for (Line* line in arrayOfLines) {
+          //  Line* line = [arrayOfLines objectAtIndex:i];
             for (int i = 0; i < line.nodeArray.count; i ++) {
                 NSValue* pointNode = [line.nodeArray objectAtIndex:i];
                 CGPoint pointNodePosition = pointNode.CGPointValue;
                 [line.nodeArray replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - differenceInPreviousAndCurrentPlayerPositions.dx, pointNodePosition.y)]];
             }
+        //});
         }
         
         _obstacles.position = CGPointMake(_obstacles.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _obstacles.position.y);
         
         for (SKSpriteNode* deco in _decorations.children) {
+        //dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
+            //SKSpriteNode* deco = [_decorations.children objectAtIndex:i];
             if ([deco.name isEqualToString:@"rightMostNode"]) {
                 CGPoint posInScene = [self convertPoint:deco.position fromNode:_decorations];
                 CGPoint posInView = [self convertPointToView:posInScene];
@@ -391,6 +401,7 @@
             float fractionalCoefficient = deco.zPosition / _constants.OBSTACLE_Z_POSITION;
             CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
             deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y - parallaxAdjustedDifference.dy);
+        //});
         }
     }
 }
