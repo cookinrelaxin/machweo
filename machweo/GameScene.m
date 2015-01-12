@@ -256,20 +256,20 @@
         [shapeNodes addObject:currentLineNode];
         [self addChild:currentLineNode];
         
-        SKShapeNode* outlineNode = [SKShapeNode node];
-        outlineNode.zPosition = currentLineNode.zPosition - 1;
-        outlineNode.strokeColor = [UIColor blackColor];
-        outlineNode.antialiased = false;
-        outlineNode.physicsBody = nil;
-        outlineNode.lineCap = kCGLineCapRound;
-        outlineNode.lineWidth = thickness;
-        CGPathRef thickPathToDraw = CGPathCreateCopyByStrokingPath(pathToDraw, NULL, thickness, currentLineNode.lineCap, currentLineNode.lineJoin, currentLineNode.miterLimit);
-        outlineNode.path = thickPathToDraw;
-        [shapeNodes addObject:outlineNode];
-        [self addChild:outlineNode];
-        
+//        SKShapeNode* outlineNode = [SKShapeNode node];
+//        outlineNode.zPosition = currentLineNode.zPosition - 1;
+//        outlineNode.strokeColor = [UIColor blackColor];
+//        outlineNode.antialiased = false;
+//        outlineNode.physicsBody = nil;
+//        outlineNode.lineCap = kCGLineCapRound;
+//        outlineNode.lineWidth = thickness;
+//        CGPathRef thickPathToDraw = CGPathCreateCopyByStrokingPath(pathToDraw, NULL, thickness, currentLineNode.lineCap, currentLineNode.lineJoin, currentLineNode.miterLimit);
+//        outlineNode.path = thickPathToDraw;
+//        [shapeNodes addObject:outlineNode];
+//        [self addChild:outlineNode];
+//        CGPathRelease(thickPathToDraw);
+
         CGPathRelease(pathToDraw);
-        CGPathRelease(thickPathToDraw);
 
     }
 }
@@ -288,15 +288,20 @@
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    if (currentTime >= (previousTime + 1)) {
-//        NSLog(@"currentTime: %f", currentTime);
-        [self updateTimerLabel];
-        previousTime = currentTime;
-        timerTime ++;
-    }
+    
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+        if (currentTime >= (previousTime + 1)) {
+            [self updateTimerLabel];
+            previousTime = currentTime;
+            timerTime ++;
+        }
+    });
 
-    [self checkForOldLines];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+        [self checkForOldLines];
+    });
     [self deallocOldLines];
+    
     [self cleanUpShapeNodes];
     if (!player.touchesEnded) {
         [self createLineNode];
@@ -305,9 +310,6 @@
     [self checkForLostGame];
     
     if (!player) {
-        //shouldCreateNewPlayer = true;
-    //}
-    //if (shouldCreateNewPlayer) {
         [self createPlayer];
     }
 
