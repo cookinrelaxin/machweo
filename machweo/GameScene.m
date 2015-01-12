@@ -325,7 +325,7 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"update velocity" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"{%f, %f}", player.velocity.dx, player.velocity.dy] forKey:@"velocity"]];
     [self updateScore];
-    [self drawLines];
+    [self dispatchLineDrawing];
 }
 
 -(void)checkForLostGame{
