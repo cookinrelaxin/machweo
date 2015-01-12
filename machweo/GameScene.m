@@ -229,7 +229,7 @@
     }
 }
 
--(void)drawLines{
+-(void)dispatchLineDrawing{
     float lineWidth =  player.size.height * _constants.BRUSH_FRACTION_OF_PLAYER_SIZE;
     [self drawLinesWithThickness:lineWidth andYOffset:0 :NO];
     
