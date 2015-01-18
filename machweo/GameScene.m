@@ -341,6 +341,12 @@
     }
 }
 
+-(void)tellObstaclesToMove{
+    for (Obstacle* obs in _obstacles.children) {
+        [obs move];
+    }
+}
+
 -(void)winGame{
     
     self.view.paused = true;
