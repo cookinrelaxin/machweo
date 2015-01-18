@@ -2,20 +2,10 @@
 <worldnodes>
     <spriteNode>
         <type>ObstacleSignifier</type>
-        <name>totem2_obstacle</name>
-        <isRightMostNode>no</isRightMostNode>
-        <xPosition>2172.380859</xPosition>
-        <yPosition>273.000000</yPosition>
-        <zPosition>10.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </spriteNode>
-    <spriteNode>
-        <type>ObstacleSignifier</type>
         <name>obstacle2_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>2692.533447</xPosition>
-        <yPosition>183.500000</yPosition>
+        <xPosition>2001.059570</xPosition>
+        <yPosition>423.930359</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>1</motionType>
         <speedType>0</speedType>
@@ -24,8 +14,8 @@
         <type>ObstacleSignifier</type>
         <name>obstacle2_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>3168.112793</xPosition>
-        <yPosition>195.500000</yPosition>
+        <xPosition>3168.127930</xPosition>
+        <yPosition>351.500000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>1</motionType>
         <speedType>3</speedType>
@@ -34,8 +24,8 @@
         <type>ObstacleSignifier</type>
         <name>obstacle1_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>3541.381348</xPosition>
-        <yPosition>450.000000</yPosition>
+        <xPosition>3541.393555</xPosition>
+        <yPosition>285.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>1</motionType>
         <speedType>2</speedType>
@@ -44,8 +34,8 @@
         <type>ObstacleSignifier</type>
         <name>obstacle1_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>4073.919922</xPosition>
-        <yPosition>533.000000</yPosition>
+        <xPosition>4073.913086</xPosition>
+        <yPosition>241.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>1</motionType>
         <speedType>3</speedType>
@@ -54,7 +44,7 @@
         <type>ObstacleSignifier</type>
         <name>rotate_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>5013.642578</xPosition>
+        <xPosition>5013.645508</xPosition>
         <yPosition>260.761871</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>4</motionType>
@@ -64,7 +54,7 @@
         <type>ObstacleSignifier</type>
         <name>rotate_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>5609.027344</xPosition>
+        <xPosition>5609.018555</xPosition>
         <yPosition>477.690796</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>4</motionType>
@@ -72,19 +62,9 @@
     </spriteNode>
     <spriteNode>
         <type>ObstacleSignifier</type>
-        <name>rotate_obstacle</name>
-        <isRightMostNode>no</isRightMostNode>
-        <xPosition>6330.422852</xPosition>
-        <yPosition>238.000000</yPosition>
-        <zPosition>10.000000</zPosition>
-        <motionType>4</motionType>
-        <speedType>1</speedType>
-    </spriteNode>
-    <spriteNode>
-        <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7065.266113</xPosition>
+        <xPosition>7065.245117</xPosition>
         <yPosition>32.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -94,7 +74,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7129.264648</xPosition>
+        <xPosition>7129.247070</xPosition>
         <yPosition>96.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -104,7 +84,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7065.266113</xPosition>
+        <xPosition>7065.245117</xPosition>
         <yPosition>160.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -114,7 +94,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7129.264648</xPosition>
+        <xPosition>7129.247070</xPosition>
         <yPosition>224.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -124,7 +104,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7065.266113</xPosition>
+        <xPosition>7065.245117</xPosition>
         <yPosition>416.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -134,7 +114,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7129.264648</xPosition>
+        <xPosition>7129.247070</xPosition>
         <yPosition>480.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -144,7 +124,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7065.266113</xPosition>
+        <xPosition>7065.245117</xPosition>
         <yPosition>544.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -154,7 +134,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7129.264648</xPosition>
+        <xPosition>7129.247070</xPosition>
         <yPosition>608.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -164,7 +144,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7193.264648</xPosition>
+        <xPosition>7193.245117</xPosition>
         <yPosition>416.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -174,8 +154,8 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7257.263672</xPosition>
-        <yPosition>352.000000</yPosition>
+        <xPosition>7257.245117</xPosition>
+        <yPosition>416.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
@@ -184,8 +164,8 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7321.261719</xPosition>
-        <yPosition>288.000000</yPosition>
+        <xPosition>7321.249023</xPosition>
+        <yPosition>413.062683</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
@@ -194,7 +174,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7193.264648</xPosition>
+        <xPosition>7193.245117</xPosition>
         <yPosition>160.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -204,7 +184,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7257.263672</xPosition>
+        <xPosition>7257.247070</xPosition>
         <yPosition>96.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -214,7 +194,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7321.261719</xPosition>
+        <xPosition>7321.249023</xPosition>
         <yPosition>32.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -224,7 +204,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7385.260742</xPosition>
+        <xPosition>7385.249023</xPosition>
         <yPosition>96.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -234,7 +214,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7449.260254</xPosition>
+        <xPosition>7449.250000</xPosition>
         <yPosition>160.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -244,7 +224,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7385.260742</xPosition>
+        <xPosition>7385.249023</xPosition>
         <yPosition>352.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -254,87 +234,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7513.260254</xPosition>
-        <yPosition>224.000000</yPosition>
-        <zPosition>10.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </spriteNode>
-    <spriteNode>
-        <type>ObstacleSignifier</type>
-        <name>square_obstacle</name>
-        <isRightMostNode>no</isRightMostNode>
-        <xPosition>7449.260254</xPosition>
-        <yPosition>416.000000</yPosition>
-        <zPosition>10.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </spriteNode>
-    <spriteNode>
-        <type>ObstacleSignifier</type>
-        <name>square_obstacle</name>
-        <isRightMostNode>no</isRightMostNode>
-        <xPosition>7577.259766</xPosition>
-        <yPosition>288.000000</yPosition>
-        <zPosition>10.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </spriteNode>
-    <spriteNode>
-        <type>ObstacleSignifier</type>
-        <name>square_obstacle</name>
-        <isRightMostNode>no</isRightMostNode>
-        <xPosition>7513.260254</xPosition>
-        <yPosition>480.000000</yPosition>
-        <zPosition>10.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </spriteNode>
-    <spriteNode>
-        <type>ObstacleSignifier</type>
-        <name>square_obstacle</name>
-        <isRightMostNode>no</isRightMostNode>
-        <xPosition>7577.259766</xPosition>
-        <yPosition>544.000000</yPosition>
-        <zPosition>10.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </spriteNode>
-    <spriteNode>
-        <type>ObstacleSignifier</type>
-        <name>square_obstacle</name>
-        <isRightMostNode>no</isRightMostNode>
-        <xPosition>7641.259766</xPosition>
-        <yPosition>288.000000</yPosition>
-        <zPosition>10.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </spriteNode>
-    <spriteNode>
-        <type>ObstacleSignifier</type>
-        <name>square_obstacle</name>
-        <isRightMostNode>no</isRightMostNode>
-        <xPosition>7705.260742</xPosition>
-        <yPosition>224.000000</yPosition>
-        <zPosition>10.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </spriteNode>
-    <spriteNode>
-        <type>ObstacleSignifier</type>
-        <name>square_obstacle</name>
-        <isRightMostNode>no</isRightMostNode>
-        <xPosition>7641.259766</xPosition>
-        <yPosition>608.000000</yPosition>
-        <zPosition>10.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </spriteNode>
-    <spriteNode>
-        <type>ObstacleSignifier</type>
-        <name>square_obstacle</name>
-        <isRightMostNode>no</isRightMostNode>
-        <xPosition>7769.259766</xPosition>
+        <xPosition>7513.245117</xPosition>
         <yPosition>160.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -344,7 +244,87 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7833.259766</xPosition>
+        <xPosition>7449.250000</xPosition>
+        <yPosition>416.000000</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>7577.247070</xPosition>
+        <yPosition>224.000000</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>7513.247070</xPosition>
+        <yPosition>480.000000</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>7577.247070</xPosition>
+        <yPosition>544.000000</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>7641.246094</xPosition>
+        <yPosition>288.000000</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>7705.249023</xPosition>
+        <yPosition>224.000000</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>7641.246094</xPosition>
+        <yPosition>608.000000</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>7769.251953</xPosition>
+        <yPosition>160.000000</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>7833.249023</xPosition>
         <yPosition>96.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -354,7 +334,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7897.260742</xPosition>
+        <xPosition>7897.250977</xPosition>
         <yPosition>96.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -364,8 +344,8 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7897.260742</xPosition>
-        <yPosition>578.000000</yPosition>
+        <xPosition>7897.250977</xPosition>
+        <yPosition>545.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>1</motionType>
         <speedType>0</speedType>
@@ -374,7 +354,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7961.260742</xPosition>
+        <xPosition>7961.250977</xPosition>
         <yPosition>96.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -384,7 +364,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>8025.260742</xPosition>
+        <xPosition>8025.250000</xPosition>
         <yPosition>160.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -394,7 +374,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>8089.260742</xPosition>
+        <xPosition>8089.252930</xPosition>
         <yPosition>224.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -404,7 +384,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>8089.260742</xPosition>
+        <xPosition>8089.252930</xPosition>
         <yPosition>288.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -414,7 +394,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>8089.260742</xPosition>
+        <xPosition>8089.252930</xPosition>
         <yPosition>352.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -424,7 +404,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>8089.260742</xPosition>
+        <xPosition>8089.252930</xPosition>
         <yPosition>416.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -434,7 +414,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>8089.260742</xPosition>
+        <xPosition>8089.252930</xPosition>
         <yPosition>480.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>0</motionType>
@@ -444,7 +424,7 @@
         <type>ObstacleSignifier</type>
         <name>square_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>7796.260742</xPosition>
+        <xPosition>7873.250000</xPosition>
         <yPosition>480.000000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>2</motionType>
@@ -454,8 +434,8 @@
         <type>ObstacleSignifier</type>
         <name>obstacle4_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>8663.280273</xPosition>
-        <yPosition>275.500000</yPosition>
+        <xPosition>8663.275391</xPosition>
+        <yPosition>296.500000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>1</motionType>
         <speedType>0</speedType>
@@ -464,7 +444,7 @@
         <type>ObstacleSignifier</type>
         <name>circlemask_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>9521.007812</xPosition>
+        <xPosition>9521.001953</xPosition>
         <yPosition>292.500000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>4</motionType>
@@ -474,7 +454,7 @@
         <type>ObstacleSignifier</type>
         <name>circlemask_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>10277.882812</xPosition>
+        <xPosition>10277.883789</xPosition>
         <yPosition>356.500000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>4</motionType>
@@ -484,8 +464,8 @@
         <type>ObstacleSignifier</type>
         <name>circlemask_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>11097.603516</xPosition>
-        <yPosition>283.500000</yPosition>
+        <xPosition>10968.771484</xPosition>
+        <yPosition>254.500000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>3</motionType>
         <speedType>2</speedType>
@@ -494,8 +474,8 @@
         <type>ObstacleSignifier</type>
         <name>obstacle1_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>11723.839844</xPosition>
-        <yPosition>264.704712</yPosition>
+        <xPosition>11723.832031</xPosition>
+        <yPosition>431.704712</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>1</motionType>
         <speedType>0</speedType>
@@ -504,8 +484,8 @@
         <type>ObstacleSignifier</type>
         <name>obstacle1_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>11946.311523</xPosition>
-        <yPosition>521.704712</yPosition>
+        <xPosition>11946.300781</xPosition>
+        <yPosition>183.704712</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>1</motionType>
         <speedType>1</speedType>
@@ -514,8 +494,8 @@
         <type>ObstacleSignifier</type>
         <name>obstacle1_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>11603.830078</xPosition>
-        <yPosition>60.062683</yPosition>
+        <xPosition>11603.818359</xPosition>
+        <yPosition>227.062683</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>1</motionType>
         <speedType>0</speedType>
@@ -524,8 +504,8 @@
         <type>ObstacleSignifier</type>
         <name>obstacle1_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>12183.376953</xPosition>
-        <yPosition>542.500000</yPosition>
+        <xPosition>12183.367188</xPosition>
+        <yPosition>160.500000</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>1</motionType>
         <speedType>1</speedType>
@@ -534,8 +514,8 @@
         <type>ObstacleSignifier</type>
         <name>obstacle1_obstacle</name>
         <isRightMostNode>no</isRightMostNode>
-        <xPosition>12409.365234</xPosition>
-        <yPosition>358.430359</yPosition>
+        <xPosition>12409.348633</xPosition>
+        <yPosition>344.430359</yPosition>
         <zPosition>10.000000</zPosition>
         <motionType>1</motionType>
         <speedType>1</speedType>
@@ -551,8 +531,176 @@
     <spriteNode>
         <type>DecorationSignifier</type>
         <name>dawn2_decoration</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>1703.999146</xPosition>
+        <yPosition>320.000000</yPosition>
+        <zPosition>1.000000</zPosition>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>obstacle1_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>2546.672852</xPosition>
+        <yPosition>68.000000</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>1</motionType>
+        <speedType>2</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>totem2_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>13034.765625</xPosition>
+        <yPosition>273.704712</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>totem2_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>14139.081055</xPosition>
+        <yPosition>367.000000</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>obstacle1_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>13754.767578</xPosition>
+        <yPosition>432.090485</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>2</motionType>
+        <speedType>2</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>obstacle2_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>13193.082031</xPosition>
+        <yPosition>185.930359</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>2</motionType>
+        <speedType>4</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>totem_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>15011.543945</xPosition>
+        <yPosition>273.704712</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>obstacle3_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>14592.656250</xPosition>
+        <yPosition>342.051361</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>3</motionType>
+        <speedType>2</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>totem2_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>15997.004883</xPosition>
+        <yPosition>367.000000</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>15487.702148</xPosition>
+        <yPosition>456.090485</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>15551.703125</xPosition>
+        <yPosition>392.090485</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>15551.703125</xPosition>
+        <yPosition>328.090485</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>15487.702148</xPosition>
+        <yPosition>264.090485</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>15426.200195</xPosition>
+        <yPosition>195.498978</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>15423.704102</xPosition>
+        <yPosition>520.090454</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>15229.705078</xPosition>
+        <yPosition>328.090485</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>2</motionType>
+        <speedType>4</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>ObstacleSignifier</type>
+        <name>square_obstacle</name>
+        <isRightMostNode>no</isRightMostNode>
+        <xPosition>15286.703125</xPosition>
+        <yPosition>195.498978</yPosition>
+        <zPosition>10.000000</zPosition>
+        <motionType>2</motionType>
+        <speedType>0</speedType>
+    </spriteNode>
+    <spriteNode>
+        <type>DecorationSignifier</type>
+        <name>dawn2_decoration</name>
         <isRightMostNode>yes</isRightMostNode>
-        <xPosition>1704.000977</xPosition>
+        <xPosition>2134.850830</xPosition>
         <yPosition>320.000000</yPosition>
         <zPosition>1.000000</zPosition>
     </spriteNode>

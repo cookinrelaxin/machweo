@@ -43,18 +43,18 @@ int midpoint(int n1, int n2)
     _OBSTACLE_HIT_CATEGORY = 2;
     
     _TIMER_LABEL_FONT_SIZE = 50;
-    _TIMER_LABEL_FONT_COLOR = [UIColor blackColor];
+    _TIMER_LABEL_FONT_COLOR = [UIColor whiteColor];
     
     _LOADING_LABEL_FONT_SIZE = 100;
-    _LOADING_LABEL_FONT_COLOR = [UIColor blackColor];
+    _LOADING_LABEL_FONT_COLOR = [UIColor whiteColor];
     _LOADING_LABEL_FONT_NAME = @"DamascusBold";
     
     _RESTART_LABEL_FONT_SIZE = 40;
-    _RESTART_LABEL_FONT_COLOR = [UIColor blackColor];
+    _RESTART_LABEL_FONT_COLOR = [UIColor whiteColor];
     _RESTART_LABEL_FONT_NAME = @"DamascusBold";
     
     _RETURN_TO_MENU_LABEL_FONT_SIZE = 60;
-    _RETURN_TO_MENU_LABEL_FONT_COLOR = [UIColor blackColor];
+    _RETURN_TO_MENU_LABEL_FONT_COLOR = [UIColor whiteColor];
     _RETURN_TO_MENU_LABEL_FONT_NAME = @"DamascusBold";
     
     
