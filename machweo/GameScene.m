@@ -289,6 +289,7 @@
     if (!player.touchesEnded) {
         [self createLineNode];
     }
+    [self tellObstaclesToMove];
     [self checkForWonGame];
     [self checkForLostGame];
     

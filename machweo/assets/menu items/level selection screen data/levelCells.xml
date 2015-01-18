@@ -9,7 +9,7 @@
         <imageName>levelCellTestBackgroundImage</imageName>
     </level>
     <level>
-        <name>testRotation</name>
+        <name>testRotationLevel1</name>
         <imageName>levelCellTestBackgroundImage</imageName>
     </level>
 </levels>
