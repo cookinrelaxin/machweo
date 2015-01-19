@@ -201,12 +201,13 @@ typedef enum NodeTypes
 }
 
 -(void)loadWorld:(SKNode*)world withBackgrounds:(SKNode*)backgrounds withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations withScaleCoefficient:(CGVector)scaleCoefficient{
+    Constants* constants = [Constants sharedInstance];
     for (Obstacle *obstacle in obstacleArray) {
         obstacle.size = CGSizeMake(obstacle.size.width * scaleCoefficient.dy, obstacle.size.height * scaleCoefficient.dy);
         obstacle.position = CGPointMake(obstacle.position.x * scaleCoefficient.dy, obstacle.position.y * scaleCoefficient.dy);
         obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
         //im sorry for the magic number, but it should be the same as constants._PLAYER_AND_OBSTACLE_Z_POSITION;
-        obstacle.zPosition = 10;
+        obstacle.zPosition = constants.OBSTACLE_Z_POSITION;
         
         obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:obstacle.texture size:obstacle.size];
         obstacle.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;

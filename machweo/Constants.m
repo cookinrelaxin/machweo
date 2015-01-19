@@ -31,7 +31,7 @@ int midpoint(int n1, int n2)
     _IDEAL_SCREEN_SIZE = CGSizeMake(1136, 640);
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
     _PLAYER_SIZE = 30;
-    _OBSTACLE_Z_POSITION = 10;
+    _OBSTACLE_Z_POSITION = 16;
     _PLAYER_Z_POSITION = _OBSTACLE_Z_POSITION + 1;
     _LINE_Z_POSITION = _PLAYER_Z_POSITION + 1;
     _HUD_Z_POSITION = _LINE_Z_POSITION + 1;
