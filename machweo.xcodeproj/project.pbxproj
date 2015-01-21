@@ -44,6 +44,9 @@
 		659B21D01A5E1C1300885C04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21CF1A5E1C1300885C04 /* main.m */; };
 		659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659B21DF1A5E1C1300885C04 /* Images.xcassets */; };
 		659B21EF1A5E1C1400885C04 /* machweoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21EE1A5E1C1400885C04 /* machweoTests.m */; };
+		78A3ECE21A6F44AF007FC498 /* ArchivableData.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A3ECE11A6F44AF007FC498 /* ArchivableData.m */; };
+		78A3ECE51A6F44EA007FC498 /* ArchivableChapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A3ECE41A6F44EA007FC498 /* ArchivableChapter.m */; };
+		78A3ECE81A6F44F9007FC498 /* ArchivableLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A3ECE71A6F44F9007FC498 /* ArchivableLevel.m */; };
 		78E28F981A637C17008CED9D /* testParallaxLevel2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78E28F971A637C17008CED9D /* testParallaxLevel2.xml */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +121,12 @@
 		659B21E81A5E1C1400885C04 /* machweoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = machweoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		659B21ED1A5E1C1400885C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659B21EE1A5E1C1400885C04 /* machweoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = machweoTests.m; sourceTree = "<group>"; };
+		78A3ECE01A6F44AF007FC498 /* ArchivableData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchivableData.h; sourceTree = "<group>"; };
+		78A3ECE11A6F44AF007FC498 /* ArchivableData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchivableData.m; sourceTree = "<group>"; };
+		78A3ECE31A6F44EA007FC498 /* ArchivableChapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchivableChapter.h; sourceTree = "<group>"; };
+		78A3ECE41A6F44EA007FC498 /* ArchivableChapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchivableChapter.m; sourceTree = "<group>"; };
+		78A3ECE61A6F44F9007FC498 /* ArchivableLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArchivableLevel.h; sourceTree = "<group>"; };
+		78A3ECE71A6F44F9007FC498 /* ArchivableLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArchivableLevel.m; sourceTree = "<group>"; };
 		78E28F971A637C17008CED9D /* testParallaxLevel2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = testParallaxLevel2.xml; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,47 +239,18 @@
 			isa = PBXGroup;
 			children = (
 				6509D28F1A5E290300F1BBA6 /* Main.storyboard */,
-				6509D2931A5E290300F1BBA6 /* CustomNavigationController.m */,
-				6509D2941A5E290300F1BBA6 /* CustomNavigationController.h */,
-				6509D2971A5E290300F1BBA6 /* GameScene.h */,
-				6509D2951A5E290300F1BBA6 /* GameScene.m */,
-				6509D2C31A5E290300F1BBA6 /* ChunkLoader.h */,
-				6509D2991A5E290300F1BBA6 /* ChunkLoader.m */,
-				6509D29C1A5E290300F1BBA6 /* Player.h */,
-				6509D29A1A5E290300F1BBA6 /* Player.m */,
-				6509D29B1A5E290300F1BBA6 /* ButsuLiKi.h */,
-				6509D2961A5E290300F1BBA6 /* ButsuLiKi.m */,
-				6509D29D1A5E290300F1BBA6 /* Constants.m */,
-				6509D29E1A5E290300F1BBA6 /* Constants.h */,
-				6509D29F1A5E290300F1BBA6 /* Obstacle.h */,
-				6509D2981A5E290300F1BBA6 /* Obstacle.m */,
-				6509D2CB1A5E290300F1BBA6 /* AppDelegate.h */,
-				6509D2A01A5E290300F1BBA6 /* AppDelegate.m */,
-				6509D2C01A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.h */,
-				6509D2911A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m */,
-				6509D2A31A5E290300F1BBA6 /* LevelSelectionCollectionViewController.h */,
-				6509D2A11A5E290300F1BBA6 /* LevelSelectionCollectionViewController.m */,
-				6509D2A21A5E290300F1BBA6 /* GameViewController.h */,
-				6509D2921A5E290300F1BBA6 /* GameViewController.m */,
-				6509D2A41A5E290300F1BBA6 /* LevelCollectionViewCell.h */,
-				6509D2A51A5E290300F1BBA6 /* LevelCollectionViewCell.m */,
-				6509D2A81A5E290300F1BBA6 /* ChapterCellParser.h */,
-				6509D2A61A5E290300F1BBA6 /* ChapterCellParser.m */,
-				6509D2A91A5E290300F1BBA6 /* LevelCellParser.h */,
-				6509D2A71A5E290300F1BBA6 /* LevelCellParser.m */,
-				6509D2AA1A5E290300F1BBA6 /* ChapterCell.m */,
-				6509D2AB1A5E290300F1BBA6 /* ChapterCell.h */,
-				6509D2AC1A5E290300F1BBA6 /* LevelCell.m */,
-				6509D2AD1A5E290300F1BBA6 /* LevelCell.h */,
-				6509D2AF1A5E290300F1BBA6 /* LoadingScene.h */,
-				6509D2AE1A5E290300F1BBA6 /* LoadingScene.m */,
-				6509D2C11A5E290300F1BBA6 /* ChapterCollectionViewCell.h */,
-				6509D2C21A5E290300F1BBA6 /* ChapterCollectionViewCell.m */,
-				6509D2C41A5E290300F1BBA6 /* Line.h */,
-				6509D2CA1A5E290300F1BBA6 /* Line.m */,
+				78A3ECE91A6F4508007FC498 /* archivable game data */,
+				78A3ECEA1A6F4597007FC498 /* view controllers */,
+				78A3ECEB1A6F45B9007FC498 /* parsers */,
+				78A3ECEE1A6F4644007FC498 /* gameplay */,
+				78A3ECEC1A6F45F2007FC498 /* game objects */,
+				78A3ECEF1A6F465C007FC498 /* scenes */,
+				78A3ECED1A6F462A007FC498 /* view cells */,
 				6509D2B01A5E290300F1BBA6 /* assets */,
 				6509D2C51A5E290300F1BBA6 /* brushes */,
 				659B21DF1A5E1C1300885C04 /* Images.xcassets */,
+				6509D2CB1A5E290300F1BBA6 /* AppDelegate.h */,
+				6509D2A01A5E290300F1BBA6 /* AppDelegate.m */,
 				659B21CD1A5E1C1300885C04 /* Supporting Files */,
 			);
 			path = machweo;
@@ -300,6 +280,97 @@
 				659B21ED1A5E1C1400885C04 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		78A3ECE91A6F4508007FC498 /* archivable game data */ = {
+			isa = PBXGroup;
+			children = (
+				78A3ECE01A6F44AF007FC498 /* ArchivableData.h */,
+				78A3ECE11A6F44AF007FC498 /* ArchivableData.m */,
+				78A3ECE31A6F44EA007FC498 /* ArchivableChapter.h */,
+				78A3ECE41A6F44EA007FC498 /* ArchivableChapter.m */,
+				78A3ECE61A6F44F9007FC498 /* ArchivableLevel.h */,
+				78A3ECE71A6F44F9007FC498 /* ArchivableLevel.m */,
+			);
+			name = "archivable game data";
+			sourceTree = "<group>";
+		};
+		78A3ECEA1A6F4597007FC498 /* view controllers */ = {
+			isa = PBXGroup;
+			children = (
+				6509D2941A5E290300F1BBA6 /* CustomNavigationController.h */,
+				6509D2931A5E290300F1BBA6 /* CustomNavigationController.m */,
+				6509D2C01A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.h */,
+				6509D2911A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m */,
+				6509D2A31A5E290300F1BBA6 /* LevelSelectionCollectionViewController.h */,
+				6509D2A11A5E290300F1BBA6 /* LevelSelectionCollectionViewController.m */,
+				6509D2A21A5E290300F1BBA6 /* GameViewController.h */,
+				6509D2921A5E290300F1BBA6 /* GameViewController.m */,
+			);
+			name = "view controllers";
+			sourceTree = "<group>";
+		};
+		78A3ECEB1A6F45B9007FC498 /* parsers */ = {
+			isa = PBXGroup;
+			children = (
+				6509D2AA1A5E290300F1BBA6 /* ChapterCell.m */,
+				6509D2AB1A5E290300F1BBA6 /* ChapterCell.h */,
+				6509D2AC1A5E290300F1BBA6 /* LevelCell.m */,
+				6509D2AD1A5E290300F1BBA6 /* LevelCell.h */,
+				6509D2A81A5E290300F1BBA6 /* ChapterCellParser.h */,
+				6509D2A61A5E290300F1BBA6 /* ChapterCellParser.m */,
+				6509D2A91A5E290300F1BBA6 /* LevelCellParser.h */,
+				6509D2A71A5E290300F1BBA6 /* LevelCellParser.m */,
+			);
+			name = parsers;
+			sourceTree = "<group>";
+		};
+		78A3ECEC1A6F45F2007FC498 /* game objects */ = {
+			isa = PBXGroup;
+			children = (
+				6509D29C1A5E290300F1BBA6 /* Player.h */,
+				6509D29A1A5E290300F1BBA6 /* Player.m */,
+				6509D29F1A5E290300F1BBA6 /* Obstacle.h */,
+				6509D2981A5E290300F1BBA6 /* Obstacle.m */,
+				6509D2C41A5E290300F1BBA6 /* Line.h */,
+				6509D2CA1A5E290300F1BBA6 /* Line.m */,
+			);
+			name = "game objects";
+			sourceTree = "<group>";
+		};
+		78A3ECED1A6F462A007FC498 /* view cells */ = {
+			isa = PBXGroup;
+			children = (
+				6509D2A41A5E290300F1BBA6 /* LevelCollectionViewCell.h */,
+				6509D2A51A5E290300F1BBA6 /* LevelCollectionViewCell.m */,
+				6509D2C11A5E290300F1BBA6 /* ChapterCollectionViewCell.h */,
+				6509D2C21A5E290300F1BBA6 /* ChapterCollectionViewCell.m */,
+			);
+			name = "view cells";
+			sourceTree = "<group>";
+		};
+		78A3ECEE1A6F4644007FC498 /* gameplay */ = {
+			isa = PBXGroup;
+			children = (
+				6509D2991A5E290300F1BBA6 /* ChunkLoader.m */,
+				6509D29B1A5E290300F1BBA6 /* ButsuLiKi.h */,
+				6509D2961A5E290300F1BBA6 /* ButsuLiKi.m */,
+				6509D29D1A5E290300F1BBA6 /* Constants.m */,
+				6509D29E1A5E290300F1BBA6 /* Constants.h */,
+				6509D2C31A5E290300F1BBA6 /* ChunkLoader.h */,
+			);
+			name = gameplay;
+			sourceTree = "<group>";
+		};
+		78A3ECEF1A6F465C007FC498 /* scenes */ = {
+			isa = PBXGroup;
+			children = (
+				6509D2951A5E290300F1BBA6 /* GameScene.m */,
+				6509D2971A5E290300F1BBA6 /* GameScene.h */,
+				6509D2AF1A5E290300F1BBA6 /* LoadingScene.h */,
+				6509D2AE1A5E290300F1BBA6 /* LoadingScene.m */,
+			);
+			name = scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -417,9 +488,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78A3ECE51A6F44EA007FC498 /* ArchivableChapter.m in Sources */,
 				6509D2D61A5E290300F1BBA6 /* AppDelegate.m in Sources */,
 				6509D2D31A5E290300F1BBA6 /* ChunkLoader.m in Sources */,
+				78A3ECE21A6F44AF007FC498 /* ArchivableData.m in Sources */,
 				6509D2DA1A5E290300F1BBA6 /* LevelCellParser.m in Sources */,
+				78A3ECE81A6F44F9007FC498 /* ArchivableLevel.m in Sources */,
 				659B21D01A5E1C1300885C04 /* main.m in Sources */,
 				6509D2CE1A5E290300F1BBA6 /* GameViewController.m in Sources */,
 				6509D2ED1A5E290300F1BBA6 /* Line.m in Sources */,
