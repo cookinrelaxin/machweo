@@ -1,5 +1,5 @@
 //
-//  Chapters.h
+//  ArchivableData.h
 //  machweo
 //
 //  Created by Feldcamp, Zachary Satoshi on 1/20/15.
@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Chapters : NSObject
+@interface ArchivableData : NSObject
+@property (nonatomic, strong) NSDictionary* chapters;
 
 @end

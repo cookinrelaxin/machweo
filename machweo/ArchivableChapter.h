@@ -1,13 +1,13 @@
 //
-//  Chapters.m
+//  ArchivableChapter.h
 //  machweo
 //
 //  Created by Feldcamp, Zachary Satoshi on 1/20/15.
 //  Copyright (c) 2015 Zachary Feldcamp. All rights reserved.
 //
 
-#import "Chapters.h"
+#import <Foundation/Foundation.h>
 
-@implementation Chapters
+@interface ArchivableChapter : NSObject
 
 @end
