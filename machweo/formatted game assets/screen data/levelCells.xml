@@ -3,34 +3,42 @@
     <level>
         <name>testParallaxLevel1</name>
         <imageName>levelCellTestBackgroundImage</imageName>
+        <timeToBeatLevel>0</timeToBeatLevel>
     </level>
     <level>
         <name>testParallaxLevel2</name>
         <imageName>levelCellTestBackgroundImage</imageName>
+        <timeToBeatLevel>0</timeToBeatLevel>
     </level>
     <level>
         <name>paradigmSeven</name>
         <imageName>levelCellTestBackgroundImage</imageName>
+        <timeToBeatLevel>0</timeToBeatLevel>
     </level>
     <level>
         <name>paradigmEight</name>
         <imageName>levelCellTestBackgroundImage</imageName>
+        <timeToBeatLevel>0</timeToBeatLevel>
     </level>
     <level>
         <name>paradigmEightPointTwo</name>
         <imageName>levelCellTestBackgroundImage</imageName>
+        <timeToBeatLevel>0</timeToBeatLevel>
     </level>
     <level>
         <name>paradigmEightPointThree</name>
         <imageName>levelCellTestBackgroundImage</imageName>
+        <timeToBeatLevel>0</timeToBeatLevel>
     </level>
     <level>
         <name>paradigmEightPointFour</name>
         <imageName>levelCellTestBackgroundImage</imageName>
+        <timeToBeatLevel>0</timeToBeatLevel>
     </level>
     <level>
         <name>totemFrenzy</name>
         <imageName>levelCellTestBackgroundImage</imageName>
+        <timeToBeatLevel>0</timeToBeatLevel>
     </level>
 </levels>
 

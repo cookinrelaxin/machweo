@@ -22,8 +22,7 @@
 
 -(void)loadSingletons{
     [Constants sharedInstance];
-    [LevelCellParser sharedInstance];
-    
+    [LevelCellParser sharedInstance];    
     
 //    for (NSString* key in [LevelCellParser sharedInstance].levels) {
 //        LevelCell* levelCell = [[LevelCellParser sharedInstance].levels objectForKey:key];

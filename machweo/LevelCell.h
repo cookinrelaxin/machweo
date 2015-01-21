@@ -11,6 +11,7 @@
 @interface LevelCell : NSObject
 
 @property (nonatomic, strong) NSString* name;
+@property (nonatomic) int timeToBeatLevel;
 @property (nonatomic, strong) NSString* imageName;
 
 @end

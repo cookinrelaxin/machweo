@@ -14,6 +14,7 @@ typedef enum ElementVarieties
     level,
     name,
     imageName,
+    timeToBeatLevel
 } Element;
 
 @implementation LevelCellParser{
@@ -64,6 +65,10 @@ typedef enum ElementVarieties
         currentElement = imageName;
         return;
     }
+    if ([elementName isEqualToString:@"timeToBeatLevel"]) {
+        currentElement = timeToBeatLevel;
+        return;
+    }
 }
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
@@ -86,6 +91,9 @@ typedef enum ElementVarieties
                 currentLevel.imageName = string;
                 break;
             case level:
+                break;
+            case timeToBeatLevel:
+                currentLevel.timeToBeatLevel = [string intValue];
                 break;
                 
         }

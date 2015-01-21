@@ -137,21 +137,18 @@
     {
         LevelSelectionCollectionViewController *destination = [segue destinationViewController];
         destination.chapter = _currentChapter;
+        
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^(void){
+            [self calculateGameScoreAndSave];
+        });
     }
-
 
 }
 
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    if ([[segue identifier] isEqualToString:@"chapter to level"])
-//    {
-//        NSIndexPath *selectedIndexPath = [[self.collectionView indexPathsForSelectedItems] objectAtIndex:0];
-//        ChapterCell* relevantChapter = [chapters objectAtIndex:selectedIndexPath.row];
-//        LevelSelectionCollectionViewController *destination = [segue destinationViewController];
-//        destination.levels = [relevantChapter levelCells];
-//    }
-//}
+-(void)calculateGameScoreAndSave{
+    
+    
+}
 
 -(void)returnToMenu{
     [_restartButton sendActionsForControlEvents:UIControlEventTouchUpInside];

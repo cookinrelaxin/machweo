@@ -22,7 +22,7 @@ int midpoint(int n1, int n2)
 @implementation Constants
 
 -(instancetype)initSingleton{
-    NSLog(@"initialize Constants singleton");
+  //  NSLog(@"initialize Constants singleton");
 
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
@@ -60,8 +60,8 @@ int midpoint(int n1, int n2)
     
     float scaleFactor = [[UIScreen mainScreen] scale];
     _PHYSICS_SCALAR_MULTIPLIER =_SCALE_COEFFICIENT.dy * scaleFactor;
-    NSLog(@"_SCALE_COEFFICIENT: %f",_SCALE_COEFFICIENT.dy);
-    NSLog(@"_PHYSICS_SCALAR_MULTIPLIER: %f", _PHYSICS_SCALAR_MULTIPLIER);
+    //NSLog(@"_SCALE_COEFFICIENT: %f",_SCALE_COEFFICIENT.dy);
+   // NSLog(@"_PHYSICS_SCALAR_MULTIPLIER: %f", _PHYSICS_SCALAR_MULTIPLIER);
     
     _AMBIENT_X_FORCE = .06f;
     _MAX_PLAYER_VELOCITY_DX = 6;

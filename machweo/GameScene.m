@@ -11,6 +11,7 @@
 #import "Obstacle.h"
 #import "Line.h"
 #import "ChunkLoader.h"
+//#import "ArchivableData.h"
 
 @implementation GameScene{
     Player *player;
@@ -33,6 +34,8 @@
     
     BOOL stopScrolling;
     
+   // NSString* nameOfThisLevel;
+    
 }
 
 -(void)dealloc{
@@ -41,6 +44,7 @@
 
 -(instancetype)initWithSize:(CGSize)size forLevel:(NSString *)levelName{
     if (self = [super initWithSize:size]){
+        
         _constants = [Constants sharedInstance];
         _obstacles = [SKNode node];
         _backgrounds = [SKNode node];
@@ -361,7 +365,10 @@
     returnToMenuButton.zPosition = _constants.HUD_Z_POSITION;
     [self addChild:returnToMenuButton];
     
+    restartButton.hidden = true;
+    
 }
+
 
 -(void)restartGame{
     self.view.paused = false;

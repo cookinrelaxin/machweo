@@ -42,6 +42,7 @@
     LevelCell* currentLevelCell = [levels objectAtIndex:[indexPath row]];
     cell.cellLabel.text = currentLevelCell.name;
     cell.cellImageView.image = [UIImage imageNamed:currentLevelCell.imageName];
+    cell.timeToBeatLevelLabel.text = [NSString stringWithFormat:@"%d", currentLevelCell.timeToBeatLevel];;
     return cell;
 }
 

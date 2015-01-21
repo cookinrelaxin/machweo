@@ -30,8 +30,14 @@
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eo2-P3-gLR">
                                             <rect key="frame" x="8" y="8" width="198" height="198"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ObL-Dt-vXz">
-                                            <rect key="frame" x="8" y="73" width="198" height="68"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="level name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ObL-Dt-vXz">
+                                            <rect key="frame" x="8" y="37" width="198" height="68"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="time to beat level" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1k6-gz-YV7">
+                                            <rect key="frame" x="8" y="124" width="198" height="67"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -48,6 +54,7 @@
                                 <connections>
                                     <outlet property="cellImageView" destination="eo2-P3-gLR" id="EzO-9n-WqM"/>
                                     <outlet property="cellLabel" destination="ObL-Dt-vXz" id="7fE-WA-D4Z"/>
+                                    <outlet property="timeToBeatLevelLabel" destination="1k6-gz-YV7" id="c4C-PY-zxr"/>
                                     <segue destination="BV1-FR-VrT" kind="show" identifier="level selection to game" id="4E2-D1-4eh"/>
                                 </connections>
                             </collectionViewCell>

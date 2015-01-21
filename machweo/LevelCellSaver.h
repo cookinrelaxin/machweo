@@ -1,5 +1,5 @@
 //
-//  ArchivableChapter.h
+//  LevelCellSaver.h
 //  machweo
 //
 //  Created by Feldcamp, Zachary Satoshi on 1/20/15.
@@ -8,6 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ArchivableChapter : NSObject
+@interface LevelCellSaver : NSObject
 
 @end

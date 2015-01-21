@@ -11,4 +11,6 @@
 @interface LevelCollectionViewCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *cellImageView;
 @property (strong, nonatomic) IBOutlet UILabel *cellLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeToBeatLevelLabel;
+
 @end
