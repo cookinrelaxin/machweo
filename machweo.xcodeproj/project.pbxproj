@@ -34,6 +34,7 @@
 		659B21D01A5E1C1300885C04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21CF1A5E1C1300885C04 /* main.m */; };
 		659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659B21DF1A5E1C1300885C04 /* Images.xcassets */; };
 		659B21EF1A5E1C1400885C04 /* machweoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21EE1A5E1C1400885C04 /* machweoTests.m */; };
+		7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7852BC6B1A71FF6D0038447B /* gameModel.xcdatamodeld */; };
 		78A3ED4A1A6F5141007FC498 /* paradigmEight.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78A3ECF21A6F5141007FC498 /* paradigmEight.xml */; };
 		78A3ED4B1A6F5141007FC498 /* paradigmEightPointFour.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78A3ECF31A6F5141007FC498 /* paradigmEightPointFour.xml */; };
 		78A3ED4C1A6F5141007FC498 /* paradigmEightPointThree.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78A3ECF41A6F5141007FC498 /* paradigmEightPointThree.xml */; };
@@ -177,6 +178,7 @@
 		659B21E81A5E1C1400885C04 /* machweoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = machweoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		659B21ED1A5E1C1400885C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659B21EE1A5E1C1400885C04 /* machweoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = machweoTests.m; sourceTree = "<group>"; };
+		7852BC6C1A71FF6D0038447B /* gameModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = gameModel.xcdatamodel; sourceTree = "<group>"; };
 		78A3ECF21A6F5141007FC498 /* paradigmEight.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = paradigmEight.xml; sourceTree = "<group>"; };
 		78A3ECF31A6F5141007FC498 /* paradigmEightPointFour.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = paradigmEightPointFour.xml; sourceTree = "<group>"; };
 		78A3ECF41A6F5141007FC498 /* paradigmEightPointThree.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = paradigmEightPointThree.xml; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 		659B21CC1A5E1C1300885C04 /* machweo */ = {
 			isa = PBXGroup;
 			children = (
+				7852BC6B1A71FF6D0038447B /* gameModel.xcdatamodeld */,
 				78A3ECF01A6F5141007FC498 /* formatted game assets */,
 				6509D28F1A5E290300F1BBA6 /* Main.storyboard */,
 				78A3ECEA1A6F4597007FC498 /* view controllers */,
@@ -783,6 +786,7 @@
 				6509D2E81A5E290300F1BBA6 /* ChapterCollectionViewCell.m in Sources */,
 				6509D2D01A5E290300F1BBA6 /* GameScene.m in Sources */,
 				6509D2D81A5E290300F1BBA6 /* LevelCollectionViewCell.m in Sources */,
+				7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */,
 				6509D2CF1A5E290300F1BBA6 /* CustomNavigationController.m in Sources */,
 				6509D2D51A5E290300F1BBA6 /* Constants.m in Sources */,
 				6509D2D21A5E290300F1BBA6 /* Obstacle.m in Sources */,
@@ -991,6 +995,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		7852BC6B1A71FF6D0038447B /* gameModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				7852BC6C1A71FF6D0038447B /* gameModel.xcdatamodel */,
+			);
+			currentVersion = 7852BC6C1A71FF6D0038447B /* gameModel.xcdatamodel */;
+			name = gameModel.xcdatamodeld;
+			path = ../gameModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 659B21C21A5E1C1300885C04 /* Project object */;
 }
