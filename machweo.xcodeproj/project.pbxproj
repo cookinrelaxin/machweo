@@ -114,7 +114,6 @@
 		78A3ED971A6F5141007FC498 /* tree4.ai in Resources */ = {isa = PBXBuildFile; fileRef = 78A3ED471A6F5141007FC498 /* tree4.ai */; };
 		78A3ED981A6F5141007FC498 /* tree4_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78A3ED481A6F5141007FC498 /* tree4_decoration.png */; };
 		78A3ED991A6F5141007FC498 /* tree_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78A3ED491A6F5141007FC498 /* tree_decoration.png */; };
-		78A3ED9C1A6F6187007FC498 /* LevelCellSaver.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A3ED9B1A6F6187007FC498 /* LevelCellSaver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,8 +257,6 @@
 		78A3ED471A6F5141007FC498 /* tree4.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree4.ai; sourceTree = "<group>"; };
 		78A3ED481A6F5141007FC498 /* tree4_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree4_decoration.png; sourceTree = "<group>"; };
 		78A3ED491A6F5141007FC498 /* tree_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree_decoration.png; sourceTree = "<group>"; };
-		78A3ED9A1A6F6187007FC498 /* LevelCellSaver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelCellSaver.h; sourceTree = "<group>"; };
-		78A3ED9B1A6F6187007FC498 /* LevelCellSaver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelCellSaver.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,8 +376,6 @@
 				6509D2AC1A5E290300F1BBA6 /* LevelCell.m */,
 				6509D2A81A5E290300F1BBA6 /* ChapterCellParser.h */,
 				6509D2A61A5E290300F1BBA6 /* ChapterCellParser.m */,
-				78A3ED9A1A6F6187007FC498 /* LevelCellSaver.h */,
-				78A3ED9B1A6F6187007FC498 /* LevelCellSaver.m */,
 				6509D2A91A5E290300F1BBA6 /* LevelCellParser.h */,
 				6509D2A71A5E290300F1BBA6 /* LevelCellParser.m */,
 				6509D2C31A5E290300F1BBA6 /* ChunkLoader.h */,
@@ -796,7 +791,6 @@
 				6509D2D41A5E290300F1BBA6 /* Player.m in Sources */,
 				6509D2D91A5E290300F1BBA6 /* ChapterCellParser.m in Sources */,
 				6509D2CD1A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m in Sources */,
-				78A3ED9C1A6F6187007FC498 /* LevelCellSaver.m in Sources */,
 				6509D2DB1A5E290300F1BBA6 /* ChapterCell.m in Sources */,
 				6509D2DC1A5E290300F1BBA6 /* LevelCell.m in Sources */,
 			);
