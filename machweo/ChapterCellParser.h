@@ -10,5 +10,5 @@
 
 @interface ChapterCellParser : NSObject <NSXMLParserDelegate>
 @property (nonatomic, strong) NSMutableArray* chapters;
-+ (instancetype)sharedInstance;
+-(instancetype)prepopulateLevelCells;
 @end

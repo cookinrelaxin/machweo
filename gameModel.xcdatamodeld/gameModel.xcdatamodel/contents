@@ -3,7 +3,7 @@
     <entity name="Chapter" syncable="YES">
         <attribute name="imageName" attributeType="String" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="levels" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Level" inverseName="chapter" inverseEntity="Level" syncable="YES"/>
+        <relationship name="levels" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Level" inverseName="chapter" inverseEntity="Level" syncable="YES"/>
     </entity>
     <entity name="Level" syncable="YES">
         <attribute name="imageName" attributeType="String" syncable="YES"/>

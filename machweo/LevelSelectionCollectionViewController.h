@@ -7,9 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ChapterCell.h"
 
 @interface LevelSelectionCollectionViewController : UICollectionViewController
-@property (nonatomic, strong) ChapterCell* chapter;
 
 @end

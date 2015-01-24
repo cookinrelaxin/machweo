@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 
 @interface LevelCellParser : NSObject <NSXMLParserDelegate>
-@property (nonatomic, strong) NSMutableDictionary* levels;
-
-+ (instancetype)sharedInstance;
+-(instancetype)prepopulateLevelCells;
 @end

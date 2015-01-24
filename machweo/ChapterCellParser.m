@@ -8,8 +8,7 @@
 
 #import "ChapterCellParser.h"
 #import "LevelCellParser.h"
-#import "ChapterCell.h"
-#import "LevelCell.h"
+#import "GameDataManager.h"
 
 typedef enum ElementVarieties
 {
@@ -23,12 +22,16 @@ typedef enum ElementVarieties
 
 @implementation ChapterCellParser{
     Element currentElement;
-    ChapterCell* currentChapter;
+    NSManagedObject* currentChapterObject;
+    GameDataManager* dataManager;
+
     BOOL charactersFound;
     
 }
 
--(instancetype)initSingleton{
+-(instancetype)prepopulateLevelCells{
+    dataManager = [GameDataManager sharedInstance];
+    
     _chapters = [NSMutableArray array];
     
     BOOL success;
@@ -55,11 +58,46 @@ typedef enum ElementVarieties
      NSLog(@"did start chapter cell document");
 }
 
+-(void)parserDidEndDocument:(NSXMLParser *)parser{
+    NSError *error = nil;
+    
+    if (![[dataManager managedObjectContext] save:&error]) {
+        NSLog(@"Unable to save managed object context.");
+        NSLog(@"%@, %@", error, error.localizedDescription);
+    }
+    else{
+        NSManagedObjectContext* context = [GameDataManager sharedInstance].managedObjectContext;
+        NSLog(@"managed object context saved for chapters.");
+        
+        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Chapter" inManagedObjectContext:context];
+        [fetchRequest setEntity:entity];
+        
+        NSError *error = nil;
+        NSArray *result = [context executeFetchRequest:fetchRequest error:&error];
+        
+        if (error) {
+            NSLog(@"Unable to execute fetch request.");
+            NSLog(@"%@, %@", error, error.localizedDescription);
+            
+        } else {
+            //   NSLog(@"%@", result);
+            for (NSManagedObject* obj in result) {
+                NSLog(@"%@", [obj valueForKey:@"name"]);
+                
+            }
+        }
+        
+        
+    }
+}
+
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     charactersFound = false;
     if ([elementName isEqualToString:@"chapter"]) {
         currentElement = chapter;
-        currentChapter = [[ChapterCell alloc] init];
+        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Chapter" inManagedObjectContext:[dataManager managedObjectContext]];
+        currentChapterObject = [[NSManagedObject alloc] initWithEntity:entityDescription insertIntoManagedObjectContext:[dataManager managedObjectContext]];
         return;
     }
     if ([elementName isEqualToString:@"name"]) {
@@ -75,26 +113,26 @@ typedef enum ElementVarieties
         return;
     }
 }
-
--(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
-    
-    if ([elementName isEqualToString:@"chapter"]) {
-        if (currentChapter != nil) {
-            [_chapters addObject:currentChapter];
-        }
-    }
-}
+//
+//-(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
+//    
+//    if ([elementName isEqualToString:@"chapter"]) {
+//        if (currentChapter != nil) {
+//            [_chapters addObject:currentChapter];
+//        }
+//    }
+//}
 
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
     if (!charactersFound) {
         charactersFound = true;
         switch (currentElement) {
             case name:
-                currentChapter.name = string;
+                [currentChapterObject setValue:string forKey:@"name"];
                 break;
             case imageName:{
-                if(!currentChapter.imageName){
-                    currentChapter.imageName = string;
+                if(![currentChapterObject valueForKey:@"imageName"]){
+                    [currentChapterObject setValue:string forKey:@"imageName"];
                 }
             }
                 break;
@@ -103,14 +141,24 @@ typedef enum ElementVarieties
             case levels:
                 break;
             case levelName:{
-                LevelCellParser* levelParser = [LevelCellParser sharedInstance];
-                LevelCell* correspondingLevelCell = [levelParser.levels objectForKey:string];
-                if (correspondingLevelCell) {
-                    [currentChapter.levelCells addObject:correspondingLevelCell];
+                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Level"];
+                
+                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"name", string];
+                [fetchRequest setPredicate:predicate];
+
+                NSError *fetchError = nil;
+                NSArray *result = [[GameDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&fetchError];
+                
+                if (!fetchError) {
+                    NSMutableSet *levels = [currentChapterObject mutableSetValueForKey:@"levels"];
+                    [levels addObject:result.firstObject];
+                    
+
+                } else {
+                    NSLog(@"Error fetching data.");
+                    NSLog(@"%@, %@", fetchError, fetchError.localizedDescription);
                 }
-                else{
-                    NSLog(@"level '%@' does not exist or cannot be found", string);
-                }
+                
                  break;
                 }
 
@@ -119,14 +167,5 @@ typedef enum ElementVarieties
     }
 }
 
-+ (instancetype)sharedInstance
-{
-    static dispatch_once_t onceToken;
-    static ChapterCellParser* sharedSingleton = nil;
-    dispatch_once(&onceToken, ^{
-        sharedSingleton = [[ChapterCellParser alloc] initSingleton];
-    });
-    return sharedSingleton;
-}
 @end
 
