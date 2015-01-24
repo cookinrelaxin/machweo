@@ -17,5 +17,6 @@
 @property (nonatomic, strong) Constants *constants;
 
 -(instancetype)initWithSize:(CGSize)size forLevel:(NSString*)levelName;
+-(int)getTime;
 
 @end

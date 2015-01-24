@@ -376,6 +376,11 @@
 
 }
 
+-(int)getTime{
+    
+    return timerTime;
+}
+
 - (void)centerCameraOnPlayer {
     if (!stopScrolling) {
         currentDesiredPlayerPositionInView = CGPointMake(currentDesiredPlayerPositionInView.x, [self convertPointToView:player.position].y);

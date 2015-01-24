@@ -129,25 +129,33 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    SKView *skView = (SKView*)self.view;
-    [skView presentScene:nil];
     
     if ([[segue identifier] isEqualToString:@"game to level selection"])
     {
         LevelSelectionCollectionViewController *destination = [segue destinationViewController];
         destination.chapter = [_level valueForKey:@"chapter"];
         
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^(void){
+        //dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^(void){
             [self calculateGameScoreAndSave];
-        });
+       // });
     }
-
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    SKView *skView = (SKView*)self.view;
+    [skView presentScene:nil];
 }
 
 -(void)calculateGameScoreAndSave{
-    
-    
+    GameScene* currentScene = (GameScene*)((SKView*)self.view).scene;
+// doesnt work so far. it seems as if the current scene always returning a current time of 0
+    [_level setValue:[NSNumber numberWithInt:currentScene.getTime] forKey:@"timeToBeatLevel"];
+    NSLog(@"time to beat level: %d", currentScene.getTime);
+    NSError *error;
+    if (![[_level managedObjectContext] save:&error]) {
+        NSLog(@"Unable to save managed object context.");
+        NSLog(@"%@, %@", error, error.localizedDescription);
+    }
+
 }
 
 -(void)returnToMenu{
