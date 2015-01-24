@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 @interface LevelSelectionCollectionViewController : UICollectionViewController
+@property (nonatomic, strong) NSManagedObject* chapter;
 
 @end

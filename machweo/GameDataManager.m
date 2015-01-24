@@ -44,12 +44,34 @@
         [self prepopulateGameData];
     }
     
-//    if (!fetchError) {
-//        for (NSManagedObject *managedObject in result) {
-//            NSLog(@"%@, %@", [managedObject valueForKey:@"name"], [managedObject valueForKey:@"imageName"]);
-//        }
-//        
-//    }
+    if (!fetchError) {
+        for (NSManagedObject *managedObject in result) {
+            NSLog(@"chapter name: %@", [managedObject valueForKey:@"name"]);
+            NSLog(@"chapter image name: %@", [managedObject valueForKey:@"imageName"]);
+            
+            NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Level"];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"chapter", managedObject];
+            [fetchRequest setPredicate:predicate];
+            NSError *fetchError = nil;
+            NSArray *result = [self.managedObjectContext executeFetchRequest:fetchRequest error:&fetchError];
+            
+            if (!fetchError) {
+                for (NSManagedObject* levelObject in result) {
+                    NSLog(@"level name: %@", [levelObject valueForKey:@"name"]);
+                    NSLog(@"level image name: %@", [levelObject valueForKey:@"imageName"]);
+                    NSLog(@"time to beat level: %@", [levelObject valueForKey:@"timeToBeatLevel"]);
+
+                }
+                
+                
+            } else {
+                NSLog(@"Error fetching data.");
+                NSLog(@"%@, %@", fetchError, fetchError.localizedDescription);
+            }
+
+        }
+        
+    }
     else {
         NSLog(@"Error fetching data.");
         NSLog(@"%@, %@", fetchError, fetchError.localizedDescription);

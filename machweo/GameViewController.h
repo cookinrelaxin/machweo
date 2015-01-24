@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+#import <CoreData/CoreData.h>
 
 @interface GameViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UIButton *restartButton;
 
-@property (strong, nonatomic) NSString* levelToLoad;
+@property (strong, nonatomic) NSManagedObject* level;
 
 @end
