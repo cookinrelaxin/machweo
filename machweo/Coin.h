@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <SpriteKit/SpriteKit.h>
 
-@interface Coin : NSObject
-
+@interface Coin : SKSpriteNode
+@property (nonatomic) int value;
 @end

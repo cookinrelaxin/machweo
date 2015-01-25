@@ -61,6 +61,8 @@ extern int midpoint(int n1, int n2);
 @property(readonly, nonatomic) int PLAYER_HIT_CATEGORY;
 @property(readonly, nonatomic) int OBSTACLE_HIT_CATEGORY;
 
+@property(readonly, nonatomic) int DEFAULT_COIN_VALUE;
+
 
 + (instancetype)sharedInstance;
 

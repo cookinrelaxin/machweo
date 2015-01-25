@@ -228,6 +228,10 @@ typedef enum NodeTypes
         [decorations addChild:deco];
     }
     
+    for (<#initialization#>; <#condition#>; <#increment#>) {
+        <#statements#>
+    }
+    
 }
 
 @end

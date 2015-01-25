@@ -70,6 +70,8 @@ int midpoint(int n1, int n2)
     _MIN_PLAYER_VELOCITY_DY = -5;
     _FRICTION_COEFFICIENT = .9875f;
     _GRAVITY = .20;
+    
+    _DEFAULT_COIN_VALUE = 5;
 
     return self;
 }
