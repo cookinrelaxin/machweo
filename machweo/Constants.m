@@ -27,15 +27,19 @@ int midpoint(int n1, int n2)
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     //NSLog(@"screenSize: %f, %f", screenSize.width, screenSize.height);
-    
+    float scaleFactor = [[UIScreen mainScreen] nativeScale];
+
+   // _IDEAL_SCREEN_SIZE = CGSizeMake(1366 * scaleFactor, 768 * scaleFactor);
     _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 768);
+   // _IDEAL_SCREEN_SIZE = CGSizeMake(1680, 1050);
+
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
     _PLAYER_SIZE = 30;
     _OBSTACLE_Z_POSITION = 16;
     _PLAYER_Z_POSITION = _OBSTACLE_Z_POSITION + 1;
     _LINE_Z_POSITION = _PLAYER_Z_POSITION + 1;
     _HUD_Z_POSITION = _LINE_Z_POSITION + 1;
-    _BRUSH_FRACTION_OF_PLAYER_SIZE = 1;
+    _BRUSH_FRACTION_OF_PLAYER_SIZE = .75;
     
     _Y_PARALLAX_COEFFICIENT = .1f;
     
@@ -58,10 +62,11 @@ int midpoint(int n1, int n2)
     _RETURN_TO_MENU_LABEL_FONT_NAME = @"DamascusBold";
     
     
-    float scaleFactor = [[UIScreen mainScreen] scale];
+   // float scaleFactor = [[UIScreen mainScreen] scale];
     _PHYSICS_SCALAR_MULTIPLIER =_SCALE_COEFFICIENT.dy * scaleFactor;
     NSLog(@"_SCALE_COEFFICIENT: %f",_SCALE_COEFFICIENT.dy);
     NSLog(@"_PHYSICS_SCALAR_MULTIPLIER: %f", _PHYSICS_SCALAR_MULTIPLIER);
+    //_PHYSICS_SCALAR_MULTIPLIER = 1;
     
     _AMBIENT_X_FORCE = .06f;
     _MAX_PLAYER_VELOCITY_DX = 6;

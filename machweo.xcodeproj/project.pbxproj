@@ -432,12 +432,12 @@
 		78A3ECEE1A6F4644007FC498 /* gameplay */ = {
 			isa = PBXGroup;
 			children = (
-				6509D2991A5E290300F1BBA6 /* ChunkLoader.m */,
 				6509D29B1A5E290300F1BBA6 /* ButsuLiKi.h */,
 				6509D2961A5E290300F1BBA6 /* ButsuLiKi.m */,
 				6509D29D1A5E290300F1BBA6 /* Constants.m */,
 				6509D29E1A5E290300F1BBA6 /* Constants.h */,
 				6509D2C31A5E290300F1BBA6 /* ChunkLoader.h */,
+				6509D2991A5E290300F1BBA6 /* ChunkLoader.m */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
