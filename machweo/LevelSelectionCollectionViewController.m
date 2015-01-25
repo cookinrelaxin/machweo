@@ -55,8 +55,23 @@
     NSManagedObject* currentLevel = [levels objectAtIndex:[indexPath row]];
     cell.cellLabel.text = [currentLevel valueForKey:@"name"];
     cell.cellImageView.image = [UIImage imageNamed:[currentLevel valueForKey:@"imageName"]];
-    cell.timeToBeatLevelLabel.text = [NSString stringWithFormat:@"%@", [currentLevel valueForKey:@"timeToBeatLevel"]];
+    cell.timeToBeatLevelLabel.text = [self calculateBestTimeStringForCurrentLevel:currentLevel];
     return cell;
+}
+
+-(NSString*)calculateBestTimeStringForCurrentLevel:(NSManagedObject*)level{
+    NSString* timeString;
+    
+    double bestTime = [(NSNumber*)[level valueForKey:@"timeToBeatLevel"] doubleValue];
+    if (bestTime == 0) {
+        timeString = @"not beaten yet!";
+    }
+    else{
+        NSString* rawTimeString = [[NSString stringWithFormat:@"%f", bestTime] substringToIndex:4];
+        timeString = [NSString stringWithFormat:@"best time: %@ seconds!", rawTimeString];
+
+    }
+    return timeString;
 }
 
 -(UICollectionReusableView*)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{

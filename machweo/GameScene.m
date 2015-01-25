@@ -11,7 +11,7 @@
 #import "Obstacle.h"
 #import "Line.h"
 #import "ChunkLoader.h"
-//#import "ArchivableData.h"
+#import "Score.h"
 
 @implementation GameScene{
     Player *player;
@@ -20,12 +20,12 @@
     ButsuLiKi *physicsComponent;
     NSMutableArray *arrayOfLines;
     CGPoint currentDesiredPlayerPositionInView;
-    int playerScore;
+    Score* playerScore;
     Obstacle* nextObstacle;
     NSMutableArray* shapeNodes;
     
-    int previousTime;
-    int timerTime;
+    double previousTime;
+ //   int timerTime;
     
     //HUD
     SKLabelNode* timerLabel;
@@ -33,6 +33,7 @@
     SKLabelNode* returnToMenuButton;
     
     BOOL stopScrolling;
+    BOOL gameWon;
     
    // NSString* nameOfThisLevel;
     
@@ -44,7 +45,7 @@
 
 -(instancetype)initWithSize:(CGSize)size forLevel:(NSString *)levelName{
     if (self = [super initWithSize:size]){
-        
+        playerScore = [[Score alloc] init];
         _constants = [Constants sharedInstance];
         _obstacles = [SKNode node];
         _backgrounds = [SKNode node];
@@ -64,6 +65,7 @@
         timerLabel.fontColor = _constants.TIMER_LABEL_FONT_COLOR;
         timerLabel.position = CGPointMake(CGRectGetMidX(self.frame), timerLabel.fontSize / 4);
         timerLabel.zPosition = _constants.HUD_Z_POSITION;
+        timerLabel.text = @"0.00";
         [self addChild:timerLabel];
         
         restartButton = [SKLabelNode labelNodeWithText:@"restart"];
@@ -93,10 +95,6 @@
     CGPoint positionInSelf = [touch locationInNode:self];
     [self handleButtonPressesAtPoint:positionInSelf];
     previousPoint = currentPoint = positionInSelf;
-//    if (!player) {
-//        shouldCreateNewPlayer = true;
-//    }
-    
     Line *newLine = [[Line alloc] init];
     [arrayOfLines addObject:newLine];
     
@@ -109,7 +107,7 @@
     }
     if (CGRectContainsPoint(returnToMenuButton.frame, point) ) {
         [returnToMenuButton removeFromParent];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"return to menu" object:nil userInfo:nil];
+        [self calculateScoreAndExit];
     }
 }
 
@@ -199,7 +197,13 @@
     
 }
 
--(void)updateScore{
+-(void)calculateScoreAndExit{
+    if (gameWon) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"return to menu" object:nil userInfo:[NSDictionary dictionaryWithObject:playerScore forKey:@"playerScore"]];
+    }
+    else{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"return to menu" object:nil userInfo:nil];
+    }
     
 }
 
@@ -274,19 +278,32 @@
 
 }
 
--(void)updateTimerLabel{
-    timerLabel.text = [NSString stringWithFormat:@"%d", timerTime];
+-(void)updateTimerLabelWithTime:(double)time{
+    if (time > 10) {
+        timerLabel.text = [[NSString stringWithFormat:@"%f", time] substringToIndex:5];
+    }
+    else {
+        timerLabel.text = [[NSString stringWithFormat:@"%f", time] substringToIndex:4];
+    }
+}
 
+-(void)updateTime:(CFTimeInterval)currentTime{
+    if (previousTime == 0) {
+        previousTime = currentTime;
+    }
+    double difference = currentTime - previousTime;
+    if (difference > .001) {
+        [self updateTimerLabelWithTime:playerScore.time];
+        playerScore.time += currentTime - previousTime;
+        previousTime = currentTime;
+    }
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    if (currentTime >= (previousTime + 1)) {
-//        NSLog(@"currentTime: %f", currentTime);
-        [self updateTimerLabel];
-        previousTime = currentTime;
-        timerTime ++;
-    }
-
+   // __weak GameScene* weakSelf = self;
+   // dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^(void){
+    [self updateTime:currentTime];
+   // });
     [self checkForOldLines];
     [self deallocOldLines];
     [self cleanUpShapeNodes];
@@ -311,7 +328,6 @@
         [physicsComponent calculatePlayerPosition:player withLineArray:arrayOfLines];
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"update velocity" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"{%f, %f}", player.velocity.dx, player.velocity.dy] forKey:@"velocity"]];
-    [self updateScore];
     [self drawLines];
 }
 
@@ -364,8 +380,8 @@
     returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
     returnToMenuButton.zPosition = _constants.HUD_Z_POSITION;
     [self addChild:returnToMenuButton];
-    
     restartButton.hidden = true;
+    gameWon = true;
     
 }
 
@@ -374,11 +390,6 @@
     self.view.paused = false;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil userInfo:nil];
 
-}
-
--(int)getTime{
-    
-    return timerTime;
 }
 
 - (void)centerCameraOnPlayer {

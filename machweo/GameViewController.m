@@ -11,6 +11,7 @@
 #import "LoadingScene.h"
 #import "Constants.h"
 #import "LevelSelectionCollectionViewController.h"
+#import "Score.h"
 
 @implementation GameViewController{
     UILabel *scoreLabel;
@@ -89,7 +90,7 @@
                     usingBlock:^(NSNotification *notification)
      {
          [((SKView*)weakSelf.view) presentScene:nil];
-         [weakSelf returnToMenu];
+         [weakSelf returnToMenu:(Score*)[[notification userInfo] objectForKey:@"playerScore"]];
      }];
     
     [center addObserverForName:@"restart game"
@@ -134,10 +135,6 @@
     {
         LevelSelectionCollectionViewController *destination = [segue destinationViewController];
         destination.chapter = [_level valueForKey:@"chapter"];
-        
-        //dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^(void){
-            [self calculateGameScoreAndSave];
-       // });
     }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -145,21 +142,18 @@
     [skView presentScene:nil];
 }
 
--(void)calculateGameScoreAndSave{
-    GameScene* currentScene = (GameScene*)((SKView*)self.view).scene;
-// doesnt work so far. it seems as if the current scene always returning a current time of 0
-    [_level setValue:[NSNumber numberWithInt:currentScene.getTime] forKey:@"timeToBeatLevel"];
-    NSLog(@"time to beat level: %d", currentScene.getTime);
-    NSError *error;
-    if (![[_level managedObjectContext] save:&error]) {
-        NSLog(@"Unable to save managed object context.");
-        NSLog(@"%@, %@", error, error.localizedDescription);
+-(void)returnToMenu:(Score*)score{
+    double currentBest = [(NSNumber*)[_level valueForKey:@"timeToBeatLevel"] doubleValue];
+    if (score.time > currentBest) {
+        [_level setValue:[NSNumber numberWithDouble:score.time] forKey:@"timeToBeatLevel"];
+        NSLog(@"time to beat level: %f", score.time);
+        NSError *error;
+        if (![[_level managedObjectContext] save:&error]) {
+            NSLog(@"Unable to save score.");
+            NSLog(@"%@, %@", error, error.localizedDescription);
+        }
     }
-
-}
-
--(void)returnToMenu{
-    [_restartButton sendActionsForControlEvents:UIControlEventTouchUpInside];
+        [_restartButton sendActionsForControlEvents:UIControlEventTouchUpInside];
 }
 
 

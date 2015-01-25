@@ -114,6 +114,8 @@
 		78A3ED971A6F5141007FC498 /* tree4.ai in Resources */ = {isa = PBXBuildFile; fileRef = 78A3ED471A6F5141007FC498 /* tree4.ai */; };
 		78A3ED981A6F5141007FC498 /* tree4_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78A3ED481A6F5141007FC498 /* tree4_decoration.png */; };
 		78A3ED991A6F5141007FC498 /* tree_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78A3ED491A6F5141007FC498 /* tree_decoration.png */; };
+		78B986AF1A746CAF00C4EA18 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986AE1A746CAF00C4EA18 /* Score.m */; };
+		78B986B21A74827B00C4EA18 /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986B11A74827B00C4EA18 /* Coin.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,6 +258,10 @@
 		78A3ED471A6F5141007FC498 /* tree4.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree4.ai; sourceTree = "<group>"; };
 		78A3ED481A6F5141007FC498 /* tree4_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree4_decoration.png; sourceTree = "<group>"; };
 		78A3ED491A6F5141007FC498 /* tree_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree_decoration.png; sourceTree = "<group>"; };
+		78B986AD1A746CAF00C4EA18 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
+		78B986AE1A746CAF00C4EA18 /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
+		78B986B01A74827B00C4EA18 /* Coin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
+		78B986B11A74827B00C4EA18 /* Coin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coin.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -413,6 +419,10 @@
 				6509D2961A5E290300F1BBA6 /* ButsuLiKi.m */,
 				6509D29D1A5E290300F1BBA6 /* Constants.m */,
 				6509D29E1A5E290300F1BBA6 /* Constants.h */,
+				78B986AD1A746CAF00C4EA18 /* Score.h */,
+				78B986AE1A746CAF00C4EA18 /* Score.m */,
+				78B986B01A74827B00C4EA18 /* Coin.h */,
+				78B986B11A74827B00C4EA18 /* Coin.m */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
@@ -789,7 +799,9 @@
 				6509D2D71A5E290300F1BBA6 /* LevelSelectionCollectionViewController.m in Sources */,
 				6509D2D11A5E290300F1BBA6 /* ButsuLiKi.m in Sources */,
 				6509D2D41A5E290300F1BBA6 /* Player.m in Sources */,
+				78B986AF1A746CAF00C4EA18 /* Score.m in Sources */,
 				6509D2D91A5E290300F1BBA6 /* ChapterCellParser.m in Sources */,
+				78B986B21A74827B00C4EA18 /* Coin.m in Sources */,
 				6509D2CD1A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
