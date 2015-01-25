@@ -263,6 +263,7 @@
             player.position = CGPointMake(player.position.x, player.minYPosition);
         }
     }
+    
     //NSLog(@"player.position.y: %f", player.position.y);
 }
 
