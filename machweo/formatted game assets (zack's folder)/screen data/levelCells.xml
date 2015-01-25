@@ -29,7 +29,19 @@
         <imageName>levelCellTestBackgroundImage</imageName>
     </level>
     <level>
+        <name>paradigmEightPointFive</name>
+        <imageName>levelCellTestBackgroundImage</imageName>
+    </level>
+    <level>
+        <name>paradigmEightPointSix</name>
+        <imageName>levelCellTestBackgroundImage</imageName>
+    </level>
+    <level>
         <name>totemFrenzy</name>
+        <imageName>levelCellTestBackgroundImage</imageName>
+    </level>
+    <level>
+        <name>mistyNightOne</name>
         <imageName>levelCellTestBackgroundImage</imageName>
     </level>
 </levels>
