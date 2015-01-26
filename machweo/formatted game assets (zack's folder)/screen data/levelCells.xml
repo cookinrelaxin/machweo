@@ -44,5 +44,9 @@
         <name>mistyNightOne</name>
         <imageName>levelCellTestBackgroundImage</imageName>
     </level>
+    <level>
+        <name>improvedParallaxOne</name>
+        <imageName>levelCellTestBackgroundImage</imageName>
+    </level>
 </levels>
 

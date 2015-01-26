@@ -434,7 +434,7 @@
                 }
 
             }
-            float fractionalCoefficient = deco.zPosition / (_constants.OBSTACLE_Z_POSITION + (_constants.OBSTACLE_Z_POSITION - deco.zPosition));
+            float fractionalCoefficient = deco.zPosition / _constants.OBSTACLE_Z_POSITION;
             CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
             deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y - parallaxAdjustedDifference.dy);
         }
