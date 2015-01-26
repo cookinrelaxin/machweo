@@ -37,6 +37,9 @@
     
    // NSString* nameOfThisLevel;
     
+    SKCropNode* brushCropNode;
+    SKSpriteNode* maskWrapper;
+    
 }
 
 -(void)dealloc{
@@ -78,15 +81,20 @@
         
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
         [cl loadWorld:self withBackgrounds:_backgrounds withObstacles:_obstacles andDecorations:_decorations withScaleCoefficient:_constants.SCALE_COEFFICIENT];
+        
+
+        maskWrapper = [SKSpriteNode node];
+        
+        brushCropNode = [SKCropNode node];
+        SKSpriteNode* pattern = [[SKSpriteNode alloc] initWithImageNamed:@"african_textile_1.jpg"];
+        [brushCropNode addChild:pattern];
+        brushCropNode.maskNode = maskWrapper;
+        brushCropNode.zPosition = _constants.LINE_Z_POSITION;
+        [self addChild:brushCropNode];
+
     }
     return self;
 }
-
-//-(void)didMoveToView:(SKView *)view{
-//    NSLog(@"player.size.width: %f",player.size.width);
-//
-//}
-
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -248,7 +256,11 @@
        // Line* line = [arrayOfLines objectAtIndex:i];
         SKShapeNode* currentLineNode = [SKShapeNode node];
         currentLineNode.zPosition = _constants.LINE_Z_POSITION;
-        currentLineNode.strokeColor = [UIColor blackColor];
+       // currentLineNode.strokeColor = [UIColor whiteColor];
+        //currentLineNode.fillColor = [UIColor clearColor];
+       // currentLineNode.fillColor = [UIColor whiteColor];
+       // currentLineNode.strokeTexture = [SKTexture textureVectorNoiseWithSmoothness:.5 size:CGSizeMake(10, 10)];
+
         currentLineNode.antialiased = false;
         currentLineNode.physicsBody = nil;
         currentLineNode.lineCap = kCGLineCapRound;
@@ -264,7 +276,10 @@
         
         currentLineNode.path = pathToDraw;
         [shapeNodes addObject:currentLineNode];
-        [self addChild:currentLineNode];
+        //[self addChild:currentLineNode];
+        [maskWrapper addChild:currentLineNode];
+        //brushCropNode.maskNode = currentLineNode;
+        //[brushCropNode addChild:currentLineNode];
         CGPathRelease(pathToDraw);
    // });
     }

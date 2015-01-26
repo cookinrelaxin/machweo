@@ -32,6 +32,7 @@
 		659B21D01A5E1C1300885C04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21CF1A5E1C1300885C04 /* main.m */; };
 		659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659B21DF1A5E1C1300885C04 /* Images.xcassets */; };
 		659B21EF1A5E1C1400885C04 /* machweoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21EE1A5E1C1400885C04 /* machweoTests.m */; };
+		7808A95F1A75D17200544C78 /* african_textile_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7808A95E1A75D17200544C78 /* african_textile_1.jpg */; };
 		782AE75E1A74B89900FF4225 /* mistyNightOne.xml in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6C91A74B89900FF4225 /* mistyNightOne.xml */; };
 		782AE75F1A74B89900FF4225 /* paradigmEight.xml in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6CA1A74B89900FF4225 /* paradigmEight.xml */; };
 		782AE7601A74B89900FF4225 /* paradigmEightPointFive.xml in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6CB1A74B89900FF4225 /* paradigmEightPointFive.xml */; };
@@ -234,6 +235,7 @@
 		659B21E81A5E1C1400885C04 /* machweoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = machweoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		659B21ED1A5E1C1400885C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659B21EE1A5E1C1400885C04 /* machweoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = machweoTests.m; sourceTree = "<group>"; };
+		7808A95E1A75D17200544C78 /* african_textile_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = african_textile_1.jpg; sourceTree = "<group>"; };
 		782AE6C91A74B89900FF4225 /* mistyNightOne.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mistyNightOne.xml; sourceTree = "<group>"; };
 		782AE6CA1A74B89900FF4225 /* paradigmEight.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = paradigmEight.xml; sourceTree = "<group>"; };
 		782AE6CB1A74B89900FF4225 /* paradigmEightPointFive.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = paradigmEightPointFive.xml; sourceTree = "<group>"; };
@@ -476,9 +478,19 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		7808A95D1A75D17200544C78 /* brush textures */ = {
+			isa = PBXGroup;
+			children = (
+				7808A95E1A75D17200544C78 /* african_textile_1.jpg */,
+			);
+			name = "brush textures";
+			path = "sprites/brush textures";
+			sourceTree = "<group>";
+		};
 		782AE6C71A74B89900FF4225 /* formatted game assets (zack's folder) */ = {
 			isa = PBXGroup;
 			children = (
+				7808A95D1A75D17200544C78 /* brush textures */,
 				782AE6C81A74B89900FF4225 /* level files */,
 				782AE6D51A74B89900FF4225 /* screen data */,
 				782AE6D81A74B89900FF4225 /* sprites */,
@@ -897,6 +909,7 @@
 				782AE7B81A74B89900FF4225 /* dawn2.ai in Resources */,
 				782AE7AE1A74B89900FF4225 /* rotate.ai in Resources */,
 				782AE7A21A74B89900FF4225 /* circlemask.ai in Resources */,
+				7808A95F1A75D17200544C78 /* african_textile_1.jpg in Resources */,
 				782AE77B1A74B89900FF4225 /* cloud3.ai in Resources */,
 				659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */,
 				782AE7861A74B89900FF4225 /* cloudopaque3_decoration.png in Resources */,
