@@ -15,6 +15,7 @@
 @property (nonatomic, strong) SKNode* backgrounds;
 @property (nonatomic, strong) SKNode* decorations;
 @property (nonatomic, strong) Constants *constants;
+@property (nonatomic) BOOL shangoBrokeHisBack;
 
 -(instancetype)initWithSize:(CGSize)size forLevel:(NSString*)levelName;
 @end

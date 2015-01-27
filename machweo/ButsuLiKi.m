@@ -101,7 +101,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
   //  if ((player.currentRotationSpeed == OFFLINE_ROTATION_SPEED) && (player.velocity.dy < 0)) {
       if (player.velocity.dy < 0) {
 
-        NSLog(@"player.zRotation: %f", player.zRotation);
+      //  NSLog(@"player.zRotation: %f", player.zRotation);
         if (player.zRotation > M_PI_4) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"shangoBrokeHisBack" object:nil];
             shangoBrokeHisBack = true;
@@ -263,7 +263,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     if (player.velocity.dx > constants.MAX_PLAYER_VELOCITY_DX) {
         player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, player.velocity.dy);
     }
-   // NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
+    NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
 
 }
 

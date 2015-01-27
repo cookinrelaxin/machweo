@@ -40,8 +40,6 @@
     SKCropNode* brushCropNode;
     SKSpriteNode* maskWrapper;
     
-    BOOL shangoBrokeHisBack;
-    
 }
 
 -(void)dealloc{
@@ -94,13 +92,14 @@
         brushCropNode.zPosition = _constants.LINE_Z_POSITION;
         [self addChild:brushCropNode];
         
+        __weak GameScene *weakSelf = self;
         NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
         [center addObserverForName:@"shangoBrokeHisBack"
                             object:nil
                              queue:nil
                         usingBlock:^(NSNotification *notification)
          {
-             shangoBrokeHisBack = true;
+             weakSelf.shangoBrokeHisBack = true;
          }];
         
         
@@ -368,7 +367,7 @@
         [self loseGame];
     }
     
-    if (shangoBrokeHisBack) {
+    if (_shangoBrokeHisBack) {
         [self loseGame];
     }
 }
@@ -376,7 +375,7 @@
 
 -(void)loseGame{
     NSString* loseLabel;
-    if (shangoBrokeHisBack) {
+    if (_shangoBrokeHisBack) {
         loseLabel = @"damnit Shango, you broke your back.";
     }
     else{
