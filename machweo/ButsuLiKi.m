@@ -15,8 +15,8 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 
 @implementation ButsuLiKi{
     float previousSlope;
-    
     NSMutableArray *pastSlopes;
+    BOOL shangoBrokeHisBack;
 }
 
 -(void)resolveCollisions:(Player*)player withLineArray:(NSMutableArray*)LineArray{
@@ -73,8 +73,10 @@ const float OFFLINE_ROTATION_SPEED = .02f;
                 float slope = [ButsuLiKi calculateSlopeForTriangleBetween:leftPoint and:rightPoint];
                 player.currentSlope = slope;
                 player.roughlyOnLine = true;
-                player.currentRotationSpeed = ONLINE_ROTATION_SPEED;
                 [self addSlopeToSlopeArray:slope];
+                [self isShangoDead:player];
+                player.currentRotationSpeed = ONLINE_ROTATION_SPEED;
+
                 
                 
                 
@@ -93,6 +95,18 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     });
 
         player.minYPosition = yMin;
+}
+
+-(void)isShangoDead:(Player*)player{
+  //  if ((player.currentRotationSpeed == OFFLINE_ROTATION_SPEED) && (player.velocity.dy < 0)) {
+      if (player.velocity.dy < 0) {
+
+        NSLog(@"player.zRotation: %f", player.zRotation);
+        if (player.zRotation > M_PI_4) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"shangoBrokeHisBack" object:nil];
+            shangoBrokeHisBack = true;
+        }
+    }
 }
 
 -(void)addSlopeToSlopeArray:(float)slope{
@@ -298,54 +312,33 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 }
 
 -(void)calculatePlayerRotation:(Player*)player{
-    if (player.roughlyOnLine) {
-      //  float clampedSlope = (player.currentSlope > 1.0f) ? 1.0f : player.currentSlope;
-        //player.zRotation = M_PI_4 * clampedSlope;
-        float averageSlope = [self averageSlope];
+    if (!shangoBrokeHisBack) {
         
-        float expectedRotation = M_PI_4 * averageSlope;
-//        if (expectedRotation > M_PI_4) {
-//            expectedRotation = M_PI_4;
-//        }
-        if (expectedRotation > M_PI_2) {
-            expectedRotation = M_PI_2;
+        if (player.roughlyOnLine) {
+            float averageSlope = [self averageSlope];
+            
+            float expectedRotation = M_PI_4 * averageSlope;
+            if (expectedRotation > M_PI_2) {
+                expectedRotation = M_PI_2;
+            }
+            
+            
+            
+            float differenceBetweenRotations = fabsf(player.zRotation - expectedRotation);
+            if (differenceBetweenRotations > 0) {
+            }
+            
+            player.zRotation = expectedRotation;
+            return;
         }
-        
-        
-        
-        float differenceBetweenRotations = fabsf(player.zRotation - expectedRotation);
-        if (differenceBetweenRotations > 0) {
-         //   NSLog(@"differenceBetweenRotations: %f", differenceBetweenRotations);
+
+        [pastSlopes removeAllObjects];
+        if (fabsf(player.zRotation) <= player.currentRotationSpeed){
+            player.zRotation = 0;
         }
-        
-        player.zRotation = expectedRotation;
-        return;
-    }
-   // NSLog(@"player.zRotation: %f", player.zRotation);
-   // NSLog(@"fabsf(player.zRotation): %f", fabsf(player.zRotation));
-
-//    if (player.endOfLine) {
-//        [pastSlopes removeAllObjects];
-//        if (fabsf(player.zRotation) <= .025f){
-//            player.zRotation = 0;
-//        }
-//        else{
-//            player.zRotation -= .025f;
-//        }
-    //        return;    [pastSlopes removeAllObjects];
-
-//    }
-//    if (fabsf(player.zRotation) <= .005f){
-//        player.zRotation = 0;
-//    }
-//    player.zRotation -= .005f;
-    [pastSlopes removeAllObjects];
-    NSLog(@"currentRotationSpeed:%f", player.currentRotationSpeed);
-    if (fabsf(player.zRotation) <= player.currentRotationSpeed){
-        player.zRotation = 0;
-    }
-    else{
-        player.zRotation -= player.currentRotationSpeed;
+        else{
+            player.zRotation -= player.currentRotationSpeed;
+        }
     }
 
     

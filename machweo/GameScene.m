@@ -40,6 +40,8 @@
     SKCropNode* brushCropNode;
     SKSpriteNode* maskWrapper;
     
+    BOOL shangoBrokeHisBack;
+    
 }
 
 -(void)dealloc{
@@ -91,6 +93,17 @@
         brushCropNode.maskNode = maskWrapper;
         brushCropNode.zPosition = _constants.LINE_Z_POSITION;
         [self addChild:brushCropNode];
+        
+        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+        [center addObserverForName:@"shangoBrokeHisBack"
+                            object:nil
+                             queue:nil
+                        usingBlock:^(NSNotification *notification)
+         {
+             shangoBrokeHisBack = true;
+         }];
+        
+        
 
     }
     return self;
@@ -354,14 +367,25 @@
     if (player.position.y < 0 - (player.size.height / 2)) {
         [self loseGame];
     }
-
+    
+    if (shangoBrokeHisBack) {
+        [self loseGame];
+    }
 }
--(void)loseGame{
 
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"return to menu" object:nil userInfo:nil];
+
+-(void)loseGame{
+    NSString* loseLabel;
+    if (shangoBrokeHisBack) {
+        loseLabel = @"damnit Shango, you broke your back.";
+    }
+    else{
+        loseLabel = @"you lose. return to menu?";
+    }
+    
     self.view.paused = true;
     
-    returnToMenuButton = [SKLabelNode labelNodeWithText:@"you lose. return to menu?"];
+    returnToMenuButton = [SKLabelNode labelNodeWithText:loseLabel];
     returnToMenuButton.fontSize = _constants.RETURN_TO_MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
     returnToMenuButton.fontName = _constants.RETURN_TO_MENU_LABEL_FONT_NAME;
     returnToMenuButton.fontColor = _constants.RETURN_TO_MENU_LABEL_FONT_COLOR;
