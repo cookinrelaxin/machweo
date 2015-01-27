@@ -311,14 +311,14 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 
 -(void)verticalLoopPlayer:(Player*)player{
     if (player.velocity.dy > 0) {
-        if ((player.position.y + player.size.height) > player.parent.frame.size.height) {
+        if ((player.position.y - player.size.height) > player.parent.frame.size.height) {
             player.position = CGPointMake(player.position.x, 0 - player.size.height);
         }
         return;
     }
     if (player.velocity.dy < 0) {
         NSLog(@"player.position.y: %f", player.position.y);
-        if ((player.position.y - player.size.height) < 0) {
+        if ((player.position.y + player.size.height) < 0) {
             player.position = CGPointMake(player.position.x, player.size.height + player.parent.frame.size.height);
         }
         return;
