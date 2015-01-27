@@ -363,9 +363,9 @@
     if (player.physicsBody.allContactedBodies.count > 0) {
         [self loseGame];
     }
-    if (player.position.y < 0 - (player.size.height / 2)) {
-        [self loseGame];
-    }
+//    if (player.position.y < 0 - (player.size.height / 2)) {
+//        [self loseGame];
+//    }
     
     if (_shangoBrokeHisBack) {
         [self loseGame];

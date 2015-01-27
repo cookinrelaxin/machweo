@@ -293,15 +293,37 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     [self calculatePlayerRotation:player];
     [self calculatePlayerVelocity:player];
     player.position = CGPointMake(player.position.x + player.velocity.dx * constants.PHYSICS_SCALAR_MULTIPLIER, player.position.y + player.velocity.dy * constants.PHYSICS_SCALAR_MULTIPLIER);
+  //  NSLog(@"player.position.y: %f", player.position.y);
+   // NSLog(@"player.position.y scaled: %f", player.position.y * constants.PHYSICS_SCALAR_MULTIPLIER);
+
+    
     [self resolveCollisions:player withLineArray:lineArray];
     if (player.roughlyOnLine) {
         if (player.position.y < player.minYPosition) {
             player.position = CGPointMake(player.position.x, player.minYPosition);
         }
     }
+    [self verticalLoopPlayer:player];
+   
     
     
-    //NSLog(@"player.position.y: %f", player.position.y);
+}
+
+-(void)verticalLoopPlayer:(Player*)player{
+    if (player.velocity.dy > 0) {
+        if ((player.position.y + player.size.height) > player.parent.frame.size.height) {
+            player.position = CGPointMake(player.position.x, 0 - player.size.height);
+        }
+        return;
+    }
+    if (player.velocity.dy < 0) {
+        NSLog(@"player.position.y: %f", player.position.y);
+        if ((player.position.y - player.size.height) < 0) {
+            player.position = CGPointMake(player.position.x, player.size.height + player.parent.frame.size.height);
+        }
+        return;
+    }
+    
 }
 -(float)averageSlope{
     float sum = 0;
