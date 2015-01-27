@@ -68,12 +68,12 @@
                 player.currentSlope = slope;
                 player.roughlyOnLine = true;
                 
-//                if (rightNode == pointArray.lastObject) {
-//                    player.endOfLine = true;
-//                }
-                if ((rightNode == pointArray.lastObject) && (player.position.x > rightPoint.x)) {
+                if (rightNode == pointArray.lastObject) {
                     player.endOfLine = true;
                 }
+//                if ((rightNode == pointArray.lastObject) && (player.position.x > rightPoint.x)) {
+//                    player.endOfLine = true;
+//                }
                 
             }
         }
@@ -243,7 +243,7 @@
 }
 
 -(float)calculateYForceGivenSlope:(float)slope{
-    NSLog(@"slope: %f", slope);
+   // NSLog(@"slope: %f", slope);
     if (fabsf(slope - previousSlope) < .001f) {
        // NSLog(@"same slope. return 0");
         return 0;
@@ -274,21 +274,47 @@
       //  float clampedSlope = (player.currentSlope > 1.0f) ? 1.0f : player.currentSlope;
         //player.zRotation = M_PI_4 * clampedSlope;
         float expectedRotation = M_PI_4 * player.currentSlope;
+//        if (expectedRotation > M_PI_4) {
+//            expectedRotation = M_PI_4;
+//        }
         if (expectedRotation > M_PI_2) {
             expectedRotation = M_PI_2;
         }
+        
+        
+        
+        float differenceBetweenRotations = fabsf(player.zRotation - expectedRotation);
+        if (differenceBetweenRotations > 0) {
+            NSLog(@"differenceBetweenRotations: %f", differenceBetweenRotations);
+        }
+        
+        
+        
+        
+        
+        
+        
         player.zRotation = expectedRotation;
         return;
     }
    // NSLog(@"player.zRotation: %f", player.zRotation);
    // NSLog(@"fabsf(player.zRotation): %f", fabsf(player.zRotation));
 
-    if (fabsf(player.zRotation) <= .025f){
+    if (player.endOfLine) {
+        if (fabsf(player.zRotation) <= .025f){
+            player.zRotation = 0;
+        }
+        else{
+            player.zRotation -= .025f;
+        }
+        return;
+    }
+    if (fabsf(player.zRotation) <= .005f){
         player.zRotation = 0;
     }
-    else{
-        player.zRotation -= .025f;
-    }
+    player.zRotation -= .005f;
+
+    
     
 }
 
