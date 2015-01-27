@@ -243,7 +243,7 @@
 }
 
 -(float)calculateYForceGivenSlope:(float)slope{
-   // NSLog(@"slope: %f", slope);
+    NSLog(@"slope: %f", slope);
     if (fabsf(slope - previousSlope) < .001f) {
        // NSLog(@"same slope. return 0");
         return 0;
@@ -254,7 +254,8 @@
 
 -(void)calculatePlayerPosition:(Player *)player withLineArray:(NSMutableArray*)lineArray{
     Constants *constants = [Constants sharedInstance];
-
+    
+    [self calculatePlayerRotation:player];
     [self calculatePlayerVelocity:player];
     player.position = CGPointMake(player.position.x + player.velocity.dx * constants.PHYSICS_SCALAR_MULTIPLIER, player.position.y + player.velocity.dy * constants.PHYSICS_SCALAR_MULTIPLIER);
     [self resolveCollisions:player withLineArray:lineArray];
@@ -264,13 +265,31 @@
         }
     }
     
+    
     //NSLog(@"player.position.y: %f", player.position.y);
 }
 
-//-(BOOL)correctNodeSize:(SKSpriteNode*)node :(Constants*)constants{
-//    if (CGSizeEqualToSize(node.size, CGSizeMake(constants.BRUSH_SIZE * constants.SCALE_COEFFICIENT.dx, constants.BRUSH_SIZE* constants.SCALE_COEFFICIENT.dy))) {
-//        return true;
-//    }
-//    return false;
-//}
+-(void)calculatePlayerRotation:(Player*)player{
+    if (player.roughlyOnLine) {
+      //  float clampedSlope = (player.currentSlope > 1.0f) ? 1.0f : player.currentSlope;
+        //player.zRotation = M_PI_4 * clampedSlope;
+        float expectedRotation = M_PI_4 * player.currentSlope;
+        if (expectedRotation > M_PI_2) {
+            expectedRotation = M_PI_2;
+        }
+        player.zRotation = expectedRotation;
+        return;
+    }
+   // NSLog(@"player.zRotation: %f", player.zRotation);
+   // NSLog(@"fabsf(player.zRotation): %f", fabsf(player.zRotation));
+
+    if (fabsf(player.zRotation) <= .025f){
+        player.zRotation = 0;
+    }
+    else{
+        player.zRotation -= .025f;
+    }
+    
+}
+
 @end

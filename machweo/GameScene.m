@@ -267,7 +267,7 @@
         CGMutablePathRef pathToDraw = CGPathCreateMutable();
         NSValue* firstPointNode = line.nodeArray.firstObject;
         CGPoint firstPointNodePosition = firstPointNode.CGPointValue;
-        currentLineNode.lineWidth = player.size.height * _constants.BRUSH_FRACTION_OF_PLAYER_SIZE;
+        currentLineNode.lineWidth = player.size.height * _constants.BRUSH_FRACTION_OF_PLAYER_SIZE * .5;
         CGPathMoveToPoint(pathToDraw, NULL, firstPointNodePosition.x, firstPointNodePosition.y);
         for (NSValue* pointNode in line.nodeArray) {
             CGPoint pointNodePosition = pointNode.CGPointValue;
