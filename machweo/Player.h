@@ -23,7 +23,7 @@
 @property (nonatomic) bool touchesEnded;
 @property (nonatomic) float minYPosition;
 @property (nonatomic) BOOL endOfLine;
-
+@property (nonatomic) float currentRotationSpeed;
 
 +(instancetype)playerAtPoint:(CGPoint)point;
 //-(void)initAtPoint:(CGPoint)point;
