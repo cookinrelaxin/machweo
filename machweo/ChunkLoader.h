@@ -11,6 +11,6 @@
 
 @interface ChunkLoader : NSObject <NSXMLParserDelegate>
 
--(void)loadWorld:(SKNode*)world withBackgrounds:(SKNode*)backgrounds withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations withScaleCoefficient:(CGVector)scaleCoefficient;
+-(void)loadWorld:(SKNode*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations andTerrain:(SKNode*)terrain withinView:(SKView*)view andLines:(NSMutableArray*)lines;
 -(instancetype)initWithFile:(NSString*)fileName;
 @end

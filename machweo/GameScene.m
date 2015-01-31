@@ -46,15 +46,15 @@
     NSLog(@"dealloc game scene");
 }
 
--(instancetype)initWithSize:(CGSize)size forLevel:(NSString *)levelName{
+-(instancetype)initWithSize:(CGSize)size forLevel:(NSString *)levelName withinView:(SKView*)view{
     if (self = [super initWithSize:size]){
         playerScore = [[Score alloc] init];
         _constants = [Constants sharedInstance];
         _obstacles = [SKNode node];
-        _backgrounds = [SKNode node];
+        _terrain = [SKNode node];
         _decorations = [SKNode node];
         [self addChild:_obstacles];
-        [self addChild:_backgrounds];
+        [self addChild:_terrain];
         [self addChild:_decorations];
         physicsComponent = [[ButsuLiKi alloc] init];
         arrayOfLines = [NSMutableArray array];
@@ -80,7 +80,7 @@
         [self addChild:restartButton];
         
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
-        [cl loadWorld:self withBackgrounds:_backgrounds withObstacles:_obstacles andDecorations:_decorations withScaleCoefficient:_constants.SCALE_COEFFICIENT];
+        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines];
         
 
         maskWrapper = [SKSpriteNode node];
@@ -92,15 +92,15 @@
         brushCropNode.zPosition = _constants.LINE_Z_POSITION;
         [self addChild:brushCropNode];
         
-        __weak GameScene *weakSelf = self;
-        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-        [center addObserverForName:@"shangoBrokeHisBack"
-                            object:nil
-                             queue:nil
-                        usingBlock:^(NSNotification *notification)
-         {
-             weakSelf.shangoBrokeHisBack = true;
-         }];
+//        __weak GameScene *weakSelf = self;
+//        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//        [center addObserverForName:@"shangoBrokeHisBack"
+//                            object:nil
+//                             queue:nil
+//                        usingBlock:^(NSNotification *notification)
+//         {
+//             weakSelf.shangoBrokeHisBack = true;
+//         }];
         
         
 
@@ -191,7 +191,7 @@
     dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
         Line* previousLine = [arrayOfLines objectAtIndex:i];
    // for (Line *previousLine in arrayOfLines) {
-        if (previousLine == arrayOfLines.lastObject) {
+        if ((previousLine == arrayOfLines.lastObject) || previousLine.allowIntersections) {
             return;
         }
         
@@ -265,6 +265,9 @@
    // dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
    // dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
     for (Line* line in arrayOfLines) {
+        if (!line.shouldDraw) {
+            continue;
+        }
        // Line* line = [arrayOfLines objectAtIndex:i];
         SKShapeNode* currentLineNode = [SKShapeNode node];
         currentLineNode.zPosition = _constants.LINE_Z_POSITION;
@@ -363,9 +366,9 @@
     if (player.physicsBody.allContactedBodies.count > 0) {
         [self loseGame];
     }
-//    if (player.position.y < 0 - (player.size.height / 2)) {
-//        [self loseGame];
-//    }
+    if (player.position.y < 0 - (player.size.height / 2)) {
+        [self loseGame];
+    }
     
     if (_shangoBrokeHisBack) {
         [self loseGame];
@@ -447,6 +450,7 @@
         }
         
         _obstacles.position = CGPointMake(_obstacles.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _obstacles.position.y);
+        _terrain.position = CGPointMake(_terrain.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _terrain.position.y);
         
         for (SKSpriteNode* deco in _decorations.children) {
             if ([deco.name isEqualToString:@"rightMostNode"]) {
@@ -457,6 +461,7 @@
                 }
 
             }
+            //NSLog(@"deco.zPosition: %f", deco.zPosition);
             float fractionalCoefficient = deco.zPosition / _constants.OBSTACLE_Z_POSITION;
             CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
             deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y - parallaxAdjustedDifference.dy);

@@ -303,7 +303,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
             player.position = CGPointMake(player.position.x, player.minYPosition);
         }
     }
-    [self verticalLoopPlayer:player];
+   // [self verticalLoopPlayer:player];
    
     
     
@@ -317,7 +317,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
         return;
     }
     if (player.velocity.dy < 0) {
-        NSLog(@"player.position.y: %f", player.position.y);
+     //   NSLog(@"player.position.y: %f", player.position.y);
         if ((player.position.y + player.size.height) < 0) {
             player.position = CGPointMake(player.position.x, player.size.height + player.parent.frame.size.height);
         }

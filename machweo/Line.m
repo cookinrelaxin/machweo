@@ -12,7 +12,17 @@
 
 -(instancetype)init{
     _nodeArray = [NSMutableArray array];
+    _shouldDraw = true;
+    _allowIntersections = false;
     return self;
+}
+
++(Line*)lineWithVertices:(NSMutableArray*)vertices{
+    Line* line = [[Line alloc] init];
+    line.belowPlayer = true;
+    line.nodeArray = vertices;
+    line.allowIntersections = true;
+    return line;
 }
 
 @end

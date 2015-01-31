@@ -29,6 +29,7 @@ int midpoint(int n1, int n2)
     //NSLog(@"screenSize: %f, %f", screenSize.width, screenSize.height);
     
     _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 768);
+    //_IDEAL_SCREEN_SIZE = CGSizeMake(3000, 2000);
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
     _PLAYER_SIZE = 30;
     _OBSTACLE_Z_POSITION = 100;

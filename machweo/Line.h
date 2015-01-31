@@ -12,7 +12,10 @@
 @property (nonatomic) BOOL complete;
 @property (nonatomic) BOOL belowPlayer;
 @property (nonatomic) BOOL shouldDeallocNodeArray;
+@property (nonatomic) BOOL shouldDraw;
+@property (nonatomic) BOOL allowIntersections;
+
 @property (nonatomic) NSMutableArray *nodeArray;
 
-
++(Line*)lineWithVertices:(NSMutableArray*)vertices;
 @end
