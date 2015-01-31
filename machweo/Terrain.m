@@ -128,7 +128,7 @@
     maskWrapper.position = CGPointMake(CGRectGetMidX(pathBoundingBox) + vertexOffset.dx, CGRectGetMidY(pathBoundingBox) + vertexOffset.dy);
     _cropNode.maskNode = maskWrapper;
     
-    _cropNode.zPosition = self.zPosition;
+    //_cropNode.zPosition = self.zPosition;
     
     [self addChild:_cropNode];
     _isClosed = false;
@@ -139,7 +139,7 @@
 -(SKShapeNode*)shapeNodeWithVertices:(NSArray*)vertexArray{
     SKShapeNode* node = [SKShapeNode node];
     node.position = CGPointZero;
-    node.zPosition = self.zPosition;
+    //node.zPosition = self.zPosition;
     node.fillColor = [UIColor whiteColor];
     node.antialiased = false;
     node.physicsBody = nil;

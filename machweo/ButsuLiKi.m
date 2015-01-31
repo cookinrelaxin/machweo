@@ -335,7 +335,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 }
 
 -(void)calculatePlayerRotation:(Player*)player{
-    if (!shangoBrokeHisBack) {
+    //if (!shangoBrokeHisBack) {
         
         if (player.roughlyOnLine) {
             float averageSlope = [self averageSlope];
@@ -347,22 +347,22 @@ const float OFFLINE_ROTATION_SPEED = .02f;
             
             
             
-            float differenceBetweenRotations = fabsf(player.zRotation - expectedRotation);
-            if (differenceBetweenRotations > 0) {
-            }
-            
+//            float differenceBetweenRotations = fabsf(player.zRotation - expectedRotation);
+//            if (differenceBetweenRotations > 0) {
+//            }
+    
             player.zRotation = expectedRotation;
             return;
         }
 
         [pastSlopes removeAllObjects];
-        if (fabsf(player.zRotation) <= player.currentRotationSpeed){
+        if (fabsf(player.zRotation) <= (player.currentRotationSpeed * 2)){
             player.zRotation = 0;
         }
         else{
             player.zRotation -= player.currentRotationSpeed;
         }
-    }
+    //}
 
     
     

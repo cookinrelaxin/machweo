@@ -4,10 +4,7 @@
         <name>a light in the darkness</name>
         <imageName>chapterCellTestBackgroundImage</imageName>
         <levels>
-            <levelName>paradigmEightPointSix</levelName>
-            <levelName>mistyNightOne</levelName>
-            <levelName>improvedParallaxOne</levelName>
-            <levelName>testTerrainSave</levelName>
+            <levelName>beautifulNight</levelName>
         </levels>
     </chapter>
 </chapters>

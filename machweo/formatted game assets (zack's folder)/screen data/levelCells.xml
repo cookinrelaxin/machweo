@@ -1,20 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <levels>
     <level>
-        <name>paradigmEightPointSix</name>
-        <imageName>levelCellTestBackgroundImage</imageName>
-    </level>
-    <level>
-        <name>mistyNightOne</name>
-        <imageName>levelCellTestBackgroundImage</imageName>
-    </level>
-    <level>
-        <name>improvedParallaxOne</name>
-        <imageName>levelCellTestBackgroundImage</imageName>
-    </level>
-    <level>
-        <name>testTerrainSave</name>
-        <imageName>levelCellTestBackgroundImage</imageName>
+    <name>beautifulNight</name>
+    <imageName>levelCellTestBackgroundImage</imageName>
     </level>
 </levels>
 
