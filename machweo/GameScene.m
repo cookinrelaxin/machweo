@@ -268,14 +268,8 @@
         if (!line.shouldDraw) {
             continue;
         }
-       // Line* line = [arrayOfLines objectAtIndex:i];
         SKShapeNode* currentLineNode = [SKShapeNode node];
         currentLineNode.zPosition = _constants.LINE_Z_POSITION;
-       // currentLineNode.strokeColor = [UIColor whiteColor];
-        //currentLineNode.fillColor = [UIColor clearColor];
-       // currentLineNode.fillColor = [UIColor whiteColor];
-       // currentLineNode.strokeTexture = [SKTexture textureVectorNoiseWithSmoothness:.5 size:CGSizeMake(10, 10)];
-
         currentLineNode.antialiased = false;
         currentLineNode.physicsBody = nil;
         currentLineNode.lineCap = kCGLineCapRound;
@@ -291,10 +285,7 @@
         
         currentLineNode.path = pathToDraw;
         [shapeNodes addObject:currentLineNode];
-        //[self addChild:currentLineNode];
         [maskWrapper addChild:currentLineNode];
-        //brushCropNode.maskNode = currentLineNode;
-        //[brushCropNode addChild:currentLineNode];
         CGPathRelease(pathToDraw);
    // });
     }
@@ -334,8 +325,8 @@
    // dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^(void){
     [self updateTime:currentTime];
    // });
-    [self checkForOldLines];
-    [self deallocOldLines];
+   // [self checkForOldLines];
+   // [self deallocOldLines];
     [self cleanUpShapeNodes];
     if (!player.touchesEnded) {
         [self createLineNode];

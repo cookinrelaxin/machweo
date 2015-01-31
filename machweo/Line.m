@@ -22,6 +22,7 @@
     line.belowPlayer = true;
     line.nodeArray = vertices;
     line.allowIntersections = true;
+    line.shouldDraw = false;
     return line;
 }
 
