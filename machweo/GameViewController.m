@@ -144,7 +144,7 @@
 
 -(void)returnToMenu:(Score*)score{
     double currentBest = [(NSNumber*)[_level valueForKey:@"timeToBeatLevel"] doubleValue];
-    if ((score.time < currentBest) || (currentBest == 0.0f)) {
+    if ((score.time < currentBest) || (currentBest <= 0)) {
         [_level setValue:[NSNumber numberWithDouble:score.time] forKey:@"timeToBeatLevel"];
         NSLog(@"time to beat level: %f", score.time);
         NSError *error;
