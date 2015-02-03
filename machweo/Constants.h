@@ -41,6 +41,9 @@ extern int midpoint(int n1, int n2);
 @property (readonly, nonatomic) CGVector SCALE_COEFFICIENT;
 @property (readonly, nonatomic) float Y_PARALLAX_COEFFICIENT;
 
+@property (readonly, nonatomic) int MAX_VERTICES_PER_SUBLINE;
+
+
 //HUD
 @property (readonly, nonatomic) float TIMER_LABEL_FONT_SIZE;
 @property (readonly, nonatomic) UIColor* TIMER_LABEL_FONT_COLOR;

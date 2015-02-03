@@ -33,6 +33,7 @@
 		659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659B21DF1A5E1C1300885C04 /* Images.xcassets */; };
 		659B21EF1A5E1C1400885C04 /* machweoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21EE1A5E1C1400885C04 /* machweoTests.m */; };
 		7808A95F1A75D17200544C78 /* african_textile_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7808A95E1A75D17200544C78 /* african_textile_1.jpg */; };
+		7823AE691A8065D00097375B /* SubLine.m in Sources */ = {isa = PBXBuildFile; fileRef = 7823AE681A8065D00097375B /* SubLine.m */; };
 		782AE76A1A74B89900FF4225 /* chapterCells.xml in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6D61A74B89900FF4225 /* chapterCells.xml */; };
 		782AE76B1A74B89900FF4225 /* levelCells.xml in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6D71A74B89900FF4225 /* levelCells.xml */; };
 		782AE76C1A74B89900FF4225 /* button.ai in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6DA1A74B89900FF4225 /* button.ai */; };
@@ -228,6 +229,8 @@
 		659B21ED1A5E1C1400885C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659B21EE1A5E1C1400885C04 /* machweoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = machweoTests.m; sourceTree = "<group>"; };
 		7808A95E1A75D17200544C78 /* african_textile_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = african_textile_1.jpg; sourceTree = "<group>"; };
+		7823AE671A8065D00097375B /* SubLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubLine.h; sourceTree = "<group>"; };
+		7823AE681A8065D00097375B /* SubLine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubLine.m; sourceTree = "<group>"; };
 		782AE6D61A74B89900FF4225 /* chapterCells.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = chapterCells.xml; sourceTree = "<group>"; };
 		782AE6D71A74B89900FF4225 /* levelCells.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = levelCells.xml; sourceTree = "<group>"; };
 		782AE6DA1A74B89900FF4225 /* button.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = button.ai; sourceTree = "<group>"; };
@@ -736,6 +739,8 @@
 				78B5668F1A7C703E00011E86 /* Terrain.m */,
 				6509D29F1A5E290300F1BBA6 /* Obstacle.h */,
 				6509D2981A5E290300F1BBA6 /* Obstacle.m */,
+				7823AE671A8065D00097375B /* SubLine.h */,
+				7823AE681A8065D00097375B /* SubLine.m */,
 				6509D2C41A5E290300F1BBA6 /* Line.h */,
 				6509D2CA1A5E290300F1BBA6 /* Line.m */,
 			);
@@ -1037,6 +1042,7 @@
 				7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */,
 				6509D2CF1A5E290300F1BBA6 /* CustomNavigationController.m in Sources */,
 				6509D2D51A5E290300F1BBA6 /* Constants.m in Sources */,
+				7823AE691A8065D00097375B /* SubLine.m in Sources */,
 				6509D2D21A5E290300F1BBA6 /* Obstacle.m in Sources */,
 				6509D2D71A5E290300F1BBA6 /* LevelSelectionCollectionViewController.m in Sources */,
 				6509D2D11A5E290300F1BBA6 /* ButsuLiKi.m in Sources */,

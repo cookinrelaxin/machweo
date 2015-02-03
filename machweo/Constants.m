@@ -40,6 +40,10 @@ int midpoint(int n1, int n2)
     
     _Y_PARALLAX_COEFFICIENT = .05f;
     
+    _MAX_VERTICES_PER_SUBLINE = 10;
+    
+    
+    
     _PLAYER_HIT_CATEGORY = 1;
     _OBSTACLE_HIT_CATEGORY = 2;
     
