@@ -287,43 +287,43 @@ typedef enum NodeTypes
 
 -(void)loadWorld:(SKNode*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations andTerrain:(SKNode*)terrain withinView:(SKView *)view andLines:(NSMutableArray*)lines{
     constants = [Constants sharedInstance];
-    for (Obstacle *obstacle in obstacleArray) {
-        obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
-        obstacle.position = CGPointMake(obstacle.position.x * constants.SCALE_COEFFICIENT.dy, obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
-        obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
-        //im sorry for the magic number, but it should be the same as constants._PLAYER_AND_OBSTACLE_Z_POSITION;
-        obstacle.zPosition = constants.OBSTACLE_Z_POSITION;
-        
-        obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:obstacle.texture size:obstacle.size];
-        obstacle.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
-        obstacle.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
-        //obstacle.physicsBody.collisionBitMask = 3;
-        
-        // NSLog(@"obstacle.physicsBody.categoryBitMask: %d", obstacle.physicsBody.categoryBitMask);
-        // NSLog(@"obstacle.physicsBody.contactTestBitMask: %d", obstacle.physicsBody.contactTestBitMask);
-        
-        obstacle.physicsBody.dynamic = false;
-        [obstacles addChild:obstacle];
-    }
+//    for (Obstacle *obstacle in obstacleArray) {
+//        obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
+//        obstacle.position = CGPointMake(obstacle.position.x * constants.SCALE_COEFFICIENT.dy, obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
+//        obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
+//        //im sorry for the magic number, but it should be the same as constants._PLAYER_AND_OBSTACLE_Z_POSITION;
+//        obstacle.zPosition = constants.OBSTACLE_Z_POSITION;
+//        
+//        obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:obstacle.texture size:obstacle.size];
+//        obstacle.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
+//        obstacle.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
+//        //obstacle.physicsBody.collisionBitMask = 3;
+//        
+//        // NSLog(@"obstacle.physicsBody.categoryBitMask: %d", obstacle.physicsBody.categoryBitMask);
+//        // NSLog(@"obstacle.physicsBody.contactTestBitMask: %d", obstacle.physicsBody.contactTestBitMask);
+//        
+//        obstacle.physicsBody.dynamic = false;
+//        [obstacles addChild:obstacle];
+//    }
     
-    for (SKSpriteNode *deco in decorationArray) {
-        deco.size = CGSizeMake(deco.size.width * constants.SCALE_COEFFICIENT.dy, deco.size.height * constants.SCALE_COEFFICIENT.dy);
-        deco.position = CGPointMake(deco.position.x * constants.SCALE_COEFFICIENT.dy, deco.position.y * constants.SCALE_COEFFICIENT.dy);
-        deco.position = [obstacles convertPoint:deco.position fromNode:world];
-        [decorations addChild:deco];
-    }
+//    for (SKSpriteNode *deco in decorationArray) {
+//        deco.size = CGSizeMake(deco.size.width * constants.SCALE_COEFFICIENT.dy, deco.size.height * constants.SCALE_COEFFICIENT.dy);
+//        deco.position = CGPointMake(deco.position.x * constants.SCALE_COEFFICIENT.dy, deco.position.y * constants.SCALE_COEFFICIENT.dy);
+//        deco.position = [obstacles convertPoint:deco.position fromNode:world];
+//        [decorations addChild:deco];
+//    }
     
-    for (Terrain *ter in terrainArray) {
-       // NSLog(@"(SKScene*)world).view: %@", view);
-        [ter checkForClosedShape];
-        [ter closeLoopAndFillTerrainInView:view];
-        [terrain addChild:ter];
-        
-        Line* line = [Line lineWithVertices:ter.lineVertices];
-        [lines addObject:line];
-        
-        
-    }
+//    for (Terrain *ter in terrainArray) {
+//       // NSLog(@"(SKScene*)world).view: %@", view);
+//        [ter checkForClosedShape];
+//        [ter closeLoopAndFillTerrainInView:view];
+//        [terrain addChild:ter];
+//        
+//        Line* line = [Line lineWithVertices:ter.lineVertices];
+//        [lines addObject:line];
+//        
+//        
+//    }
     
 }
 

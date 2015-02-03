@@ -19,16 +19,16 @@
 @property (nonatomic) float xCoordinateOfLeftSide;
 @property (nonatomic) float xCoordinateOfRightSide;
 @property (nonatomic) float currentSlope;
-@property (nonatomic) bool roughlyOnLine;
+//@property (nonatomic) bool roughlyOnLine;
 @property (nonatomic) bool touchesEnded;
-@property (nonatomic) float minYPosition;
-@property (nonatomic) BOOL endOfLine;
+//@property (nonatomic) float minYPosition;
+//@property (nonatomic) BOOL endOfLine;
 @property (nonatomic) float currentRotationSpeed;
 
 +(instancetype)playerAtPoint:(CGPoint)point;
 //-(void)initAtPoint:(CGPoint)point;
 -(void)updateEdges;
--(void)resetMinsAndMaxs;
+//-(void)resetMinsAndMaxs;
 @end
 
 

@@ -10,6 +10,7 @@
 #import "Player.h"
 #import "Obstacle.h"
 #import "Line.h"
+#import "SubLine.h"
 #import "ChunkLoader.h"
 #import "Score.h"
 
@@ -116,6 +117,8 @@
     [self handleButtonPressesAtPoint:positionInSelf];
     previousPoint = currentPoint = positionInSelf;
     Line *newLine = [[Line alloc] init];
+    SubLine *newSubLine = [[SubLine alloc] init];
+    [newLine.subLines addObject:newSubLine];
     [arrayOfLines addObject:newLine];
     
 }
@@ -140,6 +143,10 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     Line *currentLine = [arrayOfLines lastObject];
+    [currentLine.visualBoundingBox removeFromParent];
+    //SubLine *currentSubLine = [currentLine.subLines lastObject];
+   // [currentSubLine.visualBoundingBox removeFromParent];
+
     currentLine.complete = true;
     player.touchesEnded = true;
 }
@@ -159,63 +166,72 @@
 
 -(void)createLineNode{
     Line *currentLine = [arrayOfLines lastObject];
-    NSMutableArray *currentPointArray = currentLine.nodeArray;
-    
-    for (int i = (int)currentPointArray.count - 1; (i >= 0) && (i > currentPointArray.count - 1 - 5); i --) {
-        NSValue* node = [currentPointArray objectAtIndex:i];
-        float nodeXPos = [node CGPointValue].x;
-        if (currentPoint.x < nodeXPos) {
-            return;
-        }
-    }
-    
-    if (currentPointArray.count == 0) {
-        
-        if (player.position.y > currentPoint.y) {
-            currentLine.belowPlayer = true;
-        }
-        else{
-            currentLine.belowPlayer = false;
-        }
-    }
+    SubLine *currentSubLine = [currentLine.subLines lastObject];
+    NSMutableArray *currentPointArray = currentSubLine.vertices;
+    //NSLog(@"currentPointArray: %@", currentPointArray);
     
     [currentPointArray addObject:[NSValue valueWithCGPoint:currentPoint]];
-    [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
+    [currentLine updateMinimaEtMaximaWithPoint:currentPoint];
+    [currentSubLine updateMinimaEtMaximaWithPoint:currentPoint];
+    //[self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
     
-}
-
--(void)removeLineIntersectionsBetween:(CGPoint)a and:(CGPoint)b{
-    NSMutableArray* nodesToDeleteFromNodeArray = [NSMutableArray array];
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
-        Line* previousLine = [arrayOfLines objectAtIndex:i];
-   // for (Line *previousLine in arrayOfLines) {
-        if ((previousLine == arrayOfLines.lastObject) || previousLine.allowIntersections) {
-            return;
+    
+    [currentLine.visualBoundingBox removeFromParent];
+    currentLine.visualBoundingBox = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithHue:100 saturation:100 brightness:50 alpha:.25] size:currentLine.AABB.size];
+    currentLine.visualBoundingBox.position = CGPointMake(CGRectGetMidX(currentLine.AABB), CGRectGetMidY(currentLine.AABB));
+    if (currentLine.visualBoundingBox) {
+        [self addChild:currentLine.visualBoundingBox];
+    }
+    
+    [currentSubLine.visualBoundingBox removeFromParent];
+    currentSubLine.visualBoundingBox = [SKSpriteNode spriteNodeWithColor:[UIColor colorWithHue:200 saturation:100 brightness:75 alpha:.25] size:currentSubLine.AABB.size];
+    currentSubLine.visualBoundingBox.position = CGPointMake(CGRectGetMidX(currentSubLine.AABB), CGRectGetMidY(currentSubLine.AABB));
+    if (currentSubLine.visualBoundingBox) {
+        [self addChild:currentSubLine.visualBoundingBox];
+    }
+    
+    if (currentPointArray.count >= _constants.MAX_VERTICES_PER_SUBLINE) {
+        SubLine* newSubLine = [[SubLine alloc] init];
+        [currentLine.subLines addObject:newSubLine];
+        if (currentSubLine.visualBoundingBox) {
+            [currentSubLine.visualBoundingBox removeFromParent];
         }
-        
-        NSMutableArray *previousPointArray = previousLine.nodeArray;
-        BOOL killTheRest = false;
-        for (NSValue* node in previousPointArray) {
-            CGPoint nodePosInScene = node.CGPointValue;
-
-            //yes, 50 is a magic number. but it is a necessary cushion.
-            if (killTheRest || (nodePosInScene.x >= a.x)) {
-                if (killTheRest || ((nodePosInScene.y <= a.y) && (nodePosInScene.y >= b.y)) || ((nodePosInScene.y >= a.y) && (nodePosInScene.y <= b.y))) {
-                    [nodesToDeleteFromNodeArray addObject:node];
-                    killTheRest = true;
-                }
-            }
-        }
-        for (NSValue* node in nodesToDeleteFromNodeArray) {
-            [previousPointArray removeObject:node];
-        }
-        });
-        
-   // }
+    }
     
 }
+
+//-(void)removeLineIntersectionsBetween:(CGPoint)a and:(CGPoint)b{
+//    NSMutableArray* nodesToDeleteFromNodeArray = [NSMutableArray array];
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
+//        Line* previousLine = [arrayOfLines objectAtIndex:i];
+//   // for (Line *previousLine in arrayOfLines) {
+//        if ((previousLine == arrayOfLines.lastObject) || previousLine.allowIntersections) {
+//            return;
+//        }
+//        
+//        NSMutableArray *previousPointArray = previousLine.nodeArray;
+//        BOOL killTheRest = false;
+//        for (NSValue* node in previousPointArray) {
+//            CGPoint nodePosInScene = node.CGPointValue;
+//
+//            //yes, 50 is a magic number. but it is a necessary cushion.
+//            if (killTheRest || (nodePosInScene.x >= a.x)) {
+//                if (killTheRest || ((nodePosInScene.y <= a.y) && (nodePosInScene.y >= b.y)) || ((nodePosInScene.y >= a.y) && (nodePosInScene.y <= b.y))) {
+//                    [nodesToDeleteFromNodeArray addObject:node];
+//                    killTheRest = true;
+//                }
+//            }
+//        }
+//        for (NSValue* node in nodesToDeleteFromNodeArray) {
+//            [previousPointArray removeObject:node];
+//        }
+//        });
+//        
+//   // }
+//    
+//}
 
 -(void)calculateScoreAndExit{
     if (gameWon) {
@@ -230,9 +246,8 @@
 -(void)deallocOldLines{
     NSMutableArray* oldLines = [NSMutableArray array];
     for (Line *thisLine in arrayOfLines) {
-        if (thisLine.shouldDeallocNodeArray) {
+        if (thisLine.shouldDealloc) {
             [oldLines addObject:thisLine];
-
         }
     }
     for (Line* oldLine in oldLines) {
@@ -240,30 +255,28 @@
     }
 }
 
--(void)checkForOldLines{
-    for (Line *thisLine in arrayOfLines) {
-        if (thisLine == arrayOfLines.lastObject) {
-            continue;
-        }
-        if (thisLine.shouldDeallocNodeArray) {
-            continue;
-        }
-        if (thisLine.complete) {
-            NSMutableArray* nodeArray = thisLine.nodeArray;
-           // SKSpriteNode* lastNode = nodeArray.lastObject;
-            NSValue* lastNode = nodeArray.lastObject;
-            //CGPoint lastNodePositionInScene = [self convertPoint:lastNode.position fromNode:_lines];
-            CGPoint lastNodePositionInView = [self convertPointToView: lastNode.CGPointValue];
-            if (lastNodePositionInView.x < 0) {
-                thisLine.shouldDeallocNodeArray = true;
-            }
-        }
-    }
-}
+//-(void)checkForOldLines{
+//    for (Line *thisLine in arrayOfLines) {
+//        if (thisLine == arrayOfLines.lastObject) {
+//            continue;
+//        }
+//        if (thisLine.shouldDeallocSubLinesArray) {
+//            continue;
+//        }
+//        if (thisLine.complete) {
+//            NSMutableArray* nodeArray = thisLine.nodeArray;
+//           // SKSpriteNode* lastNode = nodeArray.lastObject;
+//            NSValue* lastNode = nodeArray.lastObject;
+//            //CGPoint lastNodePositionInScene = [self convertPoint:lastNode.position fromNode:_lines];
+//            CGPoint lastNodePositionInView = [self convertPointToView: lastNode.CGPointValue];
+//            if (lastNodePositionInView.x < 0) {
+//                thisLine.shouldDeallocSubLinesArray = true;
+//            }
+//        }
+//    }
+//}
 
 -(void)drawLines{
-   // dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
-   // dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
     for (Line* line in arrayOfLines) {
         if (!line.shouldDraw) {
             continue;
@@ -274,20 +287,23 @@
         currentLineNode.physicsBody = nil;
         currentLineNode.lineCap = kCGLineCapRound;
         CGMutablePathRef pathToDraw = CGPathCreateMutable();
-        NSValue* firstPointNode = line.nodeArray.firstObject;
+        
+        SubLine* firstSubLine = line.subLines.firstObject;
+        NSValue* firstPointNode = firstSubLine.vertices.firstObject;
         CGPoint firstPointNodePosition = firstPointNode.CGPointValue;
         currentLineNode.lineWidth = player.size.height * _constants.BRUSH_FRACTION_OF_PLAYER_SIZE * .5;
         CGPathMoveToPoint(pathToDraw, NULL, firstPointNodePosition.x, firstPointNodePosition.y);
-        for (NSValue* pointNode in line.nodeArray) {
-            CGPoint pointNodePosition = pointNode.CGPointValue;
-            CGPathAddLineToPoint(pathToDraw, NULL, pointNodePosition.x, pointNodePosition.y);
+        for (SubLine* sub in line.subLines) {
+            for (NSValue* val in sub.vertices){
+                CGPoint pointNodePosition = val.CGPointValue;
+                CGPathAddLineToPoint(pathToDraw, NULL, pointNodePosition.x, pointNodePosition.y);
+            }
         }
         
         currentLineNode.path = pathToDraw;
         [shapeNodes addObject:currentLineNode];
         [maskWrapper addChild:currentLineNode];
         CGPathRelease(pathToDraw);
-   // });
     }
 }
 
@@ -341,10 +357,9 @@
     //if (shouldCreateNewPlayer) {
         [self createPlayer];
     }
-
     if (player) {
         [self centerCameraOnPlayer];
-        [player resetMinsAndMaxs];
+       // [player resetMinsAndMaxs];
         [player updateEdges];
         [physicsComponent calculatePlayerPosition:player withLineArray:arrayOfLines];
     }
@@ -433,10 +448,14 @@
         player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
         CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
         for (Line* line in arrayOfLines) {
-            for (int i = 0; i < line.nodeArray.count; i ++) {
-                NSValue* pointNode = [line.nodeArray objectAtIndex:i];
-                CGPoint pointNodePosition = pointNode.CGPointValue;
-                [line.nodeArray replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - differenceInPreviousAndCurrentPlayerPositions.dx, pointNodePosition.y)]];
+            [line adjustMinimaEtMaximaByDifference:CGVectorMake(differenceInPreviousAndCurrentPlayerPositions.dx, 0)];
+            for (SubLine* sub in line.subLines) {
+                [sub adjustMinimaEtMaximaByDifference:CGVectorMake(differenceInPreviousAndCurrentPlayerPositions.dx, 0)];
+                for (int i = 0; i < sub.vertices.count; i ++) {
+                    NSValue* pointNode = [sub.vertices objectAtIndex:i];
+                    CGPoint pointNodePosition = pointNode.CGPointValue;
+                    [sub.vertices replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - differenceInPreviousAndCurrentPlayerPositions.dx, pointNodePosition.y)]];
+                }
             }
         }
         

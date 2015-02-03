@@ -9,6 +9,8 @@
 #import "ButsuLiKi.h"
 #import "Obstacle.h"
 #import "Line.h"
+#import "SubLine.h"
+#import "Intersection.h"
 const int PAST_SLOPES_COUNT = 10;
 const float ONLINE_ROTATION_SPEED = .005f;
 const float OFFLINE_ROTATION_SPEED = .02f;
@@ -19,95 +21,206 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     BOOL shangoBrokeHisBack;
 }
 
--(void)resolveCollisions:(Player*)player withLineArray:(NSMutableArray*)LineArray{
+-(void)findCollision:(Player*)player withLineArray:(NSMutableArray*)LineArray{
     
-   __block float yMin = player.position.y;
-    player.roughlyOnLine = false;
     previousSlope = player.currentSlope;
     player.currentSlope = 0.0f;
     
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_apply(LineArray.count, queue, ^(size_t i) {
-        Line* line = [LineArray objectAtIndex:i];
-    //for (Line *line in LineArray){
-        NSMutableArray *pointArray = line.nodeArray;
-        if (pointArray.count < 2) {
-            //continue;
-            return ;
+    for (Line *line in LineArray){
+        CGPoint playerCurrentPosition = player.position;
+        CGPoint playerFuturePosition = CGPointMake(playerCurrentPosition.x + player.velocity.dx, playerCurrentPosition.y + player.velocity.dy);
+        CGPoint lineAABBIntersection = [self test2DSegmentAABB:playerCurrentPosition :playerFuturePosition :line.AABB];
+        if (CGPointEqualToPoint(lineAABBIntersection, CGPointZero)) {
+            continue;
+        }
+       // NSLog(@"lineIntersection");
+
+    
+        for (SubLine *sub in line.subLines) {
+            CGPoint sublineAABBIntersection = [self test2DSegmentAABB:playerCurrentPosition :playerFuturePosition :sub.AABB];
+            if (CGPointEqualToPoint(sublineAABBIntersection, CGPointZero)) {
+                continue;
+            }
+            NSLog(@"sublineIntersection");
+
+            Intersection *sublineIntersection = [self findSublineIntersection:playerCurrentPosition :playerFuturePosition :sub];
+            [self resolveCollision:sublineIntersection :player];
+            return;
+
         }
         
-        int leftPointIndex = [self binarySearchForFlankingPoints:pointArray withPoint:player.position from:0 to:(int)pointArray.count - 1 forPlayerSize:player.size];
-        int rightPointIndex = leftPointIndex + 1;
-        if (!(rightPointIndex < pointArray.count)) {
-            rightPointIndex = leftPointIndex;
-        }
-        for (int i = leftPointIndex; (i < leftPointIndex + 10) && (i < pointArray.count - 1); i ++) {
-
-            NSValue *leftNode = [pointArray objectAtIndex:i];
-            NSValue *rightNode = [pointArray objectAtIndex:i + 1];
-
-            CGPoint leftPoint = leftNode.CGPointValue;
-            CGPoint rightPoint = rightNode.CGPointValue;
-           // NSLog(@"player.position.x: %f", player.position.x);
-           // NSLog(@"rightPoint.x: %f", rightPoint.x);
-            
-            BOOL playerIntersects = [self playerIntersectsLineSegment:player :leftPoint :rightPoint];
-
-            if (playerIntersects) {
-                
-                if (!line.belowPlayer) {
-                    if (!line.belowPlayer && ((leftPoint.y < player.yCoordinateOfBottomSide) && (rightPoint.y < player.yCoordinateOfBottomSide))) {
-                        line.belowPlayer = true;
-                    }
-                    break;
-                }
-                
-                CGPoint intersectionPoint = [self closestPtPointSegment:player.position :leftPoint :rightPoint];
-                
-                CGPoint newPlayerPosition = CGPointMake(intersectionPoint.x - (player.size.width / 2), intersectionPoint.y + (player.size.height / 2));
-                
-                if (newPlayerPosition.y > yMin) {
-                    yMin = newPlayerPosition.y;
-                }
-                
-                float slope = [ButsuLiKi calculateSlopeForTriangleBetween:leftPoint and:rightPoint];
-                player.currentSlope = slope;
-                player.roughlyOnLine = true;
-                [self addSlopeToSlopeArray:slope];
-                [self isShangoDead:player];
-                player.currentRotationSpeed = ONLINE_ROTATION_SPEED;
-
-                
-                
-                
-                if (rightNode == pointArray.lastObject) {
-                    player.endOfLine = true;
-                    player.currentRotationSpeed = OFFLINE_ROTATION_SPEED;
-                }
-//                if ((rightNode == pointArray.lastObject) && (player.position.x > rightPoint.x)) {
-//                    player.endOfLine = true;
+        
+//        if (pointArray.count < 2) {
+//            //continue;
+//            return ;
+//        }
+//        
+//        int leftPointIndex = [self binarySearchForFlankingPoints:pointArray withPoint:player.position from:0 to:(int)pointArray.count - 1 forPlayerSize:player.size];
+//        int rightPointIndex = leftPointIndex + 1;
+//        if (!(rightPointIndex < pointArray.count)) {
+//            rightPointIndex = leftPointIndex;
+//        }
+//        for (int i = leftPointIndex; (i < leftPointIndex + 10) && (i < pointArray.count - 1); i ++) {
+//
+//            NSValue *leftNode = [pointArray objectAtIndex:i];
+//            NSValue *rightNode = [pointArray objectAtIndex:i + 1];
+//
+//            CGPoint leftPoint = leftNode.CGPointValue;
+//            CGPoint rightPoint = rightNode.CGPointValue;
+//           // NSLog(@"player.position.x: %f", player.position.x);
+//           // NSLog(@"rightPoint.x: %f", rightPoint.x);
+//            
+//            BOOL playerIntersects = [self playerIntersectsLineSegment:player :leftPoint :rightPoint];
+//
+//            if (playerIntersects) {
+//                
+//                if (!line.belowPlayer) {
+//                    if (!line.belowPlayer && ((leftPoint.y < player.yCoordinateOfBottomSide) && (rightPoint.y < player.yCoordinateOfBottomSide))) {
+//                        line.belowPlayer = true;
+//                    }
+//                    break;
 //                }
-                
-            }
-        }
+//                
+//                CGPoint intersectionPoint = [self closestPtPointSegment:player.position :leftPoint :rightPoint];
+//                
+//                CGPoint newPlayerPosition = CGPointMake(intersectionPoint.x - (player.size.width / 2), intersectionPoint.y + (player.size.height / 2));
+//                
+//                if (newPlayerPosition.y > yMin) {
+//                    yMin = newPlayerPosition.y;
+//                }
+//                
+//                float slope = [ButsuLiKi calculateSlopeForTriangleBetween:leftPoint and:rightPoint];
+//                player.currentSlope = slope;
+//                player.roughlyOnLine = true;
+//                [self addSlopeToSlopeArray:slope];
+//                [self isShangoDead:player];
+//                player.currentRotationSpeed = ONLINE_ROTATION_SPEED;
+//
+//                
+//                
+//                
+//                if (rightNode == pointArray.lastObject) {
+//                    player.endOfLine = true;
+//                    player.currentRotationSpeed = OFFLINE_ROTATION_SPEED;
+//                }
+////                if ((rightNode == pointArray.lastObject) && (player.position.x > rightPoint.x)) {
+////                    player.endOfLine = true;
+////                }
+//                
+//            }
+//        }
 
-    //}
-    });
+    }
+    [self resolveCollision:nil :player];
 
-        player.minYPosition = yMin;
+  //  player.minYPosition = yMin;
 }
 
--(void)isShangoDead:(Player*)player{
-  //  if ((player.currentRotationSpeed == OFFLINE_ROTATION_SPEED) && (player.velocity.dy < 0)) {
-      if (player.velocity.dy < 0) {
+-(void)resolveCollision:(Intersection*)intersection :(Player*)player{
+    Constants *constants = [Constants sharedInstance];
 
-      //  NSLog(@"player.zRotation: %f", player.zRotation);
-        if (player.zRotation > M_PI_4) {
-              //NSLog(@"player.currentSlope: %f", player.currentSlope);
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"shangoBrokeHisBack" object:nil];
-            shangoBrokeHisBack = true;
+    if (intersection) {
+        
+        GLKVector2 currentVelocity = GLKVector2Make(player.velocity.dx, player.velocity.dy);
+        GLKVector2 normalizedVelocity = GLKVector2Normalize(currentVelocity);
+        
+        // not sure at all about this
+        player.position = CGPointMake(intersection.point.x - (normalizedVelocity.x * player.size.width), intersection.point.y - (normalizedVelocity.y * player.size.height));
+        
+        float rads = atanf(intersection.slope);
+        float impulse = constants.GRAVITY * sinf(rads);
+        GLKVector2 m = GLKVector2Make(impulse * cosf(rads), impulse * sinf(rads));
+        
+        player.velocity = CGVectorMake(m.x, m.y);
+    }
+    else{
+        player.velocity = CGVectorMake(player.velocity.dx, player.velocity.dy - constants.GRAVITY);
+    }
+    
+}
+
+-(Intersection*)findSublineIntersection:(CGPoint)a :(CGPoint)b :(SubLine*)subline{
+    NSMutableArray* vertices = subline.vertices;
+    for (int i = 0; i < vertices.count - 1; i ++) {
+        CGPoint pt1 = ((NSValue*)[vertices objectAtIndex:i]).CGPointValue;
+        CGPoint pt2 = ((NSValue*)[vertices objectAtIndex:i + 1]).CGPointValue;
+        CGPoint intersection = [self test2DSegmentSegment:a :b :pt1 :pt2];
+        if (!CGPointEqualToPoint(intersection, CGPointZero)) {
+            // there's an intersection
+            return [Intersection intersectionWithPoint:intersection andSlope:[ButsuLiKi calculateSlopeForTriangleBetween:pt1 and:pt2]];
+        }
+
+    }
+    //no intersection. should not occur under expected circumstances
+    return nil;
+}
+
+
+// this is possibly not working because cg rect's origin is top left...
+-(CGPoint)test2DSegmentAABB:(CGPoint)a :(CGPoint)b :(CGRect)rect{
+    CGPoint rectTopSide1 = CGPointMake(rect.origin.x, rect.size.height);
+    CGPoint rectTopSide2 = CGPointMake(rect.origin.x + rect.size.width, rect.size.height);
+    CGPoint intersection = [self test2DSegmentSegment:a :b :rectTopSide1 :rectTopSide2];
+    if (!CGPointEqualToPoint(intersection, CGPointZero)) {
+        // there's an intersection
+        NSLog(@"Intersection with top side");
+
+        return intersection;
+    }
+    
+    CGPoint rectBottomSide1 = CGPointMake(rect.origin.x, rect.origin.y);
+    CGPoint rectBottomSide2 = CGPointMake(rect.origin.x + rect.size.width, rect.origin.y);
+    intersection = [self test2DSegmentSegment:a :b :rectBottomSide1 :rectBottomSide2];
+    if (!CGPointEqualToPoint(intersection, CGPointZero)) {
+        // there's an intersection
+        return intersection;
+    }
+    
+    CGPoint rectLeftSide1 = CGPointMake(rect.origin.x, rect.origin.y);
+    CGPoint rectLeftSide2 = CGPointMake(rect.origin.x, rect.origin.y + rect.size.height);
+    intersection = [self test2DSegmentSegment:a :b :rectLeftSide1 :rectLeftSide2];
+    if (!CGPointEqualToPoint(intersection, CGPointZero)) {
+        // there's an intersection
+        return intersection;
+    }
+    
+    CGPoint rectRightSide1 = CGPointMake(rect.origin.x + rect.size.width, rect.origin.y);
+    CGPoint rectRightSide2 = CGPointMake(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
+    intersection = [self test2DSegmentSegment:a :b :rectRightSide1 :rectRightSide2];
+    if (!CGPointEqualToPoint(intersection, CGPointZero)) {
+        // there's an intersection
+        return intersection;
+    }
+    
+    return CGPointZero;
+}
+
+-(CGPoint)test2DSegmentSegment:(CGPoint)a :(CGPoint)b :(CGPoint)c :(CGPoint)d{
+    float a1 = [self signed2DTriArea:a :b :d];
+    float a2 = [self signed2DTriArea:a :b :c];
+    if (a1 * a2 < 0.0f) {
+        float a3 = [self signed2DTriArea:c :d :a];
+        float a4 = a3 + a2 - a1;
+        if (a3 * a4 < 0.0f) {
+            float t = a3 / (a3 - a4);
+            
+            GLKVector2 aVector = GLKVector2Make(a.x, a.y);
+            GLKVector2 bVector = GLKVector2Make(b.x, b.y);
+            
+            GLKVector2 pVector = GLKVector2Add(aVector, GLKVector2MultiplyScalar(GLKVector2Subtract(bVector, aVector), t));
+            
+            CGPoint intersectionPoint = CGPointMake(pVector.x, pVector.y);
+            return intersectionPoint;
+            
+            
         }
     }
+    //if no intersection
+    return CGPointZero;
+}
+
+-(float)signed2DTriArea:(CGPoint)a :(CGPoint)b :(CGPoint)c{
+    return (a.x - c.x) * (b.y - c.y) - (a.y - c.y) * (b.x - c.x);
 }
 
 -(void)addSlopeToSlopeArray:(float)slope{
@@ -152,56 +265,6 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     return (horizontalPlaneIntersects && verticalPlaneIntersects);
 }
 
-//returns the index of the left point for the relevant line
--(int) binarySearchForFlankingPoints:(NSMutableArray*)pointArray withPoint:(CGPoint)point from:(int)imin to:(int)imax forPlayerSize:(CGSize)playerSize{
-    if ((imax - imin) == 1){
-        return imin;
-    }
-    if (imax == imin){
-        return imin;
-    }
-    
-    NSValue *imaxNode = [pointArray objectAtIndex:imax];
-    CGPoint imaxPoint = imaxNode.CGPointValue;
-    
-    NSValue *iminNode = [pointArray objectAtIndex:imin];
-    CGPoint iminPoint = iminNode.CGPointValue;
-    
-    if ((imaxPoint.x - iminPoint.x) < playerSize.width) {
-        CGPoint closestPoint = iminPoint;
-        int closestIndex = imin;
-        for (int i = imin + 1; i <= imax; i ++) {
-            NSValue *iNode = [pointArray objectAtIndex:i];
-            CGPoint iPoint = iNode.CGPointValue;
-            
-            float distanceToPlayer = [self distanceBetween:point and:iPoint];
-            if (distanceToPlayer < [self distanceBetween:point and:closestPoint]) {
-                closestPoint = iPoint;
-                closestIndex = i;
-            }
-        }
-        return closestIndex;
-    }
-    
-    
-     {
-        int imid = midpoint(imin, imax);
-        NSValue *imidNode = [pointArray objectAtIndex:imid];
-         CGPoint imidPoint = imidNode.CGPointValue;
-         if (imidPoint.x > point.x) {
-            return [self binarySearchForFlankingPoints:pointArray withPoint:point from:imin to:imid forPlayerSize:playerSize];
-        }
-        else{
-            return [self binarySearchForFlankingPoints:pointArray withPoint:point from:imid to:imax forPlayerSize:playerSize];
-        }
-    }
-}
-
-- (float) distanceBetween : (CGPoint) p1 and: (CGPoint)p2
-{
-    return sqrt(pow(p2.x-p1.x,2)+pow(p2.y-p1.y,2));
-}
-
 
 + (float)calculateSlopeForTriangleBetween:(CGPoint)pt1 and:(CGPoint)pt2{
     float horizontalLength = pt2.x - pt1.x;
@@ -213,60 +276,42 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     return slope;
 }
 
--(CGPoint)closestPtPointSegment:(CGPoint)c :(CGPoint)a :(CGPoint)b{
-    GLKVector2 aVector = GLKVector2Make(a.x, a.y);
-    GLKVector2 bVector = GLKVector2Make(b.x, b.y);
-    GLKVector2 cVector = GLKVector2Make(c.x, c.y);
-    
-    GLKVector2 ab = GLKVector2Subtract(bVector, aVector);
-    float t = GLKVector2DotProduct(GLKVector2Subtract(cVector, aVector), ab) / GLKVector2DotProduct(ab, ab);
-//    if (t < 0.0f){
-//        t = 0.0f;
+
+//-(void)calculatePlayerVelocity:(Player *)player{
+//    Constants *constants = [Constants sharedInstance];
+//    
+//    if (player.roughlyOnLine) {
+//        player.velocity = CGVectorMake(player.velocity.dx + [self calculateXForceGivenSlope:player.currentSlope], player.velocity.dy + [self calculateYForceGivenSlope:player.currentSlope]);
+//        player.velocity = CGVectorMake(player.velocity.dx + constants.AMBIENT_X_FORCE, player.velocity.dy);
+//        player.velocity = CGVectorMake(player.velocity.dx * constants.FRICTION_COEFFICIENT, player.velocity.dy * constants.FRICTION_COEFFICIENT);
+//        if (player.velocity.dy < -1) {
+//            player.velocity = CGVectorMake(player.velocity.dx, -1);
+//        }
 //    }
-//    if (t > 0.0f) {
-        //t = 1.0f;
+//   else{
+//        player.velocity = CGVectorMake(player.velocity.dx, player.velocity.dy - constants.GRAVITY);
 //    }
-
-    //NSLog(@"t: %f", t);
-    GLKVector2 d = GLKVector2Add(aVector, GLKVector2MultiplyScalar(ab, t));
-    return CGPointMake(d.x, d.y);
-}
-
--(void)calculatePlayerVelocity:(Player *)player{
-    Constants *constants = [Constants sharedInstance];
-    
-    if (player.roughlyOnLine) {
-        player.velocity = CGVectorMake(player.velocity.dx + [self calculateXForceGivenSlope:player.currentSlope], player.velocity.dy + [self calculateYForceGivenSlope:player.currentSlope]);
-        player.velocity = CGVectorMake(player.velocity.dx + constants.AMBIENT_X_FORCE, player.velocity.dy);
-        player.velocity = CGVectorMake(player.velocity.dx * constants.FRICTION_COEFFICIENT, player.velocity.dy * constants.FRICTION_COEFFICIENT);
-        if (player.velocity.dy < -1) {
-            player.velocity = CGVectorMake(player.velocity.dx, -1);
-        }
-    }
-   else{
-        player.velocity = CGVectorMake(player.velocity.dx, player.velocity.dy - constants.GRAVITY);
-    }
-    
-    if ((player.velocity.dy < 0) && player.endOfLine) {
-        player.endOfLine = false;
-        player.velocity = CGVectorMake(player.velocity.dx, 0);
-    }
-
-    if (player.velocity.dy < constants.MIN_PLAYER_VELOCITY_DY) {
-        player.velocity = CGVectorMake(player.velocity.dx, constants.MIN_PLAYER_VELOCITY_DY);
-    }
-    if (player.velocity.dy > constants.MAX_PLAYER_VELOCITY_DY) {
-        player.velocity = CGVectorMake(player.velocity.dx, constants.MAX_PLAYER_VELOCITY_DY);
-    }
-    if (player.velocity.dx < constants.MIN_PLAYER_VELOCITY_DX) {
-        player.velocity = CGVectorMake(constants.MIN_PLAYER_VELOCITY_DX, player.velocity.dy);
-    }
-    if (player.velocity.dx > constants.MAX_PLAYER_VELOCITY_DX) {
-        player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, player.velocity.dy);
-    }
-   // NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
-
-}
+//    
+//    if ((player.velocity.dy < 0) && player.endOfLine) {
+//        player.endOfLine = false;
+//        player.velocity = CGVectorMake(player.velocity.dx, 0);
+//    }
+//
+//    if (player.velocity.dy < constants.MIN_PLAYER_VELOCITY_DY) {
+//        player.velocity = CGVectorMake(player.velocity.dx, constants.MIN_PLAYER_VELOCITY_DY);
+//    }
+//    if (player.velocity.dy > constants.MAX_PLAYER_VELOCITY_DY) {
+//        player.velocity = CGVectorMake(player.velocity.dx, constants.MAX_PLAYER_VELOCITY_DY);
+//    }
+//    if (player.velocity.dx < constants.MIN_PLAYER_VELOCITY_DX) {
+//        player.velocity = CGVectorMake(constants.MIN_PLAYER_VELOCITY_DX, player.velocity.dy);
+//    }
+//    if (player.velocity.dx > constants.MAX_PLAYER_VELOCITY_DX) {
+//        player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, player.velocity.dy);
+//    }
+//   // NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
+//
+//}
 
 -(float)calculateXForceGivenSlope:(float)slope{
     Constants *constants = [Constants sharedInstance];
@@ -290,41 +335,17 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 -(void)calculatePlayerPosition:(Player *)player withLineArray:(NSMutableArray*)lineArray{
     Constants *constants = [Constants sharedInstance];
     
-    [self calculatePlayerRotation:player];
-    [self calculatePlayerVelocity:player];
+    //[self calculatePlayerRotation:player];
+   // [self calculatePlayerVelocity:player];
     player.position = CGPointMake(player.position.x + player.velocity.dx * constants.PHYSICS_SCALAR_MULTIPLIER, player.position.y + player.velocity.dy * constants.PHYSICS_SCALAR_MULTIPLIER);
   //  NSLog(@"player.position.y: %f", player.position.y);
    // NSLog(@"player.position.y scaled: %f", player.position.y * constants.PHYSICS_SCALAR_MULTIPLIER);
 
     
-    [self resolveCollisions:player withLineArray:lineArray];
-    if (player.roughlyOnLine) {
-        if (player.position.y < player.minYPosition) {
-            player.position = CGPointMake(player.position.x, player.minYPosition);
-        }
-    }
-   // [self verticalLoopPlayer:player];
-   
-    
-    
+    [self findCollision:player withLineArray:lineArray];
+
 }
 
--(void)verticalLoopPlayer:(Player*)player{
-    if (player.velocity.dy > 0) {
-        if ((player.position.y - player.size.height) > player.parent.frame.size.height) {
-            player.position = CGPointMake(player.position.x, 0 - player.size.height);
-        }
-        return;
-    }
-    if (player.velocity.dy < 0) {
-     //   NSLog(@"player.position.y: %f", player.position.y);
-        if ((player.position.y + player.size.height) < 0) {
-            player.position = CGPointMake(player.position.x, player.size.height + player.parent.frame.size.height);
-        }
-        return;
-    }
-    
-}
 -(float)averageSlope{
     float sum = 0;
     for (NSNumber* num in pastSlopes) {
@@ -334,38 +355,38 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     return sum / pastSlopes.count;
 }
 
--(void)calculatePlayerRotation:(Player*)player{
-    //if (!shangoBrokeHisBack) {
-        
-        if (player.roughlyOnLine) {
-            float averageSlope = [self averageSlope];
-            
-            float expectedRotation = M_PI_4 * averageSlope;
-            if (expectedRotation > M_PI_2) {
-                expectedRotation = M_PI_2;
-            }
-            
-            
-            
-//            float differenceBetweenRotations = fabsf(player.zRotation - expectedRotation);
-//            if (differenceBetweenRotations > 0) {
+//-(void)calculatePlayerRotation:(Player*)player{
+//    //if (!shangoBrokeHisBack) {
+//        
+//        if (player.roughlyOnLine) {
+//            float averageSlope = [self averageSlope];
+//            
+//            float expectedRotation = M_PI_4 * averageSlope;
+//            if (expectedRotation > M_PI_2) {
+//                expectedRotation = M_PI_2;
 //            }
-    
-            player.zRotation = expectedRotation;
-            return;
-        }
-
-        [pastSlopes removeAllObjects];
-        if (fabsf(player.zRotation) <= (player.currentRotationSpeed * 2)){
-            player.zRotation = 0;
-        }
-        else{
-            player.zRotation -= player.currentRotationSpeed;
-        }
-    //}
-
-    
-    
-}
+//            
+//            
+//            
+////            float differenceBetweenRotations = fabsf(player.zRotation - expectedRotation);
+////            if (differenceBetweenRotations > 0) {
+////            }
+//    
+//            player.zRotation = expectedRotation;
+//            return;
+//        }
+//
+//        [pastSlopes removeAllObjects];
+//        if (fabsf(player.zRotation) <= (player.currentRotationSpeed * 2)){
+//            player.zRotation = 0;
+//        }
+//        else{
+//            player.zRotation -= player.currentRotationSpeed;
+//        }
+//    //}
+//
+//    
+//    
+//}
 
 @end

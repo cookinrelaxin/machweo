@@ -22,7 +22,7 @@
     player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, constants.MAX_PLAYER_VELOCITY_DY);
     player.position = point;
     
-    player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(player.size.width * 1/4, player.size.height * 1/4 * 2)];
+    player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(player.size.width * 1/4, player.size.height * 1/4)];
     player.physicsBody.categoryBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
     player.physicsBody.contactTestBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
     //player.physicsBody.collisionBitMask = 3;
@@ -46,8 +46,8 @@
     _xCoordinateOfRightSide = self.position.x + (self.size.width / 2);
 }
 
--(void)resetMinsAndMaxs{
-    self.minYPosition = -9999;
-}
+//-(void)resetMinsAndMaxs{
+//    self.minYPosition = -9999;
+//}
 
 @end

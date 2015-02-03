@@ -14,7 +14,7 @@
 //@property (nonatomic, strong) Constants *constants;
 
 //-(void)resolveCollisions:(Player*)player withPointArray:(NSMutableArray*)pointArray :(Constants*)constants;
--(void)calculatePlayerVelocity:(Player*)player;
+//-(void)calculatePlayerVelocity:(Player*)player;
 
 -(void)calculatePlayerPosition:(Player *)player withLineArray:(NSMutableArray*)pointArrayArray;
 //-(BOOL)resolveCollisionsAgainstObstacles:(Player*)player withObstacleArray:(NSArray*)obstacleArray;

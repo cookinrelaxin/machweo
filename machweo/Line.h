@@ -11,8 +11,8 @@
 
 @interface Line : NSObject
 @property (nonatomic) BOOL complete;
-@property (nonatomic) BOOL belowPlayer;
-@property (nonatomic) BOOL shouldDeallocNodeArray;
+//@property (nonatomic) BOOL belowPlayer;
+@property (nonatomic) BOOL shouldDealloc;
 @property (nonatomic) BOOL shouldDraw;
 @property (nonatomic) BOOL allowIntersections;
 @property (nonatomic) CGRect AABB;
@@ -24,5 +24,11 @@
 
 @property (nonatomic) NSMutableArray *subLines;
 
-+(Line*)lineWithVertices:(NSMutableArray*)vertices;
+@property (nonatomic) SKSpriteNode* visualBoundingBox;
+
+//+(Line*)lineWithVertices:(NSMutableArray*)vertices;
+-(void)updateMinimaEtMaximaWithPoint:(CGPoint)point;
+-(void)adjustMinimaEtMaximaByDifference:(CGVector)difference;
+
+
 @end
