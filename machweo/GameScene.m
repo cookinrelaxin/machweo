@@ -194,9 +194,12 @@
     if (currentPointArray.count >= _constants.MAX_VERTICES_PER_SUBLINE) {
         SubLine* newSubLine = [[SubLine alloc] init];
         [currentLine.subLines addObject:newSubLine];
-        if (currentSubLine.visualBoundingBox) {
-            [currentSubLine.visualBoundingBox removeFromParent];
-        }
+        [newSubLine.vertices addObject:[NSValue valueWithCGPoint:currentPoint]];
+        [newSubLine updateMinimaEtMaximaWithPoint:currentPoint];
+
+//        if (currentSubLine.visualBoundingBox) {
+//            [currentSubLine.visualBoundingBox removeFromParent];
+//        }
     }
     
 }

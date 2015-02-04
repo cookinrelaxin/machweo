@@ -25,95 +25,32 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     
     previousSlope = player.currentSlope;
     player.currentSlope = 0.0f;
+    CGPoint playerCurrentPosition = player.position;
+    CGPoint playerFuturePosition = CGPointMake(playerCurrentPosition.x + player.velocity.dx, playerCurrentPosition.y + player.velocity.dy);
     
     for (Line *line in LineArray){
-        CGPoint playerCurrentPosition = player.position;
-        CGPoint playerFuturePosition = CGPointMake(playerCurrentPosition.x + player.velocity.dx, playerCurrentPosition.y + player.velocity.dy);
-        CGPoint lineAABBIntersection = [self test2DSegmentAABB:playerCurrentPosition :playerFuturePosition :line.AABB];
-        if (CGPointEqualToPoint(lineAABBIntersection, CGPointZero)) {
+        if (![self test2DSegmentAABB:playerCurrentPosition :playerFuturePosition :line.AABB]) {
             continue;
         }
+        
        // NSLog(@"lineIntersection");
 
     
         for (SubLine *sub in line.subLines) {
-            CGPoint sublineAABBIntersection = [self test2DSegmentAABB:playerCurrentPosition :playerFuturePosition :sub.AABB];
-            if (CGPointEqualToPoint(sublineAABBIntersection, CGPointZero)) {
+            if (![self test2DSegmentAABB:playerCurrentPosition :playerFuturePosition :sub.AABB]) {
                 continue;
             }
-            NSLog(@"sublineIntersection");
+           // NSLog(@"sublineIntersection");
 
             Intersection *sublineIntersection = [self findSublineIntersection:playerCurrentPosition :playerFuturePosition :sub];
             [self resolveCollision:sublineIntersection :player];
             return;
 
         }
-        
-        
-//        if (pointArray.count < 2) {
-//            //continue;
-//            return ;
-//        }
-//        
-//        int leftPointIndex = [self binarySearchForFlankingPoints:pointArray withPoint:player.position from:0 to:(int)pointArray.count - 1 forPlayerSize:player.size];
-//        int rightPointIndex = leftPointIndex + 1;
-//        if (!(rightPointIndex < pointArray.count)) {
-//            rightPointIndex = leftPointIndex;
-//        }
-//        for (int i = leftPointIndex; (i < leftPointIndex + 10) && (i < pointArray.count - 1); i ++) {
-//
-//            NSValue *leftNode = [pointArray objectAtIndex:i];
-//            NSValue *rightNode = [pointArray objectAtIndex:i + 1];
-//
-//            CGPoint leftPoint = leftNode.CGPointValue;
-//            CGPoint rightPoint = rightNode.CGPointValue;
-//           // NSLog(@"player.position.x: %f", player.position.x);
-//           // NSLog(@"rightPoint.x: %f", rightPoint.x);
-//            
-//            BOOL playerIntersects = [self playerIntersectsLineSegment:player :leftPoint :rightPoint];
-//
-//            if (playerIntersects) {
-//                
-//                if (!line.belowPlayer) {
-//                    if (!line.belowPlayer && ((leftPoint.y < player.yCoordinateOfBottomSide) && (rightPoint.y < player.yCoordinateOfBottomSide))) {
-//                        line.belowPlayer = true;
-//                    }
-//                    break;
-//                }
-//                
-//                CGPoint intersectionPoint = [self closestPtPointSegment:player.position :leftPoint :rightPoint];
-//                
-//                CGPoint newPlayerPosition = CGPointMake(intersectionPoint.x - (player.size.width / 2), intersectionPoint.y + (player.size.height / 2));
-//                
-//                if (newPlayerPosition.y > yMin) {
-//                    yMin = newPlayerPosition.y;
-//                }
-//                
-//                float slope = [ButsuLiKi calculateSlopeForTriangleBetween:leftPoint and:rightPoint];
-//                player.currentSlope = slope;
-//                player.roughlyOnLine = true;
-//                [self addSlopeToSlopeArray:slope];
-//                [self isShangoDead:player];
-//                player.currentRotationSpeed = ONLINE_ROTATION_SPEED;
-//
-//                
-//                
-//                
-//                if (rightNode == pointArray.lastObject) {
-//                    player.endOfLine = true;
-//                    player.currentRotationSpeed = OFFLINE_ROTATION_SPEED;
-//                }
-////                if ((rightNode == pointArray.lastObject) && (player.position.x > rightPoint.x)) {
-////                    player.endOfLine = true;
-////                }
-//                
-//            }
-//        }
 
     }
     [self resolveCollision:nil :player];
 
-  //  player.minYPosition = yMin;
 }
 
 -(void)resolveCollision:(Intersection*)intersection :(Player*)player{
@@ -125,13 +62,18 @@ const float OFFLINE_ROTATION_SPEED = .02f;
         GLKVector2 normalizedVelocity = GLKVector2Normalize(currentVelocity);
         
         // not sure at all about this
-        player.position = CGPointMake(intersection.point.x - (normalizedVelocity.x * player.size.width), intersection.point.y - (normalizedVelocity.y * player.size.height));
+       // player.position = CGPointMake(intersection.point.x - (normalizedVelocity.x * player.size.width / 2), intersection.point.y - (normalizedVelocity.y * player.size.height / 2));
+        //player.position = CGPointMake(intersection.point.x, intersection.point.y + player.size.height / 2);
+        player.position = intersection.point;
         
         float rads = atanf(intersection.slope);
         float impulse = constants.GRAVITY * sinf(rads);
-        GLKVector2 m = GLKVector2Make(impulse * cosf(rads), impulse * sinf(rads));
+        GLKVector2 parallelToSlopeForce = GLKVector2Make(impulse * cosf(rads), impulse * sinf(rads));
         
-        player.velocity = CGVectorMake(m.x, m.y);
+       // GLKVector2 normalForce = GLKVector2Make(player.velocity, impulse * sinf(rads));
+
+        
+        player.velocity = CGVectorMake(parallelToSlopeForce.x, parallelToSlopeForce.y);
     }
     else{
         player.velocity = CGVectorMake(player.velocity.dx, player.velocity.dy - constants.GRAVITY);
@@ -157,15 +99,16 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 
 
 // this is possibly not working because cg rect's origin is top left...
--(CGPoint)test2DSegmentAABB:(CGPoint)a :(CGPoint)b :(CGRect)rect{
-    CGPoint rectTopSide1 = CGPointMake(rect.origin.x, rect.size.height);
-    CGPoint rectTopSide2 = CGPointMake(rect.origin.x + rect.size.width, rect.size.height);
+-(BOOL)test2DSegmentAABB:(CGPoint)a :(CGPoint)b :(CGRect)rect{
+    
+    CGPoint rectTopSide1 = CGPointMake(rect.origin.x, rect.origin.y + rect.size.height);
+    CGPoint rectTopSide2 = CGPointMake(rect.origin.x + rect.size.width, rect.origin.y + rect.size.height);
     CGPoint intersection = [self test2DSegmentSegment:a :b :rectTopSide1 :rectTopSide2];
     if (!CGPointEqualToPoint(intersection, CGPointZero)) {
         // there's an intersection
-        NSLog(@"Intersection with top side");
+       // NSLog(@"Intersection with top side");
 
-        return intersection;
+        return true;
     }
     
     CGPoint rectBottomSide1 = CGPointMake(rect.origin.x, rect.origin.y);
@@ -173,7 +116,9 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     intersection = [self test2DSegmentSegment:a :b :rectBottomSide1 :rectBottomSide2];
     if (!CGPointEqualToPoint(intersection, CGPointZero)) {
         // there's an intersection
-        return intersection;
+        //NSLog(@"Intersection with bottom side");
+
+        return true;
     }
     
     CGPoint rectLeftSide1 = CGPointMake(rect.origin.x, rect.origin.y);
@@ -181,7 +126,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     intersection = [self test2DSegmentSegment:a :b :rectLeftSide1 :rectLeftSide2];
     if (!CGPointEqualToPoint(intersection, CGPointZero)) {
         // there's an intersection
-        return intersection;
+        return true;
     }
     
     CGPoint rectRightSide1 = CGPointMake(rect.origin.x + rect.size.width, rect.origin.y);
@@ -189,10 +134,22 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     intersection = [self test2DSegmentSegment:a :b :rectRightSide1 :rectRightSide2];
     if (!CGPointEqualToPoint(intersection, CGPointZero)) {
         // there's an intersection
-        return intersection;
+        return true;
     }
     
-    return CGPointZero;
+    if ((a.x > rect.origin.x) && (a.x < rect.origin.x + rect.size.width)) {
+        if ((a.y > rect.origin.y) && (a.y < rect.origin.y + rect.size.height)) {
+            return true;
+        }
+    }
+    if ((b.x > rect.origin.x) && (b.x < rect.origin.x + rect.size.width)) {
+        if ((b.y > rect.origin.y) && (b.y < rect.origin.y + rect.size.height)) {
+            return true;
+        }
+    }
+    
+    //return CGPointZero;
+    return false;
 }
 
 -(CGPoint)test2DSegmentSegment:(CGPoint)a :(CGPoint)b :(CGPoint)c :(CGPoint)d{
@@ -337,12 +294,14 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     
     //[self calculatePlayerRotation:player];
    // [self calculatePlayerVelocity:player];
+    
+    [self findCollision:player withLineArray:lineArray];
     player.position = CGPointMake(player.position.x + player.velocity.dx * constants.PHYSICS_SCALAR_MULTIPLIER, player.position.y + player.velocity.dy * constants.PHYSICS_SCALAR_MULTIPLIER);
+    
   //  NSLog(@"player.position.y: %f", player.position.y);
    // NSLog(@"player.position.y scaled: %f", player.position.y * constants.PHYSICS_SCALAR_MULTIPLIER);
 
     
-    [self findCollision:player withLineArray:lineArray];
 
 }
 

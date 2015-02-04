@@ -38,6 +38,8 @@
 
 -(void)updateAABB{
     _AABB = CGRectMake(_minX, _minY, _maxX - _minX, _maxY - _minY);
+    //_AABB = CGRectMake(_minX, _maxY, _maxX - _minX, _maxY - _minY);
+
     //NSLog(@"_AABB: %f, %f, %f, %f", _AABB.origin.x, _AABB.origin.y, _AABB.size.width, _AABB.size.height);
 
 }

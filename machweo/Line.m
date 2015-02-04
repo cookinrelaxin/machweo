@@ -49,6 +49,7 @@
 
 -(void)updateAABB{
     _AABB = CGRectMake(_minX, _minY, _maxX - _minX, _maxY - _minY);
+    //_AABB = CGRectMake(_minX, _maxY, _maxX - _minX, _maxY - _minY);
 }
 
 -(void)adjustMinimaEtMaximaByDifference:(CGVector)difference{

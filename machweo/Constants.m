@@ -40,7 +40,7 @@ int midpoint(int n1, int n2)
     
     _Y_PARALLAX_COEFFICIENT = .05f;
     
-    _MAX_VERTICES_PER_SUBLINE = 10;
+    _MAX_VERTICES_PER_SUBLINE = 5;
     
     
     
