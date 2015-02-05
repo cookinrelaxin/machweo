@@ -23,6 +23,8 @@
     Score* playerScore;
     Obstacle* nextObstacle;
     
+    NSMutableArray* terrainPool;
+    
     double previousTime;
  //   int timerTime;
     
@@ -72,7 +74,8 @@
         [self addChild:restartButton];
         
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
-        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines];
+        terrainPool = [NSMutableArray array];
+        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
         
     }
     return self;
@@ -85,8 +88,16 @@
     CGPoint positionInSelf = [touch locationInNode:self];
     [self handleButtonPressesAtPoint:positionInSelf];
     previousPoint = currentPoint = positionInSelf;
+    
+    Line *currentLine = [arrayOfLines lastObject];
+
     Line *newLine = [[Line alloc] initWithTerrainNode:_terrain];
     [arrayOfLines addObject:newLine];
+    
+
+    //if ([currentLine pointUnderLine:currentPoint]) {
+    currentLine.terrain.zPosition -= 10;
+    //}
     
 }
 
@@ -374,10 +385,14 @@
         player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
         CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
         for (Line* line in arrayOfLines) {
+            float fractionalCoefficient = line.terrain.zPosition / _constants.OBSTACLE_Z_POSITION;
+           // NSLog(@"fractionalCoefficient: %f", fractionalCoefficient);
+            CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
+
             for (int i = 0; i < line.nodeArray.count; i ++) {
                 NSValue* pointNode = [line.nodeArray objectAtIndex:i];
                 CGPoint pointNodePosition = pointNode.CGPointValue;
-                [line.nodeArray replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - differenceInPreviousAndCurrentPlayerPositions.dx, pointNodePosition.y)]];
+                [line.nodeArray replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - parallaxAdjustedDifference.dx, pointNodePosition.y)]];
             }
         }
         

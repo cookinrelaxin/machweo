@@ -21,7 +21,9 @@ typedef enum ElementVarieties
     zPosition,
     isRightMostNode,
     motionType,
-    speedType
+    speedType,
+    terrainPool,
+    terrainPoolMember
     
 } Element;
 
@@ -35,6 +37,8 @@ typedef enum NodeTypes
     // as simple as possible for now. assume all nodes are obstacles
     NSMutableArray* obstacleArray;
     NSMutableArray* decorationArray;
+    NSMutableArray* terrainPoolArray;
+
 
     SKNode *currentNode;
     Element currentElement;
@@ -51,6 +55,7 @@ typedef enum NodeTypes
     
     obstacleArray = [NSMutableArray array];
     decorationArray = [NSMutableArray array];
+    terrainPoolArray = [NSMutableArray array];
 
     NSXMLParser* chunkParser;
     
@@ -116,6 +121,14 @@ typedef enum NodeTypes
     }
     if ([elementName isEqualToString:@"speedType"]) {
         currentElement = speedType;
+        return;
+    }
+    if ([elementName isEqualToString:@"terrainPool"]) {
+        currentElement = terrainPool;
+        return;
+    }
+    if ([elementName isEqualToString:@"terrainPoolMember"]) {
+        currentElement = terrainPoolMember;
         return;
     }
 }
@@ -204,11 +217,20 @@ typedef enum NodeTypes
                 return;
             }
         }
+        if (currentElement == terrainPoolMember) {
+            NSLog(@"add terrainPoolMember");
+            [terrainPoolArray addObject:string];
+        }
     }
 }
 
--(void)loadWorld:(SKNode*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations andTerrain:(SKNode*)terrain withinView:(SKView *)view andLines:(NSMutableArray*)lines{
+-(void)loadWorld:(SKNode*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations andTerrain:(SKNode*)terrain withinView:(SKView *)view andLines:(NSMutableArray*)lines andTerrainPool:(NSMutableArray*)terrainPool{
     constants = [Constants sharedInstance];
+    for (NSString* decoName in terrainPoolArray) {
+     //   NSLog(@"decoName: %@", decoName);
+        [terrainPool addObject:decoName];
+    }
+    
     for (Obstacle *obstacle in obstacleArray) {
         obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
         obstacle.position = CGPointMake(obstacle.position.x * constants.SCALE_COEFFICIENT.dy, obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
