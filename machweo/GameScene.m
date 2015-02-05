@@ -79,8 +79,8 @@
         restartButton.zPosition = _constants.HUD_Z_POSITION;
         [self addChild:restartButton];
         
-        ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
-        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines];
+        //ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
+        //[cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines];
         
 
         maskWrapper = [SKSpriteNode node];
@@ -250,9 +250,7 @@
         }
         if (thisLine.complete) {
             NSMutableArray* nodeArray = thisLine.nodeArray;
-           // SKSpriteNode* lastNode = nodeArray.lastObject;
             NSValue* lastNode = nodeArray.lastObject;
-            //CGPoint lastNodePositionInScene = [self convertPoint:lastNode.position fromNode:_lines];
             CGPoint lastNodePositionInView = [self convertPointToView: lastNode.CGPointValue];
             if (lastNodePositionInView.x < 0) {
                 thisLine.shouldDeallocNodeArray = true;
@@ -325,8 +323,8 @@
    // dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^(void){
     [self updateTime:currentTime];
    // });
-   // [self checkForOldLines];
-   // [self deallocOldLines];
+    [self checkForOldLines];
+    [self deallocOldLines];
     [self cleanUpShapeNodes];
     if (!player.touchesEnded) {
         [self createLineNode];

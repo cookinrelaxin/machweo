@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Terrain.h"
 
 @interface Line : NSObject
 @property (nonatomic) BOOL complete;
@@ -14,8 +15,10 @@
 @property (nonatomic) BOOL shouldDeallocNodeArray;
 @property (nonatomic) BOOL shouldDraw;
 @property (nonatomic) BOOL allowIntersections;
+@property (nonatomic, strong) Terrain* terrain;
+
 
 @property (nonatomic) NSMutableArray *nodeArray;
 
-+(Line*)lineWithVertices:(NSMutableArray*)vertices;
+//+(Line*)lineWithVertices:(NSMutableArray*)vertices;
 @end

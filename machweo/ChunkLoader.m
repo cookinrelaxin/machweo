@@ -313,17 +313,17 @@ typedef enum NodeTypes
         [decorations addChild:deco];
     }
     
-    for (Terrain *ter in terrainArray) {
-       // NSLog(@"(SKScene*)world).view: %@", view);
-        [ter checkForClosedShape];
-        [ter closeLoopAndFillTerrainInView:view];
-        [terrain addChild:ter];
-        
-        Line* line = [Line lineWithVertices:ter.lineVertices];
-        [lines addObject:line];
-        
-        
-    }
+//    for (Terrain *ter in terrainArray) {
+//       // NSLog(@"(SKScene*)world).view: %@", view);
+//        [ter checkForClosedShape];
+//        [ter closeLoopAndFillTerrainInView:view];
+//        [terrain addChild:ter];
+//        
+//        Line* line = [Line lineWithVertices:ter.lineVertices];
+//        [lines addObject:line];
+//        
+//        
+//    }
     
 }
 

@@ -14,16 +14,21 @@
     _nodeArray = [NSMutableArray array];
     _shouldDraw = true;
     _allowIntersections = false;
+    _terrain = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:@"african_textile_3_terrain"]];
     return self;
 }
 
-+(Line*)lineWithVertices:(NSMutableArray*)vertices{
-    Line* line = [[Line alloc] init];
-    line.belowPlayer = true;
-    line.nodeArray = vertices;
-    line.allowIntersections = true;
-    line.shouldDraw = false;
-    return line;
+//+(Line*)lineWithVertices:(NSMutableArray*)vertices{
+//    Line* line = [[Line alloc] init];
+//    line.belowPlayer = true;
+//    line.nodeArray = vertices;
+//    line.allowIntersections = true;
+//    line.shouldDraw = false;
+//    return line;
+//}
+
+-(void)dealloc{
+    NSLog(@"dealloc line");
 }
 
 @end

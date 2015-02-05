@@ -12,9 +12,9 @@
 @interface Terrain : SKNode
 @property(nonatomic, strong) NSMutableArray* shapeVertices;
 @property(nonatomic, strong) NSMutableArray* lineVertices;
-@property(nonatomic) BOOL firstLineDrawn;
+//@property(nonatomic) BOOL firstLineDrawn;
 
-@property(nonatomic, strong) SKNode* lineNode;
+//@property(nonatomic, strong) SKNode* lineNode;
 @property(nonatomic, strong) SKTexture* terrainTexture;
 @property(nonatomic, strong) SKCropNode* cropNode;
 @property(nonatomic) BOOL isClosed;
@@ -28,11 +28,11 @@
 
 
 
--(void)addVertex:(CGPoint)vertex :(BOOL)straightLine;
+//-(void)addVertex:(CGPoint)vertex :(BOOL)straightLine;
 -(instancetype)initWithTexture:(SKTexture*)terrainTexture;
 -(void)closeLoopAndFillTerrainInView:(SKView*)view;
--(void)cleanUpAndRemoveLines;
--(void)completeLine;
--(void)checkForClosedShape;
--(void)moveTo:(CGPoint)point :(SKShapeNode*)outlineNode :(CGVector)offset;
+//-(void)cleanUpAndRemoveLines;
+//-(void)completeLine;
+//-(void)checkForClosedShape;
+//-(void)moveTo:(CGPoint)point :(SKShapeNode*)outlineNode :(CGVector)offset;
 @end
