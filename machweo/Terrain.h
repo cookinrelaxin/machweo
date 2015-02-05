@@ -10,7 +10,7 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface Terrain : SKNode
-@property(nonatomic, strong) NSMutableArray* shapeVertices;
+//@property(nonatomic, strong) NSMutableArray* shapeVertices;
 @property(nonatomic, strong) NSMutableArray* lineVertices;
 //@property(nonatomic) BOOL firstLineDrawn;
 
@@ -19,8 +19,8 @@
 @property(nonatomic, strong) SKCropNode* cropNode;
 @property(nonatomic) BOOL isClosed;
 @property(nonatomic) BOOL permitVertices;
-@property(nonatomic) CGPoint anchorPointForStraightLines;
-@property(nonatomic) SKShapeNode* lastLineNode;
+//@property(nonatomic) CGPoint anchorPointForStraightLines;
+//@property(nonatomic) SKShapeNode* lastLineNode;
 
 
 
@@ -35,4 +35,5 @@
 //-(void)completeLine;
 //-(void)checkForClosedShape;
 //-(void)moveTo:(CGPoint)point :(SKShapeNode*)outlineNode :(CGVector)offset;
+//-(void)generateShapeVertices
 @end

@@ -22,7 +22,6 @@
     CGPoint currentDesiredPlayerPositionInView;
     Score* playerScore;
     Obstacle* nextObstacle;
-    NSMutableArray* shapeNodes;
     
     double previousTime;
  //   int timerTime;
@@ -34,12 +33,6 @@
     
     BOOL stopScrolling;
     BOOL gameWon;
-    
-   // NSString* nameOfThisLevel;
-    
-    SKCropNode* brushCropNode;
-    SKSpriteNode* maskWrapper;
-    
 }
 
 -(void)dealloc{
@@ -58,7 +51,6 @@
         [self addChild:_decorations];
         physicsComponent = [[ButsuLiKi alloc] init];
         arrayOfLines = [NSMutableArray array];
-        shapeNodes = [NSMutableArray array];
         
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         //init hud
@@ -79,31 +71,9 @@
         restartButton.zPosition = _constants.HUD_Z_POSITION;
         [self addChild:restartButton];
         
-        //ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
-        //[cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines];
+        ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
+        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines];
         
-
-        maskWrapper = [SKSpriteNode node];
-        
-        brushCropNode = [SKCropNode node];
-        SKSpriteNode* pattern = [[SKSpriteNode alloc] initWithImageNamed:@"african_textile_1.jpg"];
-        [brushCropNode addChild:pattern];
-        brushCropNode.maskNode = maskWrapper;
-        brushCropNode.zPosition = _constants.LINE_Z_POSITION;
-        [self addChild:brushCropNode];
-        
-//        __weak GameScene *weakSelf = self;
-//        NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-//        [center addObserverForName:@"shangoBrokeHisBack"
-//                            object:nil
-//                             queue:nil
-//                        usingBlock:^(NSNotification *notification)
-//         {
-//             weakSelf.shangoBrokeHisBack = true;
-//         }];
-        
-        
-
     }
     return self;
 }
@@ -115,7 +85,7 @@
     CGPoint positionInSelf = [touch locationInNode:self];
     [self handleButtonPressesAtPoint:positionInSelf];
     previousPoint = currentPoint = positionInSelf;
-    Line *newLine = [[Line alloc] init];
+    Line *newLine = [[Line alloc] initWithTerrainNode:_terrain];
     [arrayOfLines addObject:newLine];
     
 }
@@ -263,38 +233,12 @@
    // dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
    // dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
     for (Line* line in arrayOfLines) {
-        if (!line.shouldDraw) {
-            continue;
+        if (line.shouldDraw) {
+            //line.terrain.lineVertices = line.nodeArray;
+            [line.terrain closeLoopAndFillTerrainInView:self.view];
         }
-        SKShapeNode* currentLineNode = [SKShapeNode node];
-        currentLineNode.zPosition = _constants.LINE_Z_POSITION;
-        currentLineNode.antialiased = false;
-        currentLineNode.physicsBody = nil;
-        currentLineNode.lineCap = kCGLineCapRound;
-        CGMutablePathRef pathToDraw = CGPathCreateMutable();
-        NSValue* firstPointNode = line.nodeArray.firstObject;
-        CGPoint firstPointNodePosition = firstPointNode.CGPointValue;
-        currentLineNode.lineWidth = player.size.height * _constants.BRUSH_FRACTION_OF_PLAYER_SIZE * .5;
-        CGPathMoveToPoint(pathToDraw, NULL, firstPointNodePosition.x, firstPointNodePosition.y);
-        for (NSValue* pointNode in line.nodeArray) {
-            CGPoint pointNodePosition = pointNode.CGPointValue;
-            CGPathAddLineToPoint(pathToDraw, NULL, pointNodePosition.x, pointNodePosition.y);
-        }
-        
-        currentLineNode.path = pathToDraw;
-        [shapeNodes addObject:currentLineNode];
-        [maskWrapper addChild:currentLineNode];
-        CGPathRelease(pathToDraw);
    // });
     }
-}
-
--(void)cleanUpShapeNodes{
-    for (SKShapeNode* node in shapeNodes) {
-        [node removeFromParent];
-    }
-    shapeNodes = [NSMutableArray array];
-
 }
 
 -(void)updateTimerLabelWithTime:(double)time{
@@ -325,7 +269,6 @@
    // });
     [self checkForOldLines];
     [self deallocOldLines];
-    [self cleanUpShapeNodes];
     if (!player.touchesEnded) {
         [self createLineNode];
     }
@@ -439,7 +382,7 @@
         }
         
         _obstacles.position = CGPointMake(_obstacles.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _obstacles.position.y);
-        _terrain.position = CGPointMake(_terrain.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _terrain.position.y);
+        //_terrain.position = CGPointMake(_terrain.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _terrain.position.y);
         
         for (SKSpriteNode* deco in _decorations.children) {
             if ([deco.name isEqualToString:@"rightMostNode"]) {
@@ -456,6 +399,7 @@
             deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y - parallaxAdjustedDifference.dy);
         }
     }
+    
 }
 
 

@@ -21,15 +21,7 @@ typedef enum ElementVarieties
     zPosition,
     isRightMostNode,
     motionType,
-    speedType,
-    shapeVertices,
-    lineVertices,
-    shapeVertex,
-    lineVertex,
-    shapeVertexXPoint,
-    shapeVertexYPoint,
-    lineVertexXPoint,
-    lineVertexYPoint
+    speedType
     
 } Element;
 
@@ -37,17 +29,14 @@ typedef enum NodeTypes
 {
     obstacle,
     decoration,
-    terrain
 } Node;
 
 @implementation ChunkLoader{
     // as simple as possible for now. assume all nodes are obstacles
     NSMutableArray* obstacleArray;
-    NSMutableArray* terrainArray;
     NSMutableArray* decorationArray;
 
     SKNode *currentNode;
-    CGPoint currentPoint;
     Element currentElement;
     Node currentNodeType;
     BOOL charactersFound;
@@ -62,7 +51,6 @@ typedef enum NodeTypes
     
     obstacleArray = [NSMutableArray array];
     decorationArray = [NSMutableArray array];
-    terrainArray = [NSMutableArray array];
 
     NSXMLParser* chunkParser;
     
@@ -130,38 +118,6 @@ typedef enum NodeTypes
         currentElement = speedType;
         return;
     }
-    if ([elementName isEqualToString:@"shapeVertices"]) {
-        currentElement = shapeVertices;
-        return;
-    }
-    if ([elementName isEqualToString:@"lineVertices"]) {
-        currentElement = lineVertices;
-        return;
-    }
-    if ([elementName isEqualToString:@"shapeVertex"]) {
-        currentElement = shapeVertex;
-        return;
-    }
-    if ([elementName isEqualToString:@"shapeVertexXPoint"]) {
-        currentElement = shapeVertexXPoint;
-        return;
-    }
-    if ([elementName isEqualToString:@"shapeVertexYPoint"]) {
-        currentElement = shapeVertexYPoint;
-        return;
-    }
-    if ([elementName isEqualToString:@"lineVertex"]) {
-        currentElement = lineVertex;
-        return;
-    }
-    if ([elementName isEqualToString:@"lineVertexXPoint"]) {
-        currentElement = lineVertexXPoint;
-        return;
-    }
-    if ([elementName isEqualToString:@"lineVertexYPoint"]) {
-        currentElement = lineVertexYPoint;
-        return;
-    }
 }
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
@@ -175,20 +131,9 @@ typedef enum NodeTypes
                 case decoration:
                     [decorationArray addObject:currentNode];
                     break;
-                case terrain:
-                    [terrainArray addObject:currentNode];
-                    break;
             }
             return;
         }
-    }
-    if ([elementName isEqualToString:@"shapeVertex"]) {
-        [((Terrain*)currentNode).shapeVertices addObject:[NSValue valueWithCGPoint:currentPoint]];
-        return;
-    }
-    if ([elementName isEqualToString:@"lineVertex"]) {
-        [((Terrain*)currentNode).lineVertices addObject:[NSValue valueWithCGPoint:currentPoint]];
-        return;
     }
 }
 
@@ -203,9 +148,6 @@ typedef enum NodeTypes
                 }
                 else if (currentNodeType == decoration){
                     currentNode = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:spriteTexture]];
-                }
-                else if (currentNodeType == terrain) {
-                    currentNode = [[Terrain alloc] initWithTexture:[SKTexture textureWithImage:spriteTexture]];
                 }
             }
             else{
@@ -241,10 +183,6 @@ typedef enum NodeTypes
                 currentNodeType = decoration;
                 return;
             }
-            if ([string isEqualToString:@"TerrainSignifier"]) {
-                currentNodeType = terrain;
-                return;
-            }
         }
         if (currentElement == isRightMostNode) {
             if ([string isEqualToString:@"yes"]) {
@@ -265,22 +203,6 @@ typedef enum NodeTypes
                 obs.currentSpeedType = [string intValue];
                 return;
             }
-        }
-        if (currentElement == shapeVertexXPoint) {
-            currentPoint.x = [string floatValue] * constants.SCALE_COEFFICIENT.dy;
-            return;
-        }
-        if (currentElement == shapeVertexYPoint) {
-            currentPoint.y = [string floatValue] * constants.SCALE_COEFFICIENT.dy;
-            return;
-        }
-        if (currentElement == lineVertexXPoint) {
-            currentPoint.x = [string floatValue] * constants.SCALE_COEFFICIENT.dy;
-            return;
-        }
-        if (currentElement == lineVertexYPoint) {
-            currentPoint.y = [string floatValue] * constants.SCALE_COEFFICIENT.dy;
-            return;
         }
     }
 }
@@ -312,18 +234,6 @@ typedef enum NodeTypes
         deco.position = [obstacles convertPoint:deco.position fromNode:world];
         [decorations addChild:deco];
     }
-    
-//    for (Terrain *ter in terrainArray) {
-//       // NSLog(@"(SKScene*)world).view: %@", view);
-//        [ter checkForClosedShape];
-//        [ter closeLoopAndFillTerrainInView:view];
-//        [terrain addChild:ter];
-//        
-//        Line* line = [Line lineWithVertices:ter.lineVertices];
-//        [lines addObject:line];
-//        
-//        
-//    }
     
 }
 

@@ -10,11 +10,14 @@
 
 @implementation Line
 
--(instancetype)init{
+-(instancetype)initWithTerrainNode:(SKNode*)node{
     _nodeArray = [NSMutableArray array];
     _shouldDraw = true;
     _allowIntersections = false;
     _terrain = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:@"african_textile_3_terrain"]];
+    _terrain.lineVertices = self.nodeArray;
+    [node addChild:_terrain];
+    
     return self;
 }
 
@@ -28,7 +31,12 @@
 //}
 
 -(void)dealloc{
-    NSLog(@"dealloc line");
+  //  NSLog(@"dealloc line");
+    if (_terrain) {
+        if (_terrain.parent) {
+            [_terrain removeFromParent];
+        }
+    }
 }
 
 @end

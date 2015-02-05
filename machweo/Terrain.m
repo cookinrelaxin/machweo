@@ -7,6 +7,7 @@
 //
 
 #import "Terrain.h"
+#import "Constants.h"
 
 @implementation Terrain{
     CGVector vertexOffset;
@@ -15,14 +16,11 @@
 
 -(instancetype)initWithTexture:(SKTexture*)terrainTexture{
     if (self = [super init]) {
-        _shapeVertices = [NSMutableArray array];
-        _lineVertices = [NSMutableArray array];
-        
-       // _lineNode = [SKNode node];
-        // [node addChild:_lineNode];
-        // [node addChild:self];
+       // _lineVertices = [NSMutableArray array];
         _terrainTexture = terrainTexture;
-        _permitVertices = true;
+        Constants* constants = [Constants sharedInstance];
+        self.zPosition = constants.LINE_Z_POSITION;
+        
         
     }
     return self;
@@ -113,7 +111,10 @@
 //}
 
 -(void)closeLoopAndFillTerrainInView:(SKView*)view{
-    SKShapeNode* textureShapeNode = [self shapeNodeWithVertices:_shapeVertices];
+    if (_cropNode) {
+        [_cropNode removeFromParent];
+    }
+    SKShapeNode* textureShapeNode = [self shapeNodeWithVertices:_lineVertices];
     SKTexture* texFromShapeNode = [view textureFromNode:textureShapeNode];
     SKSpriteNode* maskWrapper = [SKSpriteNode spriteNodeWithTexture:texFromShapeNode];
     _cropNode = [SKCropNode node];
@@ -149,6 +150,7 @@
     CGPoint firstVertex = [(NSValue*)[vertexArray firstObject] CGPointValue];
     vertexOffset = CGVectorMake(firstVertex.x, firstVertex.y);
     CGPathMoveToPoint(pathToDraw, NULL, 0, 0);
+    
     for (NSValue* value in vertexArray) {
         CGPoint vertex = [value CGPointValue];
         if (CGPointEqualToPoint(vertex, firstVertex)) {
@@ -156,6 +158,16 @@
         }
         //NSLog(@"vertex: %f, %f", vertex.x, vertex.y);
         CGPathAddLineToPoint(pathToDraw, NULL, vertex.x - vertexOffset.dx, vertex.y - vertexOffset.dy);
+        
+        if (value == vertexArray.lastObject) {
+            CGPoint bottomRightAreaVertex = CGPointMake(vertex.x, 0);
+            CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x, 0);
+            CGPoint upperLeftAreaVertex = firstVertex;
+            CGPathAddLineToPoint(pathToDraw, NULL, bottomRightAreaVertex.x - vertexOffset.dx, bottomRightAreaVertex.y - vertexOffset.dy);
+            CGPathAddLineToPoint(pathToDraw, NULL, bottomLeftAreaVertex.x - vertexOffset.dx, bottomLeftAreaVertex.y - vertexOffset.dy);
+            CGPathAddLineToPoint(pathToDraw, NULL, upperLeftAreaVertex.x - vertexOffset.dx, upperLeftAreaVertex.y - vertexOffset.dy);
+            break;
+        }
     }
     node.path = pathToDraw;
     pathBoundingBox = CGPathGetPathBoundingBox(pathToDraw);

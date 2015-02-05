@@ -19,6 +19,7 @@
 
 
 @property (nonatomic) NSMutableArray *nodeArray;
+-(instancetype)initWithTerrainNode:(SKNode*)node;
 
 //+(Line*)lineWithVertices:(NSMutableArray*)vertices;
 @end
