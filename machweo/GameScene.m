@@ -165,7 +165,18 @@
     [currentPointArray addObject:[NSValue valueWithCGPoint:currentPoint]];
     //NSLog(@"currentPointArray.count:%lu", (unsigned long)currentPointArray.count);
     for (Terrain* ter in currentLine.terrainArray) {
-        [ter.vertices addObject:[NSValue valueWithCGPoint:previousPoint]];
+        //BOOL firstObject = (ter == [currentLine.terrainArray firstObject]);
+        //if (!firstObject) {
+            //int randomXd = arc4random_uniform(20);
+            int randomYd = arc4random_uniform(20);
+
+            CGPoint newPoint = CGPointMake(currentPoint.x, currentPoint.y + randomYd);
+            [ter.vertices addObject:[NSValue valueWithCGPoint:newPoint]];
+       // }
+        //else{
+        //    [ter.vertices addObject:[NSValue valueWithCGPoint:currentPoint]];
+       // }
+        
 
       //  [ter.vertices addObject:pointValue];
         if (!ter.permitDecorations){
@@ -422,7 +433,9 @@
                 for (int i = 0; i < ter.vertices.count; i ++) {
                     NSValue* pointNode = [ter.vertices objectAtIndex:i];
                     CGPoint pointNodePosition = pointNode.CGPointValue;
-                    [ter.vertices replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - parallaxAdjustedDifference.dx, pointNodePosition.y)]];
+                    
+                    CGPoint newPoint = CGPointMake(pointNodePosition.x - parallaxAdjustedDifference.dx, pointNodePosition.y);
+                    [ter.vertices replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:newPoint]];
                 }
                 
             }

@@ -126,9 +126,9 @@
             SKSpriteNode* sprite = [SKSpriteNode spriteNodeWithTexture:tex];
             sprite.size = CGSizeMake(sprite.size.width * constants.SCALE_COEFFICIENT.dy, sprite.size.height * constants.SCALE_COEFFICIENT.dy);
             
-            //int zPositionDie = arc4random_uniform(20) + 1;
-            //sprite.zPosition = constants.FOREGROUND_Z_POSITION - self.zPosition;
-            sprite.zPosition = self.zPosition - 1;
+            int zPositionDie = arc4random_uniform(20) + 1;
+            sprite.zPosition = constants.FOREGROUND_Z_POSITION - zPositionDie;
+           // sprite.zPosition = self.zPosition - 1;
             
             float differenceInZs = (constants.FOREGROUND_Z_POSITION - sprite.zPosition) * .5f;
             if (differenceInZs > 1){
