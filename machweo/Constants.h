@@ -25,6 +25,9 @@ extern int midpoint(int n1, int n2);
 
 @property (readonly, nonatomic) double PHYSICS_SCALAR_MULTIPLIER;
 
+@property (readonly, nonatomic) int TERRAIN_VERTEX_DECORATION_CHANCE_DENOM;
+
+
 
 @property (readonly, nonatomic) int PLAYER_SIZE;
 @property (readonly, nonatomic) int PLAYER_Z_POSITION;

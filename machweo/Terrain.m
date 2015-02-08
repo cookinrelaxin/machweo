@@ -12,6 +12,7 @@
 @implementation Terrain{
     CGVector vertexOffset;
     CGRect pathBoundingBox;
+    SKSpriteNode* lastSprite;
 }
 
 -(instancetype)initWithTexture:(SKTexture*)terrainTexture{
@@ -53,6 +54,15 @@
     
 }
 
+-(void)changeDecorationPermissions:(CGPoint)currentPoint{
+    CGPoint firstVertex = [(NSValue*)[_lineVertices firstObject] CGPointValue];
+    double distance = ({double d1 = currentPoint.x - firstVertex.x, d2 = currentPoint.y - firstVertex.y; sqrt(d1 * d1 + d2 * d2); });
+    if(distance > 100){
+        _permitDecorations = true;
+    }
+    
+}
+
 -(SKShapeNode*)shapeNodeWithVertices:(NSArray*)vertexArray{
     SKShapeNode* node = [SKShapeNode node];
     node.position = CGPointZero;
@@ -76,8 +86,8 @@
         CGPathAddLineToPoint(pathToDraw, NULL, vertex.x - vertexOffset.dx, vertex.y - vertexOffset.dy);
         
         if (value == vertexArray.lastObject) {
-            CGPoint bottomRightAreaVertex = CGPointMake(vertex.x, 0);
-            CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x, 0);
+            CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + 100, 0);
+            CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x - 100, 0);
             CGPoint upperLeftAreaVertex = firstVertex;
             CGPathAddLineToPoint(pathToDraw, NULL, bottomRightAreaVertex.x - vertexOffset.dx, bottomRightAreaVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, bottomLeftAreaVertex.x - vertexOffset.dx, bottomLeftAreaVertex.y - vertexOffset.dy);
@@ -94,6 +104,57 @@
 -(void)dealloc{
 //    NSLog(@"dealloc terrain");
 }
+
+-(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node{
+    if(_permitDecorations){
+    
+        Constants* constants = [Constants sharedInstance];
+        int probability1 = constants.TERRAIN_VERTEX_DECORATION_CHANCE_DENOM;
+        int castedDie1 = arc4random_uniform(probability1 + 1);
+        if (castedDie1 == probability1){
+           // NSLog(@"(castedDie1 == probability1)");
+            int castedDie2 = arc4random_uniform((int)terrainPool.count);
+            //    NSLog(@"castedDie2: %i", castedDie2);
+            SKTexture* tex = [terrainPool objectAtIndex:castedDie2];
+            SKSpriteNode* sprite = [SKSpriteNode spriteNodeWithTexture:tex];
+            sprite.size = CGSizeMake(sprite.size.width * constants.SCALE_COEFFICIENT.dy, sprite.size.height * constants.SCALE_COEFFICIENT.dy);
+            
+            int zPositionDie = arc4random_uniform(20) + 1;
+            sprite.zPosition = self.zPosition - zPositionDie;
+            
+            float differenceInZs = (self.zPosition - sprite.zPosition) * .5f;
+            if (differenceInZs > 1){
+//                NSLog(@"differenceInZs: %i", differenceInZs);
+                sprite.size = CGSizeMake(sprite.size.width * (1 / differenceInZs), sprite.size.height * (1 / differenceInZs));
+                NSLog(@"sprite.size: %f, %f", sprite.size.width, sprite.size.height);
+            }
+            NSLog(@"differenceInZs: %f", differenceInZs);
+
+            
+            sprite.position = [node convertPoint:v fromNode:self.parent.parent];
+            int heightDie = arc4random_uniform((sprite.size.height / 4));
+            sprite.position = CGPointMake(sprite.position.x - (sprite.size.width / 2), sprite.position.y + heightDie + (differenceInZs * 4));
+            
+           // int heightDie = arc4random_uniform((sprite.size.height / 3));
+            double rotationDie = drand48();
+            int signDie = arc4random_uniform(2);
+            float rotation = (signDie == 0) ? (M_PI_4 / 2 * rotationDie) : -(M_PI_4 / 2 * rotationDie);
+            sprite.zRotation = rotation;
+
+
+
+            [node addChild:sprite];
+            lastSprite = sprite;
+            
+        }
+    }
+}
+
+//-(void)decrementZposition{
+//    self.zPosition -= 10;
+//    
+//}
+
 
 
 @end

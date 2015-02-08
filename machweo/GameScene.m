@@ -89,14 +89,14 @@
     [self handleButtonPressesAtPoint:positionInSelf];
     previousPoint = currentPoint = positionInSelf;
     
-    Line *currentLine = [arrayOfLines lastObject];
+  //  Line *currentLine = [arrayOfLines lastObject];
 
     Line *newLine = [[Line alloc] initWithTerrainNode:_terrain];
     [arrayOfLines addObject:newLine];
     
 
     //if ([currentLine pointUnderLine:currentPoint]) {
-    currentLine.terrain.zPosition -= 10;
+  //  currentLine.terrain.zPosition -= 10;
     //}
     
 }
@@ -161,6 +161,11 @@
     }
     
     [currentPointArray addObject:[NSValue valueWithCGPoint:currentPoint]];
+   // [currentPointArray addObject:[NSValue valueWithCGPoint:previousPoint]];
+    if (!currentLine.terrain.permitDecorations){
+        [currentLine.terrain changeDecorationPermissions:currentPoint];
+    }
+    [currentLine.terrain generateDecorationAtVertex:currentPoint fromTerrainPool:terrainPool inNode:_decorations];
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
     
@@ -218,6 +223,7 @@
     }
     for (Line* oldLine in oldLines) {
         [arrayOfLines removeObject:oldLine];
+        [oldLine.terrain removeFromParent];
     }
 }
 

@@ -30,21 +30,15 @@
 //    return line;
 //}
 
--(void)dealloc{
-  //  NSLog(@"dealloc line");
-    if (_terrain) {
-        if (_terrain.parent) {
-            [_terrain removeFromParent];
-        }
-    }
-}
-
-//-(BOOL)pointUnderLine:(CGPoint)point{
-//    
-////    if (point.y < ) {
-////        <#statements#>
-////    }
-//    
+//-(void)dealloc{
+//  //  NSLog(@"dealloc line");
+//    if (_terrain) {
+//        if (_terrain.parent) {
+//            [_terrain removeFromParent];
+//            _terrain = nil;
+//            
+//        }
+//    }
 //}
 
 @end

@@ -26,10 +26,10 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     previousSlope = player.currentSlope;
     player.currentSlope = 0.0f;
     
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_apply(LineArray.count, queue, ^(size_t i) {
-        Line* line = [LineArray objectAtIndex:i];
-    //for (Line *line in LineArray){
+   // dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+   // dispatch_apply(LineArray.count, queue, ^(size_t i) {
+    //    Line* line = [LineArray objectAtIndex:i];
+    for (Line *line in LineArray){
         NSMutableArray *pointArray = line.nodeArray;
         if (pointArray.count < 2) {
             //continue;
@@ -91,8 +91,8 @@ const float OFFLINE_ROTATION_SPEED = .02f;
             }
         }
 
-    //}
-    });
+    }
+  //  });
 
         player.minYPosition = yMin;
 }
