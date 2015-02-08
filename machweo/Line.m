@@ -23,7 +23,7 @@
     for (int i = 0; i < constants.TERRAIN_LAYER_COUNT; i ++) {
         Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:@"african_textile_3_terrain"]];
         ter.vertices = [NSMutableArray array];
-        ter.zPosition = constants.FOREGROUND_Z_POSITION - (constants.ZPOSITION_DIFFERENCE_PER_LAYER * i);
+        ter.zPosition = constants.FOREGROUND_Z_POSITION - (constants.ZPOSITION_DIFFERENCE_PER_LAYER * i / 2);
         [_terrainArray addObject:ter];
         [node addChild:ter];
     }

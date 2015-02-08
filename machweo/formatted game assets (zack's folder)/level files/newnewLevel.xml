@@ -103,5 +103,16 @@
         <terrainPoolMember>tree4_decoration</terrainPoolMember>
         <terrainPoolMember>tree3_decoration</terrainPoolMember>
         <terrainPoolMember>tree2_decoration</terrainPoolMember>
+        <!--
+        <terrainPoolMember>redtree2_decoration</terrainPoolMember>
+        <terrainPoolMember>redtree3_decoration</terrainPoolMember>
+        <terrainPoolMember>redtree4_decoration</terrainPoolMember>
+         <terrainPoolMember>blackgrass_decoration</terrainPoolMember>
+
+         -->
+
+
+
+
     </terrainPool>
 </worldnodes>

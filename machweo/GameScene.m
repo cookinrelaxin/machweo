@@ -180,9 +180,10 @@
 
       //  [ter.vertices addObject:pointValue];
         if (!ter.permitDecorations){
-            [ter changeDecorationPermissions:currentPoint];
+            [ter changeDecorationPermissions:newPoint];
         }
-        [ter generateDecorationAtVertex:currentPoint fromTerrainPool:terrainPool inNode:_decorations];
+        int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) * 5;
+        [ter generateDecorationAtVertex:CGPointMake(newPoint.x, newPoint.y + backgroundYOffset) fromTerrainPool:terrainPool inNode:_decorations];
     }
     
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
