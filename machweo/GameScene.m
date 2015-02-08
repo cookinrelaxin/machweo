@@ -159,13 +159,21 @@
             currentLine.belowPlayer = false;
         }
     }
+   // NSValue* pointValue = [NSValue valueWithCGPoint:currentPoint];
     
+   // [currentPointArray addObject:pointValue];
     [currentPointArray addObject:[NSValue valueWithCGPoint:currentPoint]];
-   // [currentPointArray addObject:[NSValue valueWithCGPoint:previousPoint]];
-    if (!currentLine.terrain.permitDecorations){
-        [currentLine.terrain changeDecorationPermissions:currentPoint];
+    //NSLog(@"currentPointArray.count:%lu", (unsigned long)currentPointArray.count);
+    for (Terrain* ter in currentLine.terrainArray) {
+        [ter.vertices addObject:[NSValue valueWithCGPoint:previousPoint]];
+
+      //  [ter.vertices addObject:pointValue];
+        if (!ter.permitDecorations){
+            [ter changeDecorationPermissions:currentPoint];
+        }
+        [ter generateDecorationAtVertex:currentPoint fromTerrainPool:terrainPool inNode:_decorations];
     }
-    [currentLine.terrain generateDecorationAtVertex:currentPoint fromTerrainPool:terrainPool inNode:_decorations];
+    
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
     
@@ -223,7 +231,9 @@
     }
     for (Line* oldLine in oldLines) {
         [arrayOfLines removeObject:oldLine];
-        [oldLine.terrain removeFromParent];
+        for (Terrain* ter in oldLine.terrainArray) {
+            [ter removeFromParent];
+        }
     }
 }
 
@@ -252,7 +262,9 @@
     for (Line* line in arrayOfLines) {
         if (line.shouldDraw) {
             //line.terrain.lineVertices = line.nodeArray;
-            [line.terrain closeLoopAndFillTerrainInView:self.view];
+            for (Terrain* ter in line.terrainArray) {
+                [ter closeLoopAndFillTerrainInView:self.view];
+            }
         }
    // });
     }
@@ -391,14 +403,28 @@
         player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
         CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
         for (Line* line in arrayOfLines) {
-            float fractionalCoefficient = line.terrain.zPosition / _constants.OBSTACLE_Z_POSITION;
-           // NSLog(@"fractionalCoefficient: %f", fractionalCoefficient);
-            CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
+            
 
             for (int i = 0; i < line.nodeArray.count; i ++) {
                 NSValue* pointNode = [line.nodeArray objectAtIndex:i];
                 CGPoint pointNodePosition = pointNode.CGPointValue;
-                [line.nodeArray replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - parallaxAdjustedDifference.dx, pointNodePosition.y)]];
+                [line.nodeArray replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - differenceInPreviousAndCurrentPlayerPositions.dx, pointNodePosition.y)]];
+            }
+            
+           // float fractionalCoefficient = _constants.FOREGROUND_Z_POSITION / _constants.OBSTACLE_Z_POSITION;
+            // NSLog(@"fractionalCoefficient: %f", fractionalCoefficient);
+            //CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
+            //NSLog(@"parallaxAdjustedDifference.x: %f", parallaxAdjustedDifference.dx);
+            
+            for (Terrain* ter in line.terrainArray) {
+                float fractionalCoefficient = ter.zPosition / _constants.OBSTACLE_Z_POSITION;
+                CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
+                for (int i = 0; i < ter.vertices.count; i ++) {
+                    NSValue* pointNode = [ter.vertices objectAtIndex:i];
+                    CGPoint pointNodePosition = pointNode.CGPointValue;
+                    [ter.vertices replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - parallaxAdjustedDifference.dx, pointNodePosition.y)]];
+                }
+                
             }
         }
         

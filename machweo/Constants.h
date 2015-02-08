@@ -26,13 +26,17 @@ extern int midpoint(int n1, int n2);
 @property (readonly, nonatomic) double PHYSICS_SCALAR_MULTIPLIER;
 
 @property (readonly, nonatomic) int TERRAIN_VERTEX_DECORATION_CHANCE_DENOM;
-
+@property (readonly, nonatomic) int TERRAIN_LAYER_COUNT;
+@property (readonly, nonatomic) int ZPOSITION_DIFFERENCE_PER_LAYER;
 
 
 @property (readonly, nonatomic) int PLAYER_SIZE;
 @property (readonly, nonatomic) int PLAYER_Z_POSITION;
 @property (readonly, nonatomic) int OBSTACLE_Z_POSITION;
-@property (readonly, nonatomic) int LINE_Z_POSITION;
+//@property (readonly, nonatomic) int LINE_Z_POSITION;
+@property (readonly, nonatomic) int FOREGROUND_Z_POSITION;
+@property (readonly, nonatomic) int BACKGROUND_Z_POSITION;
+
 @property (readonly, nonatomic) int HUD_Z_POSITION;
 
 

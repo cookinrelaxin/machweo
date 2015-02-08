@@ -15,8 +15,7 @@
 @property (nonatomic) BOOL shouldDeallocNodeArray;
 @property (nonatomic) BOOL shouldDraw;
 @property (nonatomic) BOOL allowIntersections;
-@property (nonatomic, strong) Terrain* terrain;
-
+@property (nonatomic) NSMutableArray* terrainArray;
 
 @property (nonatomic) NSMutableArray *nodeArray;
 -(instancetype)initWithTerrainNode:(SKNode*)node;

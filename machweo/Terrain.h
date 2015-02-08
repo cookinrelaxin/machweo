@@ -10,14 +10,14 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface Terrain : SKNode
-@property(nonatomic, strong) NSMutableArray* lineVertices;
+@property(nonatomic, strong) NSMutableArray* vertices;
 
 @property(nonatomic, strong) SKTexture* terrainTexture;
 @property(nonatomic, strong) SKCropNode* cropNode;
 @property(nonatomic) BOOL isClosed;
 @property(nonatomic) BOOL permitDecorations;
 
--(instancetype)initWithTexture:(SKTexture*)terrainTexture;
+-(instancetype)initWithTexture:(SKTexture*)texture;
 -(void)closeLoopAndFillTerrainInView:(SKView*)view;
 -(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node;
 -(void)changeDecorationPermissions:(CGPoint)currentPoint;

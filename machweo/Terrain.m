@@ -13,25 +13,43 @@
     CGVector vertexOffset;
     CGRect pathBoundingBox;
     SKSpriteNode* lastSprite;
+    //int backgroundYOffset;
 }
 
--(instancetype)initWithTexture:(SKTexture*)terrainTexture{
+-(instancetype)initWithTexture:(SKTexture*)texture{
     if (self = [super init]) {
        // _lineVertices = [NSMutableArray array];
-        _terrainTexture = terrainTexture;
-        Constants* constants = [Constants sharedInstance];
-        self.zPosition = constants.LINE_Z_POSITION;
-        
+        _terrainTexture = texture;
+//        Constants* constants = [Constants sharedInstance];
+//        backgroundYOffset = constants.FOREGROUND_Z_POSITION - self.zPosition;
         
     }
     return self;
 }
 
 -(void)closeLoopAndFillTerrainInView:(SKView*)view{
+//    [self generateBackground:view];
+    [self generate:view];
+    
+    _isClosed = false;
+    //   _permitVertices = false;
+    
+}
+
+-(void)changeDecorationPermissions:(CGPoint)currentPoint{
+    CGPoint firstVertex = [(NSValue*)[_vertices firstObject] CGPointValue];
+    double distance = ({double d1 = currentPoint.x - firstVertex.x, d2 = currentPoint.y - firstVertex.y; sqrt(d1 * d1 + d2 * d2); });
+    if(distance > 100){
+        _permitDecorations = true;
+    }
+    
+}
+
+-(void)generate:(SKView*)view{
     if (_cropNode) {
         [_cropNode removeFromParent];
     }
-    SKShapeNode* textureShapeNode = [self shapeNodeWithVertices:_lineVertices];
+    SKShapeNode* textureShapeNode = [self shapeNodeWithVertices:_vertices];
     SKTexture* texFromShapeNode = [view textureFromNode:textureShapeNode];
     SKSpriteNode* maskWrapper = [SKSpriteNode spriteNodeWithTexture:texFromShapeNode];
     _cropNode = [SKCropNode node];
@@ -46,24 +64,14 @@
     maskWrapper.position = CGPointMake(CGRectGetMidX(pathBoundingBox) + vertexOffset.dx, CGRectGetMidY(pathBoundingBox) + vertexOffset.dy);
     _cropNode.maskNode = maskWrapper;
     
-    //_cropNode.zPosition = self.zPosition;
-    
     [self addChild:_cropNode];
-    _isClosed = false;
-    //   _permitVertices = false;
-    
-}
-
--(void)changeDecorationPermissions:(CGPoint)currentPoint{
-    CGPoint firstVertex = [(NSValue*)[_lineVertices firstObject] CGPointValue];
-    double distance = ({double d1 = currentPoint.x - firstVertex.x, d2 = currentPoint.y - firstVertex.y; sqrt(d1 * d1 + d2 * d2); });
-    if(distance > 100){
-        _permitDecorations = true;
-    }
-    
 }
 
 -(SKShapeNode*)shapeNodeWithVertices:(NSArray*)vertexArray{
+    
+    Constants* constants = [Constants sharedInstance];
+    int backgroundYOffset = (constants.FOREGROUND_Z_POSITION - self.zPosition) * 5;
+    
     SKShapeNode* node = [SKShapeNode node];
     node.position = CGPointZero;
     //node.zPosition = self.zPosition;
@@ -83,7 +91,7 @@
             continue;
         }
         //NSLog(@"vertex: %f, %f", vertex.x, vertex.y);
-        CGPathAddLineToPoint(pathToDraw, NULL, vertex.x - vertexOffset.dx, vertex.y - vertexOffset.dy);
+        CGPathAddLineToPoint(pathToDraw, NULL, vertex.x - vertexOffset.dx, vertex.y - vertexOffset.dy + backgroundYOffset);
         
         if (value == vertexArray.lastObject) {
             CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + 100, 0);
@@ -100,7 +108,6 @@
     CGPathRelease(pathToDraw);
     return node;
 }
-
 -(void)dealloc{
 //    NSLog(@"dealloc terrain");
 }
@@ -119,16 +126,17 @@
             SKSpriteNode* sprite = [SKSpriteNode spriteNodeWithTexture:tex];
             sprite.size = CGSizeMake(sprite.size.width * constants.SCALE_COEFFICIENT.dy, sprite.size.height * constants.SCALE_COEFFICIENT.dy);
             
-            int zPositionDie = arc4random_uniform(20) + 1;
-            sprite.zPosition = self.zPosition - zPositionDie;
+            //int zPositionDie = arc4random_uniform(20) + 1;
+            //sprite.zPosition = constants.FOREGROUND_Z_POSITION - self.zPosition;
+            sprite.zPosition = self.zPosition - 1;
             
-            float differenceInZs = (self.zPosition - sprite.zPosition) * .5f;
+            float differenceInZs = (constants.FOREGROUND_Z_POSITION - sprite.zPosition) * .5f;
             if (differenceInZs > 1){
 //                NSLog(@"differenceInZs: %i", differenceInZs);
                 sprite.size = CGSizeMake(sprite.size.width * (1 / differenceInZs), sprite.size.height * (1 / differenceInZs));
-                NSLog(@"sprite.size: %f, %f", sprite.size.width, sprite.size.height);
+              //  NSLog(@"sprite.size: %f, %f", sprite.size.width, sprite.size.height);
             }
-            NSLog(@"differenceInZs: %f", differenceInZs);
+         //   NSLog(@"differenceInZs: %f", differenceInZs);
 
             
             sprite.position = [node convertPoint:v fromNode:self.parent.parent];
