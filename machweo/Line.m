@@ -9,6 +9,8 @@
 #import "Line.h"
 #import "Constants.h"
 
+
+
 @implementation Line{
     SKShapeNode* intersectingLinesNode;
 }
@@ -37,8 +39,11 @@
         }
         Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName]];
         ter.vertices = [NSMutableArray array];
-        ter.zPosition = constants.FOREGROUND_Z_POSITION - (constants.ZPOSITION_DIFFERENCE_PER_LAYER * i / 2);
-    //    ter.hidden = true;
+        ter.zPosition = constants.FOREGROUND_Z_POSITION - (constants.ZPOSITION_DIFFERENCE_PER_LAYER * i);
+        if (i > 0) {
+           ter.hidden = true;
+
+        }
         [_terrainArray addObject:ter];
         [node addChild:ter];
     }
@@ -46,8 +51,8 @@
     return self;
 }
 
--(void)generateConnectingLinesInNode:(SKNode*)node{
-    NSLog(@"node.children.count: %lu", (unsigned long)node.children.count);
+-(void)generateConnectingLinesInTerrainNode:(SKNode*)node withTerrainPool:(NSMutableArray*)terrainPool andDecoNode:(SKNode*)decorations :(BOOL)generateDecorations{
+   // NSLog(@"node.children.count: %lu", (unsigned long)node.children.count);
     //[node enumerateChildNodesWithName:@"intersectingLines" usingBlock:^(SKNode *kiddo, BOOL *stop) {
    //     [kiddo removeFromParent];
   //  }];
@@ -68,19 +73,21 @@
         
         Constants* constants = [Constants sharedInstance];
       //  Constants* constants = [Constants sharedInstance];
-        int backgroundOffset = (constants.FOREGROUND_Z_POSITION - secondTerrain.zPosition) * 5;
+        int backgroundOffset = (constants.FOREGROUND_Z_POSITION - secondTerrain.zPosition) / 4;
         intersectingLinesNode = [SKShapeNode node];
         intersectingLinesNode.name = @"intersectingLines";
     //    node.position = CGPointZero;
            // node.zPosition = constants.FOREGROUND_Z_POSITION;
     //    node.fillColor = [UIColor whiteColor];
+        //intersectingLinesNode.fillTexture = secondTerrain.terrainTexture;
+       // intersectingLinesNode.fillColor = [UIColor greenColor];
         intersectingLinesNode.antialiased = false;
         intersectingLinesNode.physicsBody = nil;
         CGMutablePathRef pathToDraw = CGPathCreateMutable();
         intersectingLinesNode.lineWidth = 1;
         
         CGPoint firstVertex = [(NSValue*)[vertices2 firstObject] CGPointValue];
-        CGPathMoveToPoint(pathToDraw, NULL, firstVertex.x, firstVertex.y + backgroundOffset);
+        CGPathMoveToPoint(pathToDraw, NULL, firstVertex.x, firstVertex.y - backgroundOffset);
         if (vertices1.count >= 3) {
             for (int i = 0; i < (vertices1.count - 2); i ++ ) {
                 //CGPoint v2_a = ((NSValue*)[vertices2 objectAtIndex:i]).CGPointValue;
@@ -89,6 +96,15 @@
 
                 CGPoint v1_a = ((NSValue*)[vertices1 objectAtIndex:i]).CGPointValue;
                 CGPoint v1_b = ((NSValue*)[vertices1 objectAtIndex:i + 1]).CGPointValue;
+                if (generateDecorations) {
+                    if (i >= (vertices1.count - 3)) {
+                        
+                        
+                        //CGPoint v2_a = ((NSValue*)[vertices) {
+                        [self findRandomPointAlongVertices :v1_b :CGPointMake(v2_b.x, v2_b.y + backgroundOffset) withZPosition1:firstTerrain.zPosition and2:secondTerrain.zPosition inTerrain:firstTerrain withTerrainPool:terrainPool inNode:decorations];
+                    }
+                }
+                
 
 
                 CGPathAddLineToPoint(pathToDraw, NULL, v1_a.x, v1_a.y);
@@ -100,11 +116,38 @@
         
         intersectingLinesNode.path = pathToDraw;
         CGPathRelease(pathToDraw);
-        [firstTerrain addChild:intersectingLinesNode];
-     //   return node;
+       // [firstTerrain addChild:intersectingLinesNode];
     }
     
 }
+
+-(void)findRandomPointAlongVertices:(CGPoint)v1 :(CGPoint)v2 withZPosition1:(float)z1 and2:(float)z2 inTerrain:(Terrain*)terrain withTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node{
+    //float m = (v2.y - v1.y) / (v2.x / v1.x);
+    float yDiff = v2.y - v1.y;
+    if (yDiff <= 0) {
+        return;
+    }
+    float xDiff = v2.x - v1.x;
+    int newYDiff = arc4random_uniform(yDiff);
+    int newXDiff = arc4random_uniform(xDiff);
+    
+    CGPoint newPoint = CGPointMake(v1.x + (float)newXDiff, v1.y + (float)newYDiff);
+    float zDiff = z2 - z1;
+    float zPositionScale = zDiff / yDiff;
+    float newZposition = z1 + (zPositionScale * (float)newYDiff);
+    
+    //NSLog(@"yDiff: %f", yDiff);
+   // NSLog(@"z1: %f", z1);
+   // NSLog(@"newYDiff: %f", (float)newYDiff);
+   // NSLog(@"zPositionScale: %f", zPositionScale);
+   // NSLog(@"newZposition: %f", newZposition);
+    [terrain generateDecorationAtVertex:newPoint fromTerrainPool:terrainPool inNode:node withZposition:newZposition];
+    //float newScale =
+    
+
+}
+
+
 
 //+(Line*)lineWithVertices:(NSMutableArray*)vertices{
 //    Line* line = [[Line alloc] init];

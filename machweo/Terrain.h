@@ -19,7 +19,7 @@
 
 -(instancetype)initWithTexture:(SKTexture*)texture;
 -(void)closeLoopAndFillTerrainInView:(SKView*)view;
--(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node;
+-(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node withZposition:(float)zPos;
 -(void)changeDecorationPermissions:(CGPoint)currentPoint;
 -(void)freezeLastNSprites;
 

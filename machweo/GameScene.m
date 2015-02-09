@@ -122,9 +122,9 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     Line *currentLine = [arrayOfLines lastObject];
-    for (Terrain* ter in currentLine.terrainArray) {
-        [ter freezeLastNSprites];
-    }
+//    for (Terrain* ter in currentLine.terrainArray) {
+//        [ter freezeLastNSprites];
+//    }
     currentLine.complete = true;
     player.touchesEnded = true;
 }
@@ -171,22 +171,22 @@
     for (Terrain* ter in currentLine.terrainArray) {
         
         int randomYd = arc4random_uniform(20);
-        //float yDifferenceFromOrigin = currentLine.origin.y - currentPoint.y;
-       // float mellowedDifference = yDifferenceFromOrigin / 2;
+        float yDifferenceFromOrigin = currentLine.origin.y - currentPoint.y;
+        float mellowedDifference = yDifferenceFromOrigin / 4;
         CGPoint newPoint;
-        //if (ter == currentLine.terrainArray.firstObject) {
+        if (ter == currentLine.terrainArray.firstObject) {
             newPoint = CGPointMake(currentPoint.x, currentPoint.y + randomYd);
-       // }
-        //else{
-        //    newPoint = CGPointMake(currentPoint.x, currentLine.origin.y + randomYd + mellowedDifference);
+        }
+        else{
+            newPoint = CGPointMake(currentPoint.x, currentLine.origin.y + randomYd + mellowedDifference);
 
-       // }
+        }
             [ter.vertices addObject:[NSValue valueWithCGPoint:newPoint]];
         if (!ter.permitDecorations){
             [ter changeDecorationPermissions:newPoint];
         }
-        int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) * 5;
-        [ter generateDecorationAtVertex:CGPointMake(newPoint.x, newPoint.y + backgroundYOffset) fromTerrainPool:terrainPool inNode:_decorations];
+        //int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) * 5;
+        //[ter generateDecorationAtVertex:CGPointMake(newPoint.x, newPoint.y + backgroundYOffset) fromTerrainPool:terrainPool inNode:_decorations];
     }
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
@@ -334,6 +334,7 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"update velocity" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"{%f, %f}", player.velocity.dx, player.velocity.dy] forKey:@"velocity"]];
     [self drawLines];
+    [self generateDecorations];
 }
 
 -(void)checkForLostGame{
@@ -408,6 +409,13 @@
 
 }
 
+-(void)generateDecorations{
+    for (Line* line in arrayOfLines) {
+        // if (!player.touchesEnded) {
+        [line generateConnectingLinesInTerrainNode:_terrain withTerrainPool:terrainPool andDecoNode:_decorations :!player.touchesEnded];
+    }
+}
+
 - (void)centerCameraOnPlayer {
     if (!stopScrolling) {
         currentDesiredPlayerPositionInView = CGPointMake(currentDesiredPlayerPositionInView.x, [self convertPointToView:player.position].y);
@@ -417,7 +425,9 @@
         player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
         CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
         for (Line* line in arrayOfLines) {
-            [line generateConnectingLinesInNode:_terrain];
+           // if (!player.touchesEnded) {
+           // [line generateConnectingLinesInTerrainNode:_terrain withTerrainPool:terrainPool andDecoNode:_decorations :!player.touchesEnded];
+            //}
             for (int i = 0; i < line.nodeArray.count; i ++) {
                 NSValue* pointNode = [line.nodeArray objectAtIndex:i];
                 CGPoint pointNodePosition = pointNode.CGPointValue;
