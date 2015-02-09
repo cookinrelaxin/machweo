@@ -62,18 +62,18 @@
         //intersectingLinesNode = nil;
     }
     Terrain* firstTerrain = [_terrainArray objectAtIndex:0];
-    Terrain* secondTerrain = [_terrainArray objectAtIndex:1];
-    if (firstTerrain && secondTerrain) {
+    Terrain* thirdTerrain = [_terrainArray objectAtIndex:2];
+    if (firstTerrain && thirdTerrain) {
             
         
 
         NSArray* vertices1 = firstTerrain.vertices;
-        NSArray* vertices2 = secondTerrain.vertices;
+        NSArray* vertices2 = thirdTerrain.vertices;
         
         
-        Constants* constants = [Constants sharedInstance];
+       // Constants* constants = [Constants sharedInstance];
       //  Constants* constants = [Constants sharedInstance];
-        int backgroundOffset = (constants.FOREGROUND_Z_POSITION - secondTerrain.zPosition) / 4;
+//        int backgroundOffset = (constants.FOREGROUND_Z_POSITION - thirdTerrain.zPosition) / 4;
         intersectingLinesNode = [SKShapeNode node];
         intersectingLinesNode.name = @"intersectingLines";
     //    node.position = CGPointZero;
@@ -87,7 +87,7 @@
         intersectingLinesNode.lineWidth = 1;
         
         CGPoint firstVertex = [(NSValue*)[vertices2 firstObject] CGPointValue];
-        CGPathMoveToPoint(pathToDraw, NULL, firstVertex.x, firstVertex.y - backgroundOffset);
+        CGPathMoveToPoint(pathToDraw, NULL, firstVertex.x, firstVertex.y);
         if (vertices1.count >= 3) {
             for (int i = 0; i < (vertices1.count - 2); i ++ ) {
                 //CGPoint v2_a = ((NSValue*)[vertices2 objectAtIndex:i]).CGPointValue;
@@ -101,7 +101,7 @@
                         
                         
                         //CGPoint v2_a = ((NSValue*)[vertices) {
-                        [self findRandomPointAlongVertices :v1_b :CGPointMake(v2_b.x, v2_b.y + backgroundOffset) withZPosition1:firstTerrain.zPosition and2:secondTerrain.zPosition inTerrain:firstTerrain withTerrainPool:terrainPool inNode:decorations];
+                        [self findRandomPointAlongVertices :v1_b :CGPointMake(v2_b.x, v2_b.y) withZPosition1:firstTerrain.zPosition and2:thirdTerrain.zPosition inTerrain:firstTerrain withTerrainPool:terrainPool inNode:decorations];
                     }
                 }
                 
@@ -109,8 +109,8 @@
 
                 CGPathAddLineToPoint(pathToDraw, NULL, v1_a.x, v1_a.y);
                 CGPathAddLineToPoint(pathToDraw, NULL, v1_b.x, v1_b.y);
-                CGPathAddLineToPoint(pathToDraw, NULL, v2_b.x, v2_b.y + backgroundOffset);
-                CGPathAddLineToPoint(pathToDraw, NULL, v2_c.x, v2_c.y + backgroundOffset);
+                CGPathAddLineToPoint(pathToDraw, NULL, v2_b.x, v2_b.y);
+                CGPathAddLineToPoint(pathToDraw, NULL, v2_c.x, v2_c.y);
             }
         }
         

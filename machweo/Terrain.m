@@ -84,8 +84,8 @@ int LAST_N_SPRITES_N = 3;
 
 -(SKShapeNode*)shapeNodeWithVertices:(NSArray*)vertexArray{
     
-    Constants* constants = [Constants sharedInstance];
-    int backgroundOffset = (constants.FOREGROUND_Z_POSITION - self.zPosition) / 4;
+ //   Constants* constants = [Constants sharedInstance];
+   // int backgroundOffset = (constants.FOREGROUND_Z_POSITION - self.zPosition) / 4;
     
     SKShapeNode* node = [SKShapeNode node];
     node.position = CGPointZero;
@@ -106,12 +106,12 @@ int LAST_N_SPRITES_N = 3;
             continue;
         }
         //NSLog(@"vertex: %f, %f", vertex.x, vertex.y);
-        CGPathAddLineToPoint(pathToDraw, NULL, vertex.x - vertexOffset.dx, vertex.y - vertexOffset.dy + backgroundOffset);
+        CGPathAddLineToPoint(pathToDraw, NULL, vertex.x - vertexOffset.dx, vertex.y - vertexOffset.dy);
         
         if (value == vertexArray.lastObject) {
           //  CGPoint rightLipVertex = CGPointMake(vertex.x + 50 + backgroundOffset, vertex.y - 50);
-            CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + 100 + backgroundOffset, 0);
-            CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x - 100 - backgroundOffset, 0);
+            CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + 100, 0);
+            CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x - 100, 0);
             CGPoint upperLeftAreaVertex = firstVertex;
            // CGPathAddLineToPoint(pathToDraw, NULL, rightLipVertex.x - vertexOffset.dx, rightLipVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, bottomRightAreaVertex.x - vertexOffset.dx, bottomRightAreaVertex.y - vertexOffset.dy);

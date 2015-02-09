@@ -122,9 +122,9 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     Line *currentLine = [arrayOfLines lastObject];
-    for (Terrain* ter in currentLine.terrainArray) {
-        [ter freezeLastNSprites];
-    }
+//    for (Terrain* ter in currentLine.terrainArray) {
+//        [ter freezeLastNSprites];
+//    }
     currentLine.complete = true;
     player.touchesEnded = true;
 }
@@ -170,6 +170,7 @@
     //NSLog(@"currentPointArray.count:%lu", (unsigned long)currentPointArray.count);
     for (Terrain* ter in currentLine.terrainArray) {
         
+        float backgroundOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 4;
         int randomYd = arc4random_uniform(20);
         float yDifferenceFromOrigin = currentLine.origin.y - currentPoint.y;
         float mellowedDifference = yDifferenceFromOrigin / 4;
@@ -178,17 +179,17 @@
             newPoint = CGPointMake(currentPoint.x, currentPoint.y + randomYd);
         }
         else{
-            newPoint = CGPointMake(currentPoint.x, currentLine.origin.y + randomYd + mellowedDifference);
+            newPoint = CGPointMake(currentPoint.x, currentLine.origin.y + randomYd + mellowedDifference + backgroundOffset);
 
         }
             [ter.vertices addObject:[NSValue valueWithCGPoint:newPoint]];
         if (!ter.permitDecorations){
             [ter changeDecorationPermissions:newPoint];
         }
-        int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 2;
-        [ter generateDecorationAtVertex:CGPointMake(newPoint.x, newPoint.y + backgroundYOffset) fromTerrainPool:terrainPool inNode:_decorations withZposition:0];
+       // int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 2;
+        //[ter generateDecorationAtVertex:CGPointMake(newPoint.x, newPoint.y + backgroundYOffset) fromTerrainPool:terrainPool inNode:_decorations withZposition:0];
     }
-    [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
+   // [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
     
 }
@@ -334,7 +335,7 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"update velocity" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"{%f, %f}", player.velocity.dx, player.velocity.dy] forKey:@"velocity"]];
     [self drawLines];
-   // [self generateDecorations];
+    [self generateDecorations];
 }
 
 -(void)checkForLostGame{
