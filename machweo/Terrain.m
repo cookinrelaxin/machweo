@@ -146,7 +146,7 @@ int LAST_N_SPRITES_N = 3;
             sprite.size = CGSizeMake(sprite.size.width * constants.SCALE_COEFFICIENT.dy, sprite.size.height * constants.SCALE_COEFFICIENT.dy);
         
             if (zPos == 0) {
-                 int zPositionDie = arc4random_uniform(15);
+                 int zPositionDie = arc4random_uniform(20);
                  sprite.zPosition = constants.FOREGROUND_Z_POSITION - zPositionDie;
                  sprite.zPosition = self.zPosition - 1 - zPositionDie;
             }
@@ -154,7 +154,7 @@ int LAST_N_SPRITES_N = 3;
                 sprite.zPosition = zPos;
             }
             //NSLog(@"zPos: %f", zPos);
-            float differenceInZs = (constants.FOREGROUND_Z_POSITION - sprite.zPosition) * .25f;
+            float differenceInZs = (constants.FOREGROUND_Z_POSITION - sprite.zPosition) * .1f;
             if (differenceInZs > 1){
     //                NSLog(@"differenceInZs: %i", differenceInZs);
                 sprite.size = CGSizeMake(sprite.size.width * (1 / differenceInZs), sprite.size.height * (1 / differenceInZs));
