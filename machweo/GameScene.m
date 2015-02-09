@@ -122,9 +122,9 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     Line *currentLine = [arrayOfLines lastObject];
-//    for (Terrain* ter in currentLine.terrainArray) {
-//        [ter freezeLastNSprites];
-//    }
+    for (Terrain* ter in currentLine.terrainArray) {
+        [ter freezeLastNSprites];
+    }
     currentLine.complete = true;
     player.touchesEnded = true;
 }
@@ -185,8 +185,8 @@
         if (!ter.permitDecorations){
             [ter changeDecorationPermissions:newPoint];
         }
-        //int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) * 5;
-        //[ter generateDecorationAtVertex:CGPointMake(newPoint.x, newPoint.y + backgroundYOffset) fromTerrainPool:terrainPool inNode:_decorations];
+        int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 2;
+        [ter generateDecorationAtVertex:CGPointMake(newPoint.x, newPoint.y + backgroundYOffset) fromTerrainPool:terrainPool inNode:_decorations withZposition:0];
     }
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
@@ -334,7 +334,7 @@
     }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"update velocity" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"{%f, %f}", player.velocity.dx, player.velocity.dy] forKey:@"velocity"]];
     [self drawLines];
-    [self generateDecorations];
+   // [self generateDecorations];
 }
 
 -(void)checkForLostGame{
@@ -425,9 +425,6 @@
         player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
         CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
         for (Line* line in arrayOfLines) {
-           // if (!player.touchesEnded) {
-           // [line generateConnectingLinesInTerrainNode:_terrain withTerrainPool:terrainPool andDecoNode:_decorations :!player.touchesEnded];
-            //}
             for (int i = 0; i < line.nodeArray.count; i ++) {
                 NSValue* pointNode = [line.nodeArray objectAtIndex:i];
                 CGPoint pointNodePosition = pointNode.CGPointValue;

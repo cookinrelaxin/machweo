@@ -40,10 +40,10 @@
         Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName]];
         ter.vertices = [NSMutableArray array];
         ter.zPosition = constants.FOREGROUND_Z_POSITION - (constants.ZPOSITION_DIFFERENCE_PER_LAYER * i);
-        if (i > 0) {
-           ter.hidden = true;
-
-        }
+//        if (i > 0) {
+//           ter.hidden = true;
+//
+//        }
         [_terrainArray addObject:ter];
         [node addChild:ter];
     }

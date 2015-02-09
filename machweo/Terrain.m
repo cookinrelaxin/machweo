@@ -9,7 +9,7 @@
 #import "Terrain.h"
 #import "Constants.h"
 
-int LAST_N_SPRITES_N = 1;
+int LAST_N_SPRITES_N = 3;
 
 @implementation Terrain{
     CGVector vertexOffset;
@@ -135,24 +135,28 @@ int LAST_N_SPRITES_N = 1;
     if(_permitDecorations){
     
         Constants* constants = [Constants sharedInstance];
-        //int probability1 = constants.TERRAIN_VERTEX_DECORATION_CHANCE_DENOM;
-        //int castedDie1 = arc4random_uniform(probability1 + 1);
-        //if (castedDie1 == probability1){
+        int probability1 = constants.TERRAIN_VERTEX_DECORATION_CHANCE_DENOM;
+        int castedDie1 = arc4random_uniform(probability1 + 1);
+        if (castedDie1 == probability1){
            // NSLog(@"(castedDie1 == probability1)");
             int castedDie2 = arc4random_uniform((int)terrainPool.count);
             //    NSLog(@"castedDie2: %i", castedDie2);
             SKTexture* tex = [terrainPool objectAtIndex:castedDie2];
             SKSpriteNode* sprite = [SKSpriteNode spriteNodeWithTexture:tex];
             sprite.size = CGSizeMake(sprite.size.width * constants.SCALE_COEFFICIENT.dy, sprite.size.height * constants.SCALE_COEFFICIENT.dy);
-            
-           // int zPositionDie = arc4random_uniform(15);
-           // sprite.zPosition = constants.FOREGROUND_Z_POSITION - zPositionDie;
-           // sprite.zPosition = self.zPosition - 1 - zPositionDie;
-            sprite.zPosition = zPos;
+        
+            if (zPos == 0) {
+                 int zPositionDie = arc4random_uniform(15);
+                 sprite.zPosition = constants.FOREGROUND_Z_POSITION - zPositionDie;
+                 sprite.zPosition = self.zPosition - 1 - zPositionDie;
+            }
+            else{
+                sprite.zPosition = zPos;
+            }
             //NSLog(@"zPos: %f", zPos);
-            float differenceInZs = (constants.FOREGROUND_Z_POSITION - sprite.zPosition) * .5f;
+            float differenceInZs = (constants.FOREGROUND_Z_POSITION - sprite.zPosition) * .25f;
             if (differenceInZs > 1){
-//                NSLog(@"differenceInZs: %i", differenceInZs);
+    //                NSLog(@"differenceInZs: %i", differenceInZs);
                 sprite.size = CGSizeMake(sprite.size.width * (1 / differenceInZs), sprite.size.height * (1 / differenceInZs));
               //  NSLog(@"sprite.size: %f, %f", sprite.size.width, sprite.size.height);
             }
@@ -160,11 +164,10 @@ int LAST_N_SPRITES_N = 1;
 
             
             sprite.position = [node convertPoint:v fromNode:self.parent.parent];
-            //int heightDie = arc4random_uniform((sprite.size.height / 4));
-            //sprite.position = CGPointMake(sprite.position.x, sprite.position.y + heightDie);
-            sprite.position = CGPointMake(sprite.position.x, sprite.position.y + (sprite.size.height / 2));
+            int heightDie = arc4random_uniform((sprite.size.height / 4));
+            sprite.position = CGPointMake(sprite.position.x, sprite.position.y + heightDie);
+            //sprite.position = CGPointMake(sprite.position.x, sprite.position.y + (sprite.size.height / 2));
             
-           // int heightDie = arc4random_uniform((sprite.size.height / 3));
             double rotationDie = drand48();
             int signDie = arc4random_uniform(2);
             float rotation = (signDie == 0) ? (M_PI_4 / 2 * rotationDie) : -(M_PI_4 / 2 * rotationDie);
@@ -174,9 +177,9 @@ int LAST_N_SPRITES_N = 1;
 
             [node addChild:sprite];
             [self updateLastNSprites:sprite];
-            
-        }
-    //}
+                
+            }
+    }
 }
 
 //-(void)decrementZposition{
