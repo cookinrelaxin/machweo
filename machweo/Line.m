@@ -11,7 +11,8 @@
 
 @implementation Line
 
--(instancetype)initWithTerrainNode:(SKNode*)node{
+-(instancetype)initWithTerrainNode:(SKNode*)node :(CGPoint)origin{
+    _origin = origin;
     _nodeArray = [NSMutableArray array];
     _terrainArray = [NSMutableArray array];
     _shouldDraw = true;
@@ -21,7 +22,18 @@
    // [node addChild:_foreground];
     Constants* constants = [Constants sharedInstance];
     for (int i = 0; i < constants.TERRAIN_LAYER_COUNT; i ++) {
-        Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:@"african_textile_3_terrain"]];
+        
+        NSString* textureName = @"filler";
+        if (i == 0) {
+            textureName = @"african_textile_3_terrain";
+        }
+        if (i == 1) {
+            textureName = @"african_textile_2_terrain";
+        }
+        if (i == 2) {
+            textureName = @"african_textile_5_terrain";
+        }
+        Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName]];
         ter.vertices = [NSMutableArray array];
         ter.zPosition = constants.FOREGROUND_Z_POSITION - (constants.ZPOSITION_DIFFERENCE_PER_LAYER * i / 2);
         [_terrainArray addObject:ter];

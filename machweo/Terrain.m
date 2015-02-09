@@ -9,22 +9,37 @@
 #import "Terrain.h"
 #import "Constants.h"
 
+int LAST_N_SPRITES_N = 1;
+
 @implementation Terrain{
     CGVector vertexOffset;
     CGRect pathBoundingBox;
-    SKSpriteNode* lastSprite;
+    NSMutableArray* lastNSprites;
+    
     //int backgroundYOffset;
 }
 
 -(instancetype)initWithTexture:(SKTexture*)texture{
     if (self = [super init]) {
-       // _lineVertices = [NSMutableArray array];
         _terrainTexture = texture;
-//        Constants* constants = [Constants sharedInstance];
-//        backgroundYOffset = constants.FOREGROUND_Z_POSITION - self.zPosition;
+        lastNSprites = [NSMutableArray array];
+        
         
     }
     return self;
+}
+
+-(void)updateLastNSprites:(SKSpriteNode*)newest{
+    if (lastNSprites.count > LAST_N_SPRITES_N) {
+        [lastNSprites removeObjectAtIndex:0];
+    }
+    [lastNSprites addObject:newest];
+}
+
+-(void)freezeLastNSprites{
+    for (SKSpriteNode* sp in lastNSprites) {
+        sp.zPosition = self.zPosition - 1;
+    }
 }
 
 -(void)closeLoopAndFillTerrainInView:(SKView*)view{
@@ -94,9 +109,11 @@
         CGPathAddLineToPoint(pathToDraw, NULL, vertex.x - vertexOffset.dx, vertex.y - vertexOffset.dy + backgroundOffset);
         
         if (value == vertexArray.lastObject) {
+          //  CGPoint rightLipVertex = CGPointMake(vertex.x + 50 + backgroundOffset, vertex.y - 50);
             CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + 100 + backgroundOffset, 0);
             CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x - 100 - backgroundOffset, 0);
             CGPoint upperLeftAreaVertex = firstVertex;
+           // CGPathAddLineToPoint(pathToDraw, NULL, rightLipVertex.x - vertexOffset.dx, rightLipVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, bottomRightAreaVertex.x - vertexOffset.dx, bottomRightAreaVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, bottomLeftAreaVertex.x - vertexOffset.dx, bottomLeftAreaVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, upperLeftAreaVertex.x - vertexOffset.dx, upperLeftAreaVertex.y - vertexOffset.dy);
@@ -141,7 +158,7 @@
             
             sprite.position = [node convertPoint:v fromNode:self.parent.parent];
             int heightDie = arc4random_uniform((sprite.size.height / 4));
-            sprite.position = CGPointMake(sprite.position.x - (sprite.size.width / 2), sprite.position.y + heightDie);
+            sprite.position = CGPointMake(sprite.position.x, sprite.position.y + heightDie);
             
            // int heightDie = arc4random_uniform((sprite.size.height / 3));
             double rotationDie = drand48();
@@ -152,7 +169,7 @@
 
 
             [node addChild:sprite];
-            lastSprite = sprite;
+            [self updateLastNSprites:sprite];
             
         }
     }

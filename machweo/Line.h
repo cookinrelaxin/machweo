@@ -16,10 +16,8 @@
 @property (nonatomic) BOOL shouldDraw;
 @property (nonatomic) BOOL allowIntersections;
 @property (nonatomic) NSMutableArray* terrainArray;
-
 @property (nonatomic) NSMutableArray *nodeArray;
--(instancetype)initWithTerrainNode:(SKNode*)node;
-//-(BOOL)pointUnderLine:(CGPoint)point;
 
-//+(Line*)lineWithVertices:(NSMutableArray*)vertices;
+@property (nonatomic) CGPoint origin;
+-(instancetype)initWithTerrainNode:(SKNode*)node :(CGPoint)origin;
 @end

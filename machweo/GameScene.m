@@ -91,7 +91,8 @@
     
   //  Line *currentLine = [arrayOfLines lastObject];
 
-    Line *newLine = [[Line alloc] initWithTerrainNode:_terrain];
+   // Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :currentPoint];
+    Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))];
     [arrayOfLines addObject:newLine];
     
 
@@ -121,6 +122,9 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     Line *currentLine = [arrayOfLines lastObject];
+    for (Terrain* ter in currentLine.terrainArray) {
+        [ter freezeLastNSprites];
+    }
     currentLine.complete = true;
     player.touchesEnded = true;
 }
@@ -165,20 +169,19 @@
     [currentPointArray addObject:[NSValue valueWithCGPoint:currentPoint]];
     //NSLog(@"currentPointArray.count:%lu", (unsigned long)currentPointArray.count);
     for (Terrain* ter in currentLine.terrainArray) {
-        //BOOL firstObject = (ter == [currentLine.terrainArray firstObject]);
-        //if (!firstObject) {
-            //int randomXd = arc4random_uniform(20);
-            int randomYd = arc4random_uniform(20);
-
-            CGPoint newPoint = CGPointMake(currentPoint.x, currentPoint.y + randomYd);
-            [ter.vertices addObject:[NSValue valueWithCGPoint:newPoint]];
-       // }
-        //else{
-        //    [ter.vertices addObject:[NSValue valueWithCGPoint:currentPoint]];
-       // }
         
+        int randomYd = arc4random_uniform(20);
+        float yDifferenceFromOrigin = currentLine.origin.y - currentPoint.y;
+        float mellowedDifference = yDifferenceFromOrigin / 2;
+        CGPoint newPoint;
+        if (ter == currentLine.terrainArray.firstObject) {
+            newPoint = CGPointMake(currentPoint.x, currentPoint.y + randomYd);
+        }
+        else{
+            newPoint = CGPointMake(currentPoint.x, currentLine.origin.y + randomYd + mellowedDifference);
 
-      //  [ter.vertices addObject:pointValue];
+        }
+            [ter.vertices addObject:[NSValue valueWithCGPoint:newPoint]];
         if (!ter.permitDecorations){
             [ter changeDecorationPermissions:newPoint];
         }

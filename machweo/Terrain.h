@@ -21,5 +21,6 @@
 -(void)closeLoopAndFillTerrainInView:(SKView*)view;
 -(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node;
 -(void)changeDecorationPermissions:(CGPoint)currentPoint;
+-(void)freezeLastNSprites;
 
 @end
