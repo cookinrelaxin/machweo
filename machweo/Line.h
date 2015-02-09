@@ -20,4 +20,5 @@
 
 @property (nonatomic) CGPoint origin;
 -(instancetype)initWithTerrainNode:(SKNode*)node :(CGPoint)origin;
+-(void)generateConnectingLinesInNode:(SKNode*)node;
 @end

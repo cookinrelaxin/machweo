@@ -125,6 +125,8 @@ int LAST_N_SPRITES_N = 1;
     CGPathRelease(pathToDraw);
     return node;
 }
+
+
 -(void)dealloc{
 //    NSLog(@"dealloc terrain");
 }

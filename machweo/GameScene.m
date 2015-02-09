@@ -171,16 +171,16 @@
     for (Terrain* ter in currentLine.terrainArray) {
         
         int randomYd = arc4random_uniform(20);
-        float yDifferenceFromOrigin = currentLine.origin.y - currentPoint.y;
-        float mellowedDifference = yDifferenceFromOrigin / 2;
+        //float yDifferenceFromOrigin = currentLine.origin.y - currentPoint.y;
+       // float mellowedDifference = yDifferenceFromOrigin / 2;
         CGPoint newPoint;
-        if (ter == currentLine.terrainArray.firstObject) {
+        //if (ter == currentLine.terrainArray.firstObject) {
             newPoint = CGPointMake(currentPoint.x, currentPoint.y + randomYd);
-        }
-        else{
-            newPoint = CGPointMake(currentPoint.x, currentLine.origin.y + randomYd + mellowedDifference);
+       // }
+        //else{
+        //    newPoint = CGPointMake(currentPoint.x, currentLine.origin.y + randomYd + mellowedDifference);
 
-        }
+       // }
             [ter.vertices addObject:[NSValue valueWithCGPoint:newPoint]];
         if (!ter.permitDecorations){
             [ter changeDecorationPermissions:newPoint];
@@ -188,7 +188,6 @@
         int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) * 5;
         [ter generateDecorationAtVertex:CGPointMake(newPoint.x, newPoint.y + backgroundYOffset) fromTerrainPool:terrainPool inNode:_decorations];
     }
-    
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
     
@@ -418,8 +417,7 @@
         player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
         CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
         for (Line* line in arrayOfLines) {
-            
-
+            [line generateConnectingLinesInNode:_terrain];
             for (int i = 0; i < line.nodeArray.count; i ++) {
                 NSValue* pointNode = [line.nodeArray objectAtIndex:i];
                 CGPoint pointNodePosition = pointNode.CGPointValue;

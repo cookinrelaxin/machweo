@@ -9,7 +9,9 @@
 #import "Line.h"
 #import "Constants.h"
 
-@implementation Line
+@implementation Line{
+    SKShapeNode* intersectingLinesNode;
+}
 
 -(instancetype)initWithTerrainNode:(SKNode*)node :(CGPoint)origin{
     _origin = origin;
@@ -36,11 +38,72 @@
         Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName]];
         ter.vertices = [NSMutableArray array];
         ter.zPosition = constants.FOREGROUND_Z_POSITION - (constants.ZPOSITION_DIFFERENCE_PER_LAYER * i / 2);
+    //    ter.hidden = true;
         [_terrainArray addObject:ter];
         [node addChild:ter];
     }
     
     return self;
+}
+
+-(void)generateConnectingLinesInNode:(SKNode*)node{
+    NSLog(@"node.children.count: %lu", (unsigned long)node.children.count);
+    //[node enumerateChildNodesWithName:@"intersectingLines" usingBlock:^(SKNode *kiddo, BOOL *stop) {
+   //     [kiddo removeFromParent];
+  //  }];
+    if (intersectingLinesNode) {
+        //NSLog(@"removing intersecting lines");
+        [intersectingLinesNode removeFromParent];
+        //intersectingLinesNode = nil;
+    }
+    Terrain* firstTerrain = [_terrainArray objectAtIndex:0];
+    Terrain* secondTerrain = [_terrainArray objectAtIndex:1];
+    if (firstTerrain && secondTerrain) {
+            
+        
+
+        NSArray* vertices1 = firstTerrain.vertices;
+        NSArray* vertices2 = secondTerrain.vertices;
+        
+        
+        Constants* constants = [Constants sharedInstance];
+      //  Constants* constants = [Constants sharedInstance];
+        int backgroundOffset = (constants.FOREGROUND_Z_POSITION - secondTerrain.zPosition) * 5;
+        intersectingLinesNode = [SKShapeNode node];
+        intersectingLinesNode.name = @"intersectingLines";
+    //    node.position = CGPointZero;
+           // node.zPosition = constants.FOREGROUND_Z_POSITION;
+    //    node.fillColor = [UIColor whiteColor];
+        intersectingLinesNode.antialiased = false;
+        intersectingLinesNode.physicsBody = nil;
+        CGMutablePathRef pathToDraw = CGPathCreateMutable();
+        intersectingLinesNode.lineWidth = 1;
+        
+        CGPoint firstVertex = [(NSValue*)[vertices2 firstObject] CGPointValue];
+        CGPathMoveToPoint(pathToDraw, NULL, firstVertex.x, firstVertex.y + backgroundOffset);
+        if (vertices1.count >= 3) {
+            for (int i = 0; i < (vertices1.count - 2); i ++ ) {
+                //CGPoint v2_a = ((NSValue*)[vertices2 objectAtIndex:i]).CGPointValue;
+                CGPoint v2_b = ((NSValue*)[vertices2 objectAtIndex:i + 1]).CGPointValue;
+                CGPoint v2_c = ((NSValue*)[vertices2 objectAtIndex:i + 1 + 1]).CGPointValue;
+
+                CGPoint v1_a = ((NSValue*)[vertices1 objectAtIndex:i]).CGPointValue;
+                CGPoint v1_b = ((NSValue*)[vertices1 objectAtIndex:i + 1]).CGPointValue;
+
+
+                CGPathAddLineToPoint(pathToDraw, NULL, v1_a.x, v1_a.y);
+                CGPathAddLineToPoint(pathToDraw, NULL, v1_b.x, v1_b.y);
+                CGPathAddLineToPoint(pathToDraw, NULL, v2_b.x, v2_b.y + backgroundOffset);
+                CGPathAddLineToPoint(pathToDraw, NULL, v2_c.x, v2_c.y + backgroundOffset);
+            }
+        }
+        
+        intersectingLinesNode.path = pathToDraw;
+        CGPathRelease(pathToDraw);
+        [firstTerrain addChild:intersectingLinesNode];
+     //   return node;
+    }
+    
 }
 
 //+(Line*)lineWithVertices:(NSMutableArray*)vertices{
