@@ -159,7 +159,7 @@ int LAST_N_SPRITES_N = 1;
                 else if (slope < 2) {
                     zPositionDie = arc4random_uniform(10);
                 }
-                else if (slope < 2) {
+                else if (slope < 3) {
                     zPositionDie = arc4random_uniform(15);
                 }
 //                else{
