@@ -30,13 +30,14 @@ int LAST_N_SPRITES_N = 1;
 }
 
 -(void)updateLastNSprites:(SKSpriteNode*)newest{
-    if (lastNSprites.count > LAST_N_SPRITES_N) {
+    if (lastNSprites.count >= LAST_N_SPRITES_N) {
         [lastNSprites removeObjectAtIndex:0];
     }
     [lastNSprites addObject:newest];
 }
 
 -(void)freezeLastNSprites{
+    NSLog(@"lastNSprites.count: %lu", (unsigned long)lastNSprites.count);
     for (SKSpriteNode* sp in lastNSprites) {
         sp.zPosition = self.zPosition - 1;
     }
@@ -148,19 +149,24 @@ int LAST_N_SPRITES_N = 1;
             SKSpriteNode* sprite = [SKSpriteNode spriteNodeWithTexture:tex];
             sprite.size = CGSizeMake(sprite.size.width * constants.SCALE_COEFFICIENT.dy, sprite.size.height * constants.SCALE_COEFFICIENT.dy);
             if (zPos == 0) {
+                //CGRect nodeFrame = node.calculateAccumulatedFrame;
+                //NSLog(@"nodeFrame: %f, %f", nodeFrame.size.width, nodeFrame.size.height);
            //     NSLog(@"slope: %f", slope);
+//                if (<#condition#>) {
+//                    <#statements#>
+//                }
                 int zPositionDie = 0;
                 if (slope < -1) {
                     zPositionDie = 0;
                 }
                 else if (slope < 1) {
-                    zPositionDie = arc4random_uniform(12);
+                    zPositionDie = arc4random_uniform(10);
                 }
                 else if (slope < 2) {
-                    zPositionDie = arc4random_uniform(15);
+                    zPositionDie = arc4random_uniform(16);
                 }
                 else if (slope < 3) {
-                    zPositionDie = arc4random_uniform(20);
+                    zPositionDie = arc4random_uniform(22);
                 }
 //                else{
 //                    zPositionDie = arc4random_uniform(20);

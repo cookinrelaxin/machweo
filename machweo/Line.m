@@ -119,25 +119,29 @@
 
 -(void)findRandomPointAlongVertices:(CGPoint)v1 :(CGPoint)v2 withZPosition1:(float)z1 and2:(float)z2 inTerrain:(Terrain*)terrain withTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node andSlope:(float)slope{
     //float m = (v2.y - v1.y) / (v2.x / v1.x);
-    float yDiff = v2.y - v1.y;
-    if (yDiff <= 0) {
-        return;
-    }
-    float xDiff = v2.x - v1.x;
-    int newYDiff = arc4random_uniform(yDiff);
-    int newXDiff = arc4random_uniform(xDiff);
-    
-    CGPoint newPoint = CGPointMake(v1.x + (float)newXDiff, v1.y + (float)newYDiff);
-    float zDiff = z2 - z1;
-    float zPositionScale = zDiff / yDiff;
-    float newZposition = z1 + (zPositionScale * (float)newYDiff);
+//    float yDiff = v2.y - v1.y;
+//    if (yDiff <= 0) {
+//        return;
+//    }
+//    float xDiff = v2.x - v1.x;
+//    int newYDiff = arc4random_uniform(yDiff);
+//    int newXDiff = arc4random_uniform(xDiff);
+//    
+//    CGPoint newPoint = CGPointMake(v1.x + (float)newXDiff, v1.y + (float)newYDiff);
+//    float zDiff = z2 - z1;
+//    float zPositionScale = zDiff / yDiff;
+//    float newZposition = z1 + (zPositionScale * (float)newYDiff);
     
     //NSLog(@"yDiff: %f", yDiff);
    // NSLog(@"z1: %f", z1);
    // NSLog(@"newYDiff: %f", (float)newYDiff);
    // NSLog(@"zPositionScale: %f", zPositionScale);
    // NSLog(@"newZposition: %f", newZposition);
-    [terrain generateDecorationAtVertex:newPoint fromTerrainPool:terrainPool inNode:node withZposition:newZposition andSlope:slope];
+    
+    
+   // [terrain generateDecorationAtVertex:newPoint fromTerrainPool:terrainPool inNode:node withZposition:newZposition andSlope:slope];
+    
+    
     //float newScale =
     
 
