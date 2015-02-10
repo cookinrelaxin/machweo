@@ -9,7 +9,7 @@
 #import "Terrain.h"
 #import "Constants.h"
 
-int LAST_N_SPRITES_N = 3;
+int LAST_N_SPRITES_N = 1;
 
 @implementation Terrain{
     CGVector vertexOffset;
@@ -40,6 +40,12 @@ int LAST_N_SPRITES_N = 3;
     for (SKSpriteNode* sp in lastNSprites) {
         sp.zPosition = self.zPosition - 1;
     }
+}
+
+-(void)removeLastSprite{
+    SKSpriteNode* last = [lastNSprites lastObject];
+    [last removeFromParent];
+    [lastNSprites removeObject:last];
 }
 
 -(void)closeLoopAndFillTerrainInView:(SKView*)view{
@@ -84,9 +90,6 @@ int LAST_N_SPRITES_N = 3;
 
 -(SKShapeNode*)shapeNodeWithVertices:(NSArray*)vertexArray{
     
-    Constants* constants = [Constants sharedInstance];
-    int backgroundOffset = (constants.FOREGROUND_Z_POSITION - self.zPosition) / 4;
-    
     SKShapeNode* node = [SKShapeNode node];
     node.position = CGPointZero;
     //node.zPosition = self.zPosition;
@@ -106,14 +109,14 @@ int LAST_N_SPRITES_N = 3;
             continue;
         }
         //NSLog(@"vertex: %f, %f", vertex.x, vertex.y);
-        CGPathAddLineToPoint(pathToDraw, NULL, vertex.x - vertexOffset.dx, vertex.y - vertexOffset.dy + backgroundOffset);
+        CGPathAddLineToPoint(pathToDraw, NULL, vertex.x - vertexOffset.dx, vertex.y - vertexOffset.dy);
         
         if (value == vertexArray.lastObject) {
-          //  CGPoint rightLipVertex = CGPointMake(vertex.x + 50 + backgroundOffset, vertex.y - 50);
-            CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + 100 + backgroundOffset, 0);
-            CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x - 100 - backgroundOffset, 0);
+            //CGPoint rightLipVertex = CGPointMake(vertex.x + 50, vertex.y - vertexOffset.dy);
+            CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + 100, 0);
+            CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x - 100, 0);
             CGPoint upperLeftAreaVertex = firstVertex;
-           // CGPathAddLineToPoint(pathToDraw, NULL, rightLipVertex.x - vertexOffset.dx, rightLipVertex.y - vertexOffset.dy);
+            //CGPathAddLineToPoint(pathToDraw, NULL, rightLipVertex.x - vertexOffset.dx, rightLipVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, bottomRightAreaVertex.x - vertexOffset.dx, bottomRightAreaVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, bottomLeftAreaVertex.x - vertexOffset.dx, bottomLeftAreaVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, upperLeftAreaVertex.x - vertexOffset.dx, upperLeftAreaVertex.y - vertexOffset.dy);
@@ -131,7 +134,7 @@ int LAST_N_SPRITES_N = 3;
 //    NSLog(@"dealloc terrain");
 }
 
--(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node withZposition:(float)zPos{
+-(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node withZposition:(float)zPos andSlope:(float)slope{
     if(_permitDecorations){
     
         Constants* constants = [Constants sharedInstance];
@@ -144,15 +147,36 @@ int LAST_N_SPRITES_N = 3;
             SKTexture* tex = [terrainPool objectAtIndex:castedDie2];
             SKSpriteNode* sprite = [SKSpriteNode spriteNodeWithTexture:tex];
             sprite.size = CGSizeMake(sprite.size.width * constants.SCALE_COEFFICIENT.dy, sprite.size.height * constants.SCALE_COEFFICIENT.dy);
-        
             if (zPos == 0) {
-                 int zPositionDie = arc4random_uniform(20);
-                 sprite.zPosition = constants.FOREGROUND_Z_POSITION - zPositionDie;
-                 sprite.zPosition = self.zPosition - 1 - zPositionDie;
+           //     NSLog(@"slope: %f", slope);
+                int zPositionDie = 0;
+                if (slope < -1) {
+                    zPositionDie = 0;
+                }
+                else if (slope < 1) {
+                    zPositionDie = arc4random_uniform(8);
+                }
+                else if (slope < 2) {
+                    zPositionDie = arc4random_uniform(10);
+                }
+                else if (slope < 2) {
+                    zPositionDie = arc4random_uniform(15);
+                }
+//                else{
+//                    zPositionDie = arc4random_uniform(20);
+//                }
+//                else if (slope > 2) {
+//                    return;
+//                }
+                
+                sprite.zPosition = constants.FOREGROUND_Z_POSITION - zPositionDie;
+                sprite.zPosition = self.zPosition - 1 - zPositionDie;
+
             }
             else{
                 sprite.zPosition = zPos;
             }
+            //sprite.zPosition = constants.FOREGROUND_Z_POSITION - 1;
             //NSLog(@"zPos: %f", zPos);
             float differenceInZs = (constants.FOREGROUND_Z_POSITION - sprite.zPosition) * .1f;
             if (differenceInZs > 1){
@@ -164,14 +188,19 @@ int LAST_N_SPRITES_N = 3;
 
             
             sprite.position = [node convertPoint:v fromNode:self.parent.parent];
-            int heightDie = arc4random_uniform((sprite.size.height / 4));
+            int heightDie = arc4random_uniform((sprite.size.height / 3));
             sprite.position = CGPointMake(sprite.position.x, sprite.position.y + heightDie);
             //sprite.position = CGPointMake(sprite.position.x, sprite.position.y + (sprite.size.height / 2));
             
-            double rotationDie = drand48();
-            int signDie = arc4random_uniform(2);
-            float rotation = (signDie == 0) ? (M_PI_4 / 2 * rotationDie) : -(M_PI_4 / 2 * rotationDie);
-            sprite.zRotation = rotation;
+            //double rotationDie = drand48();
+            
+            //int signDie = arc4random_uniform(2);
+            //float rotation = (signDie == 0) ? (M_PI_4 / 2 * rotationDie) : -(M_PI_4 / 2 * rotationDie);
+            
+            //float rotation = -(M_PI_4 / 2 * rotationDie);
+            //sprite.zRotation = rotation;
+            
+           // sprite.zRotation = M_PI_4 * slope;
 
 
 

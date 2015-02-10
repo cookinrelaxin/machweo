@@ -555,9 +555,9 @@
         <zPosition>107.000000</zPosition>
     </node>
     <terrainPool>
-        <terrainPoolMember>tree_decoration</terrainPoolMember>
-        <terrainPoolMember>tree4_decoration</terrainPoolMember>
-        <terrainPoolMember>tree3_decoration</terrainPoolMember>
-        <terrainPoolMember>tree2_decoration</terrainPoolMember>
+        <terrainPoolMember>tree_decorationTest</terrainPoolMember>
+        <terrainPoolMember>tree4_decorationTest</terrainPoolMember>
+        <terrainPoolMember>tree3_decorationTest</terrainPoolMember>
+        <terrainPoolMember>tree2_decorationTest</terrainPoolMember>
     </terrainPool>
 </worldnodes>
