@@ -152,9 +152,6 @@ int LAST_N_SPRITES_N = 1;
                 //CGRect nodeFrame = node.calculateAccumulatedFrame;
                 //NSLog(@"nodeFrame: %f, %f", nodeFrame.size.width, nodeFrame.size.height);
            //     NSLog(@"slope: %f", slope);
-//                if (<#condition#>) {
-//                    <#statements#>
-//                }
                 int zPositionDie = 0;
                 if (slope < -1) {
                     zPositionDie = 0;
@@ -194,7 +191,7 @@ int LAST_N_SPRITES_N = 1;
 
             
             sprite.position = [node convertPoint:v fromNode:self.parent.parent];
-            int heightDie = arc4random_uniform((sprite.size.height / 3));
+            int heightDie = arc4random_uniform((sprite.size.height / 4)) + (sprite.size.height / 6);
             sprite.position = CGPointMake(sprite.position.x, sprite.position.y + heightDie);
             //sprite.position = CGPointMake(sprite.position.x, sprite.position.y + (sprite.size.height / 2));
             
