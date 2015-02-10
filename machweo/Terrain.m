@@ -154,13 +154,13 @@ int LAST_N_SPRITES_N = 1;
                     zPositionDie = 0;
                 }
                 else if (slope < 1) {
-                    zPositionDie = arc4random_uniform(8);
+                    zPositionDie = arc4random_uniform(12);
                 }
                 else if (slope < 2) {
-                    zPositionDie = arc4random_uniform(10);
+                    zPositionDie = arc4random_uniform(15);
                 }
                 else if (slope < 3) {
-                    zPositionDie = arc4random_uniform(15);
+                    zPositionDie = arc4random_uniform(20);
                 }
 //                else{
 //                    zPositionDie = arc4random_uniform(20);
