@@ -123,7 +123,8 @@
 {
     Line *currentLine = [arrayOfLines lastObject];
     for (Terrain* ter in currentLine.terrainArray) {
-        [ter correctSpriteZsBeforeLastVertex:currentPoint forSceneSize:self.size];
+        //[ter correctSpriteZsBeforeLastVertex:currentPoint forSceneSize:self.size againstSlope:NO];
+        [ter correctSpriteZsBeforeVertex:currentPoint forSceneSize:self.size againstSlope:NO];
     }
 //    for (Terrain* ter in currentLine.terrainArray) {
 //        [ter removeLastSprite];

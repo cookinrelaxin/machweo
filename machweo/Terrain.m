@@ -39,35 +39,57 @@
 //    [lastNSprites addObject:newest];
 //}
 
--(void)correctSpriteZsBeforeLastVertex:(CGPoint)vertex forSceneSize:(CGSize)size{
+-(void)correctSpriteZsBeforeVertex:(CGPoint)vertex forSceneSize:(CGSize)size againstSlope:(BOOL)againstSlope{
     for (SKSpriteNode* deco in decos) {
-        float x_max = size.width;
-        float x_min = 0;
-        float x_d_i = deco.position.x;
-        float x_t_i = vertex.x;
         
-        // should this be negative?
-        float v_t = -constants.MAX_PLAYER_VELOCITY_DX;
+            //float x_max = size.width;
+            float x_min = 0;
+            float x_d_i = deco.position.x;
+            float x_t_i = vertex.x;
         
-        float t = (x_min - x_t_i) / v_t;
-        float max_v_d = (x_min - x_d_i) / t;
-        
-        float z_d = deco.zPosition;
-        float z_t = self.zPosition;
-        
-        float c = z_d / z_t;
-        float v_d_now = c * v_t;
-        if (v_d_now > max_v_d) {
-           // NSLog(@"v_t: %f", v_t);
-            //NSLog(@"max_v_d: %f", max_v_d);
-            //NSLog(@"v_d_now: %f", v_d_now);
-            float newZ = (max_v_d * z_t) / v_t;
-            //NSLog(@"z_d: %f", z_d);
-           // NSLog(@"newZ: %f", newZ);
-            deco.zPosition = newZ;
-
+        if (againstSlope){
+            if  (x_d_i >= x_t_i){
+                continue;
+            }
             
+//            float d_bottom_x_ish = x_d_i - (deco.size.height / 2);
+//            if (!(d_bottom_x_ish >= vertex.y)) {
+//                continue;
+//            }
+//            NSLog(@"correct!");
         }
+            
+            // should this be negative?
+            float v_t = -constants.MAX_PLAYER_VELOCITY_DX;
+            
+            float t = (x_min - x_t_i) / v_t;
+            float max_v_d = (x_min - x_d_i) / t;
+            
+            float z_d = deco.zPosition;
+            float z_t = self.zPosition;
+            
+            float c = z_d / z_t;
+            float v_d_now = c * v_t;
+            if (v_d_now > max_v_d) {
+               // NSLog(@"v_t: %f", v_t);
+                //NSLog(@"max_v_d: %f", max_v_d);
+                //NSLog(@"v_d_now: %f", v_d_now);
+                float newZ = (max_v_d * z_t) / v_t;
+                //NSLog(@"z_d: %f", z_d);
+                if (againstSlope) {
+                     NSLog(@"newZ: %f", newZ);
+
+                }
+                deco.zPosition = newZ;
+
+                
+            }
+        
+//        else{
+//            if (deco.position.x < vertex) {
+//                <#statements#>
+//            }
+//        }
         
         
 
@@ -170,7 +192,6 @@
 -(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node withZposition:(float)zPos andSlope:(float)slope{
     if(_permitDecorations){
     
-        Constants* constants = [Constants sharedInstance];
         int probability1 = constants.TERRAIN_VERTEX_DECORATION_CHANCE_DENOM;
         int castedDie1 = arc4random_uniform(probability1 + 1);
         if (castedDie1 == probability1){
@@ -203,13 +224,19 @@
 //                else if (slope > 2) {
 //                    return;
 //                }
-                
-                if (fabsf(slope) < .5) {
-                    zPositionDie = arc4random_uniform(30);
-                }
-                else{
+                zPositionDie = arc4random_uniform(50);
+
+                if (slope < -.1) {
+                    [self correctSpriteZsBeforeVertex:v forSceneSize:CGSizeMake(0, 667) againstSlope:YES];
                     return;
                 }
+//                else{
+//                    if (slope < -.5) {
+//                        // this size is magic and temporary. fix sometime
+//                        [self correctSpriteZsBeforeVertex:v forSceneSize:CGSizeMake(0, 667) againstSlope:YES];
+//                    }
+//                    return;
+//                }
                 
                 sprite.zPosition = constants.FOREGROUND_Z_POSITION - zPositionDie;
                 sprite.zPosition = self.zPosition - 1 - zPositionDie;
@@ -230,8 +257,11 @@
 
             
             sprite.position = [node convertPoint:v fromNode:self.parent.parent];
-            int heightDie = arc4random_uniform((sprite.size.height / 6));
-            sprite.position = CGPointMake(sprite.position.x, sprite.position.y + heightDie);
+            float z_d = sprite.zPosition;
+            float h_s = sprite.size.height;
+            float z_t = self.zPosition;
+            int height_die_d = arc4random_uniform((z_d * h_s) / (7 * z_t));
+            sprite.position = CGPointMake(sprite.position.x, sprite.position.y + height_die_d);
             //sprite.position = CGPointMake(sprite.position.x, sprite.position.y + (sprite.size.height / 2));
             
             //double rotationDie = drand48();

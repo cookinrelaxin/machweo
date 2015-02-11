@@ -475,12 +475,12 @@
         <zPosition>69.000000</zPosition>
     </node>
     <terrainPool>
-        <!--
         <terrainPoolMember>tree_decoration</terrainPoolMember>
         <terrainPoolMember>tree4_decoration</terrainPoolMember>
         <terrainPoolMember>tree3_decoration</terrainPoolMember>
         <terrainPoolMember>tree2_decoration</terrainPoolMember>
-         -->
+        <!--
         <terrainPoolMember>ghosttreemudafucka_decoration</terrainPoolMember>
+         -->
     </terrainPool>
 </worldnodes>

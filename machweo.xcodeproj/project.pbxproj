@@ -160,10 +160,14 @@
 		782AE7E61A74B89900FF4225 /* tree4.ai in Resources */ = {isa = PBXBuildFile; fileRef = 782AE75B1A74B89900FF4225 /* tree4.ai */; };
 		782AE7E71A74B89900FF4225 /* tree4_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE75C1A74B89900FF4225 /* tree4_decoration.png */; };
 		782AE7E81A74B89900FF4225 /* tree_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE75D1A74B89900FF4225 /* tree_decoration.png */; };
-		78383FAD1A8AE7B700712BFD /* linequilt.ai in Resources */ = {isa = PBXBuildFile; fileRef = 78383FAA1A8AE7B700712BFD /* linequilt.ai */; };
-		78383FAE1A8AE7B700712BFD /* linequilt.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FAB1A8AE7B700712BFD /* linequilt.png */; };
-		78383FAF1A8AE7B700712BFD /* lotusquilt_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FAC1A8AE7B700712BFD /* lotusquilt_decoration.png */; };
 		78383FB11A8AF0F700712BFD /* ghosttreemudafucka_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB01A8AF0F700712BFD /* ghosttreemudafucka_decoration.png */; };
+		78383FBA1A8B099F00712BFD /* dirtmcgirt.ai in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB31A8B099F00712BFD /* dirtmcgirt.ai */; };
+		78383FBB1A8B099F00712BFD /* dirtmcgirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB41A8B099F00712BFD /* dirtmcgirt.png */; };
+		78383FBC1A8B099F00712BFD /* linequilt.ai in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB51A8B099F00712BFD /* linequilt.ai */; };
+		78383FBD1A8B099F00712BFD /* linequilt.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB61A8B099F00712BFD /* linequilt.png */; };
+		78383FBE1A8B099F00712BFD /* lotusquilt_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB71A8B099F00712BFD /* lotusquilt_decoration.png */; };
+		78383FBF1A8B099F00712BFD /* opticalillusion.ai in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB81A8B099F00712BFD /* opticalillusion.ai */; };
+		78383FC01A8B099F00712BFD /* opticalillusion_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB91A8B099F00712BFD /* opticalillusion_decoration.png */; };
 		7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7852BC6B1A71FF6D0038447B /* gameModel.xcdatamodeld */; };
 		788788041A7333A9002987B7 /* GameDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 788788031A7333A9002987B7 /* GameDataManager.m */; };
 		78B566901A7C703E00011E86 /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B5668F1A7C703E00011E86 /* Terrain.m */; };
@@ -362,10 +366,14 @@
 		782AE75B1A74B89900FF4225 /* tree4.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree4.ai; sourceTree = "<group>"; };
 		782AE75C1A74B89900FF4225 /* tree4_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree4_decoration.png; sourceTree = "<group>"; };
 		782AE75D1A74B89900FF4225 /* tree_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree_decoration.png; sourceTree = "<group>"; };
-		78383FAA1A8AE7B700712BFD /* linequilt.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = linequilt.ai; sourceTree = "<group>"; };
-		78383FAB1A8AE7B700712BFD /* linequilt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linequilt.png; sourceTree = "<group>"; };
-		78383FAC1A8AE7B700712BFD /* lotusquilt_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lotusquilt_decoration.png; sourceTree = "<group>"; };
 		78383FB01A8AF0F700712BFD /* ghosttreemudafucka_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ghosttreemudafucka_decoration.png; sourceTree = "<group>"; };
+		78383FB31A8B099F00712BFD /* dirtmcgirt.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dirtmcgirt.ai; sourceTree = "<group>"; };
+		78383FB41A8B099F00712BFD /* dirtmcgirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dirtmcgirt.png; sourceTree = "<group>"; };
+		78383FB51A8B099F00712BFD /* linequilt.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = linequilt.ai; sourceTree = "<group>"; };
+		78383FB61A8B099F00712BFD /* linequilt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = linequilt.png; sourceTree = "<group>"; };
+		78383FB71A8B099F00712BFD /* lotusquilt_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lotusquilt_decoration.png; sourceTree = "<group>"; };
+		78383FB81A8B099F00712BFD /* opticalillusion.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = opticalillusion.ai; sourceTree = "<group>"; };
+		78383FB91A8B099F00712BFD /* opticalillusion_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opticalillusion_decoration.png; sourceTree = "<group>"; };
 		7852BC6C1A71FF6D0038447B /* gameModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = gameModel.xcdatamodel; sourceTree = "<group>"; };
 		788788021A7333A9002987B7 /* GameDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataManager.h; sourceTree = "<group>"; };
 		788788031A7333A9002987B7 /* GameDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataManager.m; sourceTree = "<group>"; };
@@ -517,7 +525,7 @@
 		782AE6D81A74B89900FF4225 /* sprites */ = {
 			isa = PBXGroup;
 			children = (
-				78383FA91A8AE7B700712BFD /* line quilt */,
+				78383FB21A8B099F00712BFD /* line quilt */,
 				78F932251A8854CB007947DD /* terrain textures */,
 				782AE6D91A74B89900FF4225 /* animated shit */,
 				782AE6DC1A74B89900FF4225 /* clouds */,
@@ -713,12 +721,16 @@
 			path = trees;
 			sourceTree = "<group>";
 		};
-		78383FA91A8AE7B700712BFD /* line quilt */ = {
+		78383FB21A8B099F00712BFD /* line quilt */ = {
 			isa = PBXGroup;
 			children = (
-				78383FAA1A8AE7B700712BFD /* linequilt.ai */,
-				78383FAB1A8AE7B700712BFD /* linequilt.png */,
-				78383FAC1A8AE7B700712BFD /* lotusquilt_decoration.png */,
+				78383FB31A8B099F00712BFD /* dirtmcgirt.ai */,
+				78383FB41A8B099F00712BFD /* dirtmcgirt.png */,
+				78383FB51A8B099F00712BFD /* linequilt.ai */,
+				78383FB61A8B099F00712BFD /* linequilt.png */,
+				78383FB71A8B099F00712BFD /* lotusquilt_decoration.png */,
+				78383FB81A8B099F00712BFD /* opticalillusion.ai */,
+				78383FB91A8B099F00712BFD /* opticalillusion_decoration.png */,
 			);
 			path = "line quilt";
 			sourceTree = "<group>";
@@ -901,6 +913,7 @@
 				782AE7951A74B89900FF4225 /* grass.ai in Resources */,
 				782AE7841A74B89900FF4225 /* cloudopaque.png in Resources */,
 				782AE7961A74B89900FF4225 /* grass.png in Resources */,
+				78383FC01A8B099F00712BFD /* opticalillusion_decoration.png in Resources */,
 				6509D2E91A5E290300F1BBA6 /* brush7.png in Resources */,
 				782AE7A01A74B89900FF4225 /* mountain3_decoration.png in Resources */,
 				782AE76D1A74B89900FF4225 /* button.png in Resources */,
@@ -917,13 +930,13 @@
 				782AE7B41A74B89900FF4225 /* totem2_obstacle.png in Resources */,
 				782AE76B1A74B89900FF4225 /* levelCells.xml in Resources */,
 				782AE77D1A74B89900FF4225 /* cloud3_decoration.png in Resources */,
+				78383FBD1A8B099F00712BFD /* linequilt.png in Resources */,
 				782AE7831A74B89900FF4225 /* cloud_decoration.png in Resources */,
 				782AE7CA1A74B89900FF4225 /* moon.ai in Resources */,
 				782AE7E31A74B89900FF4225 /* tree2_decoration.png in Resources */,
 				782AE7B81A74B89900FF4225 /* dawn2.ai in Resources */,
 				782AE7AE1A74B89900FF4225 /* rotate.ai in Resources */,
 				782AE7A21A74B89900FF4225 /* circlemask.ai in Resources */,
-				78383FAF1A8AE7B700712BFD /* lotusquilt_decoration.png in Resources */,
 				78F9322D1A8854CB007947DD /* african_textile_3_terrain.png in Resources */,
 				7808A95F1A75D17200544C78 /* african_textile_1.jpg in Resources */,
 				782AE77B1A74B89900FF4225 /* cloud3.ai in Resources */,
@@ -942,6 +955,7 @@
 				782AE78E1A74B89900FF4225 /* cloudred3.png in Resources */,
 				782AE7D21A74B89900FF4225 /* spikesun.ai in Resources */,
 				782AE7AF1A74B89900FF4225 /* rotate_obstacle.png in Resources */,
+				78383FBC1A8B099F00712BFD /* linequilt.ai in Resources */,
 				782AE7981A74B89900FF4225 /* purplegrass_decoration.png in Resources */,
 				782AE78D1A74B89900FF4225 /* cloudred2_decoration.png in Resources */,
 				782AE7C81A74B89900FF4225 /* dusk3.ai in Resources */,
@@ -957,6 +971,7 @@
 				782AE7BB1A74B89900FF4225 /* dawn4_decoration.png in Resources */,
 				782AE7A61A74B89900FF4225 /* obstacle1.ai in Resources */,
 				782AE7E01A74B89900FF4225 /* redtree_decoration.png in Resources */,
+				78383FBA1A8B099F00712BFD /* dirtmcgirt.ai in Resources */,
 				782AE7D91A74B89900FF4225 /* redtree.ai in Resources */,
 				782AE7DB1A74B89900FF4225 /* redtree2_decoration.png in Resources */,
 				782AE7731A74B89900FF4225 /* cloud2.0_decoration.png in Resources */,
@@ -971,7 +986,6 @@
 				782AE7E21A74B89900FF4225 /* tree2.ai in Resources */,
 				782AE7711A74B89900FF4225 /* cloud1.0_decoration.png in Resources */,
 				782AE7E41A74B89900FF4225 /* tree3.ai in Resources */,
-				78383FAE1A8AE7B700712BFD /* linequilt.png in Resources */,
 				78F9322E1A8854CB007947DD /* african_textile_5_terrain.png in Resources */,
 				782AE7A71A74B89900FF4225 /* obstacle1_obstacle.png in Resources */,
 				782AE7CE1A74B89900FF4225 /* nightstars.ai in Resources */,
@@ -980,13 +994,13 @@
 				782AE7971A74B89900FF4225 /* purplegrass.ai in Resources */,
 				782AE7DD1A74B89900FF4225 /* redtree3_decoration.png in Resources */,
 				782AE7921A74B89900FF4225 /* blackgrass.ai in Resources */,
-				78383FAD1A8AE7B700712BFD /* linequilt.ai in Resources */,
 				782AE78A1A74B89900FF4225 /* cloudred1.png in Resources */,
 				78BC58C31A83059F00308D34 /* newnewLevel.xml in Resources */,
 				782AE77E1A74B89900FF4225 /* cloud4.0.png in Resources */,
 				782AE7701A74B89900FF4225 /* cloud1.0.png in Resources */,
 				782AE7851A74B89900FF4225 /* cloudopaque3.png in Resources */,
 				782AE76E1A74B89900FF4225 /* cloud.ai in Resources */,
+				78383FBE1A8B099F00712BFD /* lotusquilt_decoration.png in Resources */,
 				782AE7B21A74B89900FF4225 /* totem.ai in Resources */,
 				782AE7801A74B89900FF4225 /* cloud4.ai in Resources */,
 				782AE7C01A74B89900FF4225 /* day5.ai in Resources */,
@@ -1029,6 +1043,7 @@
 				782AE7BE1A74B89900FF4225 /* day3.ai in Resources */,
 				782AE79B1A74B89900FF4225 /* mountain.ai in Resources */,
 				782AE7C51A74B89900FF4225 /* dayog_decoration.png in Resources */,
+				78383FBB1A8B099F00712BFD /* dirtmcgirt.png in Resources */,
 				782AE7811A74B89900FF4225 /* cloud4.png in Resources */,
 				782AE7DA1A74B89900FF4225 /* redtree2.ai in Resources */,
 				782AE7C11A74B89900FF4225 /* day5_decoration.png in Resources */,
@@ -1036,6 +1051,7 @@
 				782AE7821A74B89900FF4225 /* cloud4_decoration.png in Resources */,
 				782AE7CD1A74B89900FF4225 /* night_decoration.png in Resources */,
 				782AE7A31A74B89900FF4225 /* circlemask_obstacle.png in Resources */,
+				78383FBF1A8B099F00712BFD /* opticalillusion.ai in Resources */,
 				782AE7891A74B89900FF4225 /* cloudopaque_decoration.png in Resources */,
 				782AE7A81A74B89900FF4225 /* obstacle2.ai in Resources */,
 				78F9322F1A8854CB007947DD /* dirt1_terrain.png in Resources */,

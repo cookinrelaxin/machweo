@@ -30,8 +30,11 @@
         NSString* textureName = @"filler";
         if (i == 0) {
 //            textureName = @"african_textile_3_terrain";
-            textureName = @"linequilt";
+//            textureName = @"linequilt";
 //            textureName = @"lotusquilt_decoration";
+//            textureName = @"opticalillusion_decoration";
+              textureName = @"dirtmcgirt";
+
 
 
         }
