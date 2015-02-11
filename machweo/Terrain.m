@@ -9,12 +9,14 @@
 #import "Terrain.h"
 #import "Constants.h"
 
-int LAST_N_SPRITES_N = 1;
+//int LAST_N_SPRITES_N = 5;
+//float MINIMUM_FREEZE_DISTANCE = 100.0f;
 
 @implementation Terrain{
     CGVector vertexOffset;
     CGRect pathBoundingBox;
-    NSMutableArray* lastNSprites;
+    NSMutableArray* decos;
+    Constants* constants;
     
     //int backgroundYOffset;
 }
@@ -22,32 +24,62 @@ int LAST_N_SPRITES_N = 1;
 -(instancetype)initWithTexture:(SKTexture*)texture{
     if (self = [super init]) {
         _terrainTexture = texture;
-        lastNSprites = [NSMutableArray array];
+        decos = [NSMutableArray array];
+        constants = [Constants sharedInstance];
         
         
     }
     return self;
 }
 
--(void)updateLastNSprites:(SKSpriteNode*)newest{
-    if (lastNSprites.count >= LAST_N_SPRITES_N) {
-        [lastNSprites removeObjectAtIndex:0];
+//-(void)updateLastNSprites:(SKSpriteNode*)newest{
+//    if (lastNSprites.count >= LAST_N_SPRITES_N) {
+//        [lastNSprites removeObjectAtIndex:0];
+//    }
+//    [lastNSprites addObject:newest];
+//}
+
+-(void)correctSpriteZsBeforeLastVertex:(CGPoint)vertex forSceneSize:(CGSize)size{
+    for (SKSpriteNode* deco in decos) {
+        float x_max = size.width;
+        float x_min = 0;
+        float x_d_i = deco.position.x;
+        float x_t_i = vertex.x;
+        
+        // should this be negative?
+        float v_t = -constants.MAX_PLAYER_VELOCITY_DX;
+        
+        float t = (x_min - x_t_i) / v_t;
+        float max_v_d = (x_min - x_d_i) / t;
+        
+        float z_d = deco.zPosition;
+        float z_t = self.zPosition;
+        
+        float c = z_d / z_t;
+        float v_d_now = c * v_t;
+        if (v_d_now > max_v_d) {
+           // NSLog(@"v_t: %f", v_t);
+            //NSLog(@"max_v_d: %f", max_v_d);
+            //NSLog(@"v_d_now: %f", v_d_now);
+            float newZ = (max_v_d * z_t) / v_t;
+            //NSLog(@"z_d: %f", z_d);
+           // NSLog(@"newZ: %f", newZ);
+            deco.zPosition = newZ;
+
+            
+        }
+        
+        
+
+        
     }
-    [lastNSprites addObject:newest];
 }
 
--(void)freezeLastNSprites{
-    NSLog(@"lastNSprites.count: %lu", (unsigned long)lastNSprites.count);
-    for (SKSpriteNode* sp in lastNSprites) {
-        sp.zPosition = self.zPosition - 1;
-    }
-}
-
--(void)removeLastSprite{
-    SKSpriteNode* last = [lastNSprites lastObject];
-    [last removeFromParent];
-    [lastNSprites removeObject:last];
-}
+//-(void)removeLastSprite{
+//    SKSpriteNode* last = [lastNSprites lastObject];
+//    [last removeFromParent];
+//    [lastNSprites removeObject:last];
+//}
 
 -(void)closeLoopAndFillTerrainInView:(SKView*)view{
 //    [self generateBackground:view];
@@ -153,24 +185,31 @@ int LAST_N_SPRITES_N = 1;
                 //NSLog(@"nodeFrame: %f, %f", nodeFrame.size.width, nodeFrame.size.height);
            //     NSLog(@"slope: %f", slope);
                 int zPositionDie = 0;
-                if (slope < -1) {
-                    zPositionDie = 0;
-                }
-                else if (slope < 1) {
-                    zPositionDie = arc4random_uniform(10);
-                }
-                else if (slope < 2) {
-                    zPositionDie = arc4random_uniform(16);
-                }
-                else if (slope < 3) {
-                    zPositionDie = arc4random_uniform(22);
-                }
+//                if (slope < -1) {
+//                    zPositionDie = 0;
+//                }
+//                else if (slope < 1) {
+//                    zPositionDie = arc4random_uniform(10);
+//                }
+//                else if (slope < 2) {
+//                    zPositionDie = arc4random_uniform(16);
+//                }
+//                else if (slope < 3) {
+//                    zPositionDie = arc4random_uniform(22);
+//                }
 //                else{
 //                    zPositionDie = arc4random_uniform(20);
 //                }
 //                else if (slope > 2) {
 //                    return;
 //                }
+                
+                if (fabsf(slope) < .5) {
+                    zPositionDie = arc4random_uniform(30);
+                }
+                else{
+                    return;
+                }
                 
                 sprite.zPosition = constants.FOREGROUND_Z_POSITION - zPositionDie;
                 sprite.zPosition = self.zPosition - 1 - zPositionDie;
@@ -191,7 +230,7 @@ int LAST_N_SPRITES_N = 1;
 
             
             sprite.position = [node convertPoint:v fromNode:self.parent.parent];
-            int heightDie = arc4random_uniform((sprite.size.height / 4)) + (sprite.size.height / 6);
+            int heightDie = arc4random_uniform((sprite.size.height / 6));
             sprite.position = CGPointMake(sprite.position.x, sprite.position.y + heightDie);
             //sprite.position = CGPointMake(sprite.position.x, sprite.position.y + (sprite.size.height / 2));
             
@@ -206,9 +245,9 @@ int LAST_N_SPRITES_N = 1;
            // sprite.zRotation = M_PI_4 * slope;
 
 
-
+           // sprite.name = @"terrain deco";
             [node addChild:sprite];
-            [self updateLastNSprites:sprite];
+            [decos addObject:sprite];
                 
             }
     }

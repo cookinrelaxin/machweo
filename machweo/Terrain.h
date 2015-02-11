@@ -21,7 +21,7 @@
 -(void)closeLoopAndFillTerrainInView:(SKView*)view;
 -(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node withZposition:(float)zPos andSlope:(float)slope;
 -(void)changeDecorationPermissions:(CGPoint)currentPoint;
--(void)freezeLastNSprites;
--(void)removeLastSprite;
+-(void)correctSpriteZsBeforeLastVertex:(CGPoint)vertex forSceneSize:(CGSize)size;
+//-(void)removeLastSprite;
 
 @end

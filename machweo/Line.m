@@ -29,13 +29,11 @@
         
         NSString* textureName = @"filler";
         if (i == 0) {
-            textureName = @"african_textile_3_terrain";
-        }
-        if (i == 1) {
-            textureName = @"african_textile_2_terrain";
-        }
-        if (i == 2) {
-            textureName = @"african_textile_5_terrain";
+//            textureName = @"african_textile_3_terrain";
+            textureName = @"linequilt";
+//            textureName = @"lotusquilt_decoration";
+
+
         }
         Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName]];
         ter.vertices = [NSMutableArray array];

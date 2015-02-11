@@ -123,7 +123,7 @@
 {
     Line *currentLine = [arrayOfLines lastObject];
     for (Terrain* ter in currentLine.terrainArray) {
-        [ter freezeLastNSprites];
+        [ter correctSpriteZsBeforeLastVertex:currentPoint forSceneSize:self.size];
     }
 //    for (Terrain* ter in currentLine.terrainArray) {
 //        [ter removeLastSprite];
@@ -310,7 +310,6 @@
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    //NSLog(@"scene.size: %f, %f", self.size.width, self.size.height);
    // __weak GameScene* weakSelf = self;
    // dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^(void){
     [self updateTime:currentTime];
