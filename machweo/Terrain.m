@@ -11,6 +11,7 @@
 
 //int LAST_N_SPRITES_N = 5;
 //float MINIMUM_FREEZE_DISTANCE = 100.0f;
+int CLIFF_VERTEX_COUNT = 15;
 
 @implementation Terrain{
     CGVector vertexOffset;
@@ -18,8 +19,10 @@
     NSMutableArray* decos;
     Constants* constants;
     CGSize sceneSize;
+    int lipOffset;
+    NSMutableArray* beforeCliff;
+    NSMutableArray* endCliff;
     
-    //int backgroundYOffset;
 }
 
 -(instancetype)initWithTexture:(SKTexture*)texture forSceneSize:(CGSize)size{
@@ -28,19 +31,34 @@
         _terrainTexture = texture;
         decos = [NSMutableArray array];
         constants = [Constants sharedInstance];
+        lipOffset = arc4random_uniform(150) + 50;
+        endCliff = [NSMutableArray array];
+        beforeCliff = [NSMutableArray array];
+        [self generateCliff:endCliff];
+        [self generateCliff:beforeCliff];
+
+        
+
         
         
     }
     return self;
 }
-
-//-(void)updateLastNSprites:(SKSpriteNode*)newest{
-//    if (lastNSprites.count >= LAST_N_SPRITES_N) {
-//        [lastNSprites removeObjectAtIndex:0];
-//    }
-//    [lastNSprites addObject:newest];
-//}
-
+-(void)generateCliff:(NSMutableArray*)cliffArray{
+    for (int i = 0; i < CLIFF_VERTEX_COUNT; i ++) {
+        int dx = arc4random_uniform(10);
+        int sign = 1;
+        if (i > (CLIFF_VERTEX_COUNT / 2)) {
+            sign = arc4random_uniform(2);
+        }
+        dx = (sign == 0) ? -dx : dx;
+        //int dx = 0;
+        int dy = 0;
+        CGVector v = CGVectorMake(dx, dy);
+        [endCliff addObject:[NSValue valueWithCGVector:v]];
+    }
+    
+}
 -(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope{
     for (SKSpriteNode* deco in decos) {
         
@@ -170,14 +188,32 @@
         CGPathAddLineToPoint(pathToDraw, NULL, vertex.x - vertexOffset.dx, vertex.y - vertexOffset.dy);
         
         if (value == vertexArray.lastObject) {
-            //CGPoint rightLipVertex = CGPointMake(vertex.x + 50, vertex.y - vertexOffset.dy);
-            CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + 100, 0);
+//           // CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + 100, 0);
+//            CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + lipOffset, 0);
+//
+//            CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x - 100, 0);
+//            CGPoint upperLeftAreaVertex = firstVertex;
+//            //CGPathAddLineToPoint(pathToDraw, NULL, rightLipVertex.x - vertexOffset.dx, rightLipVertex.y - vertexOffset.dy);
+//            CGPathAddLineToPoint(pathToDraw, NULL, bottomRightAreaVertex.x - vertexOffset.dx, bottomRightAreaVertex.y - vertexOffset.dy);
+//            CGPathAddLineToPoint(pathToDraw, NULL, bottomLeftAreaVertex.x - vertexOffset.dx, bottomLeftAreaVertex.y - vertexOffset.dy);
+//            CGPathAddLineToPoint(pathToDraw, NULL, upperLeftAreaVertex.x - vertexOffset.dx, upperLeftAreaVertex.y - vertexOffset.dy);
+            
+            int x = vertex.x - vertexOffset.dx;
+            int y = vertex.y - vertexOffset.dy;
+            float yDiff = vertex.y;
+            int yInterval = yDiff / CLIFF_VERTEX_COUNT;
+            for (NSValue* val in endCliff) {
+                CGVector vec = [val CGVectorValue];
+                CGPathAddLineToPoint(pathToDraw, NULL, x + vec.dx, y - yInterval);
+                x += vec.dx;
+                y -= yInterval;
+            }
             CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x - 100, 0);
             CGPoint upperLeftAreaVertex = firstVertex;
             //CGPathAddLineToPoint(pathToDraw, NULL, rightLipVertex.x - vertexOffset.dx, rightLipVertex.y - vertexOffset.dy);
-            CGPathAddLineToPoint(pathToDraw, NULL, bottomRightAreaVertex.x - vertexOffset.dx, bottomRightAreaVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, bottomLeftAreaVertex.x - vertexOffset.dx, bottomLeftAreaVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, upperLeftAreaVertex.x - vertexOffset.dx, upperLeftAreaVertex.y - vertexOffset.dy);
+            
             break;
         }
     }
