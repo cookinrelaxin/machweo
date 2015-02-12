@@ -321,7 +321,7 @@ int CLIFF_VERTEX_COUNT = 15;
             float h_s = sprite.size.height;
             float z_t = self.zPosition;
             int height_die_d = arc4random_uniform((z_d * h_s) / (8 * z_t));
-            sprite.position = CGPointMake(sprite.position.x - 20, sprite.position.y + height_die_d);
+            sprite.position = CGPointMake(sprite.position.x, sprite.position.y + height_die_d);
             //sprite.position = CGPointMake(sprite.position.x, sprite.position.y + (sprite.size.height / 2));
             
             //double rotationDie = drand48();
