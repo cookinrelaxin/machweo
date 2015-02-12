@@ -28,7 +28,7 @@
     for (int i = 0; i < constants.TERRAIN_LAYER_COUNT; i ++) {
         
         NSString* textureName = @"filler";
-        if (i == 0) {
+//        if (i == 0) {
 //            textureName = @"african_textile_3_terrain";
 //            textureName = @"linequilt";
             textureName = @"lotusquilt_decoration";
@@ -37,7 +37,8 @@
 
 
 
-        }
+//        }
+//        }
         Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName] forSceneSize:sceneSize];
         ter.vertices = [NSMutableArray array];
        // int dZ = arc4random_uniform(20);
