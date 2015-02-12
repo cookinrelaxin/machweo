@@ -47,7 +47,7 @@
         //float x_max = size.width;
         float x_min = 0;
         // float x_d_i = deco.position.x;
-        float x_d_i = [deco.parent.parent convertPoint:deco.position fromNode:deco.parent].x;
+        float x_d_i = [deco.parent.parent convertPoint:deco.position fromNode:deco.parent].x + (deco.size.width / 2);
         float x_t_i = vertex.x;
         
         if (againstSlope){
@@ -85,6 +85,9 @@
 
                 }
                 deco.zPosition = newZ;
+                if (deco.zPosition > z_t) {
+                    deco.zPosition = z_t - 1;
+                }
                 //deco.zPosition = z_t - 1;
 
                 
@@ -224,7 +227,7 @@
 //                else if (slope > 2) {
 //                    return;
 //                }
-                zPositionDie = arc4random_uniform(20);
+                zPositionDie = arc4random_uniform(25);
 
 //                if (slope < -.1) {
 //                    [self correctSpriteZsBeforeVertex:v againstSlope:YES];
@@ -261,7 +264,7 @@
             float h_s = sprite.size.height;
             float z_t = self.zPosition;
             int height_die_d = arc4random_uniform((z_d * h_s) / (8 * z_t));
-            sprite.position = CGPointMake(sprite.position.x, sprite.position.y + height_die_d);
+            sprite.position = CGPointMake(sprite.position.x - 20, sprite.position.y + height_die_d);
             //sprite.position = CGPointMake(sprite.position.x, sprite.position.y + (sprite.size.height / 2));
             
             //double rotationDie = drand48();
@@ -279,7 +282,7 @@
             [node addChild:sprite];
             [decos addObject:sprite];
             
-            if (slope < -1) {
+            if (slope < -1.5) {
                 [self correctSpriteZsBeforeVertex:v againstSlope:YES];
                // return;
             }

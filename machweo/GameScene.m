@@ -174,7 +174,8 @@
     for (Terrain* ter in currentLine.terrainArray) {
         int backgroundOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 4;
 
-        int randomYd = arc4random_uniform(20);
+        //int randomYd = arc4random_uniform(20);
+        int randomYd = 0;
         float yDifferenceFromOrigin = currentLine.origin.y - currentPoint.y;
         float mellowedDifference = yDifferenceFromOrigin / 4;
         CGPoint newPoint;
