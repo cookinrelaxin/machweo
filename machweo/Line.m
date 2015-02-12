@@ -15,8 +15,8 @@
     SKShapeNode* intersectingLinesNode;
 }
 
--(instancetype)initWithTerrainNode:(SKNode*)node :(CGPoint)origin{
-    _origin = origin;
+-(instancetype)initWithTerrainNode:(SKNode*)node :(CGSize)sceneSize{
+    _origin = CGPointMake(sceneSize.width / 2, sceneSize.height / 2);
     _nodeArray = [NSMutableArray array];
     _terrainArray = [NSMutableArray array];
     _shouldDraw = true;
@@ -31,14 +31,14 @@
         if (i == 0) {
 //            textureName = @"african_textile_3_terrain";
 //            textureName = @"linequilt";
-//            textureName = @"lotusquilt_decoration";
+            textureName = @"lotusquilt_decoration";
 //            textureName = @"opticalillusion_decoration";
-              textureName = @"dirtmcgirt";
+//              textureName = @"dirtmcgirt";
 
 
 
         }
-        Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName]];
+        Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName] forSceneSize:sceneSize];
         ter.vertices = [NSMutableArray array];
         ter.zPosition = constants.FOREGROUND_Z_POSITION - (constants.ZPOSITION_DIFFERENCE_PER_LAYER * i);
 //        if (i > 0) {

@@ -17,12 +17,14 @@
     CGRect pathBoundingBox;
     NSMutableArray* decos;
     Constants* constants;
+    CGSize sceneSize;
     
     //int backgroundYOffset;
 }
 
--(instancetype)initWithTexture:(SKTexture*)texture{
+-(instancetype)initWithTexture:(SKTexture*)texture forSceneSize:(CGSize)size{
     if (self = [super init]) {
+        sceneSize = size;
         _terrainTexture = texture;
         decos = [NSMutableArray array];
         constants = [Constants sharedInstance];
@@ -39,16 +41,18 @@
 //    [lastNSprites addObject:newest];
 //}
 
--(void)correctSpriteZsBeforeVertex:(CGPoint)vertex forSceneSize:(CGSize)size againstSlope:(BOOL)againstSlope{
+-(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope{
     for (SKSpriteNode* deco in decos) {
         
-            //float x_max = size.width;
-            float x_min = 0;
-            float x_d_i = deco.position.x;
-            float x_t_i = vertex.x;
+        //float x_max = size.width;
+        float x_min = 0;
+        // float x_d_i = deco.position.x;
+        float x_d_i = [deco.parent.parent convertPoint:deco.position fromNode:deco.parent].x;
+        float x_t_i = vertex.x;
         
         if (againstSlope){
             if  (x_d_i >= x_t_i){
+                //NSLog(@"(x_d_i >= x_t_i)");
                 continue;
             }
             
@@ -75,24 +79,20 @@
                 //NSLog(@"max_v_d: %f", max_v_d);
                 //NSLog(@"v_d_now: %f", v_d_now);
                 float newZ = (max_v_d * z_t) / v_t;
-                //NSLog(@"z_d: %f", z_d);
                 if (againstSlope) {
-                     NSLog(@"newZ: %f", newZ);
+                     //NSLog(@"z_d: %f", z_d);
+                     //NSLog(@"newZ: %f", newZ);
 
                 }
-                deco.zPosition = newZ;
+                //deco.zPosition = newZ;
+                deco.zPosition = z_t - 1;
 
                 
             }
-        
-//        else{
-//            if (deco.position.x < vertex) {
-//                <#statements#>
-//            }
-//        }
-        
-        
-
+           // else{
+            //    NSLog(@"max_v_d: %f", max_v_d);
+            //    NSLog(@"v_d_now: %f", v_d_now);
+           // }
         
     }
 }
@@ -224,16 +224,16 @@
 //                else if (slope > 2) {
 //                    return;
 //                }
-                zPositionDie = arc4random_uniform(50);
+                zPositionDie = arc4random_uniform(20);
 
-                if (slope < -.1) {
-                    [self correctSpriteZsBeforeVertex:v forSceneSize:CGSizeMake(0, 667) againstSlope:YES];
-                    return;
-                }
+//                if (slope < -.1) {
+//                    [self correctSpriteZsBeforeVertex:v againstSlope:YES];
+//                    return;
+//                }
 //                else{
 //                    if (slope < -.5) {
 //                        // this size is magic and temporary. fix sometime
-//                        [self correctSpriteZsBeforeVertex:v forSceneSize:CGSizeMake(0, 667) againstSlope:YES];
+//                        [self correctSpriteZsBeforeVertex:v againstSlope:YES];
 //                    }
 //                    return;
 //                }
@@ -278,16 +278,15 @@
            // sprite.name = @"terrain deco";
             [node addChild:sprite];
             [decos addObject:sprite];
-                
+            
+            if (slope < -1) {
+                [self correctSpriteZsBeforeVertex:v againstSlope:YES];
+               // return;
+            }
+
+            
             }
     }
 }
-
-//-(void)decrementZposition{
-//    self.zPosition -= 10;
-//    
-//}
-
-
 
 @end

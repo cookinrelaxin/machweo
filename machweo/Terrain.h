@@ -17,11 +17,11 @@
 @property(nonatomic) BOOL isClosed;
 @property(nonatomic) BOOL permitDecorations;
 
--(instancetype)initWithTexture:(SKTexture*)texture;
+-(instancetype)initWithTexture:(SKTexture*)texture forSceneSize:(CGSize)size;
 -(void)closeLoopAndFillTerrainInView:(SKView*)view;
 -(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node withZposition:(float)zPos andSlope:(float)slope;
 -(void)changeDecorationPermissions:(CGPoint)currentPoint;
--(void)correctSpriteZsBeforeVertex:(CGPoint)vertex forSceneSize:(CGSize)size againstSlope:(BOOL)againstSlope;
+-(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope;
 //-(void)removeLastSprite;
 
 @end

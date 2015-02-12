@@ -92,7 +92,7 @@
   //  Line *currentLine = [arrayOfLines lastObject];
 
    // Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :currentPoint];
-    Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))];
+    Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
     [arrayOfLines addObject:newLine];
     
 
@@ -123,8 +123,7 @@
 {
     Line *currentLine = [arrayOfLines lastObject];
     for (Terrain* ter in currentLine.terrainArray) {
-        //[ter correctSpriteZsBeforeLastVertex:currentPoint forSceneSize:self.size againstSlope:NO];
-        [ter correctSpriteZsBeforeVertex:currentPoint forSceneSize:self.size againstSlope:NO];
+        [ter correctSpriteZsBeforeVertex:currentPoint againstSlope:NO];
     }
 //    for (Terrain* ter in currentLine.terrainArray) {
 //        [ter removeLastSprite];

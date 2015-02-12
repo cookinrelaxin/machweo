@@ -19,6 +19,6 @@
 @property (nonatomic) NSMutableArray *nodeArray;
 
 @property (nonatomic) CGPoint origin;
--(instancetype)initWithTerrainNode:(SKNode*)node :(CGPoint)origin;
+-(instancetype)initWithTerrainNode:(SKNode*)node :(CGSize)sceneSize;
 -(void)generateConnectingLinesInTerrainNode:(SKNode*)node withTerrainPool:(NSMutableArray*)terrainPool andDecoNode:(SKNode*)decorations :(BOOL)generateDecorations;
 @end
