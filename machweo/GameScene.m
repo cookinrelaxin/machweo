@@ -35,6 +35,8 @@
     
     BOOL stopScrolling;
     BOOL gameWon;
+    
+    BOOL zTicker;
 }
 
 -(void)dealloc{
@@ -89,16 +91,23 @@
     [self handleButtonPressesAtPoint:positionInSelf];
     previousPoint = currentPoint = positionInSelf;
     
-  //  Line *currentLine = [arrayOfLines lastObject];
+//    Line *currentLine = [arrayOfLines lastObject];
 
    // Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :currentPoint];
     Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
+//    for (Terrain * ter in newLine.terrainArray) {
+//        if (zTicker) {
+//        }
+//    }
     [arrayOfLines addObject:newLine];
     
 
     //if ([currentLine pointUnderLine:currentPoint]) {
-  //  currentLine.terrain.zPosition -= 10;
-    //}
+//    for (Terrain* ter in currentLine.terrainArray) {
+//        ter.zPosition -= 10;
+//    }
+    //currentLine.terrain.zPosition -= 10;
+   // }
     
 }
 

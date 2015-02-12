@@ -40,6 +40,7 @@
         }
         Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName] forSceneSize:sceneSize];
         ter.vertices = [NSMutableArray array];
+        //int dZ = arc4random_uniform(20);
         ter.zPosition = constants.FOREGROUND_Z_POSITION - (constants.ZPOSITION_DIFFERENCE_PER_LAYER * i);
 //        if (i > 0) {
 //           ter.hidden = true;

@@ -22,6 +22,7 @@ int CLIFF_VERTEX_COUNT = 15;
     int lipOffset;
     NSMutableArray* beforeCliff;
     NSMutableArray* endCliff;
+    BOOL beforeCliffAddedToVertices;
     
 }
 
@@ -34,28 +35,28 @@ int CLIFF_VERTEX_COUNT = 15;
         lipOffset = arc4random_uniform(150) + 50;
         endCliff = [NSMutableArray array];
         beforeCliff = [NSMutableArray array];
-        [self generateCliff:endCliff];
-        [self generateCliff:beforeCliff];
-
-        
-
-        
+        [self generateCliff:endCliff :YES];
+        [self generateCliff:beforeCliff :NO];
         
     }
     return self;
 }
--(void)generateCliff:(NSMutableArray*)cliffArray{
+-(void)generateCliff:(NSMutableArray*)cliffArray :(BOOL)forwardLip{
     for (int i = 0; i < CLIFF_VERTEX_COUNT; i ++) {
         int dx = arc4random_uniform(10);
-        int sign = 1;
+        int sign = (forwardLip == true) ? 1 :0;
+//        if (forwardLip) {
+//            sign = 1;
+//        }
         if (i > (CLIFF_VERTEX_COUNT / 2)) {
             sign = arc4random_uniform(2);
         }
+        
         dx = (sign == 0) ? -dx : dx;
         //int dx = 0;
         int dy = 0;
         CGVector v = CGVectorMake(dx, dy);
-        [endCliff addObject:[NSValue valueWithCGVector:v]];
+        [cliffArray addObject:[NSValue valueWithCGVector:v]];
     }
     
 }
@@ -164,7 +165,7 @@ int CLIFF_VERTEX_COUNT = 15;
     [self addChild:_cropNode];
 }
 
--(SKShapeNode*)shapeNodeWithVertices:(NSArray*)vertexArray{
+-(SKShapeNode*)shapeNodeWithVertices:(NSMutableArray*)vertexArray{
     
     SKShapeNode* node = [SKShapeNode node];
     node.position = CGPointZero;
@@ -174,6 +175,26 @@ int CLIFF_VERTEX_COUNT = 15;
     node.physicsBody = nil;
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
     node.lineWidth = 1;
+    
+    if (!beforeCliffAddedToVertices) {
+        CGPoint firstVertex = [(NSValue*)[vertexArray firstObject] CGPointValue];
+        [vertexArray removeObject:[vertexArray firstObject]];
+        int x = firstVertex.x;
+        int y = 0;
+        float yDiff = firstVertex.y;
+        int yInterval = yDiff / CLIFF_VERTEX_COUNT;
+        for (NSValue* val in beforeCliff) {
+            CGVector vec = [val CGVectorValue];
+            
+            [vertexArray addObject:[NSValue valueWithCGPoint:CGPointMake(x + vec.dx, y + yInterval)]];
+            //CGPathAddLineToPoint(pathToDraw, NULL, x + vec.dx, y - yInterval);
+            x += vec.dx;
+            y += yInterval;
+        }
+        [vertexArray addObject:[NSValue valueWithCGPoint:firstVertex]];
+
+        beforeCliffAddedToVertices = true;
+    }
     
     CGPoint firstVertex = [(NSValue*)[vertexArray firstObject] CGPointValue];
     vertexOffset = CGVectorMake(firstVertex.x, firstVertex.y);
@@ -277,7 +298,7 @@ int CLIFF_VERTEX_COUNT = 15;
 //                    return;
 //                }
                 
-                sprite.zPosition = constants.FOREGROUND_Z_POSITION - zPositionDie;
+                //sprite.zPosition = constants.FOREGROUND_Z_POSITION - zPositionDie;
                 sprite.zPosition = self.zPosition - 1 - zPositionDie;
 
             }
@@ -286,7 +307,7 @@ int CLIFF_VERTEX_COUNT = 15;
             }
             //sprite.zPosition = constants.FOREGROUND_Z_POSITION - 1;
             //NSLog(@"zPos: %f", zPos);
-            float differenceInZs = (constants.FOREGROUND_Z_POSITION - sprite.zPosition) * .1f;
+            float differenceInZs = (self.zPosition - sprite.zPosition) * .1f;
             if (differenceInZs > 1){
     //                NSLog(@"differenceInZs: %i", differenceInZs);
                 sprite.size = CGSizeMake(sprite.size.width * (1 / differenceInZs), sprite.size.height * (1 / differenceInZs));
