@@ -182,6 +182,21 @@
 		78F9322D1A8854CB007947DD /* african_textile_3_terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F932281A8854CB007947DD /* african_textile_3_terrain.png */; };
 		78F9322E1A8854CB007947DD /* african_textile_5_terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F932291A8854CB007947DD /* african_textile_5_terrain.png */; };
 		78F9322F1A8854CB007947DD /* dirt1_terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F9322A1A8854CB007947DD /* dirt1_terrain.png */; };
+		78FFBC791A8EAC9500996198 /* chapters_button_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC6A1A8EAC9500996198 /* chapters_button_clicked.png */; };
+		78FFBC7A1A8EAC9500996198 /* chapters_button_not_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC6B1A8EAC9500996198 /* chapters_button_not_clicked.png */; };
+		78FFBC7B1A8EAC9500996198 /* highscores_button_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC6C1A8EAC9500996198 /* highscores_button_clicked.png */; };
+		78FFBC7C1A8EAC9500996198 /* highscores_button_not_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC6D1A8EAC9500996198 /* highscores_button_not_clicked.png */; };
+		78FFBC7D1A8EAC9500996198 /* leaderboard_button_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC6E1A8EAC9500996198 /* leaderboard_button_clicked.png */; };
+		78FFBC7E1A8EAC9500996198 /* leaderboard_button_not_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC6F1A8EAC9500996198 /* leaderboard_button_not_clicked.png */; };
+		78FFBC7F1A8EAC9500996198 /* menu_diamond.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC701A8EAC9500996198 /* menu_diamond.png */; };
+		78FFBC801A8EAC9500996198 /* menu_line.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC711A8EAC9500996198 /* menu_line.png */; };
+		78FFBC811A8EAC9500996198 /* menulogo.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC721A8EAC9500996198 /* menulogo.png */; };
+		78FFBC821A8EAC9500996198 /* purpleglass.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC731A8EAC9500996198 /* purpleglass.png */; };
+		78FFBC831A8EAC9500996198 /* purpleglassblur.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC741A8EAC9500996198 /* purpleglassblur.png */; };
+		78FFBC841A8EAC9500996198 /* settings_button_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC751A8EAC9500996198 /* settings_button_clicked.png */; };
+		78FFBC851A8EAC9500996198 /* settings_button_not_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC761A8EAC9500996198 /* settings_button_not_clicked.png */; };
+		78FFBC861A8EAC9500996198 /* unlockables_button_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC771A8EAC9500996198 /* unlockables_button_clicked.png */; };
+		78FFBC871A8EAC9500996198 /* unlockables_button_not_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC781A8EAC9500996198 /* unlockables_button_not_clicked.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -398,6 +413,21 @@
 		78F932281A8854CB007947DD /* african_textile_3_terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = african_textile_3_terrain.png; sourceTree = "<group>"; };
 		78F932291A8854CB007947DD /* african_textile_5_terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = african_textile_5_terrain.png; sourceTree = "<group>"; };
 		78F9322A1A8854CB007947DD /* dirt1_terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dirt1_terrain.png; sourceTree = "<group>"; };
+		78FFBC6A1A8EAC9500996198 /* chapters_button_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chapters_button_clicked.png; sourceTree = "<group>"; };
+		78FFBC6B1A8EAC9500996198 /* chapters_button_not_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chapters_button_not_clicked.png; sourceTree = "<group>"; };
+		78FFBC6C1A8EAC9500996198 /* highscores_button_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highscores_button_clicked.png; sourceTree = "<group>"; };
+		78FFBC6D1A8EAC9500996198 /* highscores_button_not_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highscores_button_not_clicked.png; sourceTree = "<group>"; };
+		78FFBC6E1A8EAC9500996198 /* leaderboard_button_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leaderboard_button_clicked.png; sourceTree = "<group>"; };
+		78FFBC6F1A8EAC9500996198 /* leaderboard_button_not_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = leaderboard_button_not_clicked.png; sourceTree = "<group>"; };
+		78FFBC701A8EAC9500996198 /* menu_diamond.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_diamond.png; sourceTree = "<group>"; };
+		78FFBC711A8EAC9500996198 /* menu_line.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_line.png; sourceTree = "<group>"; };
+		78FFBC721A8EAC9500996198 /* menulogo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menulogo.png; sourceTree = "<group>"; };
+		78FFBC731A8EAC9500996198 /* purpleglass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpleglass.png; sourceTree = "<group>"; };
+		78FFBC741A8EAC9500996198 /* purpleglassblur.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpleglassblur.png; sourceTree = "<group>"; };
+		78FFBC751A8EAC9500996198 /* settings_button_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_button_clicked.png; sourceTree = "<group>"; };
+		78FFBC761A8EAC9500996198 /* settings_button_not_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings_button_not_clicked.png; sourceTree = "<group>"; };
+		78FFBC771A8EAC9500996198 /* unlockables_button_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unlockables_button_clicked.png; sourceTree = "<group>"; };
+		78FFBC781A8EAC9500996198 /* unlockables_button_not_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unlockables_button_not_clicked.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -534,6 +564,7 @@
 		782AE6D81A74B89900FF4225 /* sprites */ = {
 			isa = PBXGroup;
 			children = (
+				78FFBC691A8EAC9500996198 /* menus */,
 				78383FB21A8B099F00712BFD /* line quilt */,
 				78F932251A8854CB007947DD /* terrain textures */,
 				782AE6D91A74B89900FF4225 /* animated shit */,
@@ -844,6 +875,28 @@
 			path = "terrain textures";
 			sourceTree = "<group>";
 		};
+		78FFBC691A8EAC9500996198 /* menus */ = {
+			isa = PBXGroup;
+			children = (
+				78FFBC6A1A8EAC9500996198 /* chapters_button_clicked.png */,
+				78FFBC6B1A8EAC9500996198 /* chapters_button_not_clicked.png */,
+				78FFBC6C1A8EAC9500996198 /* highscores_button_clicked.png */,
+				78FFBC6D1A8EAC9500996198 /* highscores_button_not_clicked.png */,
+				78FFBC6E1A8EAC9500996198 /* leaderboard_button_clicked.png */,
+				78FFBC6F1A8EAC9500996198 /* leaderboard_button_not_clicked.png */,
+				78FFBC701A8EAC9500996198 /* menu_diamond.png */,
+				78FFBC711A8EAC9500996198 /* menu_line.png */,
+				78FFBC721A8EAC9500996198 /* menulogo.png */,
+				78FFBC731A8EAC9500996198 /* purpleglass.png */,
+				78FFBC741A8EAC9500996198 /* purpleglassblur.png */,
+				78FFBC751A8EAC9500996198 /* settings_button_clicked.png */,
+				78FFBC761A8EAC9500996198 /* settings_button_not_clicked.png */,
+				78FFBC771A8EAC9500996198 /* unlockables_button_clicked.png */,
+				78FFBC781A8EAC9500996198 /* unlockables_button_not_clicked.png */,
+			);
+			path = menus;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -940,6 +993,7 @@
 				782AE7D01A74B89900FF4225 /* nightstars2_decoration.png in Resources */,
 				782AE77F1A74B89900FF4225 /* cloud4.0_decoration.png in Resources */,
 				782AE7791A74B89900FF4225 /* cloud3.0.png in Resources */,
+				78FFBC791A8EAC9500996198 /* chapters_button_clicked.png in Resources */,
 				78F9322B1A8854CB007947DD /* african_textile_1.jpg in Resources */,
 				782AE7CC1A74B89900FF4225 /* night.ai in Resources */,
 				782AE7B41A74B89900FF4225 /* totem2_obstacle.png in Resources */,
@@ -957,6 +1011,7 @@
 				782AE77B1A74B89900FF4225 /* cloud3.ai in Resources */,
 				659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */,
 				782AE7861A74B89900FF4225 /* cloudopaque3_decoration.png in Resources */,
+				78FFBC7A1A8EAC9500996198 /* chapters_button_not_clicked.png in Resources */,
 				782AE7D51A74B89900FF4225 /* spikesunyell_decoration.png in Resources */,
 				782AE78C1A74B89900FF4225 /* cloudred2.png in Resources */,
 				782AE7721A74B89900FF4225 /* cloud2.0.png in Resources */,
@@ -974,6 +1029,7 @@
 				782AE7981A74B89900FF4225 /* purplegrass_decoration.png in Resources */,
 				782AE78D1A74B89900FF4225 /* cloudred2_decoration.png in Resources */,
 				782AE7C81A74B89900FF4225 /* dusk3.ai in Resources */,
+				78FFBC851A8EAC9500996198 /* settings_button_not_clicked.png in Resources */,
 				782AE7E11A74B89900FF4225 /* tree.ai in Resources */,
 				782AE7C31A74B89900FF4225 /* day6_decoration.png in Resources */,
 				782AE7931A74B89900FF4225 /* blackgrass.gif in Resources */,
@@ -982,6 +1038,7 @@
 				6509D2EB1A5E290300F1BBA6 /* mediumbrush.png in Resources */,
 				782AE79D1A74B89900FF4225 /* mountain2.png in Resources */,
 				782AE7E71A74B89900FF4225 /* tree4_decoration.png in Resources */,
+				78FFBC7E1A8EAC9500996198 /* leaderboard_button_not_clicked.png in Resources */,
 				782AE76C1A74B89900FF4225 /* button.ai in Resources */,
 				782AE7BB1A74B89900FF4225 /* dawn4_decoration.png in Resources */,
 				782AE7A61A74B89900FF4225 /* obstacle1.ai in Resources */,
@@ -991,6 +1048,7 @@
 				782AE7DB1A74B89900FF4225 /* redtree2_decoration.png in Resources */,
 				782AE7731A74B89900FF4225 /* cloud2.0_decoration.png in Resources */,
 				78F9322C1A8854CB007947DD /* african_textile_2_terrain.png in Resources */,
+				78FFBC7C1A8EAC9500996198 /* highscores_button_not_clicked.png in Resources */,
 				782AE7B61A74B89900FF4225 /* triangle.ai in Resources */,
 				782AE7E51A74B89900FF4225 /* tree3_decoration.png in Resources */,
 				782AE7A91A74B89900FF4225 /* obstacle2_obstacle.png in Resources */,
@@ -1022,6 +1080,7 @@
 				782AE7C71A74B89900FF4225 /* dusk1_decoration.png in Resources */,
 				782AE7881A74B89900FF4225 /* cloudopaque4_decoration.png in Resources */,
 				782AE78B1A74B89900FF4225 /* cloudred1_decoration.png in Resources */,
+				78FFBC831A8EAC9500996198 /* purpleglassblur.png in Resources */,
 				782AE79E1A74B89900FF4225 /* mountain2_decoration.png in Resources */,
 				6509D2CC1A5E290300F1BBA6 /* Main.storyboard in Resources */,
 				782AE7D61A74B89900FF4225 /* sun_decoration.png in Resources */,
@@ -1042,6 +1101,7 @@
 				782AE76F1A74B89900FF4225 /* cloud.png in Resources */,
 				782AE7941A74B89900FF4225 /* blackgrass_decoration.png in Resources */,
 				782AE7781A74B89900FF4225 /* cloud2opaque_decoration.png in Resources */,
+				78FFBC7D1A8EAC9500996198 /* leaderboard_button_clicked.png in Resources */,
 				782AE7761A74B89900FF4225 /* cloud2_decoration.png in Resources */,
 				782AE77C1A74B89900FF4225 /* cloud3.png in Resources */,
 				782AE7B11A74B89900FF4225 /* square_obstacle.png in Resources */,
@@ -1052,15 +1112,22 @@
 				782AE7B01A74B89900FF4225 /* square.ai in Resources */,
 				782AE7BF1A74B89900FF4225 /* day3_decoration.png in Resources */,
 				782AE7DF1A74B89900FF4225 /* redtree4_decoration.png in Resources */,
+				78FFBC801A8EAC9500996198 /* menu_line.png in Resources */,
 				782AE7D71A74B89900FF4225 /* chapterCellTestBackgroundImage.png in Resources */,
 				782AE7B51A74B89900FF4225 /* totem_obstacle.png in Resources */,
+				78FFBC841A8EAC9500996198 /* settings_button_clicked.png in Resources */,
 				782AE7A11A74B89900FF4225 /* mountain_decoration.png in Resources */,
+				78FFBC861A8EAC9500996198 /* unlockables_button_clicked.png in Resources */,
 				782AE7BE1A74B89900FF4225 /* day3.ai in Resources */,
+				78FFBC7B1A8EAC9500996198 /* highscores_button_clicked.png in Resources */,
 				782AE79B1A74B89900FF4225 /* mountain.ai in Resources */,
 				782AE7C51A74B89900FF4225 /* dayog_decoration.png in Resources */,
 				78383FBB1A8B099F00712BFD /* dirtmcgirt.png in Resources */,
+				78FFBC871A8EAC9500996198 /* unlockables_button_not_clicked.png in Resources */,
 				782AE7811A74B89900FF4225 /* cloud4.png in Resources */,
 				782AE7DA1A74B89900FF4225 /* redtree2.ai in Resources */,
+				78FFBC7F1A8EAC9500996198 /* menu_diamond.png in Resources */,
+				78FFBC811A8EAC9500996198 /* menulogo.png in Resources */,
 				782AE7C11A74B89900FF4225 /* day5_decoration.png in Resources */,
 				782AE7AA1A74B89900FF4225 /* obstacle3.ai in Resources */,
 				782AE7821A74B89900FF4225 /* cloud4_decoration.png in Resources */,
@@ -1068,6 +1135,7 @@
 				782AE7A31A74B89900FF4225 /* circlemask_obstacle.png in Resources */,
 				78383FBF1A8B099F00712BFD /* opticalillusion.ai in Resources */,
 				782AE7891A74B89900FF4225 /* cloudopaque_decoration.png in Resources */,
+				78FFBC821A8EAC9500996198 /* purpleglass.png in Resources */,
 				782AE7A81A74B89900FF4225 /* obstacle2.ai in Resources */,
 				78F9322F1A8854CB007947DD /* dirt1_terrain.png in Resources */,
 				782AE7DE1A74B89900FF4225 /* redtree4.ai in Resources */,

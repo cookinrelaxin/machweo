@@ -140,45 +140,86 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGH-lu-BQS">
-                                <rect key="frame" x="284" y="285" width="33" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="33" id="Xni-5v-PU1"/>
-                                    <constraint firstAttribute="height" constant="30" id="hfL-Fa-YnP"/>
-                                </constraints>
-                                <state key="normal" title="Start">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IXj-cR-5ey">
+                                <rect key="frame" x="405" y="28" width="179" height="46"/>
+                                <state key="normal" image="chapters_button_not_clicked.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="16K-jD-u2w" kind="show" id="Ljb-JB-iqD"/>
+                                    <segue destination="16K-jD-u2w" kind="show" id="qnd-g8-Fiu"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n1z-7X-eau">
+                                <rect key="frame" x="405" y="277" width="179" height="46"/>
+                                <state key="normal" image="leaderboard_button_not_clicked.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xtf-f3-vb9">
+                                <rect key="frame" x="405" y="152" width="179" height="46"/>
+                                <state key="normal" image="highscores_button_not_clicked.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mic-1S-232">
+                                <rect key="frame" x="405" y="534" width="179" height="46"/>
+                                <state key="normal" image="unlockables_button_not_clicked.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mbL-Bc-MsT">
+                                <rect key="frame" x="405" y="406" width="179" height="46"/>
+                                <state key="normal" image="settings_button_not_clicked.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                            </button>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="menu_diamond.png" translatesAutoresizingMaskIntoConstraints="NO" id="dZu-ZL-6m7">
+                                <rect key="frame" x="348" y="282" width="34" height="35"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="menu_line.png" translatesAutoresizingMaskIntoConstraints="NO" id="b4G-pW-93V">
+                                <rect key="frame" x="363" y="327" width="4" height="253"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="menu_line.png" translatesAutoresizingMaskIntoConstraints="NO" id="Wma-V5-nxr">
+                                <rect key="frame" x="363" y="21" width="4" height="253"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerX" secondItem="lGH-lu-BQS" secondAttribute="centerX" id="0tv-YB-gdp"/>
-                            <constraint firstAttribute="centerY" secondItem="lGH-lu-BQS" secondAttribute="centerY" id="14Y-S0-Th1"/>
-                            <constraint firstItem="lGH-lu-BQS" firstAttribute="leading" secondItem="hCZ-X8-SON" secondAttribute="leadingMargin" constant="268" id="9vV-uL-Mqc"/>
-                            <constraint firstAttribute="centerX" secondItem="lGH-lu-BQS" secondAttribute="centerX" id="W1i-ca-yvf"/>
-                            <constraint firstAttribute="centerY" secondItem="lGH-lu-BQS" secondAttribute="centerY" id="bOO-2F-sl3"/>
-                            <constraint firstItem="lGH-lu-BQS" firstAttribute="top" secondItem="9xO-s9-ZAT" secondAttribute="bottom" constant="265" id="biQ-zV-qSX"/>
-                            <constraint firstAttribute="centerX" secondItem="lGH-lu-BQS" secondAttribute="centerX" id="fyU-7k-9AD"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="lGH-lu-BQS" secondAttribute="trailing" constant="267" id="iWk-Sd-mz9"/>
-                            <constraint firstItem="SbZ-OQ-2fh" firstAttribute="top" secondItem="lGH-lu-BQS" secondAttribute="bottom" constant="285" id="nZl-up-IEl"/>
-                            <constraint firstAttribute="centerY" secondItem="lGH-lu-BQS" secondAttribute="centerY" id="qAc-Wi-BJI"/>
+                            <constraint firstItem="mbL-Bc-MsT" firstAttribute="leading" secondItem="b4G-pW-93V" secondAttribute="trailing" constant="38" id="4yG-u8-NJg"/>
+                            <constraint firstItem="IXj-cR-5ey" firstAttribute="leading" secondItem="Wma-V5-nxr" secondAttribute="trailing" constant="38" id="6Pq-jn-MKa"/>
+                            <constraint firstItem="n1z-7X-eau" firstAttribute="leading" secondItem="dZu-ZL-6m7" secondAttribute="trailing" constant="23" id="9FU-46-JvF"/>
+                            <constraint firstItem="Wma-V5-nxr" firstAttribute="top" secondItem="9xO-s9-ZAT" secondAttribute="bottom" constant="1" id="Bu2-WU-xfs"/>
+                            <constraint firstItem="Mic-1S-232" firstAttribute="top" secondItem="mbL-Bc-MsT" secondAttribute="bottom" constant="82" id="JvE-ar-vv8"/>
+                            <constraint firstItem="Xtf-f3-vb9" firstAttribute="top" secondItem="IXj-cR-5ey" secondAttribute="bottom" constant="78" id="Rg3-5y-1fY"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="n1z-7X-eau" secondAttribute="trailing" id="S7o-ec-Oxf"/>
+                            <constraint firstItem="Xtf-f3-vb9" firstAttribute="top" secondItem="IXj-cR-5ey" secondAttribute="bottom" constant="75" id="VLn-F0-2ao"/>
+                            <constraint firstItem="n1z-7X-eau" firstAttribute="top" secondItem="Xtf-f3-vb9" secondAttribute="bottom" constant="79" id="XHC-Df-znd"/>
+                            <constraint firstItem="Mic-1S-232" firstAttribute="trailing" secondItem="hCZ-X8-SON" secondAttribute="trailingMargin" id="XJQ-qZ-jH0"/>
+                            <constraint firstItem="mbL-Bc-MsT" firstAttribute="top" secondItem="n1z-7X-eau" secondAttribute="bottom" constant="83" id="ZCB-Nz-HZf"/>
+                            <constraint firstAttribute="centerY" secondItem="dZu-ZL-6m7" secondAttribute="centerY" constant="0.5" id="ZJJ-Wb-AQA"/>
+                            <constraint firstItem="SbZ-OQ-2fh" firstAttribute="top" secondItem="b4G-pW-93V" secondAttribute="bottom" constant="20" id="b3X-GS-aYm"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mbL-Bc-MsT" secondAttribute="trailing" id="dfa-U7-oBD"/>
+                            <constraint firstItem="SbZ-OQ-2fh" firstAttribute="top" secondItem="Mic-1S-232" secondAttribute="bottom" constant="20" id="fFi-V1-kcB"/>
+                            <constraint firstItem="Xtf-f3-vb9" firstAttribute="trailing" secondItem="hCZ-X8-SON" secondAttribute="trailingMargin" id="iRI-KM-bOe"/>
+                            <constraint firstItem="IXj-cR-5ey" firstAttribute="trailing" secondItem="hCZ-X8-SON" secondAttribute="trailingMargin" id="lqd-xD-Hck"/>
+                            <constraint firstItem="IXj-cR-5ey" firstAttribute="top" secondItem="9xO-s9-ZAT" secondAttribute="bottom" constant="8" id="nr6-49-epH"/>
+                            <constraint firstItem="n1z-7X-eau" firstAttribute="top" secondItem="Xtf-f3-vb9" secondAttribute="bottom" constant="82" id="rNH-VM-WCo"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="9vV-uL-Mqc"/>
-                                <exclude reference="biQ-zV-qSX"/>
-                                <exclude reference="iWk-Sd-mz9"/>
-                                <exclude reference="nZl-up-IEl"/>
+                                <exclude reference="VLn-F0-2ao"/>
+                                <exclude reference="rNH-VM-WCo"/>
                             </mask>
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Q9Q-Vm-dWY"/>
                     <connections>
+                        <outlet property="chaptersButton" destination="IXj-cR-5ey" id="pxm-Zv-pIj"/>
+                        <outlet property="highScoresButton" destination="Xtf-f3-vb9" id="2SD-Sn-Ada"/>
+                        <outlet property="leaderboardButton" destination="n1z-7X-eau" id="HXN-1o-svB"/>
+                        <outlet property="settingsButton" destination="mbL-Bc-MsT" id="KbU-nv-WPO"/>
                         <outlet property="textView" destination="hCZ-X8-SON" id="0MF-bl-2CA"/>
+                        <outlet property="unlockablesButton" destination="Mic-1S-232" id="Mtl-NJ-iTS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSs-T0-TaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -266,8 +307,17 @@
             <point key="canvasLocation" x="1065" y="363"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="chapters_button_not_clicked.png" width="179" height="46"/>
+        <image name="highscores_button_not_clicked.png" width="179" height="46"/>
+        <image name="leaderboard_button_not_clicked.png" width="179" height="46"/>
+        <image name="menu_diamond.png" width="34" height="35"/>
+        <image name="menu_line.png" width="4" height="253"/>
+        <image name="settings_button_not_clicked.png" width="179" height="46"/>
+        <image name="unlockables_button_not_clicked.png" width="179" height="46"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Ljb-JB-iqD"/>
         <segue reference="Kzr-Be-gpJ"/>
+        <segue reference="qnd-g8-Fiu"/>
     </inferredMetricsTieBreakers>
 </document>

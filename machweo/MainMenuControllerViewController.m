@@ -13,6 +13,11 @@
 #import <CoreText/CoreText.h>
 
 @interface MainMenuControllerViewController ()
+@property (weak, nonatomic) IBOutlet UIButton *chaptersButton;
+@property (weak, nonatomic) IBOutlet UIButton *highScoresButton;
+@property (weak, nonatomic) IBOutlet UIButton *leaderboardButton;
+@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
+@property (weak, nonatomic) IBOutlet UIButton *unlockablesButton;
 
 @end
 
@@ -179,16 +184,26 @@
 //                                           CGRectGetWidth(self.view.layer.bounds) - 40.0f,
 //                                           CGRectGetHeight(self.view.layer.bounds) - 84.0f);
     self.animationLayer.frame = self.view.frame;
-    self.animationLayer.backgroundColor = [UIColor blackColor].CGColor;
+    //self.animationLayer.backgroundColor = [UIColor blackColor].CGColor;
     [self.view.layer addSublayer:self.animationLayer];
+    [self setupButtons];
     
-    [self setupTextLayer];
-    [CATransaction begin]; {
-        [CATransaction setCompletionBlock:^{
-           // self.pathLayer.fillColor = [UIColor blackColor].CGColor;
-        }];
-        [self startAnimation];
-    } [CATransaction commit];
+//    [self setupTextLayer];
+//    [CATransaction begin]; {
+//        [CATransaction setCompletionBlock:^{
+//           // self.pathLayer.fillColor = [UIColor blackColor].CGColor;
+//        }];
+//        [self startAnimation];
+//    } [CATransaction commit];
+}
+
+-(void)setupButtons{
+    [_chaptersButton setImage:[UIImage imageNamed:@"chapters_button_clicked"] forState:UIControlStateHighlighted];
+    [_highScoresButton setImage:[UIImage imageNamed:@"highscores_button_clicked"] forState:UIControlStateHighlighted];
+    [_leaderboardButton setImage:[UIImage imageNamed:@"leaderboard_button_clicked"] forState:UIControlStateHighlighted];
+    [_settingsButton setImage:[UIImage imageNamed:@"settings_button_clicked"] forState:UIControlStateHighlighted];
+    [_unlockablesButton setImage:[UIImage imageNamed:@"unlockables_button_clicked"] forState:UIControlStateHighlighted];
+
 }
 
 
