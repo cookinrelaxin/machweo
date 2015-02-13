@@ -67,17 +67,17 @@ int CLIFF_VERTEX_COUNT = 15;
         }
         
         //float x_max = size.width;
-        float x_min = 0;
+        float x_min = -50;
         // float x_d_i = deco.position.x;
         float x_d_i = [deco.parent.parent convertPoint:deco.position fromNode:deco.parent].x + (deco.size.width / 2);
         float x_t_i = vertex.x;
         
         if (againstSlope){
-//            if  (x_d_i >= x_t_i){
-//                NSLog(@"deco: %@", deco);
-//                //NSLog(@"(x_d_i >= x_t_i)");
-//                continue;
-//            }
+           // if  (x_d_i > x_t_i){
+                //NSLog(@"deco: %@", deco);
+                //NSLog(@"(x_d_i >= x_t_i)");
+               // continue;
+           // }
             
 //            float d_bottom_x_ish = x_d_i - (deco.size.height / 2);
 //            if (!(d_bottom_x_ish >= vertex.y)) {
@@ -111,7 +111,7 @@ int CLIFF_VERTEX_COUNT = 15;
                 
                 deco.zPosition = newZ;
                 deco.name = @"corrected";
-                if (deco.zPosition > z_t) {
+                if (deco.zPosition >= z_t) {
                     deco.zPosition = z_t - 1;
                 }
                 //deco.zPosition = z_t - 1;
@@ -269,43 +269,7 @@ int CLIFF_VERTEX_COUNT = 15;
             SKSpriteNode* sprite = [SKSpriteNode spriteNodeWithTexture:tex];
             sprite.size = CGSizeMake(sprite.size.width * constants.SCALE_COEFFICIENT.dy, sprite.size.height * constants.SCALE_COEFFICIENT.dy);
             if (zPos == 0) {
-                //CGRect nodeFrame = node.calculateAccumulatedFrame;
-                //NSLog(@"nodeFrame: %f, %f", nodeFrame.size.width, nodeFrame.size.height);
-           //     NSLog(@"slope: %f", slope);
-                int zPositionDie = 0;
-//                if (slope < -1) {
-//                    zPositionDie = 0;
-//                }
-//                else if (slope < 1) {
-//                    zPositionDie = arc4random_uniform(10);
-//                }
-//                else if (slope < 2) {
-//                    zPositionDie = arc4random_uniform(16);
-//                }
-//                else if (slope < 3) {
-//                    zPositionDie = arc4random_uniform(22);
-//                }
-//                else{
-//                    zPositionDie = arc4random_uniform(20);
-//                }
-//                else if (slope > 2) {
-//                    return;
-//                }
-                zPositionDie = arc4random_uniform(25);
-
-//                if (slope < -.1) {
-//                    [self correctSpriteZsBeforeVertex:v againstSlope:YES];
-//                    return;
-//                }
-//                else{
-//                    if (slope < -.5) {
-//                        // this size is magic and temporary. fix sometime
-//                        [self correctSpriteZsBeforeVertex:v againstSlope:YES];
-//                    }
-//                    return;
-//                }
-                
-                //sprite.zPosition = constants.FOREGROUND_Z_POSITION - zPositionDie;
+                int zPositionDie = arc4random_uniform(30);
                 sprite.zPosition = self.zPosition - 1 - zPositionDie;
 
             }
@@ -314,7 +278,7 @@ int CLIFF_VERTEX_COUNT = 15;
             }
             //sprite.zPosition = constants.FOREGROUND_Z_POSITION - 1;
             //NSLog(@"zPos: %f", zPos);
-            float differenceInZs = (self.zPosition - sprite.zPosition) * .1f;
+            float differenceInZs = (self.zPosition - sprite.zPosition) * .05f;
             if (differenceInZs > 1){
     //                NSLog(@"differenceInZs: %i", differenceInZs);
                 sprite.size = CGSizeMake(sprite.size.width * (1 / differenceInZs), sprite.size.height * (1 / differenceInZs));
@@ -324,35 +288,23 @@ int CLIFF_VERTEX_COUNT = 15;
 
             
             sprite.position = [node convertPoint:v fromNode:self.parent.parent];
-            float z_d = sprite.zPosition;
+            //float z_d = sprite.zPosition;
             float h_s = sprite.size.height;
-            float z_t = self.zPosition;
-            int height_die_d = arc4random_uniform((z_d * h_s) / (8 * z_t));
+            //float z_t = self.zPosition;
+           // int height_die_d = arc4random_uniform((z_d * h_s) / (4 * z_t));
+            int height_die_d = arc4random_uniform(h_s / 5);
             sprite.position = CGPointMake(sprite.position.x, sprite.position.y + height_die_d);
-            //sprite.position = CGPointMake(sprite.position.x, sprite.position.y + (sprite.size.height / 2));
             
-            //double rotationDie = drand48();
-            
-            //int signDie = arc4random_uniform(2);
-            //float rotation = (signDie == 0) ? (M_PI_4 / 2 * rotationDie) : -(M_PI_4 / 2 * rotationDie);
-            
-            //float rotation = -(M_PI_4 / 2 * rotationDie);
-            //sprite.zRotation = rotation;
-            
-           // sprite.zRotation = M_PI_4 * slope;
-
-
-           // sprite.name = @"terrain deco";
             [node addChild:sprite];
             [decos addObject:sprite];
             
             if (slope < -1.5) {
                 [self correctSpriteZsBeforeVertex:v againstSlope:YES];
-               // return;
+                return;
             }
 
             
-            }
+        }
     }
 }
 
