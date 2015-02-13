@@ -188,13 +188,13 @@
     [self.view.layer addSublayer:self.animationLayer];
     [self setupButtons];
     
-//    [self setupTextLayer];
-//    [CATransaction begin]; {
-//        [CATransaction setCompletionBlock:^{
-//           // self.pathLayer.fillColor = [UIColor blackColor].CGColor;
-//        }];
-//        [self startAnimation];
-//    } [CATransaction commit];
+    [self setupTextLayer];
+    [CATransaction begin]; {
+        [CATransaction setCompletionBlock:^{
+           // self.pathLayer.fillColor = [UIColor blackColor].CGColor;
+        }];
+        [self startAnimation];
+    } [CATransaction commit];
 }
 
 -(void)setupButtons{
