@@ -92,28 +92,46 @@
     CGPathRelease(letters);
     CFRelease(font);
     
-    CAShapeLayer *pathLayer = [CAShapeLayer layer];
-    pathLayer.frame = self.animationLayer.bounds;
-    pathLayer.bounds = CGPathGetBoundingBox(path.CGPath);
+    _pathLayer = [CAShapeLayer layer];
+    _pathLayer.frame = self.animationLayer.bounds;
+    _pathLayer.bounds = CGPathGetBoundingBox(path.CGPath);
     //pathLayer.backgroundColor = [[UIColor yellowColor] CGColor];
-    pathLayer.geometryFlipped = YES;
-    pathLayer.path = path.CGPath;
-    pathLayer.strokeColor = [[UIColor whiteColor] CGColor];
-    pathLayer.fillColor = nil;
-    pathLayer.lineWidth = 5.0f;
+    _pathLayer.geometryFlipped = YES;
+    _pathLayer.path = path.CGPath;
+    _pathLayer.strokeColor = [[UIColor whiteColor] CGColor];
+    _pathLayer.fillColor = nil;
+    _pathLayer.lineWidth = 5.0f;
     //pathLayer.lineJoin = kCALineJoinBevel;
     //.lineCap = kCALineCapSquare;
     
-    [self.animationLayer addSublayer:pathLayer];
+    [self.animationLayer addSublayer:_pathLayer];
     
-    self.pathLayer = pathLayer;
+    _pathSubLayer = [CAShapeLayer layer];
+    _pathSubLayer.frame = self.animationLayer.bounds;
+    _pathSubLayer.bounds = CGPathGetBoundingBox(path.CGPath);
+    //pathLayer.backgroundColor = [[UIColor yellowColor] CGColor];
+    _pathSubLayer.geometryFlipped = YES;
+    _pathSubLayer.path = path.CGPath;
+   // pathSubLayer.strokeColor = [[UIColor whiteColor] CGColor];
+    //pathSubLayer.fillColor = [[UIColor redColor] CGColor];
+    //pathSubLayer.fillColor = nil;
+    //pathSubLayer.lineWidth = 5.0f;
+    [self.animationLayer addSublayer:_pathSubLayer];
+    
+    CALayer* subTextureLayer = [CAShapeLayer layer];
+    subTextureLayer.frame = self.animationLayer.frame;
+   // subTextureLayer.backgroundColor = [[UIColor whiteColor] CGColor];
+    subTextureLayer.contents = (id)[UIImage imageNamed:@"african_textile_2_terrain"].CGImage;
+    subTextureLayer.mask = _pathSubLayer;
+    [self.animationLayer addSublayer:subTextureLayer];
     
     CALayer* textureLayer = [CAShapeLayer layer];
     textureLayer.frame = self.animationLayer.frame;
     textureLayer.contents = (id)[UIImage imageNamed:@"african_textile_5_terrain"].CGImage;
     textureLayer.mask = self.pathLayer;
-    [pathLayer setFillRule:kCAFillRuleNonZero];
     [self.animationLayer addSublayer:textureLayer];
+    
+    
     
     
     
@@ -135,12 +153,12 @@
     pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
     [self.pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
     
-//    CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
-//
-//    fillAnimation.duration = 5.0f;
-//    fillAnimation.fromValue = (id)[[UIColor clearColor] CGColor];
-//    fillAnimation.toValue = (id)[[UIColor blackColor] CGColor];
-//    [self.pathLayer addAnimation:fillAnimation forKey:@"fillColor"];
+    CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
+
+    fillAnimation.duration = 4.0f;
+    fillAnimation.fromValue = (id)[[UIColor clearColor] CGColor];
+    fillAnimation.toValue = (id)[[UIColor blackColor] CGColor];
+    [self.pathSubLayer addAnimation:fillAnimation forKey:@"fillColor"];
     
     
 }
