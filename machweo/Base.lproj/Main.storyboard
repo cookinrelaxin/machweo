@@ -131,12 +131,12 @@
         <!--start menu-->
         <scene sceneID="Djo-bx-gar">
             <objects>
-                <viewController id="YbM-qg-g2k" userLabel="start menu" sceneMemberID="viewController">
+                <viewController id="YbM-qg-g2k" userLabel="start menu" customClass="MainMenuControllerViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="9xO-s9-ZAT"/>
                         <viewControllerLayoutGuide type="bottom" id="SbZ-OQ-2fh"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="hCZ-X8-SON">
+                    <view key="view" contentMode="scaleToFill" id="hCZ-X8-SON" customClass="TextView">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -177,6 +177,9 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Q9Q-Vm-dWY"/>
+                    <connections>
+                        <outlet property="textView" destination="hCZ-X8-SON" id="0MF-bl-2CA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSs-T0-TaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -264,7 +267,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="G4o-TQ-7by"/>
+        <segue reference="Ljb-JB-iqD"/>
         <segue reference="Kzr-Be-gpJ"/>
     </inferredMetricsTieBreakers>
 </document>

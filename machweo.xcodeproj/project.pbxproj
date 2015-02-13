@@ -174,6 +174,9 @@
 		78B986AF1A746CAF00C4EA18 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986AE1A746CAF00C4EA18 /* Score.m */; };
 		78B986B21A74827B00C4EA18 /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986B11A74827B00C4EA18 /* Coin.m */; };
 		78BC58C31A83059F00308D34 /* newnewLevel.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78BC58C21A83059F00308D34 /* newnewLevel.xml */; };
+		78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */; };
+		78CCA2FF1A8D93EF0046C988 /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FE1A8D93EF0046C988 /* MainMenuScene.m */; };
+		78CCA3021A8D96790046C988 /* TextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA3011A8D96790046C988 /* TextView.m */; };
 		78F9322B1A8854CB007947DD /* african_textile_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 78F932261A8854CB007947DD /* african_textile_1.jpg */; };
 		78F9322C1A8854CB007947DD /* african_textile_2_terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F932271A8854CB007947DD /* african_textile_2_terrain.png */; };
 		78F9322D1A8854CB007947DD /* african_textile_3_terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F932281A8854CB007947DD /* african_textile_3_terrain.png */; };
@@ -384,6 +387,12 @@
 		78B986B01A74827B00C4EA18 /* Coin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
 		78B986B11A74827B00C4EA18 /* Coin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coin.m; sourceTree = "<group>"; };
 		78BC58C21A83059F00308D34 /* newnewLevel.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = newnewLevel.xml; sourceTree = "<group>"; };
+		78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuControllerViewController.h; sourceTree = "<group>"; };
+		78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuControllerViewController.m; sourceTree = "<group>"; };
+		78CCA2FD1A8D93EF0046C988 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
+		78CCA2FE1A8D93EF0046C988 /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScene.m; sourceTree = "<group>"; };
+		78CCA3001A8D96790046C988 /* TextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextView.h; sourceTree = "<group>"; };
+		78CCA3011A8D96790046C988 /* TextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextView.m; sourceTree = "<group>"; };
 		78F932261A8854CB007947DD /* african_textile_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = african_textile_1.jpg; sourceTree = "<group>"; };
 		78F932271A8854CB007947DD /* african_textile_2_terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = african_textile_2_terrain.png; sourceTree = "<group>"; };
 		78F932281A8854CB007947DD /* african_textile_3_terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = african_textile_3_terrain.png; sourceTree = "<group>"; };
@@ -746,6 +755,12 @@
 				6509D2A11A5E290300F1BBA6 /* LevelSelectionCollectionViewController.m */,
 				6509D2A21A5E290300F1BBA6 /* GameViewController.h */,
 				6509D2921A5E290300F1BBA6 /* GameViewController.m */,
+				78CCA2FD1A8D93EF0046C988 /* MainMenuScene.h */,
+				78CCA2FE1A8D93EF0046C988 /* MainMenuScene.m */,
+				78CCA3001A8D96790046C988 /* TextView.h */,
+				78CCA3011A8D96790046C988 /* TextView.m */,
+				78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */,
+				78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */,
 			);
 			name = "view controllers";
 			sourceTree = "<group>";
@@ -1077,12 +1092,14 @@
 			files = (
 				6509D2D61A5E290300F1BBA6 /* AppDelegate.m in Sources */,
 				6509D2D31A5E290300F1BBA6 /* ChunkLoader.m in Sources */,
+				78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */,
 				6509D2DA1A5E290300F1BBA6 /* LevelCellParser.m in Sources */,
 				788788041A7333A9002987B7 /* GameDataManager.m in Sources */,
 				659B21D01A5E1C1300885C04 /* main.m in Sources */,
 				6509D2CE1A5E290300F1BBA6 /* GameViewController.m in Sources */,
 				6509D2ED1A5E290300F1BBA6 /* Line.m in Sources */,
 				6509D2DD1A5E290300F1BBA6 /* LoadingScene.m in Sources */,
+				78CCA3021A8D96790046C988 /* TextView.m in Sources */,
 				6509D2E81A5E290300F1BBA6 /* ChapterCollectionViewCell.m in Sources */,
 				6509D2D01A5E290300F1BBA6 /* GameScene.m in Sources */,
 				6509D2D81A5E290300F1BBA6 /* LevelCollectionViewCell.m in Sources */,
@@ -1095,6 +1112,7 @@
 				6509D2D41A5E290300F1BBA6 /* Player.m in Sources */,
 				78B986AF1A746CAF00C4EA18 /* Score.m in Sources */,
 				6509D2D91A5E290300F1BBA6 /* ChapterCellParser.m in Sources */,
+				78CCA2FF1A8D93EF0046C988 /* MainMenuScene.m in Sources */,
 				78B986B21A74827B00C4EA18 /* Coin.m in Sources */,
 				6509D2CD1A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m in Sources */,
 				78B566901A7C703E00011E86 /* Terrain.m in Sources */,
