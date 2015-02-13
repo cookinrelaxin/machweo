@@ -62,6 +62,9 @@ int CLIFF_VERTEX_COUNT = 15;
 }
 -(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope{
     for (SKSpriteNode* deco in decos) {
+        if ([deco.name isEqualToString:@"corrected"]) {
+            continue;
+        }
         
         //float x_max = size.width;
         float x_min = 0;
@@ -70,10 +73,11 @@ int CLIFF_VERTEX_COUNT = 15;
         float x_t_i = vertex.x;
         
         if (againstSlope){
-            if  (x_d_i >= x_t_i){
-                //NSLog(@"(x_d_i >= x_t_i)");
-                continue;
-            }
+//            if  (x_d_i >= x_t_i){
+//                NSLog(@"deco: %@", deco);
+//                //NSLog(@"(x_d_i >= x_t_i)");
+//                continue;
+//            }
             
 //            float d_bottom_x_ish = x_d_i - (deco.size.height / 2);
 //            if (!(d_bottom_x_ish >= vertex.y)) {
@@ -94,6 +98,7 @@ int CLIFF_VERTEX_COUNT = 15;
             float c = z_d / z_t;
             float v_d_now = c * v_t;
             if (v_d_now > max_v_d) {
+                //NSLog(@"deco: %@", deco);
                // NSLog(@"v_t: %f", v_t);
                 //NSLog(@"max_v_d: %f", max_v_d);
                 //NSLog(@"v_d_now: %f", v_d_now);
@@ -103,7 +108,9 @@ int CLIFF_VERTEX_COUNT = 15;
                      //NSLog(@"newZ: %f", newZ);
 
                 }
+                
                 deco.zPosition = newZ;
+                deco.name = @"corrected";
                 if (deco.zPosition > z_t) {
                     deco.zPosition = z_t - 1;
                 }

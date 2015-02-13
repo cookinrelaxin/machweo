@@ -218,7 +218,7 @@ typedef enum NodeTypes
             }
         }
         if (currentElement == terrainPoolMember) {
-            NSLog(@"add terrainPoolMember");
+            //NSLog(@"add terrainPoolMember");
             [terrainPoolArray addObject:[SKTexture textureWithImageNamed:string]];
         }
     }
