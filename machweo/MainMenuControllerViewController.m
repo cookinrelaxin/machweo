@@ -52,7 +52,7 @@
     NSDictionary *attrs = [NSDictionary dictionaryWithObjectsAndKeys:
                            (__bridge id)font, kCTFontAttributeName,
                            nil];
-    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"Machweo"
+    NSAttributedString *attrString = [[NSAttributedString alloc] initWithString:@"MACHWEO"
                                                                      attributes:attrs];
     CTLineRef line = CTLineCreateWithAttributedString((CFAttributedStringRef)attrString);
     CFArrayRef runArray = CTLineGetGlyphRuns(line);
@@ -98,10 +98,11 @@
     //pathLayer.backgroundColor = [[UIColor yellowColor] CGColor];
     pathLayer.geometryFlipped = YES;
     pathLayer.path = path.CGPath;
-    pathLayer.strokeColor = [[UIColor blackColor] CGColor];
+    pathLayer.strokeColor = [[UIColor whiteColor] CGColor];
     pathLayer.fillColor = nil;
-    pathLayer.lineWidth = 3.0f;
-    pathLayer.lineJoin = kCALineJoinBevel;
+    pathLayer.lineWidth = 5.0f;
+    //pathLayer.lineJoin = kCALineJoinBevel;
+    //.lineCap = kCALineCapSquare;
     
     [self.animationLayer addSublayer:pathLayer];
     
@@ -111,6 +112,7 @@
     textureLayer.frame = self.animationLayer.frame;
     textureLayer.contents = (id)[UIImage imageNamed:@"african_textile_5_terrain"].CGImage;
     textureLayer.mask = self.pathLayer;
+    [pathLayer setFillRule:kCAFillRuleNonZero];
     [self.animationLayer addSublayer:textureLayer];
     
     
@@ -128,24 +130,19 @@
     //CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
 
-    pathAnimation.duration = 3.0f;
+    pathAnimation.duration = 4.0f;
     pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
     pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
     [self.pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
     
-    CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
-
-    fillAnimation.duration = 3.0f;
-    fillAnimation.fromValue = (id)[[UIColor clearColor] CGColor];
-    fillAnimation.toValue = (id)[[UIColor blackColor] CGColor];
-    [self.pathLayer addAnimation:fillAnimation forKey:@"fillColor"];
+//    CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
+//
+//    fillAnimation.duration = 5.0f;
+//    fillAnimation.fromValue = (id)[[UIColor clearColor] CGColor];
+//    fillAnimation.toValue = (id)[[UIColor blackColor] CGColor];
+//    [self.pathLayer addAnimation:fillAnimation forKey:@"fillColor"];
     
-//    CAKeyframeAnimation *penAnimation = [CAKeyframeAnimation animationWithKeyPath:@"position"];
-//    penAnimation.duration = 10.0;
-//    penAnimation.path = self.pathLayer.path;
-//    penAnimation.calculationMode = kCAAnimationPaced;
-//    penAnimation.delegate = self;
-//    [self.penLayer addAnimation:penAnimation forKey:@"position"];
+    
 }
 
 //
@@ -170,7 +167,7 @@
     [self setupTextLayer];
     [CATransaction begin]; {
         [CATransaction setCompletionBlock:^{
-            self.pathLayer.fillColor = [UIColor blackColor].CGColor;
+           // self.pathLayer.fillColor = [UIColor blackColor].CGColor;
         }];
         [self startAnimation];
     } [CATransaction commit];
