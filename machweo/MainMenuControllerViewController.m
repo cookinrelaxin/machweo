@@ -137,14 +137,14 @@
 //    textureLayer.mask = self.pathLayer;
 //    [self.animationLayer addSublayer:textureLayer];
     
-//    _sunLayer = [CALayer layer];
-//    UIImage* sun = [UIImage imageNamed:@"sun_decoration"];
-//    //_sunLayer.frame = self.animationLayer.bounds;
-//    _sunLayer.frame = CGRectMake(CGRectGetMidX(self.animationLayer.bounds), CGRectGetMidY(self.animationLayer.bounds), 200, 200);
-//    _sunLayer.contents = (__bridge id)(sun.CGImage);
-//    //textureLayer.position = self.animationLayer.frame.size.width / 2;
-//    //_sunLayer.position = CGPointMake(self.animationLayer.frame.size.width / 2, -sun.size.height / 2);
-//    [self.animationLayer addSublayer:_sunLayer];
+    _sunLayer = [CALayer layer];
+    UIImage* sun = [UIImage imageNamed:@"sun_decoration"];
+    //_sunLayer.frame = self.animationLayer.bounds;
+    _sunLayer.frame = CGRectMake(CGRectGetMidX(self.animationLayer.bounds), CGRectGetMinY(self.animationLayer.bounds), 200, 200);
+    _sunLayer.contents = (__bridge id)(sun.CGImage);
+    //textureLayer.position = self.animationLayer.frame.size.width / 2;
+    //_sunLayer.position = CGPointMake(self.animationLayer.frame.size.width / 2, -sun.size.height / 2);
+    [self.animationLayer addSublayer:_sunLayer];
 
     
     
@@ -163,18 +163,30 @@
     
     //CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-
     pathAnimation.duration = 4.0f;
     pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
     pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
     [self.pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
     
     CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
-
     fillAnimation.duration = 4.0f;
     fillAnimation.fromValue = (id)[[UIColor clearColor] CGColor];
     fillAnimation.toValue = (id)[[UIColor blackColor] CGColor];
     [self.pathSubLayer addAnimation:fillAnimation forKey:@"fillColor"];
+    
+    CABasicAnimation *sunAnimation = [CABasicAnimation animationWithKeyPath:@"position.y"];
+    sunAnimation.fromValue = @(CGRectGetMaxY(self.animationLayer.bounds));
+   // sunAnimation.toValue  = @(CGRectGetMinY(self.animationLayer.bounds));
+    sunAnimation.toValue  = @(_sunLayer.frame.origin.y);
+    sunAnimation.duration   = 1.5f;
+    sunAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    
+    // First we update the model layer's property.
+   // imView.layer.position = point1;
+    [_sunLayer addAnimation:sunAnimation forKey:@"position.y"];
+
+    
+    
     
     
 }
@@ -229,6 +241,8 @@
 //    
 //    _unlockablesButton.enabled = false;
 //    _unlockablesButton.hidden = true;
+    
+    _buttonsView.hidden = true;
 }
 
 
