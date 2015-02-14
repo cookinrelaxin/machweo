@@ -169,6 +169,8 @@
 		78383FBF1A8B099F00712BFD /* opticalillusion.ai in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB81A8B099F00712BFD /* opticalillusion.ai */; };
 		78383FC01A8B099F00712BFD /* opticalillusion_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB91A8B099F00712BFD /* opticalillusion_decoration.png */; };
 		7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7852BC6B1A71FF6D0038447B /* gameModel.xcdatamodeld */; };
+		7883AE3D1A8EEB60006A94A4 /* menulogo1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */; };
+		7883AE3F1A8EEC24006A94A4 /* menulogohalfx.png in Resources */ = {isa = PBXBuildFile; fileRef = 7883AE3E1A8EEC24006A94A4 /* menulogohalfx.png */; };
 		788788041A7333A9002987B7 /* GameDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 788788031A7333A9002987B7 /* GameDataManager.m */; };
 		78B566901A7C703E00011E86 /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B5668F1A7C703E00011E86 /* Terrain.m */; };
 		78B986AF1A746CAF00C4EA18 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986AE1A746CAF00C4EA18 /* Score.m */; };
@@ -393,6 +395,8 @@
 		78383FB81A8B099F00712BFD /* opticalillusion.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = opticalillusion.ai; sourceTree = "<group>"; };
 		78383FB91A8B099F00712BFD /* opticalillusion_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opticalillusion_decoration.png; sourceTree = "<group>"; };
 		7852BC6C1A71FF6D0038447B /* gameModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = gameModel.xcdatamodel; sourceTree = "<group>"; };
+		7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menulogo1x.png; sourceTree = "<group>"; };
+		7883AE3E1A8EEC24006A94A4 /* menulogohalfx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menulogohalfx.png; sourceTree = "<group>"; };
 		788788021A7333A9002987B7 /* GameDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataManager.h; sourceTree = "<group>"; };
 		788788031A7333A9002987B7 /* GameDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataManager.m; sourceTree = "<group>"; };
 		78B5668E1A7C703E00011E86 /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terrain.h; sourceTree = "<group>"; };
@@ -887,6 +891,8 @@
 				78FFBC701A8EAC9500996198 /* menu_diamond.png */,
 				78FFBC711A8EAC9500996198 /* menu_line.png */,
 				78FFBC721A8EAC9500996198 /* menulogo.png */,
+				7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */,
+				7883AE3E1A8EEC24006A94A4 /* menulogohalfx.png */,
 				78FFBC731A8EAC9500996198 /* purpleglass.png */,
 				78FFBC741A8EAC9500996198 /* purpleglassblur.png */,
 				78FFBC751A8EAC9500996198 /* settings_button_clicked.png */,
@@ -981,6 +987,7 @@
 				782AE7951A74B89900FF4225 /* grass.ai in Resources */,
 				782AE7841A74B89900FF4225 /* cloudopaque.png in Resources */,
 				782AE7961A74B89900FF4225 /* grass.png in Resources */,
+				7883AE3F1A8EEC24006A94A4 /* menulogohalfx.png in Resources */,
 				78383FC01A8B099F00712BFD /* opticalillusion_decoration.png in Resources */,
 				6509D2E91A5E290300F1BBA6 /* brush7.png in Resources */,
 				782AE7A01A74B89900FF4225 /* mountain3_decoration.png in Resources */,
@@ -1030,6 +1037,7 @@
 				782AE78D1A74B89900FF4225 /* cloudred2_decoration.png in Resources */,
 				782AE7C81A74B89900FF4225 /* dusk3.ai in Resources */,
 				78FFBC851A8EAC9500996198 /* settings_button_not_clicked.png in Resources */,
+				7883AE3D1A8EEB60006A94A4 /* menulogo1x.png in Resources */,
 				782AE7E11A74B89900FF4225 /* tree.ai in Resources */,
 				782AE7C31A74B89900FF4225 /* day6_decoration.png in Resources */,
 				782AE7931A74B89900FF4225 /* blackgrass.gif in Resources */,

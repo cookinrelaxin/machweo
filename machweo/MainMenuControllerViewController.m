@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *leaderboardButton;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 @property (weak, nonatomic) IBOutlet UIButton *unlockablesButton;
+@property (weak, nonatomic) IBOutlet UIImageView *logo;
 
 @end
 
@@ -98,6 +99,15 @@
     CGPathRelease(letters);
     CFRelease(font);
     
+    _sunLayer = [CALayer layer];
+    UIImage* sun = [UIImage imageNamed:@"sun_decoration"];
+    //_sunLayer.frame = self.animationLayer.bounds;
+    _sunLayer.frame = CGRectMake(CGRectGetMidX(self.animationLayer.bounds) - 200, CGRectGetMinY(self.animationLayer.bounds), 200, 200);
+    _sunLayer.contents = (__bridge id)(sun.CGImage);
+    //textureLayer.position = self.animationLayer.frame.size.width / 2;
+    //_sunLayer.position = CGPointMake(self.animationLayer.frame.size.width / 2, -sun.size.height / 2);
+    [self.animationLayer addSublayer:_sunLayer];
+    
 //    _pathLayer = [CAShapeLayer layer];
 //    _pathLayer.frame = self.animationLayer.bounds;
 //    _pathLayer.bounds = CGPathGetBoundingBox(path.CGPath);
@@ -137,22 +147,13 @@
 //    textureLayer.mask = self.pathLayer;
 //    [self.animationLayer addSublayer:textureLayer];
     
-    _sunLayer = [CALayer layer];
-    UIImage* sun = [UIImage imageNamed:@"sun_decoration"];
-    //_sunLayer.frame = self.animationLayer.bounds;
-    _sunLayer.frame = CGRectMake(CGRectGetMidX(self.animationLayer.bounds), CGRectGetMinY(self.animationLayer.bounds), 200, 200);
-    _sunLayer.contents = (__bridge id)(sun.CGImage);
-    //textureLayer.position = self.animationLayer.frame.size.width / 2;
-    //_sunLayer.position = CGPointMake(self.animationLayer.frame.size.width / 2, -sun.size.height / 2);
-    [self.animationLayer addSublayer:_sunLayer];
-
+//    _logoLayer = [CALayer layer];
+//    UIImage* logoImage = [UIImage imageNamed:@"menulogo"];
+//    _logoLayer.frame = CGRectMake(CGRectGetMidX(self.animationLayer.frame) - 200, CGRectGetMidY(self.animationLayer.frame), logoImage.size.width, logoImage.size.height);
+//    _logoLayer.contents = (id)logoImage.CGImage;
+//    [self.animationLayer addSublayer:_logoLayer];
     
-    
-    
-    
-    
-    
-    
+   
 }
 
 
@@ -161,29 +162,35 @@
 {
     [self.pathLayer removeAllAnimations];
     
-    //CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    pathAnimation.duration = 4.0f;
-    pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
-    pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
-    [self.pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
+//    //CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+//    CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
+//    pathAnimation.duration = 4.0f;
+//    pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
+//    pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
+//    [self.pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
+//    
+//    CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
+//    fillAnimation.duration = 4.0f;
+//    fillAnimation.fromValue = (id)[[UIColor clearColor] CGColor];
+//    fillAnimation.toValue = (id)[[UIColor blackColor] CGColor];
+//    [self.pathSubLayer addAnimation:fillAnimation forKey:@"fillColor"];
     
-    CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
-    fillAnimation.duration = 4.0f;
-    fillAnimation.fromValue = (id)[[UIColor clearColor] CGColor];
-    fillAnimation.toValue = (id)[[UIColor blackColor] CGColor];
-    [self.pathSubLayer addAnimation:fillAnimation forKey:@"fillColor"];
-    
-    CABasicAnimation *sunAnimation = [CABasicAnimation animationWithKeyPath:@"position.y"];
-    sunAnimation.fromValue = @(CGRectGetMaxY(self.animationLayer.bounds));
+    CABasicAnimation *sunriseAnimation = [CABasicAnimation animationWithKeyPath:@"position.y"];
+    sunriseAnimation.fromValue = @(CGRectGetMaxY(self.animationLayer.bounds) + (_sunLayer.frame.size.height / 2));
    // sunAnimation.toValue  = @(CGRectGetMinY(self.animationLayer.bounds));
-    sunAnimation.toValue  = @(_sunLayer.frame.origin.y);
-    sunAnimation.duration   = 1.5f;
-    sunAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    sunriseAnimation.toValue  = @(_sunLayer.frame.origin.y + (_sunLayer.frame.size.height / 2));
+    sunriseAnimation.duration   = 7.0f;
+    sunriseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    [_sunLayer addAnimation:sunriseAnimation forKey:@"position.y"];
     
-    // First we update the model layer's property.
-   // imView.layer.position = point1;
-    [_sunLayer addAnimation:sunAnimation forKey:@"position.y"];
+    CABasicAnimation *lightUp = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+    lightUp.fromValue = (id)[[UIColor blackColor] CGColor];
+    lightUp.toValue = (id)[[UIColor clearColor] CGColor];
+    lightUp.duration = 7.0f;
+    [self.animationLayer addAnimation:lightUp forKey:@"backgroundColor"];
+
+    
+    
 
     
     
@@ -214,7 +221,18 @@
     [self setupTextLayer];
     [CATransaction begin]; {
         [CATransaction setCompletionBlock:^{
-           // self.pathLayer.fillColor = [UIColor blackColor].CGColor;
+            _buttonsView.hidden = false;
+            //_pathLayer.hidden = true;
+//            _pathLayer.opacity = 0;
+//            _pathSubLayer.opacity = 0;
+//            CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+//            pathAnimation.duration = 1.0f;
+//            pathAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
+//            pathAnimation.toValue = [NSNumber numberWithFloat:0.0f];
+//            [_pathLayer addAnimation:pathAnimation forKey:@"opacity"];
+//            [_pathSubLayer addAnimation:pathAnimation forKey:@"opacity"];
+
+            
         }];
         [self startAnimation];
     } [CATransaction commit];
@@ -226,7 +244,7 @@
     [_leaderboardButton setImage:[UIImage imageNamed:@"leaderboard_button_clicked"] forState:UIControlStateHighlighted];
     [_settingsButton setImage:[UIImage imageNamed:@"settings_button_clicked"] forState:UIControlStateHighlighted];
     [_unlockablesButton setImage:[UIImage imageNamed:@"unlockables_button_clicked"] forState:UIControlStateHighlighted];
-    
+    [self.view bringSubviewToFront:_logo];
 //    _chaptersButton.enabled = false;
 //    _chaptersButton.hidden = true;
 //    

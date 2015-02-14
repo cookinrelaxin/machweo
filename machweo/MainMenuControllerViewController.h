@@ -17,6 +17,7 @@
 @property (nonatomic, strong) CAShapeLayer *pathLayer;
 @property (nonatomic, strong) CAShapeLayer *pathSubLayer;
 @property (nonatomic, strong) CALayer *sunLayer;
+@property (nonatomic, strong) CALayer *logoLayer;
 
 
 @end
