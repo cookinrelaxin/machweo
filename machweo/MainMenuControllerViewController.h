@@ -16,5 +16,7 @@
 @property (nonatomic, strong) CALayer *animationLayer;
 @property (nonatomic, strong) CAShapeLayer *pathLayer;
 @property (nonatomic, strong) CAShapeLayer *pathSubLayer;
+@property (nonatomic, strong) CALayer *sunLayer;
+
 
 @end

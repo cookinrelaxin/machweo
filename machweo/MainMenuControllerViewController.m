@@ -13,6 +13,7 @@
 #import <CoreText/CoreText.h>
 
 @interface MainMenuControllerViewController ()
+@property (weak, nonatomic) IBOutlet UIView *buttonsView;
 @property (weak, nonatomic) IBOutlet UIButton *chaptersButton;
 @property (weak, nonatomic) IBOutlet UIButton *highScoresButton;
 @property (weak, nonatomic) IBOutlet UIButton *leaderboardButton;
@@ -97,44 +98,54 @@
     CGPathRelease(letters);
     CFRelease(font);
     
-    _pathLayer = [CAShapeLayer layer];
-    _pathLayer.frame = self.animationLayer.bounds;
-    _pathLayer.bounds = CGPathGetBoundingBox(path.CGPath);
-    //pathLayer.backgroundColor = [[UIColor yellowColor] CGColor];
-    _pathLayer.geometryFlipped = YES;
-    _pathLayer.path = path.CGPath;
-    _pathLayer.strokeColor = [[UIColor whiteColor] CGColor];
-    _pathLayer.fillColor = nil;
-    _pathLayer.lineWidth = 5.0f;
-    //pathLayer.lineJoin = kCALineJoinBevel;
-    //.lineCap = kCALineCapSquare;
+//    _pathLayer = [CAShapeLayer layer];
+//    _pathLayer.frame = self.animationLayer.bounds;
+//    _pathLayer.bounds = CGPathGetBoundingBox(path.CGPath);
+//    //pathLayer.backgroundColor = [[UIColor yellowColor] CGColor];
+//    _pathLayer.geometryFlipped = YES;
+//    _pathLayer.path = path.CGPath;
+//    _pathLayer.strokeColor = [[UIColor whiteColor] CGColor];
+//    _pathLayer.fillColor = nil;
+//    _pathLayer.lineWidth = 5.0f;
+//    //pathLayer.lineJoin = kCALineJoinBevel;
+//    //.lineCap = kCALineCapSquare;
+//    
+//    [self.animationLayer addSublayer:_pathLayer];
+//    
+//    _pathSubLayer = [CAShapeLayer layer];
+//    _pathSubLayer.frame = self.animationLayer.bounds;
+//    _pathSubLayer.bounds = CGPathGetBoundingBox(path.CGPath);
+//    //pathLayer.backgroundColor = [[UIColor yellowColor] CGColor];
+//    _pathSubLayer.geometryFlipped = YES;
+//    _pathSubLayer.path = path.CGPath;
+//   // pathSubLayer.strokeColor = [[UIColor whiteColor] CGColor];
+//    //pathSubLayer.fillColor = [[UIColor redColor] CGColor];
+//    //pathSubLayer.fillColor = nil;
+//    //pathSubLayer.lineWidth = 5.0f;
+//    [self.animationLayer addSublayer:_pathSubLayer];
+//    
+//    CALayer* subTextureLayer = [CAShapeLayer layer];
+//    subTextureLayer.frame = self.animationLayer.frame;
+//   // subTextureLayer.backgroundColor = [[UIColor whiteColor] CGColor];
+//    subTextureLayer.contents = (id)[UIImage imageNamed:@"african_textile_2_terrain"].CGImage;
+//    subTextureLayer.mask = _pathSubLayer;
+//    [self.animationLayer addSublayer:subTextureLayer];
+//    
+//    CALayer* textureLayer = [CAShapeLayer layer];
+//    textureLayer.frame = self.animationLayer.frame;
+//    textureLayer.contents = (id)[UIImage imageNamed:@"african_textile_5_terrain"].CGImage;
+//    textureLayer.mask = self.pathLayer;
+//    [self.animationLayer addSublayer:textureLayer];
     
-    [self.animationLayer addSublayer:_pathLayer];
-    
-    _pathSubLayer = [CAShapeLayer layer];
-    _pathSubLayer.frame = self.animationLayer.bounds;
-    _pathSubLayer.bounds = CGPathGetBoundingBox(path.CGPath);
-    //pathLayer.backgroundColor = [[UIColor yellowColor] CGColor];
-    _pathSubLayer.geometryFlipped = YES;
-    _pathSubLayer.path = path.CGPath;
-   // pathSubLayer.strokeColor = [[UIColor whiteColor] CGColor];
-    //pathSubLayer.fillColor = [[UIColor redColor] CGColor];
-    //pathSubLayer.fillColor = nil;
-    //pathSubLayer.lineWidth = 5.0f;
-    [self.animationLayer addSublayer:_pathSubLayer];
-    
-    CALayer* subTextureLayer = [CAShapeLayer layer];
-    subTextureLayer.frame = self.animationLayer.frame;
-   // subTextureLayer.backgroundColor = [[UIColor whiteColor] CGColor];
-    subTextureLayer.contents = (id)[UIImage imageNamed:@"african_textile_2_terrain"].CGImage;
-    subTextureLayer.mask = _pathSubLayer;
-    [self.animationLayer addSublayer:subTextureLayer];
-    
-    CALayer* textureLayer = [CAShapeLayer layer];
-    textureLayer.frame = self.animationLayer.frame;
-    textureLayer.contents = (id)[UIImage imageNamed:@"african_textile_5_terrain"].CGImage;
-    textureLayer.mask = self.pathLayer;
-    [self.animationLayer addSublayer:textureLayer];
+//    _sunLayer = [CALayer layer];
+//    UIImage* sun = [UIImage imageNamed:@"sun_decoration"];
+//    //_sunLayer.frame = self.animationLayer.bounds;
+//    _sunLayer.frame = CGRectMake(CGRectGetMidX(self.animationLayer.bounds), CGRectGetMidY(self.animationLayer.bounds), 200, 200);
+//    _sunLayer.contents = (__bridge id)(sun.CGImage);
+//    //textureLayer.position = self.animationLayer.frame.size.width / 2;
+//    //_sunLayer.position = CGPointMake(self.animationLayer.frame.size.width / 2, -sun.size.height / 2);
+//    [self.animationLayer addSublayer:_sunLayer];
+
     
     
     
@@ -203,7 +214,21 @@
     [_leaderboardButton setImage:[UIImage imageNamed:@"leaderboard_button_clicked"] forState:UIControlStateHighlighted];
     [_settingsButton setImage:[UIImage imageNamed:@"settings_button_clicked"] forState:UIControlStateHighlighted];
     [_unlockablesButton setImage:[UIImage imageNamed:@"unlockables_button_clicked"] forState:UIControlStateHighlighted];
-
+    
+//    _chaptersButton.enabled = false;
+//    _chaptersButton.hidden = true;
+//    
+//    _highScoresButton.enabled = false;
+//    _highScoresButton.hidden = true;
+//    
+//    _leaderboardButton.enabled = false;
+//    _leaderboardButton.hidden = true;
+//    
+//    _settingsButton.enabled = false;
+//    _settingsButton.hidden = true;
+//    
+//    _unlockablesButton.enabled = false;
+//    _unlockablesButton.hidden = true;
 }
 
 
