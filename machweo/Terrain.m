@@ -43,12 +43,21 @@ int CLIFF_VERTEX_COUNT = 15;
 }
 -(void)generateCliff:(NSMutableArray*)cliffArray :(BOOL)forwardLip{
     for (int i = 0; i < CLIFF_VERTEX_COUNT; i ++) {
-        int dx = arc4random_uniform(10);
-        int sign = (forwardLip == true) ? 1 :0;
-//        if (forwardLip) {
-//            sign = 1;
-//        }
-        if (i > (CLIFF_VERTEX_COUNT / 2)) {
+        int dx;
+        if (forwardLip) {
+            dx = arc4random_uniform(10);
+        }
+        else{
+            dx = arc4random_uniform(5);
+
+        }
+        //int sign = (forwardLip == true) ? 1 :0;
+        int sign = 0;
+        
+        if ((i > (CLIFF_VERTEX_COUNT / 2)) && forwardLip) {
+            sign = arc4random_uniform(2);
+        }
+        if (!forwardLip) {
             sign = arc4random_uniform(2);
         }
         
@@ -186,6 +195,7 @@ int CLIFF_VERTEX_COUNT = 15;
     if (!beforeCliffAddedToVertices) {
         CGPoint firstVertex = [(NSValue*)[vertexArray firstObject] CGPointValue];
         [vertexArray removeObject:[vertexArray firstObject]];
+        
         int x = firstVertex.x;
         int y = 0;
         float yDiff = firstVertex.y;
@@ -216,16 +226,6 @@ int CLIFF_VERTEX_COUNT = 15;
         CGPathAddLineToPoint(pathToDraw, NULL, vertex.x - vertexOffset.dx, vertex.y - vertexOffset.dy);
         
         if (value == vertexArray.lastObject) {
-//           // CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + 100, 0);
-//            CGPoint bottomRightAreaVertex = CGPointMake(vertex.x + lipOffset, 0);
-//
-//            CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x - 100, 0);
-//            CGPoint upperLeftAreaVertex = firstVertex;
-//            //CGPathAddLineToPoint(pathToDraw, NULL, rightLipVertex.x - vertexOffset.dx, rightLipVertex.y - vertexOffset.dy);
-//            CGPathAddLineToPoint(pathToDraw, NULL, bottomRightAreaVertex.x - vertexOffset.dx, bottomRightAreaVertex.y - vertexOffset.dy);
-//            CGPathAddLineToPoint(pathToDraw, NULL, bottomLeftAreaVertex.x - vertexOffset.dx, bottomLeftAreaVertex.y - vertexOffset.dy);
-//            CGPathAddLineToPoint(pathToDraw, NULL, upperLeftAreaVertex.x - vertexOffset.dx, upperLeftAreaVertex.y - vertexOffset.dy);
-            
             int x = vertex.x - vertexOffset.dx;
             int y = vertex.y - vertexOffset.dy;
             float yDiff = vertex.y;
@@ -236,9 +236,10 @@ int CLIFF_VERTEX_COUNT = 15;
                 x += vec.dx;
                 y -= yInterval;
             }
+            CGPoint bottomRightAreaVertex = CGPointMake(x, 0);
             CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x - 100, 0);
             CGPoint upperLeftAreaVertex = firstVertex;
-            //CGPathAddLineToPoint(pathToDraw, NULL, rightLipVertex.x - vertexOffset.dx, rightLipVertex.y - vertexOffset.dy);
+            CGPathAddLineToPoint(pathToDraw, NULL, bottomRightAreaVertex.x, bottomRightAreaVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, bottomLeftAreaVertex.x - vertexOffset.dx, bottomLeftAreaVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, upperLeftAreaVertex.x - vertexOffset.dx, upperLeftAreaVertex.y - vertexOffset.dy);
             
