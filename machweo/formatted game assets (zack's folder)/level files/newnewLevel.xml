@@ -156,14 +156,6 @@
     </node>
     <node>
         <type>DecorationSignifier</type>
-        <name>sun_decoration</name>
-        <isRightMostNode>no</isRightMostNode>
-        <xPosition>785.048340</xPosition>
-        <yPosition>625.078979</yPosition>
-        <zPosition>1.000000</zPosition>
-    </node>
-    <node>
-        <type>DecorationSignifier</type>
         <name>purplegrass_decoration</name>
         <isRightMostNode>no</isRightMostNode>
         <xPosition>594.961548</xPosition>
