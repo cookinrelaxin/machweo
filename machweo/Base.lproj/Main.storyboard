@@ -24,10 +24,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="214" height="214"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eo2-P3-gLR">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eo2-P3-gLR">
                                             <rect key="frame" x="8" y="8" width="34" height="34"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="level name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ObL-Dt-vXz">
@@ -136,19 +136,38 @@
                         <viewControllerLayoutGuide type="top" id="9xO-s9-ZAT"/>
                         <viewControllerLayoutGuide type="bottom" id="SbZ-OQ-2fh"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="hCZ-X8-SON" customClass="TextView">
+                    <view key="view" contentMode="scaleToFill" id="hCZ-X8-SON">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oYy-HX-Tct" userLabel="logoView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </view>
+                            <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uc1-73-f2O" userLabel="game scene view" customClass="SKView">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="SbZ-OQ-2fh" firstAttribute="top" secondItem="oYy-HX-Tct" secondAttribute="bottom" id="0A9-cH-HRJ"/>
+                            <constraint firstItem="oYy-HX-Tct" firstAttribute="top" secondItem="hCZ-X8-SON" secondAttribute="top" id="2VN-iW-AGa"/>
+                            <constraint firstAttribute="trailing" secondItem="oYy-HX-Tct" secondAttribute="trailing" id="97I-zi-qhD"/>
+                            <constraint firstItem="uc1-73-f2O" firstAttribute="top" secondItem="hCZ-X8-SON" secondAttribute="top" id="Hdc-zc-6jk"/>
+                            <constraint firstItem="uc1-73-f2O" firstAttribute="leading" secondItem="hCZ-X8-SON" secondAttribute="leading" id="Irt-He-bTQ"/>
+                            <constraint firstAttribute="trailing" secondItem="uc1-73-f2O" secondAttribute="trailing" id="LER-jo-ibI"/>
+                            <constraint firstItem="SbZ-OQ-2fh" firstAttribute="top" secondItem="uc1-73-f2O" secondAttribute="bottom" id="Tar-Oh-Us9"/>
+                            <constraint firstItem="oYy-HX-Tct" firstAttribute="leading" secondItem="hCZ-X8-SON" secondAttribute="leading" id="z7Q-k8-mTf"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Q9Q-Vm-dWY"/>
                     <connections>
-                        <outlet property="textView" destination="hCZ-X8-SON" id="0MF-bl-2CA"/>
+                        <outlet property="gameSceneView" destination="uc1-73-f2O" id="kjc-ub-aXJ"/>
+                        <outlet property="logoView" destination="oYy-HX-Tct" id="A7U-Kc-Lwk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSs-T0-TaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="31.5" y="372"/>
+            <point key="canvasLocation" x="31" y="372"/>
         </scene>
         <!--chapter selection menu-->
         <scene sceneID="UFv-MY-aeJ">
@@ -169,10 +188,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="483" height="310"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cd0-zv-aIH">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cd0-zv-aIH">
                                             <rect key="frame" x="8" y="8" width="34" height="34"/>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqY-Ja-nEl">
@@ -207,9 +226,6 @@
                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
-                                    <connections>
-                                        <segue destination="YbM-qg-g2k" kind="show" id="e8C-MB-EF1"/>
-                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" red="0.50520874459999998" green="0.60359259200000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>

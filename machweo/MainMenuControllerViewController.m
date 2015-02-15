@@ -7,7 +7,6 @@
 //
 
 #import "MainMenuControllerViewController.h"
-#import <SpriteKit/SpriteKit.h>
 #import "MainMenuScene.h"
 #import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h>
@@ -18,31 +17,11 @@
 @end
 
 @implementation MainMenuControllerViewController{
-    UILabel *scoreLabel;
-    UILabel *velocityLabel;
     BOOL gameLoaded;
     BOOL observersLoaded;
 }
 
-//- (void)viewDidLoad {
-//    [super viewDidLoad];
-//    // Do any additional setup after loading the view.
-//}
-//
-//-(void)viewWillLayoutSubviews{
-//    
-//    MainMenuScene *newScene = [[MainMenuScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
-//   // newScene.backgroundColor = [UIColor redColor];
-//    [_textView presentScene:newScene];
-//    
-//}
-//
-//- (void)didReceiveMemoryWarning {
-//    [super didReceiveMemoryWarning];
-//    // Dispose of any resources that can be recreated.
-//}
-
-- (void) setupTextLayer
+- (void) setupLogo
 {
     if (self.pathLayer != nil) {
         [self.pathLayer removeFromSuperlayer];
@@ -98,19 +77,12 @@
     CGPathRelease(letters);
     CFRelease(font);
     
-    _sunLayer = [CALayer layer];
-    UIImage* sun = [UIImage imageNamed:@"sun_decoration"];
-    //_sunLayer.frame = self.animationLayer.bounds;
-    _sunLayer.frame = CGRectMake(CGRectGetMidX(self.animationLayer.bounds) - 200, CGRectGetMinY(self.animationLayer.bounds), 200, 200);
-    _sunLayer.contents = (__bridge id)(sun.CGImage);
-    //textureLayer.position = self.animationLayer.frame.size.width / 2;
-    //_sunLayer.position = CGPointMake(self.animationLayer.frame.size.width / 2, -sun.size.height / 2);
-    _sunLayer.zPosition = 3;
-    [self.animationLayer addSublayer:_sunLayer];
-    [self sendSublayerToBack:_sunLayer];
-    
+    _logoAnimationLayer = [CALayer layer];
+    _logoAnimationLayer.frame = _logoView.bounds;
+    [_logoView.layer addSublayer:_logoAnimationLayer];
+
     _pathLayer = [CAShapeLayer layer];
-    _pathLayer.frame = self.animationLayer.bounds;
+    _pathLayer.frame = _logoAnimationLayer.bounds;
     _pathLayer.bounds = CGPathGetBoundingBox(path.CGPath);
     //pathLayer.backgroundColor = [[UIColor yellowColor] CGColor];
     _pathLayer.geometryFlipped = YES;
@@ -118,13 +90,12 @@
     _pathLayer.strokeColor = [[UIColor whiteColor] CGColor];
     _pathLayer.fillColor = nil;
     _pathLayer.lineWidth = 5.0f;
-    //pathLayer.lineJoin = kCALineJoinBevel;
-    //.lineCap = kCALineCapSquare;
+   // _pathLayer.zPosition = 1;
     
-    [self.animationLayer addSublayer:_pathLayer];
+    [_logoAnimationLayer addSublayer:_pathLayer];
     
     _pathSubLayer = [CAShapeLayer layer];
-    _pathSubLayer.frame = self.animationLayer.bounds;
+    _pathSubLayer.frame = _logoAnimationLayer.bounds;
     _pathSubLayer.bounds = CGPathGetBoundingBox(path.CGPath);
     //pathLayer.backgroundColor = [[UIColor yellowColor] CGColor];
     _pathSubLayer.geometryFlipped = YES;
@@ -133,114 +104,138 @@
     //pathSubLayer.fillColor = [[UIColor redColor] CGColor];
     //pathSubLayer.fillColor = nil;
     //pathSubLayer.lineWidth = 5.0f;
-    [self.animationLayer addSublayer:_pathSubLayer];
+    //_pathSubLayer.zPosition = 1;
+
+    [_logoAnimationLayer addSublayer:_pathSubLayer];
     
     CALayer* subTextureLayer = [CAShapeLayer layer];
-    subTextureLayer.frame = self.animationLayer.frame;
+    subTextureLayer.frame = _logoAnimationLayer.frame;
    // subTextureLayer.backgroundColor = [[UIColor whiteColor] CGColor];
     subTextureLayer.contents = (id)[UIImage imageNamed:@"african_textile_2_terrain"].CGImage;
     subTextureLayer.mask = _pathSubLayer;
-    [self.animationLayer addSublayer:subTextureLayer];
+    [_logoAnimationLayer addSublayer:subTextureLayer];
+   // subTextureLayer.zPosition = 1;
+
     
     CALayer* textureLayer = [CAShapeLayer layer];
-    textureLayer.frame = self.animationLayer.frame;
+    textureLayer.frame = _logoAnimationLayer.frame;
     textureLayer.contents = (id)[UIImage imageNamed:@"african_textile_5_terrain"].CGImage;
     textureLayer.mask = self.pathLayer;
-    [self.animationLayer addSublayer:textureLayer];
+    [_logoAnimationLayer addSublayer:textureLayer];
+    //textureLayer.zPosition = 1;
+
    
 }
 
-- (void) bringSublayerToFront:(CALayer *)layer
-{
-    [layer removeFromSuperlayer];
-    [self.animationLayer insertSublayer:layer atIndex:(unsigned int)[self.animationLayer.sublayers count]];
+- (void) lightUp{
+    _logoView.layer.backgroundColor = [[UIColor clearColor] CGColor];
+    CABasicAnimation *lightUp = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+    lightUp.fromValue = (id)[[UIColor blackColor] CGColor];
+    lightUp.toValue = (id)[[UIColor clearColor] CGColor];
+    lightUp.duration = 2.0f;
+    [_logoView.layer addAnimation:lightUp forKey:@"backgroundColor"];
+
 }
 
-- (void) sendSublayerToBack:(CALayer *)layer
-{
-    [layer removeFromSuperlayer];
-    [self.animationLayer insertSublayer:layer atIndex:0];
-}
-
-
-
-- (void) startAnimation
-{
+-(void)drawPath{
     [self.pathLayer removeAllAnimations];
     
-    //CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    pathAnimation.duration = 4.0f;
+    pathAnimation.duration = 2.0f;
     pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
     pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
     [self.pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
     
     CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
-    fillAnimation.duration = 4.0f;
+    fillAnimation.duration = 2.0f;
     fillAnimation.fromValue = (id)[[UIColor clearColor] CGColor];
     fillAnimation.toValue = (id)[[UIColor blackColor] CGColor];
     [self.pathSubLayer addAnimation:fillAnimation forKey:@"fillColor"];
-    
-    CABasicAnimation *sunriseAnimation = [CABasicAnimation animationWithKeyPath:@"position.y"];
-    sunriseAnimation.fromValue = @(CGRectGetMaxY(self.animationLayer.bounds) + (_sunLayer.frame.size.height / 2));
-   // sunAnimation.toValue  = @(CGRectGetMinY(self.animationLayer.bounds));
-    sunriseAnimation.toValue  = @(_sunLayer.frame.origin.y + (_sunLayer.frame.size.height / 2));
-    sunriseAnimation.duration   = 7.0f;
-    sunriseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-    [_sunLayer addAnimation:sunriseAnimation forKey:@"position.y"];
-    
-    CABasicAnimation *lightUp = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
-    lightUp.fromValue = (id)[[UIColor blackColor] CGColor];
-    lightUp.toValue = (id)[[UIColor clearColor] CGColor];
-    lightUp.duration = 7.0f;
-    [self.animationLayer addAnimation:lightUp forKey:@"backgroundColor"];
-
 }
-
-//
-//- (void) animationDidStop:(CAAnimation *)anim finished:(BOOL)flag{
-//    self.pathLayer.fillColor = [UIColor blackColor].CGColor;
-//}
-
-
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.animationLayer = [CALayer layer];
-//    self.animationLayer.frame = CGRectMake(20.0f, 64.0f,
-//                                           CGRectGetWidth(self.view.layer.bounds) - 40.0f,
-//                                           CGRectGetHeight(self.view.layer.bounds) - 84.0f);
-    self.animationLayer.frame = self.view.frame;
-    //self.animationLayer.backgroundColor = [UIColor blackColor].CGColor;
-    [self.view.layer addSublayer:self.animationLayer];
-    [self setupTextLayer];
-    [CATransaction begin]; {
-        [CATransaction setCompletionBlock:^{
-            //_pathLayer.hidden = true;
-//            _pathLayer.opacity = 0;
-//            _pathSubLayer.opacity = 0;
-//            CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-//            pathAnimation.duration = 1.0f;
-//            pathAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
-//            pathAnimation.toValue = [NSNumber numberWithFloat:0.0f];
-//            [_pathLayer addAnimation:pathAnimation forKey:@"opacity"];
-//            [_pathSubLayer addAnimation:pathAnimation forKey:@"opacity"];
+    _logoView.frame = self.view.bounds;
+    _logoView.userInteractionEnabled = false;
+//    _logoAnimationLayer = [CALayer layer];
+//    _logoAnimationLayer.frame = _logoView.bounds;
+//    [_logoView.layer addSublayer:_logoAnimationLayer];
+    
+    _gameSceneView.frame = self.view.bounds;
+    [self.view sendSubviewToBack:_gameSceneView];
+    //[self.view bringSubviewToFront:_gameSceneView];
+    
+    [self setupLogo];
+    [self lightUp];
+    [self drawPath];
 
-            
-        }];
-        [self startAnimation];
-    } [CATransaction commit];
+    [self setUpObservers];
+
 }
 
-- (void)dealloc
-{
-    self.animationLayer = nil;
-    self.pathLayer = nil;
-    //self.penLayer = nil;
-    //[super dealloc];
+-(void)setUpObservers{
+    //__weak MainMenuControllerViewController *weakSelf = self;
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    [center addObserverForName:@"dismiss logo"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         //dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^(void){
+             //_logoView.layer.opacity = 0;
+            _logoAnimationLayer.opacity = 0;
+             CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+             opacityAnimation.duration = 2.0f;
+             opacityAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
+             opacityAnimation.toValue = [NSNumber numberWithFloat:0.0f];
+             [_logoAnimationLayer addAnimation:opacityAnimation forKey:@"opacity"];
+        // });
+        
+     }];
+    
+    [center addObserverForName:@"restart game"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         
+         [CATransaction begin]; {
+         [CATransaction setCompletionBlock:^{
+             [_gameSceneView presentScene:nil];
+             
+             [self lightUp];
+             [self setupLogo];
+             [self drawPath];
+             [self initGame];
+
+         }];
+
+             _logoView.layer.opacity = 1;
+             _logoView.layer.backgroundColor = [[UIColor blackColor] CGColor];
+             CABasicAnimation *darken = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
+             darken.fromValue = (id)[[UIColor clearColor] CGColor];
+             darken.toValue = (id)[[UIColor blackColor] CGColor];
+             darken.duration = 2.0f;
+             [_logoView.layer addAnimation:darken forKey:@"backgroundColor"];
+             
+             
+         } [CATransaction commit];
+     }];
+
+
+    
 }
+//- (void)dealloc
+//{
+//    self.animationLayer = nil;
+//    self.pathLayer = nil;
+//    //self.penLayer = nil;
+//    //[super dealloc];
+//}
 
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
@@ -249,7 +244,8 @@
         gameLoaded = true;
         [self initGame];
     }
-    
+    //[self.view sendSubviewToBack:_gameSceneView];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -258,14 +254,14 @@
 }
 
 -(void)initGame{
-    SKView * skView = (SKView *)self.view;
-    skView.ignoresSiblingOrder = YES;
+    //SKView * skView = (SKView *)self.view;
+    _gameSceneView.ignoresSiblingOrder = YES;
 
 
    // __weak GameViewController *weakSelf = self;
    // dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) forLevel:@"newnewLevel" withinView:skView];
-    [skView presentScene: newScene];
+    GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) forLevel:@"newnewLevel" withinView:_gameSceneView];
+    [_gameSceneView presentScene: newScene];
        // newScene.backgroundColor = [UIColor lightGrayColor];
        // newScene.scaleMode = SKSceneScaleModeResizeFill;
        // dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{

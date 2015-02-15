@@ -30,13 +30,16 @@
     
     //HUD
     //SKLabelNode* timerLabel;
-    SKLabelNode* restartButton;
-    SKLabelNode* returnToMenuButton;
+    //SKLabelNode* restartButton;
+    //SKLabelNode* returnToMenuButton;
     
     BOOL stopScrolling;
     BOOL gameWon;
+    BOOL restartGameNotificationSent;
     
     //BOOL zTicker;
+    
+    SKSpriteNode* sunNode;
 }
 
 -(void)dealloc{
@@ -67,20 +70,37 @@
 //        timerLabel.text = @"0.00";
 //        [self addChild:timerLabel];
         
-        restartButton = [SKLabelNode labelNodeWithText:@"restart"];
-        restartButton.fontSize = _constants.RESTART_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
-        restartButton.fontName = _constants.RESTART_LABEL_FONT_NAME;
-        restartButton.fontColor = _constants.RESTART_LABEL_FONT_COLOR;
-        restartButton.position = CGPointMake(CGRectGetMaxX(self.frame) - restartButton.fontSize * 2, restartButton.fontSize / 4);
-        restartButton.zPosition = _constants.HUD_Z_POSITION;
-        [self addChild:restartButton];
+//        restartButton = [SKLabelNode labelNodeWithText:@"restart"];
+//        restartButton.fontSize = _constants.RESTART_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
+//        restartButton.fontName = _constants.RESTART_LABEL_FONT_NAME;
+//        restartButton.fontColor = _constants.RESTART_LABEL_FONT_COLOR;
+//        restartButton.position = CGPointMake(CGRectGetMaxX(self.frame) - restartButton.fontSize * 2, restartButton.fontSize / 4);
+//        restartButton.zPosition = _constants.HUD_Z_POSITION;
+//        [self addChild:restartButton];
         
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
         terrainPool = [NSMutableArray array];
         [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
         
+        [self performSunrise];
+        
     }
     return self;
+}
+
+-(void)performSunrise{
+    sunNode = [SKSpriteNode spriteNodeWithImageNamed:@"sun_decoration"];
+    [_decorations addChild:sunNode];
+    sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
+    sunNode.zPosition = 1;
+    sunNode.position = CGPointMake(self.position.x + self.size.width / 2, 0 - (sunNode.size.height / 2));
+    SKAction* sunriseAction = [SKAction moveToY:(self.size.height - (sunNode.size.height / 2))  duration:2.0f];
+    [sunNode runAction:sunriseAction];
+}
+
+-(void)performSunset{
+    SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2))  duration:2.0f];
+    [sunNode runAction:sunsetAction];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -88,7 +108,7 @@
     player.touchesEnded = false;
     UITouch* touch = [touches anyObject];
     CGPoint positionInSelf = [touch locationInNode:self];
-    [self handleButtonPressesAtPoint:positionInSelf];
+    //[self handleButtonPressesAtPoint:positionInSelf];
     previousPoint = currentPoint = positionInSelf;
     
 //    Line *currentLine = [arrayOfLines lastObject];
@@ -111,20 +131,21 @@
     
     if (!player) {
         [self createPlayer];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"dismiss logo" object:nil];
     }
     
 }
 
--(void)handleButtonPressesAtPoint:(CGPoint)point{
-    if (CGRectContainsPoint(restartButton.frame, point) ) {
-        [restartButton removeFromParent];
-        [self restartGame];
-    }
-    if (CGRectContainsPoint(returnToMenuButton.frame, point) ) {
-        [returnToMenuButton removeFromParent];
-        //[self calculateScoreAndExit];
-    }
-}
+//-(void)handleButtonPressesAtPoint:(CGPoint)point{
+//    if (CGRectContainsPoint(restartButton.frame, point) ) {
+//        [restartButton removeFromParent];
+//        [self restartGame];
+//    }
+//    if (CGRectContainsPoint(returnToMenuButton.frame, point) ) {
+//        [returnToMenuButton removeFromParent];
+//        //[self calculateScoreAndExit];
+//    }
+//}
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
@@ -334,7 +355,7 @@
         [self createLineNode];
     }
     [self tellObstaclesToMove];
-    [self checkForWonGame];
+    //[self checkForWonGame];
     [self checkForLostGame];
     
     //if (!player) {
@@ -371,31 +392,20 @@
 
 
 -(void)loseGame{
-    NSString* loseLabel;
-    if (_shangoBrokeHisBack) {
-        loseLabel = @"damnit Shango, you broke your back.";
+    [self performSunset];
+    if (!restartGameNotificationSent) {
+        restartGameNotificationSent = true;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
     }
-    else{
-        loseLabel = @"you lose. return to menu?";
-    }
-    
-    self.view.paused = true;
-    
-    returnToMenuButton = [SKLabelNode labelNodeWithText:loseLabel];
-    returnToMenuButton.fontSize = _constants.RETURN_TO_MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
-    returnToMenuButton.fontName = _constants.RETURN_TO_MENU_LABEL_FONT_NAME;
-    returnToMenuButton.fontColor = _constants.RETURN_TO_MENU_LABEL_FONT_COLOR;
-    //returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame) * _constants.SCALE_COEFFICIENT.dx, CGRectGetMidY(self.frame) * _constants.SCALE_COEFFICIENT.dy);
-    returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    returnToMenuButton.zPosition = _constants.HUD_Z_POSITION;
-    [self addChild:returnToMenuButton];
-}
 
--(void)checkForWonGame{
-    if (player.position.x > self.size.width + player.size.width / 2) {
-        [self winGame];
-    }
+   // self.view.paused = true;
 }
+//
+//-(void)checkForWonGame{
+//    if (player.position.x > self.size.width + player.size.width / 2) {
+//        [self winGame];
+//    }
+//}
 
 -(void)tellObstaclesToMove{
     for (Obstacle* obs in _obstacles.children) {
@@ -403,22 +413,22 @@
     }
 }
 
--(void)winGame{
-    
-    self.view.paused = true;
-    
-    returnToMenuButton = [SKLabelNode labelNodeWithText:@"you win! return to menu?"];
-    returnToMenuButton.fontSize = _constants.RETURN_TO_MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
-    returnToMenuButton.fontName = _constants.RETURN_TO_MENU_LABEL_FONT_NAME;
-    returnToMenuButton.fontColor = _constants.RETURN_TO_MENU_LABEL_FONT_COLOR;
-    //returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame) * _constants.SCALE_COEFFICIENT.dx, CGRectGetMidY(self.frame) * _constants.SCALE_COEFFICIENT.dy);
-    returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    returnToMenuButton.zPosition = _constants.HUD_Z_POSITION;
-    [self addChild:returnToMenuButton];
-    restartButton.hidden = true;
-    gameWon = true;
-    
-}
+//-(void)winGame{
+//    
+//    self.view.paused = true;
+//    
+//    returnToMenuButton = [SKLabelNode labelNodeWithText:@"you win! return to menu?"];
+//    returnToMenuButton.fontSize = _constants.RETURN_TO_MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
+//    returnToMenuButton.fontName = _constants.RETURN_TO_MENU_LABEL_FONT_NAME;
+//    returnToMenuButton.fontColor = _constants.RETURN_TO_MENU_LABEL_FONT_COLOR;
+//    //returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame) * _constants.SCALE_COEFFICIENT.dx, CGRectGetMidY(self.frame) * _constants.SCALE_COEFFICIENT.dy);
+//    returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+//    returnToMenuButton.zPosition = _constants.HUD_Z_POSITION;
+//    [self addChild:returnToMenuButton];
+//    restartButton.hidden = true;
+//    gameWon = true;
+//    
+//}
 
 
 -(void)restartGame{
