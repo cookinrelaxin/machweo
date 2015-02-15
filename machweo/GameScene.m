@@ -20,7 +20,7 @@
     ButsuLiKi *physicsComponent;
     NSMutableArray *arrayOfLines;
     CGPoint currentDesiredPlayerPositionInView;
-    Score* playerScore;
+    //Score* playerScore;
     Obstacle* nextObstacle;
     
     NSMutableArray* terrainPool;
@@ -29,14 +29,14 @@
  //   int timerTime;
     
     //HUD
-    SKLabelNode* timerLabel;
+    //SKLabelNode* timerLabel;
     SKLabelNode* restartButton;
     SKLabelNode* returnToMenuButton;
     
     BOOL stopScrolling;
     BOOL gameWon;
     
-    BOOL zTicker;
+    //BOOL zTicker;
 }
 
 -(void)dealloc{
@@ -45,7 +45,7 @@
 
 -(instancetype)initWithSize:(CGSize)size forLevel:(NSString *)levelName withinView:(SKView*)view{
     if (self = [super initWithSize:size]){
-        playerScore = [[Score alloc] init];
+        //playerScore = [[Score alloc] init];
         _constants = [Constants sharedInstance];
         _obstacles = [SKNode node];
         _terrain = [SKNode node];
@@ -59,13 +59,13 @@
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         //init hud
         
-        timerLabel = [SKLabelNode labelNodeWithFontNamed:@"helvetica"];
-        timerLabel.fontSize = _constants.TIMER_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
-        timerLabel.fontColor = _constants.TIMER_LABEL_FONT_COLOR;
-        timerLabel.position = CGPointMake(CGRectGetMidX(self.frame), timerLabel.fontSize / 4);
-        timerLabel.zPosition = _constants.HUD_Z_POSITION;
-        timerLabel.text = @"0.00";
-        [self addChild:timerLabel];
+//        timerLabel = [SKLabelNode labelNodeWithFontNamed:@"helvetica"];
+//        timerLabel.fontSize = _constants.TIMER_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
+//        timerLabel.fontColor = _constants.TIMER_LABEL_FONT_COLOR;
+//        timerLabel.position = CGPointMake(CGRectGetMidX(self.frame), timerLabel.fontSize / 4);
+//        timerLabel.zPosition = _constants.HUD_Z_POSITION;
+//        timerLabel.text = @"0.00";
+//        [self addChild:timerLabel];
         
         restartButton = [SKLabelNode labelNodeWithText:@"restart"];
         restartButton.fontSize = _constants.RESTART_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
@@ -109,6 +109,10 @@
     //currentLine.terrain.zPosition -= 10;
    // }
     
+    if (!player) {
+        [self createPlayer];
+    }
+    
 }
 
 -(void)handleButtonPressesAtPoint:(CGPoint)point{
@@ -118,7 +122,7 @@
     }
     if (CGRectContainsPoint(returnToMenuButton.frame, point) ) {
         [returnToMenuButton removeFromParent];
-        [self calculateScoreAndExit];
+        //[self calculateScoreAndExit];
     }
 }
 
@@ -239,15 +243,15 @@
     
 }
 
--(void)calculateScoreAndExit{
-    if (gameWon) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"return to menu" object:nil userInfo:[NSDictionary dictionaryWithObject:playerScore forKey:@"playerScore"]];
-    }
-    else{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"return to menu" object:nil userInfo:nil];
-    }
-    
-}
+//-(void)calculateScoreAndExit{
+//    if (gameWon) {
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"return to menu" object:nil userInfo:[NSDictionary dictionaryWithObject:playerScore forKey:@"playerScore"]];
+//    }
+//    else{
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"return to menu" object:nil userInfo:nil];
+//    }
+//    
+//}
 
 -(void)deallocOldLines{
     NSMutableArray* oldLines = [NSMutableArray array];
@@ -298,31 +302,31 @@
     }
 }
 
--(void)updateTimerLabelWithTime:(double)time{
-    if (time > 10) {
-        timerLabel.text = [[NSString stringWithFormat:@"%f", time] substringToIndex:5];
-    }
-    else {
-        timerLabel.text = [[NSString stringWithFormat:@"%f", time] substringToIndex:4];
-    }
-}
-
--(void)updateTime:(CFTimeInterval)currentTime{
-    if (previousTime == 0) {
-        previousTime = currentTime;
-    }
-    double difference = currentTime - previousTime;
-    if (difference > .001) {
-        [self updateTimerLabelWithTime:playerScore.time];
-        playerScore.time += currentTime - previousTime;
-        previousTime = currentTime;
-    }
-}
+//-(void)updateTimerLabelWithTime:(double)time{
+//    if (time > 10) {
+//        timerLabel.text = [[NSString stringWithFormat:@"%f", time] substringToIndex:5];
+//    }
+//    else {
+//        timerLabel.text = [[NSString stringWithFormat:@"%f", time] substringToIndex:4];
+//    }
+//}
+//
+//-(void)updateTime:(CFTimeInterval)currentTime{
+//    if (previousTime == 0) {
+//        previousTime = currentTime;
+//    }
+//    double difference = currentTime - previousTime;
+//    if (difference > .001) {
+//        [self updateTimerLabelWithTime:playerScore.time];
+//        playerScore.time += currentTime - previousTime;
+//        previousTime = currentTime;
+//    }
+//}
 
 -(void)update:(CFTimeInterval)currentTime {
    // __weak GameScene* weakSelf = self;
    // dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^(void){
-    [self updateTime:currentTime];
+    //[self updateTime:currentTime];
    // });
     [self checkForOldLines];
     [self deallocOldLines];
@@ -333,12 +337,12 @@
     [self checkForWonGame];
     [self checkForLostGame];
     
-    if (!player) {
+    //if (!player) {
         //shouldCreateNewPlayer = true;
     //}
     //if (shouldCreateNewPlayer) {
-        [self createPlayer];
-    }
+    //    [self createPlayer];
+    //}
 
     if (player) {
         [self centerCameraOnPlayer];
