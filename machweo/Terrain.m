@@ -188,8 +188,8 @@ int CLIFF_VERTEX_COUNT = 15;
         [textureShapeNode removeFromParent];
     }
     textureShapeNode = [self shapeNodeWithVertices:_vertices];
-    textureShapeNode.fillTexture = _terrainTexture;
     [self addChild:textureShapeNode];
+    //NSLog(@"self.children.count: %lu", (unsigned long)self.children.count);
     //NSLog(@"textureShapeNode.position: %f, %f", textureShapeNode.position.x, textureShapeNode.position.y);
     
 
@@ -201,10 +201,12 @@ int CLIFF_VERTEX_COUNT = 15;
     node.position = CGPointZero;
     //node.zPosition = self.zPosition;
     node.fillColor = [UIColor whiteColor];
+    textureShapeNode.fillTexture = _terrainTexture;
     node.antialiased = false;
+    node.strokeColor = nil;
     node.physicsBody = nil;
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
-    node.lineWidth = 1;
+    //node.lineWidth = 1;
     
     if (!beforeCliffAddedToVertices) {
         CGPoint firstVertex = [(NSValue*)[vertexArray firstObject] CGPointValue];
@@ -262,7 +264,7 @@ int CLIFF_VERTEX_COUNT = 15;
         }
     }
     node.path = pathToDraw;
-    pathBoundingBox = CGPathGetPathBoundingBox(pathToDraw);
+    //pathBoundingBox = CGPathGetPathBoundingBox(pathToDraw);
     CGPathRelease(pathToDraw);
     return node;
 }

@@ -78,9 +78,9 @@
 //        restartButton.zPosition = _constants.HUD_Z_POSITION;
 //        [self addChild:restartButton];
         
-        ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
-        terrainPool = [NSMutableArray array];
-        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
+        //ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
+        //terrainPool = [NSMutableArray array];
+        //[cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
         
         [self performSunrise];
         
@@ -225,7 +225,7 @@
             [ter changeDecorationPermissions:newPoint];
         }
        // int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 2;
-        //[ter generateDecorationAtVertex:newPoint fromTerrainPool:terrainPool inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
+        [ter generateDecorationAtVertex:newPoint fromTerrainPool:terrainPool inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
     }
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
