@@ -9,31 +9,7 @@
 #import "Terrain.h"
 #import "Constants.h"
 
-//int LAST_N_SPRITES_N = 5;
-//float MINIMUM_FREEZE_DISTANCE = 100.0f;
 int CLIFF_VERTEX_COUNT = 15;
-
-@interface SKShapeNode (Tile)
--(void)setTiledFillTexture:(CGSize)tileSize :(UIImage*)textureSource;
-@end
-
-@implementation SKShapeNode (Tile)
-
--(void)setTiledFillTexture:(CGSize)tileSize :(UIImage*)textureSource{
-    float targetDimension = fmax(self.frame.size.width, self.frame.size.height);
-    CGSize targetSize = CGSizeMake(targetDimension, targetDimension);
-    CGImageRef targetRef = textureSource.CGImage;
-    UIGraphicsBeginImageContext(targetSize);
-    CGContextRef contextRef = UIGraphicsGetCurrentContext();
-    //NSLog(@"contextRef: %@", contextRef);
-    CGContextDrawTiledImage(contextRef, CGRectMake(0, 0, tileSize.width, tileSize.height), targetRef);
-    UIImage* tiledTexture = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    self.fillTexture = [SKTexture textureWithImage:tiledTexture];
-
-}
-
-@end
 
 @implementation Terrain{
     CGVector vertexOffset;
@@ -41,7 +17,7 @@ int CLIFF_VERTEX_COUNT = 15;
     NSMutableArray* decos;
     Constants* constants;
     //CGSize sceneSize;
-    int lipOffset;
+    //int lipOffset;
     NSMutableArray* beforeCliff;
     NSMutableArray* endCliff;
     BOOL beforeCliffAddedToVertices;
@@ -55,10 +31,10 @@ int CLIFF_VERTEX_COUNT = 15;
     if (self = [super init]) {
         //sceneSize = size;
         //textureSource = image;
-        [self generateTiledFillTexture:CGSizeMake(100, 100) andSceneSize:size :image];
+        //[self generateTiledFillTexture:CGSizeMake(100, 100) andSceneSize:size :image];
         decos = [NSMutableArray array];
         constants = [Constants sharedInstance];
-        lipOffset = arc4random_uniform(150) + 50;
+        //lipOffset = arc4random_uniform(150) + 50;
         endCliff = [NSMutableArray array];
         beforeCliff = [NSMutableArray array];
         [self generateCliff:endCliff :YES];
@@ -66,20 +42,6 @@ int CLIFF_VERTEX_COUNT = 15;
         
     }
     return self;
-}
--(void)generateTiledFillTexture:(CGSize)tileSize andSceneSize:(CGSize)sceneSize :(UIImage*)textureSource{
-    float targetDimension = fmax(sceneSize.width, sceneSize.height);
-    CGSize targetSize = CGSizeMake(targetDimension, targetDimension);
-    CGImageRef targetRef = textureSource.CGImage;
-    UIGraphicsBeginImageContext(targetSize);
-    CGContextRef contextRef = UIGraphicsGetCurrentContext();
-    //NSLog(@"contextRef: %@", contextRef);
-    CGContextDrawTiledImage(contextRef, CGRectMake(0, 0, tileSize.width, tileSize.height), targetRef);
-    UIImage* tiledTexture = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    //self.fillTexture = [SKTexture textureWithImage:tiledTexture];
-    _terrainTexture = [SKTexture textureWithImage:tiledTexture];
-    
 }
 -(void)generateCliff:(NSMutableArray*)cliffArray :(BOOL)forwardLip{
     for (int i = 0; i < CLIFF_VERTEX_COUNT; i ++) {
@@ -92,11 +54,11 @@ int CLIFF_VERTEX_COUNT = 15;
 
         }
         //int sign = (forwardLip == true) ? 1 :0;
-        int sign = 0;
+        int sign = 1;
         
-        if ((i > (CLIFF_VERTEX_COUNT / 2)) && forwardLip) {
-            sign = arc4random_uniform(2);
-        }
+//        if ((i > (CLIFF_VERTEX_COUNT / 2)) && forwardLip) {
+//            sign = arc4random_uniform(2);
+//        }
         if (!forwardLip) {
             sign = arc4random_uniform(2);
         }
@@ -200,34 +162,10 @@ int CLIFF_VERTEX_COUNT = 15;
 }
 
 -(void)generate:(SKView*)view{
-//    if (_cropNode) {
-//        [_cropNode removeFromParent];
-//    }
-//    SKShapeNode* textureShapeNode = [self shapeNodeWithVertices:_vertices];
-//    //textureShapeNode.fi
-//   // textureShapeNode.antialiased = false;
-//    SKTexture* texFromShapeNode = [view textureFromNode:textureShapeNode];
-//    SKSpriteNode* maskWrapper = [SKSpriteNode spriteNodeWithTexture:texFromShapeNode];
-//    _cropNode = [SKCropNode node];
-//    SKTexture* croppedTexture = [SKTexture textureWithRect:CGRectMake(0, 0, maskWrapper.size.width / _terrainTexture.size.width, maskWrapper.size.height / _terrainTexture.size.height) inTexture:_terrainTexture];
-//    
-//    SKSpriteNode* pattern = [[SKSpriteNode alloc] initWithTexture:croppedTexture];
-//    pattern.name = @"pattern";
-//    
-//    [_cropNode addChild:pattern];
-//    
-//    pattern.position = CGPointMake(CGRectGetMidX(pathBoundingBox) + vertexOffset.dx, CGRectGetMidY(pathBoundingBox) + vertexOffset.dy);
-//    maskWrapper.position = CGPointMake(CGRectGetMidX(pathBoundingBox) + vertexOffset.dx, CGRectGetMidY(pathBoundingBox) + vertexOffset.dy);
-//    _cropNode.maskNode = maskWrapper;
-//    
-//    [self addChild:_cropNode];
-    
     if (textureShapeNode) {
         [textureShapeNode removeFromParent];
     }
     textureShapeNode = [self shapeNodeWithVertices:_vertices];
-    textureShapeNode.fillTexture = _terrainTexture;
-    //[textureShapeNode setTiledFillTexture:CGSizeMake(100, 100) :textureSource];
     [self addChild:textureShapeNode];
 
 }
@@ -240,7 +178,7 @@ int CLIFF_VERTEX_COUNT = 15;
     node.position = CGPointZero;
     //node.zPosition = self.zPosition;
     node.fillColor = [UIColor whiteColor];
-    //node.fillColor = [[SKColor alloc] initWithPatternImage:[UIImage imageNamed:@"lotusquilt_decoration"]];
+    //node.fillColor = [UIColor colorWithHue:drand48() saturation:1.0 brightness:1.0 alpha:1.0];
     //node.fillTexture = _terrainTexture;
     node.antialiased = false;
     node.strokeColor = nil;
@@ -272,7 +210,9 @@ int CLIFF_VERTEX_COUNT = 15;
     CGPoint firstVertex = [(NSValue*)[vertexArray firstObject] CGPointValue];
     //vertexOffset = CGVectorMake(firstVertex.x, firstVertex.y);
     vertexOffset = CGVectorMake(0, 0);
-    CGPathMoveToPoint(pathToDraw, NULL, 0, 0);
+    //CGPathMoveToPoint(pathToDraw, NULL, 0, 0);
+    CGPathMoveToPoint(pathToDraw, NULL, firstVertex.x, firstVertex.y);
+
     
     for (NSValue* value in vertexArray) {
         CGPoint vertex = [value CGPointValue];
@@ -294,7 +234,7 @@ int CLIFF_VERTEX_COUNT = 15;
                 y -= yInterval;
             }
             CGPoint bottomRightAreaVertex = CGPointMake(x, 0);
-            CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x - 100, 0);
+            CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x, 0);
             CGPoint upperLeftAreaVertex = firstVertex;
             CGPathAddLineToPoint(pathToDraw, NULL, bottomRightAreaVertex.x, bottomRightAreaVertex.y - vertexOffset.dy);
             CGPathAddLineToPoint(pathToDraw, NULL, bottomLeftAreaVertex.x - vertexOffset.dx, bottomLeftAreaVertex.y - vertexOffset.dy);

@@ -78,9 +78,9 @@
 //        restartButton.zPosition = _constants.HUD_Z_POSITION;
 //        [self addChild:restartButton];
         
-        //ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
-        //terrainPool = [NSMutableArray array];
-        //[cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
+        ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
+        terrainPool = [NSMutableArray array];
+        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
         
         [self performSunrise];
         
