@@ -132,7 +132,7 @@
     CABasicAnimation *lightUp = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
     lightUp.fromValue = (id)[[UIColor blackColor] CGColor];
     lightUp.toValue = (id)[[UIColor clearColor] CGColor];
-    lightUp.duration = 2.0f;
+    lightUp.duration = 4.0f;
     [_logoView.layer addAnimation:lightUp forKey:@"backgroundColor"];
 
 }
@@ -141,13 +141,13 @@
     [self.pathLayer removeAllAnimations];
     
     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"strokeEnd"];
-    pathAnimation.duration = 2.0f;
+    pathAnimation.duration = 3.0f;
     pathAnimation.fromValue = [NSNumber numberWithFloat:0.0f];
     pathAnimation.toValue = [NSNumber numberWithFloat:1.0f];
     [self.pathLayer addAnimation:pathAnimation forKey:@"strokeEnd"];
     
     CABasicAnimation *fillAnimation = [CABasicAnimation animationWithKeyPath:@"fillColor"];
-    fillAnimation.duration = 2.0f;
+    fillAnimation.duration = 3.0f;
     fillAnimation.fromValue = (id)[[UIColor clearColor] CGColor];
     fillAnimation.toValue = (id)[[UIColor blackColor] CGColor];
     [self.pathSubLayer addAnimation:fillAnimation forKey:@"fillColor"];
@@ -167,9 +167,9 @@
     [self.view sendSubviewToBack:_gameSceneView];
     //[self.view bringSubviewToFront:_gameSceneView];
     
-    //[self setupLogo];
+    [self setupLogo];
     [self lightUp];
-    //[self drawPath];
+    [self drawPath];
 
     [self setUpObservers];
 
@@ -188,11 +188,11 @@
          //dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^(void){
              //_logoView.layer.opacity = 0;
             _logoAnimationLayer.opacity = 0;
-             CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-             opacityAnimation.duration = 2.0f;
-             opacityAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
-             opacityAnimation.toValue = [NSNumber numberWithFloat:0.0f];
-             [_logoAnimationLayer addAnimation:opacityAnimation forKey:@"opacity"];
+//             CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+//             opacityAnimation.duration = 1.0f;
+//             opacityAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
+//             opacityAnimation.toValue = [NSNumber numberWithFloat:0.0f];
+//             [_logoAnimationLayer addAnimation:opacityAnimation forKey:@"opacity"];
         // });
         
      }];
@@ -208,8 +208,8 @@
              [_gameSceneView presentScene:nil];
              
              [self lightUp];
-             //[self setupLogo];
-             //[self drawPath];
+             [self setupLogo];
+             [self drawPath];
              [self initGame];
 
          }];
@@ -219,7 +219,7 @@
              CABasicAnimation *darken = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
              darken.fromValue = (id)[[UIColor clearColor] CGColor];
              darken.toValue = (id)[[UIColor blackColor] CGColor];
-             darken.duration = 2.0f;
+             darken.duration = 3.0f;
              [_logoView.layer addAnimation:darken forKey:@"backgroundColor"];
              
              

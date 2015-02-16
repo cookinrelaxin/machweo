@@ -94,12 +94,12 @@
     sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
     sunNode.zPosition = 1;
     sunNode.position = CGPointMake(self.position.x + self.size.width / 2, 0 - (sunNode.size.height / 2));
-    SKAction* sunriseAction = [SKAction moveToY:(self.size.height - (sunNode.size.height / 2))  duration:2.0f];
+    SKAction* sunriseAction = [SKAction moveToY:(self.size.height - (sunNode.size.height / 2))  duration:3.0f];
     [sunNode runAction:sunriseAction];
 }
 
 -(void)performSunset{
-    SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2))  duration:2.0f];
+    SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2))  duration:3.0f];
     [sunNode runAction:sunsetAction];
 }
 
