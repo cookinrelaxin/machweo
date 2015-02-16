@@ -13,25 +13,49 @@
 //float MINIMUM_FREEZE_DISTANCE = 100.0f;
 int CLIFF_VERTEX_COUNT = 15;
 
+@interface SKShapeNode (Tile)
+-(void)setTiledFillTexture:(CGSize)tileSize :(UIImage*)textureSource;
+@end
+
+@implementation SKShapeNode (Tile)
+
+-(void)setTiledFillTexture:(CGSize)tileSize :(UIImage*)textureSource{
+    float targetDimension = fmax(self.frame.size.width, self.frame.size.height);
+    CGSize targetSize = CGSizeMake(targetDimension, targetDimension);
+    CGImageRef targetRef = textureSource.CGImage;
+    UIGraphicsBeginImageContext(targetSize);
+    CGContextRef contextRef = UIGraphicsGetCurrentContext();
+    //NSLog(@"contextRef: %@", contextRef);
+    CGContextDrawTiledImage(contextRef, CGRectMake(0, 0, tileSize.width, tileSize.height), targetRef);
+    UIImage* tiledTexture = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    self.fillTexture = [SKTexture textureWithImage:tiledTexture];
+
+}
+
+@end
+
 @implementation Terrain{
     CGVector vertexOffset;
     CGRect pathBoundingBox;
     NSMutableArray* decos;
     Constants* constants;
-    CGSize sceneSize;
+    //CGSize sceneSize;
     int lipOffset;
     NSMutableArray* beforeCliff;
     NSMutableArray* endCliff;
     BOOL beforeCliffAddedToVertices;
-    
     SKShapeNode* textureShapeNode;
+    
+    //UIImage* textureSource;
     
 }
 
--(instancetype)initWithTexture:(SKTexture*)texture forSceneSize:(CGSize)size{
+-(instancetype)initWithImage:(UIImage*)image forSceneSize:(CGSize)size{
     if (self = [super init]) {
-        sceneSize = size;
-        _terrainTexture = texture;
+        //sceneSize = size;
+        //textureSource = image;
+        [self generateTiledFillTexture:CGSizeMake(100, 100) andSceneSize:size :image];
         decos = [NSMutableArray array];
         constants = [Constants sharedInstance];
         lipOffset = arc4random_uniform(150) + 50;
@@ -42,6 +66,20 @@ int CLIFF_VERTEX_COUNT = 15;
         
     }
     return self;
+}
+-(void)generateTiledFillTexture:(CGSize)tileSize andSceneSize:(CGSize)sceneSize :(UIImage*)textureSource{
+    float targetDimension = fmax(sceneSize.width, sceneSize.height);
+    CGSize targetSize = CGSizeMake(targetDimension, targetDimension);
+    CGImageRef targetRef = textureSource.CGImage;
+    UIGraphicsBeginImageContext(targetSize);
+    CGContextRef contextRef = UIGraphicsGetCurrentContext();
+    //NSLog(@"contextRef: %@", contextRef);
+    CGContextDrawTiledImage(contextRef, CGRectMake(0, 0, tileSize.width, tileSize.height), targetRef);
+    UIImage* tiledTexture = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    //self.fillTexture = [SKTexture textureWithImage:tiledTexture];
+    _terrainTexture = [SKTexture textureWithImage:tiledTexture];
+    
 }
 -(void)generateCliff:(NSMutableArray*)cliffArray :(BOOL)forwardLip{
     for (int i = 0; i < CLIFF_VERTEX_COUNT; i ++) {
@@ -188,12 +226,13 @@ int CLIFF_VERTEX_COUNT = 15;
         [textureShapeNode removeFromParent];
     }
     textureShapeNode = [self shapeNodeWithVertices:_vertices];
+    textureShapeNode.fillTexture = _terrainTexture;
+    //[textureShapeNode setTiledFillTexture:CGSizeMake(100, 100) :textureSource];
     [self addChild:textureShapeNode];
-    //NSLog(@"self.children.count: %lu", (unsigned long)self.children.count);
-    //NSLog(@"textureShapeNode.position: %f, %f", textureShapeNode.position.x, textureShapeNode.position.y);
-    
 
 }
+
+
 
 -(SKShapeNode*)shapeNodeWithVertices:(NSMutableArray*)vertexArray{
     
@@ -201,7 +240,8 @@ int CLIFF_VERTEX_COUNT = 15;
     node.position = CGPointZero;
     //node.zPosition = self.zPosition;
     node.fillColor = [UIColor whiteColor];
-    textureShapeNode.fillTexture = _terrainTexture;
+    //node.fillColor = [[SKColor alloc] initWithPatternImage:[UIImage imageNamed:@"lotusquilt_decoration"]];
+    //node.fillTexture = _terrainTexture;
     node.antialiased = false;
     node.strokeColor = nil;
     node.physicsBody = nil;

@@ -31,7 +31,7 @@
 //        if (i == 0) {
 //            textureName = @"african_textile_3_terrain";
 //            textureName = @"linequilt";
-            textureName = @"lotusquilt_decoration";
+            textureName = @"circlemask_obstacle";
 //            textureName = @"opticalillusion_decoration";
 //              textureName = @"dirtmcgirt";
 
@@ -39,7 +39,8 @@
 
 //        }
 //        }
-        Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName] forSceneSize:sceneSize];
+        //Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName] forSceneSize:sceneSize];
+        Terrain* ter = [[Terrain alloc] initWithImage:[UIImage imageNamed:textureName] forSceneSize:sceneSize];
         ter.vertices = [NSMutableArray array];
        // int dZ = arc4random_uniform(20);
         ter.zPosition = constants.FOREGROUND_Z_POSITION - (constants.ZPOSITION_DIFFERENCE_PER_LAYER * i);

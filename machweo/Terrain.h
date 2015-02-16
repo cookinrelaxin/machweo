@@ -17,7 +17,7 @@
 @property(nonatomic) BOOL isClosed;
 @property(nonatomic) BOOL permitDecorations;
 
--(instancetype)initWithTexture:(SKTexture*)texture forSceneSize:(CGSize)size;
+-(instancetype)initWithImage:(UIImage*)image forSceneSize:(CGSize)size;
 -(void)closeLoopAndFillTerrainInView:(SKView*)view;
 -(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node withZposition:(float)zPos andSlope:(float)slope;
 -(void)changeDecorationPermissions:(CGPoint)currentPoint;
