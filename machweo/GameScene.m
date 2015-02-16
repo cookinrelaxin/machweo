@@ -220,12 +220,12 @@
             newPoint = CGPointMake(currentPoint.x, currentLine.origin.y + randomYd + mellowedDifference + backgroundOffset);
 
         }
-            [ter.vertices addObject:[NSValue valueWithCGPoint:newPoint]];
+            [ter.vertices addObject:[NSValue valueWithCGPoint:[ter convertPoint:newPoint fromNode:self]]];
         if (!ter.permitDecorations){
             [ter changeDecorationPermissions:newPoint];
         }
        // int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 2;
-        [ter generateDecorationAtVertex:newPoint fromTerrainPool:terrainPool inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
+        //[ter generateDecorationAtVertex:newPoint fromTerrainPool:terrainPool inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
     }
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
@@ -275,13 +275,15 @@
 //}
 
 -(void)deallocOldLines{
+    
     NSMutableArray* oldLines = [NSMutableArray array];
+    
     for (Line *thisLine in arrayOfLines) {
         if (thisLine.shouldDeallocNodeArray) {
             [oldLines addObject:thisLine];
-
         }
     }
+    
     for (Line* oldLine in oldLines) {
         [arrayOfLines removeObject:oldLine];
         for (Terrain* ter in oldLine.terrainArray) {
@@ -467,14 +469,16 @@
             for (Terrain* ter in line.terrainArray) {
                 float fractionalCoefficient = ter.zPosition / _constants.OBSTACLE_Z_POSITION;
                 CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
-                for (int i = 0; i < ter.vertices.count; i ++) {
-                    NSValue* pointNode = [ter.vertices objectAtIndex:i];
-                    CGPoint pointNodePosition = pointNode.CGPointValue;
-                    
-                    CGPoint newPoint = CGPointMake(pointNodePosition.x - parallaxAdjustedDifference.dx, pointNodePosition.y);
-                    [ter.vertices replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:newPoint]];
-                }
-                
+                ter.position = CGPointMake(ter.position.x - parallaxAdjustedDifference.dx, ter.position.y);
+//                for (int i = 0; i < ter.vertices.count; i ++) {
+//                    NSValue* pointNode = [ter.vertices objectAtIndex:i];
+//                    CGPoint pointNodePosition = pointNode.CGPointValue;
+//                    
+//                    CGPoint newPoint = CGPointMake(pointNodePosition.x - parallaxAdjustedDifference.dx, pointNodePosition.y);
+//                    
+//                    [ter.vertices replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:newPoint]];
+//                }
+//
             }
         }
         

@@ -24,6 +24,8 @@ int CLIFF_VERTEX_COUNT = 15;
     NSMutableArray* endCliff;
     BOOL beforeCliffAddedToVertices;
     
+    SKShapeNode* textureShapeNode;
+    
 }
 
 -(instancetype)initWithTexture:(SKTexture*)texture forSceneSize:(CGSize)size{
@@ -160,25 +162,37 @@ int CLIFF_VERTEX_COUNT = 15;
 }
 
 -(void)generate:(SKView*)view{
-    if (_cropNode) {
-        [_cropNode removeFromParent];
+//    if (_cropNode) {
+//        [_cropNode removeFromParent];
+//    }
+//    SKShapeNode* textureShapeNode = [self shapeNodeWithVertices:_vertices];
+//    //textureShapeNode.fi
+//   // textureShapeNode.antialiased = false;
+//    SKTexture* texFromShapeNode = [view textureFromNode:textureShapeNode];
+//    SKSpriteNode* maskWrapper = [SKSpriteNode spriteNodeWithTexture:texFromShapeNode];
+//    _cropNode = [SKCropNode node];
+//    SKTexture* croppedTexture = [SKTexture textureWithRect:CGRectMake(0, 0, maskWrapper.size.width / _terrainTexture.size.width, maskWrapper.size.height / _terrainTexture.size.height) inTexture:_terrainTexture];
+//    
+//    SKSpriteNode* pattern = [[SKSpriteNode alloc] initWithTexture:croppedTexture];
+//    pattern.name = @"pattern";
+//    
+//    [_cropNode addChild:pattern];
+//    
+//    pattern.position = CGPointMake(CGRectGetMidX(pathBoundingBox) + vertexOffset.dx, CGRectGetMidY(pathBoundingBox) + vertexOffset.dy);
+//    maskWrapper.position = CGPointMake(CGRectGetMidX(pathBoundingBox) + vertexOffset.dx, CGRectGetMidY(pathBoundingBox) + vertexOffset.dy);
+//    _cropNode.maskNode = maskWrapper;
+//    
+//    [self addChild:_cropNode];
+    
+    if (textureShapeNode) {
+        [textureShapeNode removeFromParent];
     }
-    SKShapeNode* textureShapeNode = [self shapeNodeWithVertices:_vertices];
-    SKTexture* texFromShapeNode = [view textureFromNode:textureShapeNode];
-    SKSpriteNode* maskWrapper = [SKSpriteNode spriteNodeWithTexture:texFromShapeNode];
-    _cropNode = [SKCropNode node];
-    SKTexture* croppedTexture = [SKTexture textureWithRect:CGRectMake(0, 0, maskWrapper.size.width / _terrainTexture.size.width, maskWrapper.size.height / _terrainTexture.size.height) inTexture:_terrainTexture];
+    textureShapeNode = [self shapeNodeWithVertices:_vertices];
+    textureShapeNode.fillTexture = _terrainTexture;
+    [self addChild:textureShapeNode];
+    //NSLog(@"textureShapeNode.position: %f, %f", textureShapeNode.position.x, textureShapeNode.position.y);
     
-    SKSpriteNode* pattern = [[SKSpriteNode alloc] initWithTexture:croppedTexture];
-    pattern.name = @"pattern";
-    
-    [_cropNode addChild:pattern];
-    
-    pattern.position = CGPointMake(CGRectGetMidX(pathBoundingBox) + vertexOffset.dx, CGRectGetMidY(pathBoundingBox) + vertexOffset.dy);
-    maskWrapper.position = CGPointMake(CGRectGetMidX(pathBoundingBox) + vertexOffset.dx, CGRectGetMidY(pathBoundingBox) + vertexOffset.dy);
-    _cropNode.maskNode = maskWrapper;
-    
-    [self addChild:_cropNode];
+
 }
 
 -(SKShapeNode*)shapeNodeWithVertices:(NSMutableArray*)vertexArray{
@@ -214,7 +228,8 @@ int CLIFF_VERTEX_COUNT = 15;
     }
     
     CGPoint firstVertex = [(NSValue*)[vertexArray firstObject] CGPointValue];
-    vertexOffset = CGVectorMake(firstVertex.x, firstVertex.y);
+    //vertexOffset = CGVectorMake(firstVertex.x, firstVertex.y);
+    vertexOffset = CGVectorMake(0, 0);
     CGPathMoveToPoint(pathToDraw, NULL, 0, 0);
     
     for (NSValue* value in vertexArray) {
