@@ -25,6 +25,9 @@
 @property (nonatomic) BOOL endOfLine;
 @property (nonatomic) float currentRotationSpeed;
 
+@property (nonatomic) float dX;
+@property (nonatomic) float dY;
+
 +(instancetype)playerAtPoint:(CGPoint)point;
 //-(void)initAtPoint:(CGPoint)point;
 -(void)updateEdges;

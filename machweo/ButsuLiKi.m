@@ -235,22 +235,22 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 -(void)calculatePlayerVelocity:(Player *)player{
     Constants *constants = [Constants sharedInstance];
     
-    if (player.roughlyOnLine) {
-        player.velocity = CGVectorMake(player.velocity.dx + [self calculateXForceGivenSlope:player.currentSlope], player.velocity.dy + [self calculateYForceGivenSlope:player.currentSlope]);
-        player.velocity = CGVectorMake(player.velocity.dx + constants.AMBIENT_X_FORCE, player.velocity.dy);
-        player.velocity = CGVectorMake(player.velocity.dx * constants.FRICTION_COEFFICIENT, player.velocity.dy * constants.FRICTION_COEFFICIENT);
-        if (player.velocity.dy < -1) {
-            player.velocity = CGVectorMake(player.velocity.dx, -1);
-        }
+    //player.velocity = CGVectorMake(player.velocity.dx + [self calculateXForceGivenSlope:player.currentSlope], player.velocity.dy + [self calculateYForceGivenSlope:player.currentSlope]);
+    CGVector F = CGVectorMake([self calculateXForceGivenSlope:player.currentSlope], [self calculateYForceGivenSlope:player.currentSlope]);
+    //if (F.dx < 0) {
+        //NSLog(@"F: %f, %f", F.dx, F.dy);
+    //}
+    float xV = 0;
+    BOOL positiveFx = (F.dx >= 0) ? true : false;
+    float xVPreRoot = (player.velocity.dx * player.velocity.dx) + fabsf((F.dx * player.dX));
+    xV = sqrtf(xVPreRoot);
+    if (!positiveFx) {
+        xV = -xV;
     }
-   else{
-        player.velocity = CGVectorMake(player.velocity.dx, player.velocity.dy - constants.GRAVITY);
-    }
-    
-    if ((player.velocity.dy < 0) && player.endOfLine) {
-        player.endOfLine = false;
-        player.velocity = CGVectorMake(player.velocity.dx, 0);
-    }
+ 
+    //float yV = sqrtf((player.velocity.dy * player.velocity.dy) + (F.dy * player.dY));
+    player.velocity = CGVectorMake(xV, player.velocity.dy + F.dy);
+
 
     if (player.velocity.dy < constants.MIN_PLAYER_VELOCITY_DY) {
         player.velocity = CGVectorMake(player.velocity.dx, constants.MIN_PLAYER_VELOCITY_DY);
@@ -264,31 +264,69 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     if (player.velocity.dx > constants.MAX_PLAYER_VELOCITY_DX) {
         player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, player.velocity.dy);
     }
-   // NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
+    //NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
 
 }
 
 -(float)calculateXForceGivenSlope:(float)slope{
-    Constants *constants = [Constants sharedInstance];
-    if (fabsf(slope - previousSlope) < .001f) {
-        // NSLog(@"same slope. return 0");
-        return 0;
+    if (slope != 0) {
+        Constants *constants = [Constants sharedInstance];
+
+        float theta = fabsf(atanf(slope));
+        //NSLog(@"theta: %f", theta);
+        float cosTheta = cosf(theta);
+        float sinTheta = sinf(theta);
+
+        float xForce = 0;
+        if (slope > 0) {
+            //NSLog(@"slope: %f", slope);
+            xForce += constants.AMBIENT_X_FORCE * cosTheta;
+            //NSLog(@"constants.AMBIENT_X_FORCE * cosTheta: %f", constants.AMBIENT_X_FORCE * cosTheta);
+            xForce -= constants.GRAVITY * sinTheta * cosTheta;
+            //NSLog(@"constants.GRAVITY * sinTheta * cosTheta: %f", constants.GRAVITY * sinTheta * cosTheta);
+
+            return xForce;
+        }
+        if (slope < 0) {
+            xForce += constants.AMBIENT_X_FORCE * cosTheta;
+            xForce += constants.GRAVITY * sinTheta * cosTheta;
+            return xForce;
+        }
     }
-    return -slope * constants.GRAVITY;
+    return 0;
 }
 
 -(float)calculateYForceGivenSlope:(float)slope{
-   // NSLog(@"slope: %f", slope);
-    if (fabsf(slope - previousSlope) < .001f) {
-       // NSLog(@"same slope. return 0");
-        return 0;
+    Constants *constants = [Constants sharedInstance];
+    if (slope != 0) {
+        
+        float theta = fabsf(atanf(slope));
+        //float cosTheta = cosf(theta);
+        float sinTheta = sinf(theta);
+        
+        float yForce = 0;
+        if (slope > 0) {
+            //NSLog(@"slope: %f", slope);
+            yForce += constants.AMBIENT_X_FORCE * sinTheta;
+            //NSLog(@"constants.AMBIENT_X_FORCE * sinTheta: %f", constants.AMBIENT_X_FORCE * sinTheta);
+            yForce -= constants.GRAVITY * sinTheta * sinTheta;
+            //NSLog(@"constants.GRAVITY * sinTheta * sinTheta: %f", constants.GRAVITY * sinTheta * sinTheta);
+            return yForce;
+        }
+        if (slope < 0) {
+            yForce -= constants.AMBIENT_X_FORCE * sinTheta;
+            yForce -= constants.GRAVITY * sinTheta * sinTheta;
+            return yForce;
 
+        }
     }
-    return slope;
+    return -constants.GRAVITY;
+
 }
 
 -(void)calculatePlayerPosition:(Player *)player withLineArray:(NSMutableArray*)lineArray{
     Constants *constants = [Constants sharedInstance];
+    CGPoint previousPosition = player.position;
     
     [self calculatePlayerRotation:player];
     [self calculatePlayerVelocity:player];
@@ -303,6 +341,9 @@ const float OFFLINE_ROTATION_SPEED = .02f;
             player.position = CGPointMake(player.position.x, player.minYPosition);
         }
     }
+    player.dX = player.position.x - previousPosition.x;
+    player.dY = player.position.y - previousPosition.y;
+    
    // [self verticalLoopPlayer:player];
    
     

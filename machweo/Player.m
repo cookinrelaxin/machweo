@@ -19,7 +19,7 @@
     Constants* constants = [Constants sharedInstance];
     Player *player = [Player spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(constants.PLAYER_SIZE * constants.SCALE_COEFFICIENT.dy, constants.PLAYER_SIZE * constants.SCALE_COEFFICIENT.dy * 2)];
     player.zPosition = constants.PLAYER_Z_POSITION;
-    player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, constants.MAX_PLAYER_VELOCITY_DY);
+    player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX / 4, 0);
     player.position = point;
     
     player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(player.size.width * 1/4, player.size.height * 1/4 * 2)];
