@@ -14,14 +14,12 @@ int CLIFF_VERTEX_COUNT = 15;
 @implementation Terrain{
     CGVector vertexOffset;
     CGRect pathBoundingBox;
-    NSMutableArray* decos;
     Constants* constants;
     //CGSize sceneSize;
     //int lipOffset;
     NSMutableArray* beforeCliff;
     NSMutableArray* endCliff;
     BOOL beforeCliffAddedToVertices;
-    SKShapeNode* textureShapeNode;
     
     //UIImage* textureSource;
     
@@ -32,7 +30,7 @@ int CLIFF_VERTEX_COUNT = 15;
         //sceneSize = size;
         //textureSource = image;
         //[self generateTiledFillTexture:CGSizeMake(100, 100) andSceneSize:size :image];
-        decos = [NSMutableArray array];
+        _decos = [NSMutableArray array];
         constants = [Constants sharedInstance];
         //lipOffset = arc4random_uniform(150) + 50;
         endCliff = [NSMutableArray array];
@@ -47,10 +45,10 @@ int CLIFF_VERTEX_COUNT = 15;
     for (int i = 0; i < CLIFF_VERTEX_COUNT; i ++) {
         int dx;
         if (forwardLip) {
-            dx = arc4random_uniform(10);
+            dx = arc4random_uniform(20);
         }
         else{
-            dx = arc4random_uniform(5);
+            dx = arc4random_uniform(10);
 
         }
         //int sign = (forwardLip == true) ? 1 :0;
@@ -72,7 +70,7 @@ int CLIFF_VERTEX_COUNT = 15;
     
 }
 -(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope{
-    for (SKSpriteNode* deco in decos) {
+    for (SKSpriteNode* deco in _decos) {
         if ([deco.name isEqualToString:@"corrected"]) {
             continue;
         }
@@ -162,11 +160,11 @@ int CLIFF_VERTEX_COUNT = 15;
 }
 
 -(void)generate:(SKView*)view{
-    if (textureShapeNode) {
-        [textureShapeNode removeFromParent];
+    if (_textureShapeNode) {
+        [_textureShapeNode removeFromParent];
     }
-    textureShapeNode = [self shapeNodeWithVertices:_vertices];
-    [self addChild:textureShapeNode];
+    _textureShapeNode = [self shapeNodeWithVertices:_vertices];
+    [self addChild:_textureShapeNode];
 
 }
 
@@ -177,7 +175,7 @@ int CLIFF_VERTEX_COUNT = 15;
     SKShapeNode* node = [SKShapeNode node];
     node.position = CGPointZero;
     //node.zPosition = self.zPosition;
-    node.fillColor = [UIColor whiteColor];
+    node.fillColor = _color;
     //node.fillColor = [UIColor colorWithHue:drand48() saturation:1.0 brightness:1.0 alpha:1.0];
     //node.fillTexture = _terrainTexture;
     node.antialiased = false;
@@ -250,9 +248,9 @@ int CLIFF_VERTEX_COUNT = 15;
 }
 
 
--(void)dealloc{
+//-(void)dealloc{
 //    NSLog(@"dealloc terrain");
-}
+//}
 
 -(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node withZposition:(float)zPos andSlope:(float)slope{
     if(_permitDecorations){
@@ -294,7 +292,7 @@ int CLIFF_VERTEX_COUNT = 15;
             sprite.position = CGPointMake(sprite.position.x, sprite.position.y + height_die_d);
             
             [node addChild:sprite];
-            [decos addObject:sprite];
+            [_decos addObject:sprite];
             
             if (slope < -1.5) {
                 [self correctSpriteZsBeforeVertex:v againstSlope:YES];
@@ -304,6 +302,9 @@ int CLIFF_VERTEX_COUNT = 15;
             
         }
     }
+    
+
 }
+
 
 @end

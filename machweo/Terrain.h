@@ -12,10 +12,12 @@
 @interface Terrain : SKNode
 @property(nonatomic, strong) NSMutableArray* vertices;
 
-@property(nonatomic, strong) SKTexture* terrainTexture;
-@property(nonatomic, strong) SKCropNode* cropNode;
+@property(nonatomic, strong) SKColor* color;
+@property(nonatomic, strong) SKShapeNode* textureShapeNode;
 @property(nonatomic) BOOL isClosed;
 @property(nonatomic) BOOL permitDecorations;
+@property(nonatomic) NSMutableArray* decos;
+
 
 -(instancetype)initWithImage:(UIImage*)image forSceneSize:(CGSize)size;
 -(void)closeLoopAndFillTerrainInView:(SKView*)view;

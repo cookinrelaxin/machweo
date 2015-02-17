@@ -49,7 +49,6 @@ int midpoint(int n1, int n2)
     _TERRAIN_LAYER_COUNT = 1;
     _ZPOSITION_DIFFERENCE_PER_LAYER = 40;
     
-//    _Y_PARALLAX_COEFFICIENT = .05f;
     _Y_PARALLAX_COEFFICIENT = 0;
 
     

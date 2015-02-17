@@ -101,9 +101,21 @@
     UITouch* touch = [touches anyObject];
     CGPoint positionInSelf = [touch locationInNode:self];
     previousPoint = currentPoint = positionInSelf;
-
+    
+    Line *currentLine = [arrayOfLines lastObject];
+    for (Terrain* ter in currentLine.terrainArray) {
+        //NSLog(@"ter.color: %@", ter.color);
+        //
+        for (SKSpriteNode* deco in ter.decos) {
+            SKAction *fadeAction = [SKAction fadeAlphaTo:0.75f duration:1];
+            [deco runAction:fadeAction];
+        }
+        
+        SKAction *fadeAction = [SKAction fadeAlphaTo:0.75f duration:1];
+        [ter runAction:fadeAction];
+    }
+    
     Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
-
     [arrayOfLines addObject:newLine];
 
     
