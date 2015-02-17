@@ -176,6 +176,9 @@
 		78B986AF1A746CAF00C4EA18 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986AE1A746CAF00C4EA18 /* Score.m */; };
 		78B986B21A74827B00C4EA18 /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986B11A74827B00C4EA18 /* Coin.m */; };
 		78BC58C31A83059F00308D34 /* newnewLevel.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78BC58C21A83059F00308D34 /* newnewLevel.xml */; };
+		78C0F8AB1A92D47500382159 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8A81A92D47500382159 /* OFL.txt */; };
+		78C0F8AC1A92D47500382159 /* Skranji-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */; };
+		78C0F8AD1A92D47500382159 /* Skranji-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */; };
 		78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */; };
 		78CCA2FF1A8D93EF0046C988 /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FE1A8D93EF0046C988 /* MainMenuScene.m */; };
 		78F9322B1A8854CB007947DD /* african_textile_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 78F932261A8854CB007947DD /* african_textile_1.jpg */; };
@@ -405,6 +408,9 @@
 		78B986B01A74827B00C4EA18 /* Coin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
 		78B986B11A74827B00C4EA18 /* Coin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coin.m; sourceTree = "<group>"; };
 		78BC58C21A83059F00308D34 /* newnewLevel.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = newnewLevel.xml; sourceTree = "<group>"; };
+		78C0F8A81A92D47500382159 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
+		78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Bold.ttf"; sourceTree = "<group>"; };
+		78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Regular.ttf"; sourceTree = "<group>"; };
 		78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuControllerViewController.h; sourceTree = "<group>"; };
 		78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuControllerViewController.m; sourceTree = "<group>"; };
 		78CCA2FD1A8D93EF0046C988 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
@@ -537,6 +543,7 @@
 		782AE6C71A74B89900FF4225 /* formatted game assets (zack's folder) */ = {
 			isa = PBXGroup;
 			children = (
+				78C0F8A71A92D47500382159 /* fonts */,
 				7808A95D1A75D17200544C78 /* brush textures */,
 				782AE6C81A74B89900FF4225 /* level files */,
 				782AE6D51A74B89900FF4225 /* screen data */,
@@ -862,6 +869,16 @@
 			name = scenes;
 			sourceTree = "<group>";
 		};
+		78C0F8A71A92D47500382159 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				78C0F8A81A92D47500382159 /* OFL.txt */,
+				78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */,
+				78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		78F932251A8854CB007947DD /* terrain textures */ = {
 			isa = PBXGroup;
 			children = (
@@ -995,6 +1012,7 @@
 				782AE7D01A74B89900FF4225 /* nightstars2_decoration.png in Resources */,
 				782AE77F1A74B89900FF4225 /* cloud4.0_decoration.png in Resources */,
 				782AE7791A74B89900FF4225 /* cloud3.0.png in Resources */,
+				78C0F8AB1A92D47500382159 /* OFL.txt in Resources */,
 				78FFBC791A8EAC9500996198 /* chapters_button_clicked.png in Resources */,
 				78F9322B1A8854CB007947DD /* african_textile_1.jpg in Resources */,
 				782AE7CC1A74B89900FF4225 /* night.ai in Resources */,
@@ -1090,6 +1108,7 @@
 				782AE7BA1A74B89900FF4225 /* dawn4.ai in Resources */,
 				782AE7911A74B89900FF4225 /* cloudred4_decoration.png in Resources */,
 				782AE7D31A74B89900FF4225 /* spikesun_decoration.png in Resources */,
+				78C0F8AD1A92D47500382159 /* Skranji-Regular.ttf in Resources */,
 				782AE7871A74B89900FF4225 /* cloudopaque4.png in Resources */,
 				782AE7B71A74B89900FF4225 /* triangle_obstacle.png in Resources */,
 				782AE7AD1A74B89900FF4225 /* obstacle4_obstacle.png in Resources */,
@@ -1124,6 +1143,7 @@
 				782AE7BE1A74B89900FF4225 /* day3.ai in Resources */,
 				78FFBC7B1A8EAC9500996198 /* highscores_button_clicked.png in Resources */,
 				782AE79B1A74B89900FF4225 /* mountain.ai in Resources */,
+				78C0F8AC1A92D47500382159 /* Skranji-Bold.ttf in Resources */,
 				782AE7C51A74B89900FF4225 /* dayog_decoration.png in Resources */,
 				78383FBB1A8B099F00712BFD /* dirtmcgirt.png in Resources */,
 				78FFBC871A8EAC9500996198 /* unlockables_button_not_clicked.png in Resources */,

@@ -26,19 +26,12 @@
     NSMutableArray* terrainPool;
     
     double previousTime;
- //   int timerTime;
-    
-    //HUD
-    //SKLabelNode* timerLabel;
-    //SKLabelNode* restartButton;
-    //SKLabelNode* returnToMenuButton;
-    
     BOOL stopScrolling;
     BOOL gameWon;
     BOOL restartGameNotificationSent;
+    BOOL freezePlayer;
     
-    //BOOL zTicker;
-    
+    SKLabelNode* logoLabel;
     SKSpriteNode* sunNode;
 }
 
@@ -62,21 +55,20 @@
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         //init hud
         
-//        timerLabel = [SKLabelNode labelNodeWithFontNamed:@"helvetica"];
-//        timerLabel.fontSize = _constants.TIMER_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
-//        timerLabel.fontColor = _constants.TIMER_LABEL_FONT_COLOR;
-//        timerLabel.position = CGPointMake(CGRectGetMidX(self.frame), timerLabel.fontSize / 4);
-//        timerLabel.zPosition = _constants.HUD_Z_POSITION;
-//        timerLabel.text = @"0.00";
-//        [self addChild:timerLabel];
-        
-//        restartButton = [SKLabelNode labelNodeWithText:@"restart"];
-//        restartButton.fontSize = _constants.RESTART_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
-//        restartButton.fontName = _constants.RESTART_LABEL_FONT_NAME;
-//        restartButton.fontColor = _constants.RESTART_LABEL_FONT_COLOR;
-//        restartButton.position = CGPointMake(CGRectGetMaxX(self.frame) - restartButton.fontSize * 2, restartButton.fontSize / 4);
-//        restartButton.zPosition = _constants.HUD_Z_POSITION;
-//        [self addChild:restartButton];
+        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
+        //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
+        logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
+        //logoLabel.fontColor = [UIColor redColor];
+        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        logoLabel.zPosition = _constants.HUD_Z_POSITION;
+        logoLabel.text = @"MACHWEO";
+        [self addChild:logoLabel];
+        //SKAction* logoFadeIn = [SKAction fadeInWithDuration:1];
+        logoLabel.alpha = 0.0f;
+        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:3];
+        [logoLabel runAction:logoFadeIn];
+
         
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
         terrainPool = [NSMutableArray array];
@@ -108,26 +100,12 @@
     player.touchesEnded = false;
     UITouch* touch = [touches anyObject];
     CGPoint positionInSelf = [touch locationInNode:self];
-    //[self handleButtonPressesAtPoint:positionInSelf];
     previousPoint = currentPoint = positionInSelf;
-    
-//    Line *currentLine = [arrayOfLines lastObject];
 
-   // Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :currentPoint];
     Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
-//    for (Terrain * ter in newLine.terrainArray) {
-//        if (zTicker) {
-//        }
-//    }
-    [arrayOfLines addObject:newLine];
-    
 
-    //if ([currentLine pointUnderLine:currentPoint]) {
-//    for (Terrain* ter in currentLine.terrainArray) {
-//        ter.zPosition -= 10;
-//    }
-    //currentLine.terrain.zPosition -= 10;
-   // }
+    [arrayOfLines addObject:newLine];
+
     
     if (!player) {
         [self createPlayer];
@@ -175,7 +153,10 @@
     player = [Player playerAtPoint:pointToInitAt];
     [self addChild:player];
     currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + (self.view.bounds.size.width / 8) * _constants.SCALE_COEFFICIENT.dy, [self convertPointToView:player.position].y);
-
+    
+    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
+    [logoLabel runAction:logoFadeOut completion:^{[logoLabel removeFromParent];}];
+    
 
 }
 
@@ -366,8 +347,8 @@
     //if (shouldCreateNewPlayer) {
     //    [self createPlayer];
     //}
-
-    if (player) {
+    
+    if (player && !freezePlayer) {
         [self centerCameraOnPlayer];
         [player resetMinsAndMaxs];
         [player updateEdges];
@@ -395,6 +376,7 @@
 
 -(void)loseGame{
     [self performSunset];
+    freezePlayer = true;
     if (!restartGameNotificationSent) {
         restartGameNotificationSent = true;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];

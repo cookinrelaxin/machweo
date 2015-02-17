@@ -167,9 +167,9 @@
     [self.view sendSubviewToBack:_gameSceneView];
     //[self.view bringSubviewToFront:_gameSceneView];
     
-    [self setupLogo];
+    //[self setupLogo];
     [self lightUp];
-    [self drawPath];
+    //[self drawPath];
 
     [self setUpObservers];
 
@@ -208,8 +208,8 @@
              [_gameSceneView presentScene:nil];
              
              [self lightUp];
-             [self setupLogo];
-             [self drawPath];
+             //[self setupLogo];
+             //[self drawPath];
              [self initGame];
 
          }];
@@ -257,7 +257,7 @@
     //SKView * skView = (SKView *)self.view;
     _gameSceneView.ignoresSiblingOrder = YES;
     //_gameSceneView.showsDrawCount = YES;
-    _gameSceneView.showsFPS = YES;
+    //_gameSceneView.showsFPS = YES;
 
 
    // __weak GameViewController *weakSelf = self;

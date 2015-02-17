@@ -67,9 +67,9 @@ int midpoint(int n1, int n2)
     _RESTART_LABEL_FONT_COLOR = [UIColor whiteColor];
     _RESTART_LABEL_FONT_NAME = @"DamascusBold";
     
-    _RETURN_TO_MENU_LABEL_FONT_SIZE = 60;
-    _RETURN_TO_MENU_LABEL_FONT_COLOR = [UIColor whiteColor];
-    _RETURN_TO_MENU_LABEL_FONT_NAME = @"DamascusBold";
+    _LOGO_LABEL_FONT_SIZE = 260;
+    _LOGO_LABEL_FONT_COLOR = [UIColor colorWithRed:243 green:126 blue:61 alpha:1];
+    _LOGO_LABEL_FONT_NAME = @"Skranji";
     
     
     float scaleFactor = [[UIScreen mainScreen] scale];
@@ -87,7 +87,7 @@ int midpoint(int n1, int n2)
 
     _GRAVITY = .20;
     
-    _DEFAULT_COIN_VALUE = 5;
+    //_DEFAULT_COIN_VALUE = 5;
 
     return self;
 }
