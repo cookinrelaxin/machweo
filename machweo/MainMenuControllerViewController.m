@@ -262,7 +262,7 @@
 
    // __weak GameViewController *weakSelf = self;
    // dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-    GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) forLevel:@"newnewLevel" withinView:_gameSceneView];
+    GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) forLevel:@"level02" withinView:_gameSceneView];
     [_gameSceneView presentScene: newScene];
        // newScene.backgroundColor = [UIColor lightGrayColor];
        // newScene.scaleMode = SKSceneScaleModeResizeFill;

@@ -1299,8 +1299,5 @@
         <terrainPoolMember>tree4_decoration</terrainPoolMember>
         <terrainPoolMember>tree3_decoration</terrainPoolMember>
         <terrainPoolMember>tree2_decoration</terrainPoolMember>
-        <terrainPoolMember>rock1</terrainPoolMember>
-        <terrainPoolMember>rock2</terrainPoolMember>
-        <terrainPoolMember>rock3</terrainPoolMember>
     </terrainPool>
 </worldnodes>
