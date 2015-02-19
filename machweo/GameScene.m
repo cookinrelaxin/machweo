@@ -12,7 +12,7 @@
 #import "Line.h"
 #import "ChunkLoader.h"
 #import "Score.h"
-
+#import <AVFoundation/AVFoundation.h>
 @implementation GameScene{
     Player *player;
     CGPoint previousPoint;
@@ -29,13 +29,18 @@
     BOOL stopScrolling;
     BOOL gameWon;
     BOOL restartGameNotificationSent;
-    BOOL freezePlayer;
+    BOOL gameOver;
     
     SKLabelNode* logoLabel;
     SKSpriteNode* sunNode;
+    
+    AVAudioPlayer* backgroundMusicPlayer;
+    
+    
 }
 
 -(void)dealloc{
+    backgroundMusicPlayer = nil;
     NSLog(@"dealloc game scene");
 }
 
@@ -75,6 +80,7 @@
         [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
         
         [self performSunrise];
+        [self startMusic];
         
     }
     return self;
@@ -93,6 +99,41 @@
 -(void)performSunset{
     SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2))  duration:3.0f];
     [sunNode runAction:sunsetAction];
+}
+
+-(void)startMusic{
+    //[self runAction:[SKAction playSoundFileNamed:@"gametrack.mp3" waitForCompletion:NO]];
+    
+    NSError *error;
+    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"gametrack" withExtension:@"mp3"];
+    backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+    backgroundMusicPlayer.numberOfLoops = -1;
+    [backgroundMusicPlayer prepareToPlay];
+    [backgroundMusicPlayer setVolume: 0.0];
+    [self fadeVolumeIn];
+    [backgroundMusicPlayer play];
+}
+
+-(void)fadeVolumeIn {
+    if (!gameOver && backgroundMusicPlayer && (backgroundMusicPlayer.volume < .5)) {
+        //NSLog(@"fade in");
+        backgroundMusicPlayer.volume = backgroundMusicPlayer.volume + 0.005;
+        [self performSelector:@selector(fadeVolumeIn) withObject:nil afterDelay:0.1];
+    }
+}
+
+-(void)fadeVolumeOut {
+    //if (backgroundMusicPlayer && (backgroundMusicPlayer.volume < 1)) {
+    if (gameOver && (backgroundMusicPlayer.volume > 0)) {
+        if (backgroundMusicPlayer.volume < 0.001) {
+            backgroundMusicPlayer.volume = 0;
+            return;
+        }
+        //NSLog(@"fade out");
+        //NSLog(@"backgroundMusicPlayer.volume: %f", backgroundMusicPlayer.volume);
+        backgroundMusicPlayer.volume = backgroundMusicPlayer.volume - 0.0005;
+        [self performSelector:@selector(fadeVolumeOut) withObject:nil afterDelay:0.1];
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -340,10 +381,7 @@
 //}
 
 -(void)update:(CFTimeInterval)currentTime {
-   // __weak GameScene* weakSelf = self;
-   // dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^(void){
-    //[self updateTime:currentTime];
-   // });
+
     [self checkForOldLines];
     [self deallocOldLines];
     if (!player.touchesEnded) {
@@ -352,15 +390,7 @@
     [self tellObstaclesToMove];
     //[self checkForWonGame];
     [self checkForLostGame];
-    
-    //if (!player) {
-        //shouldCreateNewPlayer = true;
-    //}
-    //if (shouldCreateNewPlayer) {
-    //    [self createPlayer];
-    //}
-    
-    if (player && !freezePlayer) {
+    if (player && !gameOver) {
         [self centerCameraOnPlayer];
         [player resetMinsAndMaxs];
         [player updateEdges];
@@ -387,8 +417,9 @@
 
 
 -(void)loseGame{
+    gameOver = true;
     [self performSunset];
-    freezePlayer = true;
+    [self fadeVolumeOut];
     if (!restartGameNotificationSent) {
         restartGameNotificationSent = true;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
