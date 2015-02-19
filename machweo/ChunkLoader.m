@@ -47,11 +47,14 @@ typedef enum NodeTypes
     
     Constants* constants;
     
+    NSMutableDictionary* textureDict;
+    
 }
 
 -(instancetype)initWithFile:(NSString*)fileName{
     constants = [Constants sharedInstance];
-
+    
+    textureDict = [NSMutableDictionary dictionary];
     
     obstacleArray = [NSMutableArray array];
     decorationArray = [NSMutableArray array];
@@ -154,13 +157,18 @@ typedef enum NodeTypes
     if (!charactersFound) {
         charactersFound = true;
         if (currentElement == name) {
-            UIImage *spriteTexture = [UIImage imageNamed:string];
+            SKTexture *spriteTexture = [textureDict objectForKey:string];
+            if (spriteTexture == nil) {
+                spriteTexture = [SKTexture textureWithImageNamed:string];
+                [textureDict setValue:spriteTexture forKey:string];
+            }
+            
             if (spriteTexture) {
                 if (currentNodeType == obstacle) {
-                    currentNode = [Obstacle obstacleWithTextureAndPhysicsBody:[SKTexture textureWithImage:spriteTexture]];
+                    currentNode = [Obstacle obstacleWithTextureAndPhysicsBody:spriteTexture];
                 }
                 else if (currentNodeType == decoration){
-                    currentNode = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImage:spriteTexture]];
+                    currentNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
                 }
             }
             else{
@@ -219,7 +227,14 @@ typedef enum NodeTypes
         }
         if (currentElement == terrainPoolMember) {
             //NSLog(@"add terrainPoolMember");
-            [terrainPoolArray addObject:[SKTexture textureWithImageNamed:string]];
+            SKTexture *spriteTexture = [textureDict objectForKey:string];
+            if (spriteTexture == nil) {
+                //NSLog(@"(spriteTexture == nil)");
+                spriteTexture = [SKTexture textureWithImageNamed:string];
+                [textureDict setValue:spriteTexture forKey:string];
+            }
+            //NSLog(@"spriteTexture :%@", spriteTexture);
+            [terrainPoolArray addObject:spriteTexture];
         }
     }
 }
