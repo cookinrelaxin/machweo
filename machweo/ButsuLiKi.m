@@ -239,8 +239,8 @@ const float OFFLINE_ROTATION_SPEED = .02f;
         player.velocity = CGVectorMake(player.velocity.dx + [self calculateXForceGivenSlope:player.currentSlope], player.velocity.dy + [self calculateYForceGivenSlope:player.currentSlope]);
         player.velocity = CGVectorMake(player.velocity.dx + constants.AMBIENT_X_FORCE, player.velocity.dy);
         player.velocity = CGVectorMake(player.velocity.dx * constants.FRICTION_COEFFICIENT, player.velocity.dy * constants.FRICTION_COEFFICIENT);
-        if (player.velocity.dy < -1) {
-            player.velocity = CGVectorMake(player.velocity.dx, -1);
+        if (player.velocity.dy < -2) {
+            player.velocity = CGVectorMake(player.velocity.dx, -2);
         }
     }
    else{
@@ -264,7 +264,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     if (player.velocity.dx > constants.MAX_PLAYER_VELOCITY_DX) {
         player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, player.velocity.dy);
     }
-   // NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
+    //NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
 
 }
 
@@ -295,6 +295,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     player.position = CGPointMake(player.position.x + player.velocity.dx * constants.PHYSICS_SCALAR_MULTIPLIER, player.position.y + player.velocity.dy * constants.PHYSICS_SCALAR_MULTIPLIER);
   //  NSLog(@"player.position.y: %f", player.position.y);
    // NSLog(@"player.position.y scaled: %f", player.position.y * constants.PHYSICS_SCALAR_MULTIPLIER);
+    player.roughlyOnLine = false;
 
     
     [self resolveCollisions:player withLineArray:lineArray];
