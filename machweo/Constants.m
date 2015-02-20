@@ -59,7 +59,7 @@ int midpoint(int n1, int n2)
     _RESTART_LABEL_FONT_COLOR = [UIColor whiteColor];
     _RESTART_LABEL_FONT_NAME = @"DamascusBold";
     
-    _LOGO_LABEL_FONT_SIZE = 260;
+    _LOGO_LABEL_FONT_SIZE = 150;
     _LOGO_LABEL_FONT_COLOR = [UIColor colorWithRed:243 green:126 blue:61 alpha:1];
     _LOGO_LABEL_FONT_NAME = @"Skranji";
     

@@ -254,44 +254,12 @@
 }
 
 -(void)initGame{
-    //SKView * skView = (SKView *)self.view;
     _gameSceneView.ignoresSiblingOrder = YES;
-    //_gameSceneView.showsDrawCount = YES;
-    //_gameSceneView.showsFPS = YES;
-
-
-   // __weak GameViewController *weakSelf = self;
-   // dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
     Constants* constants = [Constants sharedInstance];
     NSString* levelName = [constants.LEVEL_ARRAY objectAtIndex:constants.CURRENT_INDEX_IN_LEVEL_ARRAY];
-    //NSLog(@"levelName: %@", levelName);
+    NSLog(@"levelName: %@", levelName);
     GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) forLevel:levelName withinView:_gameSceneView];
     [_gameSceneView presentScene: newScene];
-       // newScene.backgroundColor = [UIColor lightGrayColor];
-       // newScene.scaleMode = SKSceneScaleModeResizeFill;
-       // dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .5 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-         //   //[weakSelf initializeLabels];
-         //   if (!observersLoaded) {
-            //    [weakSelf setUpObservers];
-            //    observersLoaded = true;
-           // }
-            //[weakSelf refreshView];
-            //[((SKView*)weakSelf.view) presentScene:newScene];
-       // });
-        
-  //  });
-    
-    //  skView.showsFPS = YES;
-    //skView.showsNodeCount = YES;
-    
-    //[self refreshView];
-    
-    //LoadingScene* loadingScene = [[LoadingScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
-   // loadingScene.backgroundColor = [UIColor redColor];
-    //loadingScene.scaleMode = SKSceneScaleModeResizeFill;
-    //[skView presentScene:loadingScene];
-    
 }
-
 
 @end

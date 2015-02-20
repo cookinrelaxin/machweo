@@ -69,18 +69,27 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         //init hud
         
         logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
+        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
         //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
         logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
         //logoLabel.fontColor = [UIColor redColor];
         logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         logoLabel.zPosition = _constants.HUD_Z_POSITION;
         logoLabel.text = @"MACHWEO";
+        //logoLabel.text = levelName;
         [self addChild:logoLabel];
         //SKAction* logoFadeIn = [SKAction fadeInWithDuration:1];
         logoLabel.alpha = 0.0f;
-        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:3];
-        [logoLabel runAction:logoFadeIn];
+        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:2];
+        [logoLabel runAction:logoFadeIn completion:^{
+            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:1];
+            [logoLabel runAction:logoFadeOut completion:^{
+                NSLog(@"fade in again");
+                logoLabel.text = levelName;
+                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:2];
+                [logoLabel runAction:logoFadeInAgain];
+            }];
+        }];
 
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
         terrainPool = [NSMutableArray array];
@@ -109,23 +118,23 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 }
 
 -(void)loadPreviousLevel{
-    //NSLog(@"loadPreviousLevel");
     Constants* constants = [Constants sharedInstance];
     NSMutableArray* levelArray = constants.LEVEL_ARRAY;
     int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY - 1;
     if ((newIndex >= 0) && (newIndex < levelArray.count)) {
         constants.CURRENT_INDEX_IN_LEVEL_ARRAY --;
+        NSLog(@"loadPreviousLevel");
         [self winGame];
     }
 }
 
 -(void)loadNextLevel{
-    //NSLog(@"loadNextLevel");
     Constants* constants = [Constants sharedInstance];
     NSMutableArray* levelArray = constants.LEVEL_ARRAY;
     int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
     if ((newIndex >= 0) && (newIndex < levelArray.count)) {
         constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
+        NSLog(@"loadNextLevel");
         [self winGame];
     }
 }
@@ -144,7 +153,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 }
 
 -(void)fadeVolumeIn {
-    if (!gameOver && backgroundMusicPlayer && (backgroundMusicPlayer.volume < .5)) {
+    if (!gameOver && backgroundMusicPlayer && (backgroundMusicPlayer.volume < .25)) {
         //NSLog(@"fade in");
         backgroundMusicPlayer.volume = backgroundMusicPlayer.volume + 0.005;
         [self performSelector:@selector(fadeVolumeIn) withObject:nil afterDelay:0.1];
@@ -152,21 +161,22 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 }
 
 -(void)fadeVolumeOut {
-    //if (backgroundMusicPlayer && (backgroundMusicPlayer.volume < 1)) {
+    //NSLog(@"backgroundMusicPlayer.volume: %f", backgroundMusicPlayer.volume);
     if (gameOver && (backgroundMusicPlayer.volume > 0)) {
-        if (backgroundMusicPlayer.volume < 0.001) {
-            backgroundMusicPlayer.volume = 0;
-            return;
-        }
         //NSLog(@"fade out");
-        //NSLog(@"backgroundMusicPlayer.volume: %f", backgroundMusicPlayer.volume);
-        backgroundMusicPlayer.volume = backgroundMusicPlayer.volume - 0.0005;
+        if ((backgroundMusicPlayer.volume - 0.05) < 0) {
+            if (!restartGameNotificationSent) {
+                restartGameNotificationSent = true;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
+            }
+            //NSLog(@"nullify the background music");
+            backgroundMusicPlayer = nil;
+            
+        }
+        backgroundMusicPlayer.volume = backgroundMusicPlayer.volume - 0.05;
         [self performSelector:@selector(fadeVolumeOut) withObject:nil afterDelay:0.1];
     }
-    else{
-        //NSLog(@"nullify the background music");
-        backgroundMusicPlayer = nil;
-    }
+
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -206,12 +216,16 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         float y_difference = locInSelf.y - initialTouchPoint.y;
         float absolute_x_difference = fabs(locInSelf.x - initialTouchPoint.x);
         
-        if (absolute_x_difference < ALLOWABLE_X_DIFFERENCE) {
-            if (y_difference > Y_THRESHOLD_FOR_SWITCH_LEVEL) {
-                [self loadNextLevel];
-            }
-            if (y_difference < -Y_THRESHOLD_FOR_SWITCH_LEVEL) {
-                [self loadPreviousLevel];
+        if (!gameOver) {
+            if (absolute_x_difference < ALLOWABLE_X_DIFFERENCE) {
+                if (y_difference > Y_THRESHOLD_FOR_SWITCH_LEVEL) {
+                    gameOver = true;
+                    [self loadNextLevel];
+                }
+                if (y_difference < -Y_THRESHOLD_FOR_SWITCH_LEVEL) {
+                    gameOver = true;
+                    [self loadPreviousLevel];
+                }
             }
         }
     }
@@ -438,8 +452,10 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         [self createLineNode];
     }
     [self tellObstaclesToMove];
-    [self checkForWonGame];
-    [self checkForLostGame];
+    if (!gameOver) {
+        [self checkForWonGame];
+        [self checkForLostGame];
+    }
     if (player && !gameOver) {
         [self centerCameraOnPlayer];
         [player resetMinsAndMaxs];
@@ -470,14 +486,24 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     gameOver = true;
     [self performSunset];
     [self fadeVolumeOut];
-    if (!restartGameNotificationSent) {
-        restartGameNotificationSent = true;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
-    }
+//    if (!restartGameNotificationSent) {
+//        restartGameNotificationSent = true;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
+//    }
 
    // self.view.paused = true;
 }
-//
+
+-(void)winGame{
+    gameOver = true;
+    [self performSunset];
+    [self fadeVolumeOut];
+//    if (!restartGameNotificationSent) {
+//        restartGameNotificationSent = true;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
+//    }
+}
+
 -(void)checkForWonGame{
     if (player.position.x > self.size.width + player.size.width / 2) {
         [self loadNextLevel];
@@ -490,15 +516,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     }
 }
 
--(void)winGame{
-    gameOver = true;
-    [self performSunset];
-    [self fadeVolumeOut];
-    if (!restartGameNotificationSent) {
-        restartGameNotificationSent = true;
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
-    }
-}
+
 
 -(void)restartGame{
     self.view.paused = false;

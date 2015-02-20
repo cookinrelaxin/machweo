@@ -705,6 +705,9 @@
         <zPosition>115.000000</zPosition>
     </node>
     <terrainPool>
-        <terrainPoolMember>redgrass_decoration</terrainPoolMember>
+        <terrainPoolMember>tree_decoration</terrainPoolMember>
+        <terrainPoolMember>tree4_decoration</terrainPoolMember>
+        <terrainPoolMember>tree3_decoration</terrainPoolMember>
+        <terrainPoolMember>tree2_decoration</terrainPoolMember>
     </terrainPool>
 </worldnodes>

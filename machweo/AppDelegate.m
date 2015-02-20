@@ -17,7 +17,7 @@
     // Override point for customization after application launch.
     LevelParser* parser = [[LevelParser alloc] prepopulateLevelCells];
     [Constants sharedInstance].LEVEL_ARRAY = parser.levels;
-    //NSLog(@"[Constants sharedInstance].LEVEL_ARRAY: %@", [Constants sharedInstance].LEVEL_ARRAY);
+    NSLog(@"[Constants sharedInstance].LEVEL_ARRAY: %@", [Constants sharedInstance].LEVEL_ARRAY);
     
     //[[GameDataManager sharedInstance] loadGameData];
     return YES;
