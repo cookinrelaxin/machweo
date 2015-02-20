@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6509D2CC1A5E290300F1BBA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6509D28F1A5E290300F1BBA6 /* Main.storyboard */; };
-		6509D2CD1A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2911A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m */; };
-		6509D2CE1A5E290300F1BBA6 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2921A5E290300F1BBA6 /* GameViewController.m */; };
-		6509D2CF1A5E290300F1BBA6 /* CustomNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2931A5E290300F1BBA6 /* CustomNavigationController.m */; };
 		6509D2D01A5E290300F1BBA6 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2951A5E290300F1BBA6 /* GameScene.m */; };
 		6509D2D11A5E290300F1BBA6 /* ButsuLiKi.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2961A5E290300F1BBA6 /* ButsuLiKi.m */; };
 		6509D2D21A5E290300F1BBA6 /* Obstacle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2981A5E290300F1BBA6 /* Obstacle.m */; };
@@ -18,12 +15,8 @@
 		6509D2D41A5E290300F1BBA6 /* Player.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D29A1A5E290300F1BBA6 /* Player.m */; };
 		6509D2D51A5E290300F1BBA6 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D29D1A5E290300F1BBA6 /* Constants.m */; };
 		6509D2D61A5E290300F1BBA6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2A01A5E290300F1BBA6 /* AppDelegate.m */; };
-		6509D2D71A5E290300F1BBA6 /* LevelSelectionCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2A11A5E290300F1BBA6 /* LevelSelectionCollectionViewController.m */; };
-		6509D2D81A5E290300F1BBA6 /* LevelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2A51A5E290300F1BBA6 /* LevelCollectionViewCell.m */; };
-		6509D2D91A5E290300F1BBA6 /* ChapterCellParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2A61A5E290300F1BBA6 /* ChapterCellParser.m */; };
-		6509D2DA1A5E290300F1BBA6 /* LevelCellParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2A71A5E290300F1BBA6 /* LevelCellParser.m */; };
+		6509D2D91A5E290300F1BBA6 /* LevelParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2A61A5E290300F1BBA6 /* LevelParser.m */; };
 		6509D2DD1A5E290300F1BBA6 /* LoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2AE1A5E290300F1BBA6 /* LoadingScene.m */; };
-		6509D2E81A5E290300F1BBA6 /* ChapterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2C21A5E290300F1BBA6 /* ChapterCollectionViewCell.m */; };
 		6509D2E91A5E290300F1BBA6 /* brush7.png in Resources */ = {isa = PBXBuildFile; fileRef = 6509D2C61A5E290300F1BBA6 /* brush7.png */; };
 		6509D2EA1A5E290300F1BBA6 /* fatbrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 6509D2C71A5E290300F1BBA6 /* fatbrush.png */; };
 		6509D2EB1A5E290300F1BBA6 /* mediumbrush.png in Resources */ = {isa = PBXBuildFile; fileRef = 6509D2C81A5E290300F1BBA6 /* mediumbrush.png */; };
@@ -33,7 +26,7 @@
 		659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659B21DF1A5E1C1300885C04 /* Images.xcassets */; };
 		659B21EF1A5E1C1400885C04 /* machweoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21EE1A5E1C1400885C04 /* machweoTests.m */; };
 		7808A95F1A75D17200544C78 /* african_textile_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7808A95E1A75D17200544C78 /* african_textile_1.jpg */; };
-		782AE76A1A74B89900FF4225 /* chapterCells.xml in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6D61A74B89900FF4225 /* chapterCells.xml */; };
+		782AE76A1A74B89900FF4225 /* levels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6D61A74B89900FF4225 /* levels.xml */; };
 		782AE76B1A74B89900FF4225 /* levelCells.xml in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6D71A74B89900FF4225 /* levelCells.xml */; };
 		782AE76C1A74B89900FF4225 /* button.ai in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6DA1A74B89900FF4225 /* button.ai */; };
 		782AE76D1A74B89900FF4225 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6DB1A74B89900FF4225 /* button.png */; };
@@ -178,6 +171,8 @@
 		785A53E71A9597A400ED2E37 /* rock3_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53E11A9597A400ED2E37 /* rock3_decoration.png */; };
 		7883AE3D1A8EEB60006A94A4 /* menulogo1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */; };
 		7883AE3F1A8EEC24006A94A4 /* menulogohalfx.png in Resources */ = {isa = PBXBuildFile; fileRef = 7883AE3E1A8EEC24006A94A4 /* menulogohalfx.png */; };
+		788563C51A96D95C00F49980 /* level02.xml in Resources */ = {isa = PBXBuildFile; fileRef = 788563C31A96D95C00F49980 /* level02.xml */; };
+		788563C61A96D95C00F49980 /* newnewLevel.xml in Resources */ = {isa = PBXBuildFile; fileRef = 788563C41A96D95C00F49980 /* newnewLevel.xml */; };
 		788788041A7333A9002987B7 /* GameDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 788788031A7333A9002987B7 /* GameDataManager.m */; };
 		78B566901A7C703E00011E86 /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B5668F1A7C703E00011E86 /* Terrain.m */; };
 		78B986AF1A746CAF00C4EA18 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986AE1A746CAF00C4EA18 /* Score.m */; };
@@ -187,7 +182,6 @@
 		78C0F8AC1A92D47500382159 /* Skranji-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */; };
 		78C0F8AD1A92D47500382159 /* Skranji-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */; };
 		78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */; };
-		78CCA2FF1A8D93EF0046C988 /* MainMenuScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FE1A8D93EF0046C988 /* MainMenuScene.m */; };
 		78D4142E1A957E9C00618227 /* gametrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78D4142D1A957E9C00618227 /* gametrack.mp3 */; };
 		78F9322B1A8854CB007947DD /* african_textile_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 78F932261A8854CB007947DD /* african_textile_1.jpg */; };
 		78F9322C1A8854CB007947DD /* african_textile_2_terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F932271A8854CB007947DD /* african_textile_2_terrain.png */; };
@@ -223,10 +217,6 @@
 
 /* Begin PBXFileReference section */
 		6509D2901A5E290300F1BBA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6509D2911A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterSelectionCollectionViewController.m; sourceTree = "<group>"; };
-		6509D2921A5E290300F1BBA6 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
-		6509D2931A5E290300F1BBA6 /* CustomNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomNavigationController.m; sourceTree = "<group>"; };
-		6509D2941A5E290300F1BBA6 /* CustomNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomNavigationController.h; sourceTree = "<group>"; };
 		6509D2951A5E290300F1BBA6 /* GameScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
 		6509D2961A5E290300F1BBA6 /* ButsuLiKi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButsuLiKi.m; sourceTree = "<group>"; };
 		6509D2971A5E290300F1BBA6 /* GameScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
@@ -239,20 +229,10 @@
 		6509D29E1A5E290300F1BBA6 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		6509D29F1A5E290300F1BBA6 /* Obstacle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Obstacle.h; sourceTree = "<group>"; };
 		6509D2A01A5E290300F1BBA6 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6509D2A11A5E290300F1BBA6 /* LevelSelectionCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelSelectionCollectionViewController.m; sourceTree = "<group>"; };
-		6509D2A21A5E290300F1BBA6 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		6509D2A31A5E290300F1BBA6 /* LevelSelectionCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelSelectionCollectionViewController.h; sourceTree = "<group>"; };
-		6509D2A41A5E290300F1BBA6 /* LevelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelCollectionViewCell.h; sourceTree = "<group>"; };
-		6509D2A51A5E290300F1BBA6 /* LevelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelCollectionViewCell.m; sourceTree = "<group>"; };
-		6509D2A61A5E290300F1BBA6 /* ChapterCellParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterCellParser.m; sourceTree = "<group>"; };
-		6509D2A71A5E290300F1BBA6 /* LevelCellParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelCellParser.m; sourceTree = "<group>"; };
-		6509D2A81A5E290300F1BBA6 /* ChapterCellParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterCellParser.h; sourceTree = "<group>"; };
-		6509D2A91A5E290300F1BBA6 /* LevelCellParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelCellParser.h; sourceTree = "<group>"; };
+		6509D2A61A5E290300F1BBA6 /* LevelParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelParser.m; sourceTree = "<group>"; };
+		6509D2A81A5E290300F1BBA6 /* LevelParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelParser.h; sourceTree = "<group>"; };
 		6509D2AE1A5E290300F1BBA6 /* LoadingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingScene.m; sourceTree = "<group>"; };
 		6509D2AF1A5E290300F1BBA6 /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
-		6509D2C01A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterSelectionCollectionViewController.h; sourceTree = "<group>"; };
-		6509D2C11A5E290300F1BBA6 /* ChapterCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChapterCollectionViewCell.h; sourceTree = "<group>"; };
-		6509D2C21A5E290300F1BBA6 /* ChapterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChapterCollectionViewCell.m; sourceTree = "<group>"; };
 		6509D2C31A5E290300F1BBA6 /* ChunkLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChunkLoader.h; sourceTree = "<group>"; };
 		6509D2C41A5E290300F1BBA6 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
 		6509D2C61A5E290300F1BBA6 /* brush7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = brush7.png; sourceTree = "<group>"; };
@@ -269,7 +249,7 @@
 		659B21ED1A5E1C1400885C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659B21EE1A5E1C1400885C04 /* machweoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = machweoTests.m; sourceTree = "<group>"; };
 		7808A95E1A75D17200544C78 /* african_textile_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = african_textile_1.jpg; sourceTree = "<group>"; };
-		782AE6D61A74B89900FF4225 /* chapterCells.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = chapterCells.xml; sourceTree = "<group>"; };
+		782AE6D61A74B89900FF4225 /* levels.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = levels.xml; sourceTree = "<group>"; };
 		782AE6D71A74B89900FF4225 /* levelCells.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = levelCells.xml; sourceTree = "<group>"; };
 		782AE6DA1A74B89900FF4225 /* button.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = button.ai; sourceTree = "<group>"; };
 		782AE6DB1A74B89900FF4225 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
@@ -414,6 +394,8 @@
 		785A53E11A9597A400ED2E37 /* rock3_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock3_decoration.png; sourceTree = "<group>"; };
 		7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menulogo1x.png; sourceTree = "<group>"; };
 		7883AE3E1A8EEC24006A94A4 /* menulogohalfx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menulogohalfx.png; sourceTree = "<group>"; };
+		788563C31A96D95C00F49980 /* level02.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level02.xml; sourceTree = "<group>"; };
+		788563C41A96D95C00F49980 /* newnewLevel.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = newnewLevel.xml; sourceTree = "<group>"; };
 		788788021A7333A9002987B7 /* GameDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataManager.h; sourceTree = "<group>"; };
 		788788031A7333A9002987B7 /* GameDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataManager.m; sourceTree = "<group>"; };
 		78B5668E1A7C703E00011E86 /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terrain.h; sourceTree = "<group>"; };
@@ -428,8 +410,6 @@
 		78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Regular.ttf"; sourceTree = "<group>"; };
 		78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuControllerViewController.h; sourceTree = "<group>"; };
 		78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuControllerViewController.m; sourceTree = "<group>"; };
-		78CCA2FD1A8D93EF0046C988 /* MainMenuScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuScene.h; sourceTree = "<group>"; };
-		78CCA2FE1A8D93EF0046C988 /* MainMenuScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuScene.m; sourceTree = "<group>"; };
 		78D4142D1A957E9C00618227 /* gametrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gametrack.mp3; sourceTree = "<group>"; };
 		78F932261A8854CB007947DD /* african_textile_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = african_textile_1.jpg; sourceTree = "<group>"; };
 		78F932271A8854CB007947DD /* african_textile_2_terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = african_textile_2_terrain.png; sourceTree = "<group>"; };
@@ -511,7 +491,6 @@
 				78A3ECEE1A6F4644007FC498 /* gameplay */,
 				78A3ECEC1A6F45F2007FC498 /* game objects */,
 				78A3ECEF1A6F465C007FC498 /* scenes */,
-				78A3ECED1A6F462A007FC498 /* view cells */,
 				6509D2C51A5E290300F1BBA6 /* brushes */,
 				659B21DF1A5E1C1300885C04 /* Images.xcassets */,
 				6509D2CB1A5E290300F1BBA6 /* AppDelegate.h */,
@@ -559,6 +538,7 @@
 		782AE6C71A74B89900FF4225 /* formatted game assets (zack's folder) */ = {
 			isa = PBXGroup;
 			children = (
+				788563C21A96D95C00F49980 /* level files */,
 				78D4142C1A957E9C00618227 /* music */,
 				78C0F8A71A92D47500382159 /* fonts */,
 				7808A95D1A75D17200544C78 /* brush textures */,
@@ -581,7 +561,7 @@
 		782AE6D51A74B89900FF4225 /* screen data */ = {
 			isa = PBXGroup;
 			children = (
-				782AE6D61A74B89900FF4225 /* chapterCells.xml */,
+				782AE6D61A74B89900FF4225 /* levels.xml */,
 				782AE6D71A74B89900FF4225 /* levelCells.xml */,
 			);
 			path = "screen data";
@@ -815,19 +795,18 @@
 			path = rock;
 			sourceTree = "<group>";
 		};
+		788563C21A96D95C00F49980 /* level files */ = {
+			isa = PBXGroup;
+			children = (
+				788563C31A96D95C00F49980 /* level02.xml */,
+				788563C41A96D95C00F49980 /* newnewLevel.xml */,
+			);
+			path = "level files";
+			sourceTree = "<group>";
+		};
 		78A3ECEA1A6F4597007FC498 /* view controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6509D2941A5E290300F1BBA6 /* CustomNavigationController.h */,
-				6509D2931A5E290300F1BBA6 /* CustomNavigationController.m */,
-				6509D2C01A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.h */,
-				6509D2911A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m */,
-				6509D2A31A5E290300F1BBA6 /* LevelSelectionCollectionViewController.h */,
-				6509D2A11A5E290300F1BBA6 /* LevelSelectionCollectionViewController.m */,
-				6509D2A21A5E290300F1BBA6 /* GameViewController.h */,
-				6509D2921A5E290300F1BBA6 /* GameViewController.m */,
-				78CCA2FD1A8D93EF0046C988 /* MainMenuScene.h */,
-				78CCA2FE1A8D93EF0046C988 /* MainMenuScene.m */,
 				78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */,
 				78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */,
 			);
@@ -837,10 +816,8 @@
 		78A3ECEB1A6F45B9007FC498 /* game streaming */ = {
 			isa = PBXGroup;
 			children = (
-				6509D2A81A5E290300F1BBA6 /* ChapterCellParser.h */,
-				6509D2A61A5E290300F1BBA6 /* ChapterCellParser.m */,
-				6509D2A91A5E290300F1BBA6 /* LevelCellParser.h */,
-				6509D2A71A5E290300F1BBA6 /* LevelCellParser.m */,
+				6509D2A81A5E290300F1BBA6 /* LevelParser.h */,
+				6509D2A61A5E290300F1BBA6 /* LevelParser.m */,
 				788788021A7333A9002987B7 /* GameDataManager.h */,
 				788788031A7333A9002987B7 /* GameDataManager.m */,
 				6509D2C31A5E290300F1BBA6 /* ChunkLoader.h */,
@@ -862,17 +839,6 @@
 				6509D2CA1A5E290300F1BBA6 /* Line.m */,
 			);
 			name = "game objects";
-			sourceTree = "<group>";
-		};
-		78A3ECED1A6F462A007FC498 /* view cells */ = {
-			isa = PBXGroup;
-			children = (
-				6509D2A41A5E290300F1BBA6 /* LevelCollectionViewCell.h */,
-				6509D2A51A5E290300F1BBA6 /* LevelCollectionViewCell.m */,
-				6509D2C11A5E290300F1BBA6 /* ChapterCollectionViewCell.h */,
-				6509D2C21A5E290300F1BBA6 /* ChapterCollectionViewCell.m */,
-			);
-			name = "view cells";
 			sourceTree = "<group>";
 		};
 		78A3ECEE1A6F4644007FC498 /* gameplay */ = {
@@ -1202,14 +1168,16 @@
 				782AE7821A74B89900FF4225 /* cloud4_decoration.png in Resources */,
 				782AE7CD1A74B89900FF4225 /* night_decoration.png in Resources */,
 				782AE7A31A74B89900FF4225 /* circlemask_obstacle.png in Resources */,
+				788563C51A96D95C00F49980 /* level02.xml in Resources */,
 				78383FBF1A8B099F00712BFD /* opticalillusion.ai in Resources */,
 				782AE7891A74B89900FF4225 /* cloudopaque_decoration.png in Resources */,
 				78FFBC821A8EAC9500996198 /* purpleglass.png in Resources */,
 				782AE7A81A74B89900FF4225 /* obstacle2.ai in Resources */,
 				785A53E61A9597A400ED2E37 /* rock3.ai in Resources */,
+				788563C61A96D95C00F49980 /* newnewLevel.xml in Resources */,
 				78F9322F1A8854CB007947DD /* dirt1_terrain.png in Resources */,
 				782AE7DE1A74B89900FF4225 /* redtree4.ai in Resources */,
-				782AE76A1A74B89900FF4225 /* chapterCells.xml in Resources */,
+				782AE76A1A74B89900FF4225 /* levels.xml in Resources */,
 				785A53E71A9597A400ED2E37 /* rock3_decoration.png in Resources */,
 				782AE78F1A74B89900FF4225 /* cloudred3_decoration.png in Resources */,
 			);
@@ -1232,27 +1200,19 @@
 				6509D2D61A5E290300F1BBA6 /* AppDelegate.m in Sources */,
 				6509D2D31A5E290300F1BBA6 /* ChunkLoader.m in Sources */,
 				78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */,
-				6509D2DA1A5E290300F1BBA6 /* LevelCellParser.m in Sources */,
 				788788041A7333A9002987B7 /* GameDataManager.m in Sources */,
 				659B21D01A5E1C1300885C04 /* main.m in Sources */,
-				6509D2CE1A5E290300F1BBA6 /* GameViewController.m in Sources */,
 				6509D2ED1A5E290300F1BBA6 /* Line.m in Sources */,
 				6509D2DD1A5E290300F1BBA6 /* LoadingScene.m in Sources */,
-				6509D2E81A5E290300F1BBA6 /* ChapterCollectionViewCell.m in Sources */,
 				6509D2D01A5E290300F1BBA6 /* GameScene.m in Sources */,
-				6509D2D81A5E290300F1BBA6 /* LevelCollectionViewCell.m in Sources */,
 				7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */,
-				6509D2CF1A5E290300F1BBA6 /* CustomNavigationController.m in Sources */,
 				6509D2D51A5E290300F1BBA6 /* Constants.m in Sources */,
 				6509D2D21A5E290300F1BBA6 /* Obstacle.m in Sources */,
-				6509D2D71A5E290300F1BBA6 /* LevelSelectionCollectionViewController.m in Sources */,
 				6509D2D11A5E290300F1BBA6 /* ButsuLiKi.m in Sources */,
 				6509D2D41A5E290300F1BBA6 /* Player.m in Sources */,
 				78B986AF1A746CAF00C4EA18 /* Score.m in Sources */,
-				6509D2D91A5E290300F1BBA6 /* ChapterCellParser.m in Sources */,
-				78CCA2FF1A8D93EF0046C988 /* MainMenuScene.m in Sources */,
+				6509D2D91A5E290300F1BBA6 /* LevelParser.m in Sources */,
 				78B986B21A74827B00C4EA18 /* Coin.m in Sources */,
-				6509D2CD1A5E290300F1BBA6 /* ChapterSelectionCollectionViewController.m in Sources */,
 				78B566901A7C703E00011E86 /* Terrain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

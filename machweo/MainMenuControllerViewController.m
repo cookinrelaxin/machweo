@@ -7,7 +7,6 @@
 //
 
 #import "MainMenuControllerViewController.h"
-#import "MainMenuScene.h"
 #import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h>
 #import "GameScene.h"
@@ -175,6 +174,7 @@
 
 }
 
+
 -(void)setUpObservers{
     //__weak MainMenuControllerViewController *weakSelf = self;
     
@@ -262,7 +262,10 @@
 
    // __weak GameViewController *weakSelf = self;
    // dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-    GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) forLevel:@"level02" withinView:_gameSceneView];
+    Constants* constants = [Constants sharedInstance];
+    NSString* levelName = [constants.LEVEL_ARRAY objectAtIndex:constants.CURRENT_INDEX_IN_LEVEL_ARRAY];
+    //NSLog(@"levelName: %@", levelName);
+    GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) forLevel:levelName withinView:_gameSceneView];
     [_gameSceneView presentScene: newScene];
        // newScene.backgroundColor = [UIColor lightGrayColor];
        // newScene.scaleMode = SKSceneScaleModeResizeFill;

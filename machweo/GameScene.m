@@ -13,6 +13,9 @@
 #import "ChunkLoader.h"
 #import "Score.h"
 #import <AVFoundation/AVFoundation.h>
+int Y_THRESHOLD_FOR_SWITCH_LEVEL = 40;
+int ALLOWABLE_X_DIFFERENCE = 10;
+
 @implementation GameScene{
     Player *player;
     CGPoint previousPoint;
@@ -31,10 +34,15 @@
     BOOL restartGameNotificationSent;
     BOOL gameOver;
     
+    BOOL in_game;
+    
     SKLabelNode* logoLabel;
     SKSpriteNode* sunNode;
     
     AVAudioPlayer* backgroundMusicPlayer;
+    
+    CGPoint initialTouchPoint;
+    
     
     
 }
@@ -74,7 +82,6 @@
         SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:3];
         [logoLabel runAction:logoFadeIn];
 
-        
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
         terrainPool = [NSMutableArray array];
         [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
@@ -99,6 +106,28 @@
 -(void)performSunset{
     SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2))  duration:3.0f];
     [sunNode runAction:sunsetAction];
+}
+
+-(void)loadPreviousLevel{
+    //NSLog(@"loadPreviousLevel");
+    Constants* constants = [Constants sharedInstance];
+    NSMutableArray* levelArray = constants.LEVEL_ARRAY;
+    int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY - 1;
+    if ((newIndex >= 0) && (newIndex < levelArray.count)) {
+        constants.CURRENT_INDEX_IN_LEVEL_ARRAY --;
+        [self winGame];
+    }
+}
+
+-(void)loadNextLevel{
+    //NSLog(@"loadNextLevel");
+    Constants* constants = [Constants sharedInstance];
+    NSMutableArray* levelArray = constants.LEVEL_ARRAY;
+    int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
+    if ((newIndex >= 0) && (newIndex < levelArray.count)) {
+        constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
+        [self winGame];
+    }
 }
 
 -(void)startMusic{
@@ -145,51 +174,62 @@
     player.touchesEnded = false;
     UITouch* touch = [touches anyObject];
     CGPoint positionInSelf = [touch locationInNode:self];
-    previousPoint = currentPoint = positionInSelf;
+    previousPoint = currentPoint = initialTouchPoint = positionInSelf;
     
-    Line *currentLine = [arrayOfLines lastObject];
-    for (Terrain* ter in currentLine.terrainArray) {
-        //NSLog(@"ter.color: %@", ter.color);
-        //
-        for (SKSpriteNode* deco in ter.decos) {
+    if (player) {
+        Line *currentLine = [arrayOfLines lastObject];
+        for (Terrain* ter in currentLine.terrainArray) {
+            //NSLog(@"ter.color: %@", ter.color);
+            //
+            for (SKSpriteNode* deco in ter.decos) {
+                SKAction *fadeAction = [SKAction fadeAlphaTo:0.75f duration:1];
+                [deco runAction:fadeAction];
+            }
+            
             SKAction *fadeAction = [SKAction fadeAlphaTo:0.75f duration:1];
-            [deco runAction:fadeAction];
+            [ter runAction:fadeAction];
         }
-        
-        SKAction *fadeAction = [SKAction fadeAlphaTo:0.75f duration:1];
-        [ter runAction:fadeAction];
+        Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
+        [arrayOfLines addObject:newLine];
     }
     
-    Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
-    [arrayOfLines addObject:newLine];
-
     
-    if (!player) {
-        [self createPlayer];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"dismiss logo" object:nil];
-    }
     
 }
-
-//-(void)handleButtonPressesAtPoint:(CGPoint)point{
-//    if (CGRectContainsPoint(restartButton.frame, point) ) {
-//        [restartButton removeFromParent];
-//        [self restartGame];
-//    }
-//    if (CGRectContainsPoint(returnToMenuButton.frame, point) ) {
-//        [returnToMenuButton removeFromParent];
-//        //[self calculateScoreAndExit];
-//    }
-//}
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
     UITouch* touch = [touches anyObject];
-    currentPoint = [touch locationInNode:self];
+    CGPoint locInSelf = [touch locationInNode:self];
+    
+    if (!in_game) {
+        float y_difference = locInSelf.y - initialTouchPoint.y;
+        float absolute_x_difference = fabs(locInSelf.x - initialTouchPoint.x);
+        
+        if (absolute_x_difference < ALLOWABLE_X_DIFFERENCE) {
+            if (y_difference > Y_THRESHOLD_FOR_SWITCH_LEVEL) {
+                [self loadNextLevel];
+            }
+            if (y_difference < -Y_THRESHOLD_FOR_SWITCH_LEVEL) {
+                [self loadPreviousLevel];
+            }
+        }
+    }
+
+    
+    currentPoint = locInSelf;
+
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (!player && !gameOver) {
+        [self createPlayer];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"dismiss logo" object:nil];
+        in_game = true;
+        return;
+    }
+    
     Line *currentLine = [arrayOfLines lastObject];
     for (Terrain* ter in currentLine.terrainArray) {
         [ter correctSpriteZsBeforeVertex:currentPoint againstSlope:NO];
@@ -398,7 +438,7 @@
         [self createLineNode];
     }
     [self tellObstaclesToMove];
-    //[self checkForWonGame];
+    [self checkForWonGame];
     [self checkForLostGame];
     if (player && !gameOver) {
         [self centerCameraOnPlayer];
@@ -438,11 +478,11 @@
    // self.view.paused = true;
 }
 //
-//-(void)checkForWonGame{
-//    if (player.position.x > self.size.width + player.size.width / 2) {
-//        [self winGame];
-//    }
-//}
+-(void)checkForWonGame{
+    if (player.position.x > self.size.width + player.size.width / 2) {
+        [self loadNextLevel];
+    }
+}
 
 -(void)tellObstaclesToMove{
     for (Obstacle* obs in _obstacles.children) {
@@ -450,23 +490,15 @@
     }
 }
 
-//-(void)winGame{
-//    
-//    self.view.paused = true;
-//    
-//    returnToMenuButton = [SKLabelNode labelNodeWithText:@"you win! return to menu?"];
-//    returnToMenuButton.fontSize = _constants.RETURN_TO_MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
-//    returnToMenuButton.fontName = _constants.RETURN_TO_MENU_LABEL_FONT_NAME;
-//    returnToMenuButton.fontColor = _constants.RETURN_TO_MENU_LABEL_FONT_COLOR;
-//    //returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame) * _constants.SCALE_COEFFICIENT.dx, CGRectGetMidY(self.frame) * _constants.SCALE_COEFFICIENT.dy);
-//    returnToMenuButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-//    returnToMenuButton.zPosition = _constants.HUD_Z_POSITION;
-//    [self addChild:returnToMenuButton];
-//    restartButton.hidden = true;
-//    gameWon = true;
-//    
-//}
-
+-(void)winGame{
+    gameOver = true;
+    [self performSunset];
+    [self fadeVolumeOut];
+    if (!restartGameNotificationSent) {
+        restartGameNotificationSent = true;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
+    }
+}
 
 -(void)restartGame{
     self.view.paused = false;

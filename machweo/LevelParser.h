@@ -1,14 +1,14 @@
 //
-//  LevelCellParser.h
+//  CellParser.h
 //  tgrrn
 //
-//  Created by John Feldcamp on 1/6/15.
+//  Created by John Feldcamp on 1/5/15.
 //  Copyright (c) 2015 Feldcamp, Zachary Satoshi. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
-@interface LevelCellParser : NSObject <NSXMLParserDelegate>
+@interface LevelParser : NSObject <NSXMLParserDelegate>
+@property (nonatomic, strong) NSMutableArray* levels;
 -(instancetype)prepopulateLevelCells;
 @end

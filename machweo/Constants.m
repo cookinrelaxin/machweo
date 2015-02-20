@@ -29,17 +29,10 @@ int midpoint(int n1, int n2)
     //NSLog(@"screenSize: %f, %f", screenSize.width, screenSize.height);
     
     _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 768);
-    //_IDEAL_SCREEN_SIZE = CGSizeMake(3000, 2000);
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
     _PLAYER_SIZE = 30;
-//    _OBSTACLE_Z_POSITION = 100;
-//    _PLAYER_Z_POSITION = _OBSTACLE_Z_POSITION + 1;
-//    _LINE_Z_POSITION = _PLAYER_Z_POSITION + 1;
-//    _HUD_Z_POSITION = _LINE_Z_POSITION + 1;
-//    _BRUSH_FRACTION_OF_PLAYER_SIZE = 1;
     
     _PLAYER_Z_POSITION = 100;
-    //_LINE_Z_POSITION = _PLAYER_Z_POSITION + 1;
     _FOREGROUND_Z_POSITION = _PLAYER_Z_POSITION + 1;
     _OBSTACLE_Z_POSITION = _FOREGROUND_Z_POSITION + 1;
     _HUD_Z_POSITION = _OBSTACLE_Z_POSITION + 1;
@@ -86,7 +79,8 @@ int midpoint(int n1, int n2)
 
     _GRAVITY = .30;
     
-    //_DEFAULT_COIN_VALUE = 5;
+    _CURRENT_INDEX_IN_LEVEL_ARRAY = 0;
+    
 
     return self;
 }

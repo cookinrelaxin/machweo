@@ -9,14 +9,17 @@
 #import "AppDelegate.h"
 #import "Constants.h"
 #import "GameDataManager.h"
+#import "LevelParser.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [Constants sharedInstance];
-    [[GameDataManager sharedInstance] loadGameData];
+    LevelParser* parser = [[LevelParser alloc] prepopulateLevelCells];
+    [Constants sharedInstance].LEVEL_ARRAY = parser.levels;
+    //NSLog(@"[Constants sharedInstance].LEVEL_ARRAY: %@", [Constants sharedInstance].LEVEL_ARRAY);
     
+    //[[GameDataManager sharedInstance] loadGameData];
     return YES;
 }
 

@@ -68,6 +68,9 @@ extern int midpoint(int n1, int n2);
 @property(readonly, nonatomic) int PLAYER_HIT_CATEGORY;
 @property(readonly, nonatomic) int OBSTACLE_HIT_CATEGORY;
 
+@property(nonatomic) NSMutableArray* LEVEL_ARRAY;
+@property(nonatomic) int CURRENT_INDEX_IN_LEVEL_ARRAY;
+
 //@property(readonly, nonatomic) int DEFAULT_COIN_VALUE;
 
 
