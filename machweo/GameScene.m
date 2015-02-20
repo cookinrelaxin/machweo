@@ -134,6 +134,10 @@
         backgroundMusicPlayer.volume = backgroundMusicPlayer.volume - 0.0005;
         [self performSelector:@selector(fadeVolumeOut) withObject:nil afterDelay:0.1];
     }
+    else{
+        //NSLog(@"nullify the background music");
+        backgroundMusicPlayer = nil;
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -217,13 +221,19 @@
     Line *currentLine = [arrayOfLines lastObject];
     NSMutableArray *currentPointArray = currentLine.nodeArray;
     
-    for (int i = (int)currentPointArray.count - 1; (i >= 0) && (i > currentPointArray.count - 1 - 5); i --) {
-        NSValue* node = [currentPointArray objectAtIndex:i];
-        float nodeXPos = [node CGPointValue].x;
-        if (currentPoint.x < nodeXPos) {
-            return;
-        }
+//    for (int i = (int)currentPointArray.count - 1; (i >= 0) && (i > currentPointArray.count - 1 - 5); i --) {
+//        NSValue* node = [currentPointArray objectAtIndex:i];
+//        float nodeXPos = [node CGPointValue].x;
+//        if (currentPoint.x < nodeXPos) {
+//            return;
+//        }
+//    }
+    CGPoint lastPoint = [(NSValue*)[currentPointArray lastObject] CGPointValue];
+    if (lastPoint.x > currentPoint.x) {
+        return;
     }
+    
+    
     
     if (currentPointArray.count == 0) {
         

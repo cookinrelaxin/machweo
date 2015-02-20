@@ -33,7 +33,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
         NSMutableArray *pointArray = line.nodeArray;
         if (pointArray.count < 2) {
             //continue;
-            return ;
+            continue;
         }
         
         int leftPointIndex = [self binarySearchForFlankingPoints:pointArray withPoint:player.position from:0 to:(int)pointArray.count - 1 forPlayerSize:player.size];
@@ -54,7 +54,6 @@ const float OFFLINE_ROTATION_SPEED = .02f;
             BOOL playerIntersects = [self playerIntersectsLineSegment:player :leftPoint :rightPoint];
 
             if (playerIntersects) {
-                
                 if (!line.belowPlayer) {
                     if (!line.belowPlayer && ((leftPoint.y < player.yCoordinateOfBottomSide) && (rightPoint.y < player.yCoordinateOfBottomSide))) {
                         line.belowPlayer = true;
