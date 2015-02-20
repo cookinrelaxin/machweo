@@ -153,6 +153,10 @@
 		782AE7E61A74B89900FF4225 /* tree4.ai in Resources */ = {isa = PBXBuildFile; fileRef = 782AE75B1A74B89900FF4225 /* tree4.ai */; };
 		782AE7E71A74B89900FF4225 /* tree4_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE75C1A74B89900FF4225 /* tree4_decoration.png */; };
 		782AE7E81A74B89900FF4225 /* tree_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE75D1A74B89900FF4225 /* tree_decoration.png */; };
+		78344E441A97E39C00F9A5DF /* purpletree_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E421A97E39C00F9A5DF /* purpletree_decoration.png */; };
+		78344E451A97E39C00F9A5DF /* purpletree2_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E431A97E39C00F9A5DF /* purpletree2_decoration.png */; };
+		78344E511A97E9F700F9A5DF /* kilimanjaro_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E501A97E9F700F9A5DF /* kilimanjaro_decoration.png */; };
+		78344E531A97EA2200F9A5DF /* level03.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78344E521A97EA2200F9A5DF /* level03.xml */; };
 		78383FB11A8AF0F700712BFD /* ghosttreemudafucka_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB01A8AF0F700712BFD /* ghosttreemudafucka_decoration.png */; };
 		78383FBA1A8B099F00712BFD /* dirtmcgirt.ai in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB31A8B099F00712BFD /* dirtmcgirt.ai */; };
 		78383FBB1A8B099F00712BFD /* dirtmcgirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB41A8B099F00712BFD /* dirtmcgirt.png */; };
@@ -374,6 +378,10 @@
 		782AE75B1A74B89900FF4225 /* tree4.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = tree4.ai; sourceTree = "<group>"; };
 		782AE75C1A74B89900FF4225 /* tree4_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree4_decoration.png; sourceTree = "<group>"; };
 		782AE75D1A74B89900FF4225 /* tree_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tree_decoration.png; sourceTree = "<group>"; };
+		78344E421A97E39C00F9A5DF /* purpletree_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpletree_decoration.png; sourceTree = "<group>"; };
+		78344E431A97E39C00F9A5DF /* purpletree2_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpletree2_decoration.png; sourceTree = "<group>"; };
+		78344E501A97E9F700F9A5DF /* kilimanjaro_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilimanjaro_decoration.png; sourceTree = "<group>"; };
+		78344E521A97EA2200F9A5DF /* level03.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = level03.xml; sourceTree = "<group>"; };
 		78383FB01A8AF0F700712BFD /* ghosttreemudafucka_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ghosttreemudafucka_decoration.png; sourceTree = "<group>"; };
 		78383FB31A8B099F00712BFD /* dirtmcgirt.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dirtmcgirt.ai; sourceTree = "<group>"; };
 		78383FB41A8B099F00712BFD /* dirtmcgirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dirtmcgirt.png; sourceTree = "<group>"; };
@@ -646,6 +654,7 @@
 				782AE70C1A74B89900FF4225 /* mountain.ai */,
 				782AE70D1A74B89900FF4225 /* mountain2.ai */,
 				782AE70E1A74B89900FF4225 /* mountain2.png */,
+				78344E501A97E9F700F9A5DF /* kilimanjaro_decoration.png */,
 				782AE70F1A74B89900FF4225 /* mountain2_decoration.png */,
 				782AE7101A74B89900FF4225 /* mountain3_decoration.ai */,
 				782AE7111A74B89900FF4225 /* mountain3_decoration.png */,
@@ -749,6 +758,8 @@
 				782AE75A1A74B89900FF4225 /* tree3_decoration.png */,
 				782AE75B1A74B89900FF4225 /* tree4.ai */,
 				782AE75C1A74B89900FF4225 /* tree4_decoration.png */,
+				78344E421A97E39C00F9A5DF /* purpletree_decoration.png */,
+				78344E431A97E39C00F9A5DF /* purpletree2_decoration.png */,
 				78383FB01A8AF0F700712BFD /* ghosttreemudafucka_decoration.png */,
 			);
 			path = trees;
@@ -785,6 +796,7 @@
 			isa = PBXGroup;
 			children = (
 				788563C31A96D95C00F49980 /* level02.xml */,
+				78344E521A97EA2200F9A5DF /* level03.xml */,
 				788563C41A96D95C00F49980 /* newnewLevel.xml */,
 			);
 			path = "level files";
@@ -1049,6 +1061,7 @@
 				6509D2EA1A5E290300F1BBA6 /* fatbrush.png in Resources */,
 				782AE7771A74B89900FF4225 /* cloud2opaque.png in Resources */,
 				6509D2EB1A5E290300F1BBA6 /* mediumbrush.png in Resources */,
+				78344E531A97EA2200F9A5DF /* level03.xml in Resources */,
 				782AE79D1A74B89900FF4225 /* mountain2.png in Resources */,
 				782AE7E71A74B89900FF4225 /* tree4_decoration.png in Resources */,
 				78FFBC7E1A8EAC9500996198 /* leaderboard_button_not_clicked.png in Resources */,
@@ -1091,6 +1104,7 @@
 				782AE7B21A74B89900FF4225 /* totem.ai in Resources */,
 				782AE7801A74B89900FF4225 /* cloud4.ai in Resources */,
 				782AE7C01A74B89900FF4225 /* day5.ai in Resources */,
+				78344E441A97E39C00F9A5DF /* purpletree_decoration.png in Resources */,
 				782AE7C71A74B89900FF4225 /* dusk1_decoration.png in Resources */,
 				782AE7881A74B89900FF4225 /* cloudopaque4_decoration.png in Resources */,
 				782AE78B1A74B89900FF4225 /* cloudred1_decoration.png in Resources */,
@@ -1122,6 +1136,7 @@
 				782AE7B11A74B89900FF4225 /* square_obstacle.png in Resources */,
 				782AE7A51A74B89900FF4225 /* hexagon_obstacle.png in Resources */,
 				6509D2EC1A5E290300F1BBA6 /* smallbrush.png in Resources */,
+				78344E511A97E9F700F9A5DF /* kilimanjaro_decoration.png in Resources */,
 				782AE7D11A74B89900FF4225 /* nightstars_decoration.png in Resources */,
 				782AE79F1A74B89900FF4225 /* mountain3_decoration.ai in Resources */,
 				785A53E41A9597A400ED2E37 /* rock2.ai in Resources */,
@@ -1137,6 +1152,7 @@
 				78FFBC861A8EAC9500996198 /* unlockables_button_clicked.png in Resources */,
 				782AE7BE1A74B89900FF4225 /* day3.ai in Resources */,
 				78FFBC7B1A8EAC9500996198 /* highscores_button_clicked.png in Resources */,
+				78344E451A97E39C00F9A5DF /* purpletree2_decoration.png in Resources */,
 				782AE79B1A74B89900FF4225 /* mountain.ai in Resources */,
 				78C0F8AC1A92D47500382159 /* Skranji-Bold.ttf in Resources */,
 				782AE7C51A74B89900FF4225 /* dayog_decoration.png in Resources */,
