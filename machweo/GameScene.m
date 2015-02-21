@@ -80,13 +80,13 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         [self addChild:logoLabel];
         //SKAction* logoFadeIn = [SKAction fadeInWithDuration:1];
         logoLabel.alpha = 0.0f;
-        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:2];
+        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
         [logoLabel runAction:logoFadeIn completion:^{
-            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:1];
+            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
             [logoLabel runAction:logoFadeOut completion:^{
-                NSLog(@"fade in again");
+                //NSLog(@"fade in again");
                 logoLabel.text = levelName;
-                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:2];
+                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
                 [logoLabel runAction:logoFadeInAgain];
             }];
         }];
@@ -108,22 +108,23 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
     sunNode.zPosition = 1;
     sunNode.position = CGPointMake(self.position.x + self.size.width / 2, 0 - (sunNode.size.height / 2));
-    SKAction* sunriseAction = [SKAction moveToY:(self.size.height - (sunNode.size.height / 2))  duration:3.0f];
+    SKAction* sunriseAction = [SKAction moveToY:(self.size.height - (sunNode.size.height / 2))  duration:1.0f];
     [sunNode runAction:sunriseAction];
 }
 
 -(void)performSunset{
-    SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2))  duration:3.0f];
+    SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2))  duration:1.0f];
     [sunNode runAction:sunsetAction];
 }
 
 -(void)loadPreviousLevel{
+    
     Constants* constants = [Constants sharedInstance];
     NSMutableArray* levelArray = constants.LEVEL_ARRAY;
     int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY - 1;
     if ((newIndex >= 0) && (newIndex < levelArray.count)) {
         constants.CURRENT_INDEX_IN_LEVEL_ARRAY --;
-        NSLog(@"loadPreviousLevel");
+        //NSLog(@"loadPreviousLevel");
         [self winGame];
     }
 }
@@ -134,7 +135,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
     if ((newIndex >= 0) && (newIndex < levelArray.count)) {
         constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
-        NSLog(@"loadNextLevel");
+        //NSLog(@"loadNextLevel");
         [self winGame];
     }
 }
@@ -219,11 +220,11 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         if (!gameOver) {
             if (absolute_x_difference < ALLOWABLE_X_DIFFERENCE) {
                 if (y_difference > Y_THRESHOLD_FOR_SWITCH_LEVEL) {
-                    gameOver = true;
+                    //gameOver = true;
                     [self loadNextLevel];
                 }
                 if (y_difference < -Y_THRESHOLD_FOR_SWITCH_LEVEL) {
-                    gameOver = true;
+                    //gameOver = true;
                     [self loadPreviousLevel];
                 }
             }

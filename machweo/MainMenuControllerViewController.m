@@ -131,7 +131,7 @@
     CABasicAnimation *lightUp = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
     lightUp.fromValue = (id)[[UIColor blackColor] CGColor];
     lightUp.toValue = (id)[[UIColor clearColor] CGColor];
-    lightUp.duration = 4.0f;
+    lightUp.duration = 2.0f;
     [_logoView.layer addAnimation:lightUp forKey:@"backgroundColor"];
 
 }
@@ -219,7 +219,7 @@
              CABasicAnimation *darken = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
              darken.fromValue = (id)[[UIColor clearColor] CGColor];
              darken.toValue = (id)[[UIColor blackColor] CGColor];
-             darken.duration = 3.0f;
+             darken.duration = 1.0f;
              [_logoView.layer addAnimation:darken forKey:@"backgroundColor"];
              
              
@@ -257,7 +257,7 @@
     _gameSceneView.ignoresSiblingOrder = YES;
     Constants* constants = [Constants sharedInstance];
     NSString* levelName = [constants.LEVEL_ARRAY objectAtIndex:constants.CURRENT_INDEX_IN_LEVEL_ARRAY];
-    NSLog(@"levelName: %@", levelName);
+    //NSLog(@"levelName: %@", levelName);
     GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) forLevel:levelName withinView:_gameSceneView];
     [_gameSceneView presentScene: newScene];
 }
