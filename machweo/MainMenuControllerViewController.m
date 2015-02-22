@@ -19,6 +19,7 @@
 @implementation MainMenuControllerViewController{
     BOOL gameLoaded;
     BOOL observersLoaded;
+    PopupView* currentPopup;
 }
 
 - (void) setupLogo
@@ -172,34 +173,6 @@
     //[self drawPath];
 
     [self setUpObservers];
-    
-    NSLog(@"making game view");
-    float popupViewWidth = 200;
-    float popupViewHeight = 100;
-
-
-    PopupView *v = [[PopupView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.bounds) - (popupViewWidth / 2), CGRectGetMidY(self.view.bounds), popupViewWidth, popupViewHeight)];
-    [UIView animateWithDuration:0.5
-         animations:^{
-             //CGRect frame = v.frame;
-             
-             //frame.size.height += 90.0;
-             //frame.size.width += 30.0;
-             //v.frame = frame;
-             v.frame = CGRectMake(v.frame.origin.x, v.frame.origin.y, v.desiredFrameSize.width, v.desiredFrameSize.height + 2);
-         }
-         completion:^(BOOL finished){
-             v.frame = CGRectMake(v.frame.origin.x, v.frame.origin.y, v.desiredFrameSize.width, v.desiredFrameSize.height);
-             v.textLabel.hidden = false;
-             // whatever you need to do when animations are complete
-             
-    }];
-
-    
-    [self.view addSubview:v];
-    //[super viewDidLoad];
-    
-
 }
 
 
@@ -213,15 +186,7 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
-         //dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^(void){
-             //_logoView.layer.opacity = 0;
             _logoAnimationLayer.opacity = 0;
-//             CABasicAnimation *opacityAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-//             opacityAnimation.duration = 1.0f;
-//             opacityAnimation.fromValue = [NSNumber numberWithFloat:1.0f];
-//             opacityAnimation.toValue = [NSNumber numberWithFloat:0.0f];
-//             [_logoAnimationLayer addAnimation:opacityAnimation forKey:@"opacity"];
-        // });
         
      }];
     
@@ -253,9 +218,59 @@
              
          } [CATransaction commit];
      }];
-
-
     
+    [center addObserverForName:@"add popup"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         NSString* text = [notification.userInfo objectForKey:@"popup text"];
+         CGPoint position = ((NSValue*)[notification.userInfo objectForKey:@"popup position"]).CGPointValue;
+         
+         float popupViewWidth = 200;
+         float popupViewHeight = 100;
+         
+         currentPopup = [[PopupView alloc] initWithFrame:CGRectMake(position.x - (popupViewWidth / 2), position.y, popupViewWidth, popupViewHeight)];
+         [UIView animateWithDuration:0.5
+              animations:^{
+                  //CGRect frame = v.frame;
+                  
+                  //frame.size.height += 90.0;
+                  //frame.size.width += 30.0;
+                  //v.frame = frame;
+                  currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height + 2);
+              }
+              completion:^(BOOL finished){
+                  currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height);
+                  currentPopup.textLabel.text = text;
+                  //v.textLabel.font =
+                  currentPopup.textLabel.hidden = false;
+                  // whatever you need to do when animations are complete
+                  
+            }];
+         
+         
+         [self.view addSubview:currentPopup];
+     }];
+    
+    [center addObserverForName:@"remove popup"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         [UIView animateWithDuration:0.5
+              animations:^{
+                  [currentPopup.textLabel removeFromSuperview];
+                  currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.frame.size.width, 0);
+              }
+              completion:^(BOOL finished){
+                  [currentPopup removeFromSuperview];
+                 
+         }];
+
+     }];
+    
+
 }
 
 

@@ -25,12 +25,13 @@ float strokeWidth = 3;
         self.backgroundColor = [UIColor clearColor];
         
         //UILabel *yourLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
-        _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + borderRadius, self.bounds.origin.y + borderRadius, self.desiredFrameSize.width - borderRadius, self.desiredFrameSize.height - borderRadius)];
+        _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + borderRadius, self.bounds.origin.y + borderRadius, self.desiredFrameSize.width - borderRadius - strokeWidth, self.desiredFrameSize.height - borderRadius - strokeWidth)];
 
         [_textLabel setTextColor:[UIColor blackColor]];
         [_textLabel setBackgroundColor:[UIColor clearColor]];
         [_textLabel setFont:[UIFont fontWithName: @"Trebuchet MS" size: 30.0f]];
         _textLabel.text = @"Hello!";
+        _textLabel.adjustsFontSizeToFitWidth = YES;
         _textLabel.textAlignment = NSTextAlignmentCenter;
 
         _textLabel.hidden = true;
@@ -49,8 +50,8 @@ float strokeWidth = 3;
     NSLog(@"draw rect");
     // Drawing code
     CGContextRef context = UIGraphicsGetCurrentContext();
-    CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
-    CGContextScaleCTM(context, 1.0f, -1.0f);
+    //CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
+    //CGContextScaleCTM(context, 1.0f, -1.0f);
     
     CGRect currentFrame = self.bounds;
     
@@ -87,27 +88,5 @@ float strokeWidth = 3;
     CGContextClip(context);
 
 }
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
-    [UIView animateWithDuration:0.5
-         animations:^{
-             [_textLabel removeFromSuperview];
-             //CGRect frame = v.frame;
-             
-             //frame.size.height += 90.0;
-             //frame.size.width += 30.0;
-             //v.frame = frame;
-             self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, 0);
-         }
-         completion:^(BOOL finished){
-             //v.frame = CGRectMake(v.frame.origin.x, v.frame.origin.y, v.desiredFrameSize.width, v.desiredFrameSize.height);
-             //v.textLabel.hidden = false;
-             [self removeFromSuperview];
-            
-    }];
-    
-}
-
-
 
 @end

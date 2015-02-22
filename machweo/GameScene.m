@@ -33,7 +33,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     BOOL gameWon;
     BOOL restartGameNotificationSent;
     BOOL gameOver;
-    
     BOOL in_game;
     
     SKLabelNode* logoLabel;
@@ -42,6 +41,10 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     AVAudioPlayer* backgroundMusicPlayer;
     
     CGPoint initialTouchPoint;
+    
+    BOOL tutorial_mode_on;
+    BOOL passed_first_obstacle;
+
     
     
     
@@ -92,6 +95,9 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         }];
 
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
+        if ([levelName isEqualToString:@"The Journey Begins"]) {
+            tutorial_mode_on = true;
+        }
         terrainPool = [NSMutableArray array];
         [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
         
@@ -202,6 +208,11 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         }
         Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
         [arrayOfLines addObject:newLine];
+        
+        if (tutorial_mode_on && self.view.paused) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"remove popup" object:nil];
+            self.view.paused = false;
+        }
     }
     
     
@@ -446,6 +457,12 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 //}
 
 -(void)update:(CFTimeInterval)currentTime {
+    if (tutorial_mode_on) {
+        
+        if (!passed_first_obstacle) {
+            [self tutorialCheckForFirstObstacle];
+        }
+    }
 
     [self checkForOldLines];
     [self deallocOldLines];
@@ -532,6 +549,28 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     }
 }
 
+-(void)tutorialCheckForFirstObstacle{
+    //NSLog(@"[_obstacles calculateAccumulatedFrame].origin.x: %f", [_obstacles calculateAccumulatedFrame].origin.x);
+    for (Obstacle* obs in _obstacles.children) {
+        CGPoint obsPositionInView = [self.view convertPoint:[self convertPoint:obs.position fromNode:_obstacles] fromScene:self];
+        //NSLog(@"obsPositionInView: %f, %f", obsPositionInView.x, obsPositionInView.y);
+        //NSLog(@"self.view.bounds.size.width: %f", self.view.bounds.size.width);
+
+        if (obsPositionInView.x < (self.view.bounds.size.width / 2)) {
+            passed_first_obstacle = true;
+            self.view.paused = true;
+            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+            [popupDict setValue:@"Avoid the masks!" forKey:@"popup text"];
+            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(obsPositionInView.x, obsPositionInView.y + 100)] forKey:@"popup position"];
+    
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+        }
+        
+    }
+
+
+}
+
 - (void)centerCameraOnPlayer {
     if (!stopScrolling) {
         currentDesiredPlayerPositionInView = CGPointMake(currentDesiredPlayerPositionInView.x, [self convertPointToView:player.position].y);
@@ -546,30 +585,19 @@ int ALLOWABLE_X_DIFFERENCE = 10;
                 CGPoint pointNodePosition = pointNode.CGPointValue;
                 [line.nodeArray replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - differenceInPreviousAndCurrentPlayerPositions.dx, pointNodePosition.y)]];
             }
-            
-           // float fractionalCoefficient = _constants.FOREGROUND_Z_POSITION / _constants.OBSTACLE_Z_POSITION;
-            // NSLog(@"fractionalCoefficient: %f", fractionalCoefficient);
-            //CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
-            //NSLog(@"parallaxAdjustedDifference.x: %f", parallaxAdjustedDifference.dx);
-            
+
             for (Terrain* ter in line.terrainArray) {
                 float fractionalCoefficient = ter.zPosition / _constants.OBSTACLE_Z_POSITION;
                 CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
                 ter.position = CGPointMake(ter.position.x - parallaxAdjustedDifference.dx, ter.position.y);
-//                for (int i = 0; i < ter.vertices.count; i ++) {
-//                    NSValue* pointNode = [ter.vertices objectAtIndex:i];
-//                    CGPoint pointNodePosition = pointNode.CGPointValue;
-//                    
-//                    CGPoint newPoint = CGPointMake(pointNodePosition.x - parallaxAdjustedDifference.dx, pointNodePosition.y);
-//                    
-//                    [ter.vertices replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:newPoint]];
-//                }
 //
             }
         }
         
         _obstacles.position = CGPointMake(_obstacles.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _obstacles.position.y);
-        //_terrain.position = CGPointMake(_terrain.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _terrain.position.y);
+        
+        //NSLog(@"[_obstacles calculateAccumulatedFrame].origin.x: %f", [_obstacles calculateAccumulatedFrame].origin.x);
+        //NSLog(@"self.size.width: %f", self.size.width);
         
         for (SKSpriteNode* deco in _decorations.children) {
             if ([deco.name isEqualToString:@"rightMostNode"]) {
@@ -580,7 +608,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
                 }
 
             }
-            //NSLog(@"deco.zPosition: %f", deco.zPosition);
             float fractionalCoefficient = deco.zPosition / _constants.OBSTACLE_Z_POSITION;
             CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
             deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y - parallaxAdjustedDifference.dy);
