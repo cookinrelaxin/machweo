@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreText/CoreText.h>
 #import "GameScene.h"
+#import "PopupView.h"
 
 @interface MainMenuControllerViewController ()
 
@@ -171,6 +172,33 @@
     //[self drawPath];
 
     [self setUpObservers];
+    
+    NSLog(@"making game view");
+    float popupViewWidth = 200;
+    float popupViewHeight = 100;
+
+
+    PopupView *v = [[PopupView alloc] initWithFrame:CGRectMake(CGRectGetMidX(self.view.bounds) - (popupViewWidth / 2), CGRectGetMidY(self.view.bounds), popupViewWidth, popupViewHeight)];
+    [UIView animateWithDuration:0.5
+         animations:^{
+             //CGRect frame = v.frame;
+             
+             //frame.size.height += 90.0;
+             //frame.size.width += 30.0;
+             //v.frame = frame;
+             v.frame = CGRectMake(v.frame.origin.x, v.frame.origin.y, v.desiredFrameSize.width, v.desiredFrameSize.height + 2);
+         }
+         completion:^(BOOL finished){
+             v.frame = CGRectMake(v.frame.origin.x, v.frame.origin.y, v.desiredFrameSize.width, v.desiredFrameSize.height);
+             v.textLabel.hidden = false;
+             // whatever you need to do when animations are complete
+             
+    }];
+
+    
+    [self.view addSubview:v];
+    //[super viewDidLoad];
+    
 
 }
 
@@ -229,13 +257,7 @@
 
     
 }
-//- (void)dealloc
-//{
-//    self.animationLayer = nil;
-//    self.pathLayer = nil;
-//    //self.penLayer = nil;
-//    //[super dealloc];
-//}
+
 
 -(void)viewWillLayoutSubviews{
     [super viewWillLayoutSubviews];
@@ -244,8 +266,6 @@
         gameLoaded = true;
         [self initGame];
     }
-    //[self.view sendSubviewToBack:_gameSceneView];
-
 }
 
 -(void)viewWillDisappear:(BOOL)animated{

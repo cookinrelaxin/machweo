@@ -176,6 +176,7 @@
 		788563C51A96D95C00F49980 /* A Hero is Born.xml in Resources */ = {isa = PBXBuildFile; fileRef = 788563C31A96D95C00F49980 /* A Hero is Born.xml */; };
 		788563C61A96D95C00F49980 /* The Journey Begins.xml in Resources */ = {isa = PBXBuildFile; fileRef = 788563C41A96D95C00F49980 /* The Journey Begins.xml */; };
 		788788041A7333A9002987B7 /* GameDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 788788031A7333A9002987B7 /* GameDataManager.m */; };
+		7892A1701A995E5A00CA64CE /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7892A16F1A995E5A00CA64CE /* PopupView.m */; };
 		78B566901A7C703E00011E86 /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B5668F1A7C703E00011E86 /* Terrain.m */; };
 		78B986AF1A746CAF00C4EA18 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986AE1A746CAF00C4EA18 /* Score.m */; };
 		78B986B21A74827B00C4EA18 /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986B11A74827B00C4EA18 /* Coin.m */; };
@@ -401,6 +402,8 @@
 		788563C41A96D95C00F49980 /* The Journey Begins.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "The Journey Begins.xml"; sourceTree = "<group>"; };
 		788788021A7333A9002987B7 /* GameDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataManager.h; sourceTree = "<group>"; };
 		788788031A7333A9002987B7 /* GameDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataManager.m; sourceTree = "<group>"; };
+		7892A16E1A995E5A00CA64CE /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
+		7892A16F1A995E5A00CA64CE /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
 		78B5668E1A7C703E00011E86 /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terrain.h; sourceTree = "<group>"; };
 		78B5668F1A7C703E00011E86 /* Terrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terrain.m; sourceTree = "<group>"; };
 		78B986AD1A746CAF00C4EA18 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
@@ -804,6 +807,8 @@
 			children = (
 				78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */,
 				78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */,
+				7892A16E1A995E5A00CA64CE /* PopupView.h */,
+				7892A16F1A995E5A00CA64CE /* PopupView.m */,
 			);
 			name = "view controllers";
 			sourceTree = "<group>";
@@ -1208,6 +1213,7 @@
 				6509D2D41A5E290300F1BBA6 /* Player.m in Sources */,
 				78B986AF1A746CAF00C4EA18 /* Score.m in Sources */,
 				6509D2D91A5E290300F1BBA6 /* LevelParser.m in Sources */,
+				7892A1701A995E5A00CA64CE /* PopupView.m in Sources */,
 				78B986B21A74827B00C4EA18 /* Coin.m in Sources */,
 				78B566901A7C703E00011E86 /* Terrain.m in Sources */,
 			);
