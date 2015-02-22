@@ -243,6 +243,7 @@
               completion:^(BOOL finished){
                   currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height);
                   currentPopup.textLabel.text = text;
+                  currentPopup.textLabel.numberOfLines = 2;
                   //v.textLabel.font =
                   currentPopup.textLabel.hidden = false;
                   // whatever you need to do when animations are complete

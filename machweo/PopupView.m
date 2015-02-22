@@ -47,7 +47,7 @@ float strokeWidth = 3;
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect {
-    NSLog(@"draw rect");
+    //NSLog(@"draw rect");
     // Drawing code
     CGContextRef context = UIGraphicsGetCurrentContext();
     //CGContextTranslateCTM(context, 0.0f, self.bounds.size.height);
@@ -58,7 +58,7 @@ float strokeWidth = 3;
     CGContextSetLineJoin(context, kCGLineJoinRound);
     CGContextSetLineWidth(context, strokeWidth);
     UIColor* strokeColor = [UIColor darkGrayColor];
-    UIColor* fillColor = [UIColor lightGrayColor];
+    UIColor* fillColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
     //UIColor* fillColor = [UIColor clearColor];
 
     CGContextSetStrokeColorWithColor(context, strokeColor.CGColor);

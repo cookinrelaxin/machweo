@@ -24,7 +24,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     NSMutableArray *arrayOfLines;
     CGPoint currentDesiredPlayerPositionInView;
     //Score* playerScore;
-    Obstacle* nextObstacle;
+    //Obstacle* nextObstacle;
     
     NSMutableArray* terrainPool;
     
@@ -43,7 +43,10 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     CGPoint initialTouchPoint;
     
     BOOL tutorial_mode_on;
+    BOOL found_first_obstacle;
     BOOL passed_first_obstacle;
+    BOOL popup_engaged;
+    //Obstacle* firstObstacle;
 
     
     
@@ -90,19 +93,34 @@ int ALLOWABLE_X_DIFFERENCE = 10;
                 //NSLog(@"fade in again");
                 logoLabel.text = levelName;
                 SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
-                [logoLabel runAction:logoFadeInAgain];
+                [logoLabel runAction:logoFadeInAgain completion:^{
+                    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
+                    [logoLabel runAction:logoFadeOut completion:^{
+                        [logoLabel removeFromParent];
+                        logoLabel = nil;
+                        if ([levelName isEqualToString:@"The Journey Begins"]) {
+                            tutorial_mode_on = true;
+                            
+                            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+                            [popupDict setValue:@"draw a path with your finger" forKey:@"popup text"];
+                            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+                            
+                            popup_engaged = true;
+                        }
+
+                    }];
+                }];
             }];
         }];
 
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
-        if ([levelName isEqualToString:@"The Journey Begins"]) {
-            tutorial_mode_on = true;
-        }
-        terrainPool = [NSMutableArray array];
+                terrainPool = [NSMutableArray array];
         [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
         
         [self performSunrise];
         [self startMusic];
+        
         
     }
     return self;
@@ -114,12 +132,12 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
     sunNode.zPosition = 1;
     sunNode.position = CGPointMake(self.position.x + self.size.width / 2, 0 - (sunNode.size.height / 2));
-    SKAction* sunriseAction = [SKAction moveToY:(self.size.height - (sunNode.size.height / 2))  duration:1.0f];
+    SKAction* sunriseAction = [SKAction moveToY:(self.size.height - (sunNode.size.height / 2))  duration:2.0f];
     [sunNode runAction:sunriseAction];
 }
 
 -(void)performSunset{
-    SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2))  duration:1.0f];
+    SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2))  duration:2.0f];
     [sunNode runAction:sunsetAction];
 }
 
@@ -188,6 +206,13 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if (!player && !gameOver && !logoLabel) {
+        [self createPlayer];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"dismiss logo" object:nil];
+        in_game = true;
+        //return;
+    }
+    
     player.touchesEnded = false;
     UITouch* touch = [touches anyObject];
     CGPoint positionInSelf = [touch locationInNode:self];
@@ -209,7 +234,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
         [arrayOfLines addObject:newLine];
         
-        if (tutorial_mode_on && self.view.paused) {
+        if (tutorial_mode_on && popup_engaged) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"remove popup" object:nil];
             self.view.paused = false;
         }
@@ -224,23 +249,23 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     UITouch* touch = [touches anyObject];
     CGPoint locInSelf = [touch locationInNode:self];
     
-    if (!in_game) {
-        float y_difference = locInSelf.y - initialTouchPoint.y;
-        float absolute_x_difference = fabs(locInSelf.x - initialTouchPoint.x);
-        
-        if (!gameOver) {
-            if (absolute_x_difference < ALLOWABLE_X_DIFFERENCE) {
-                if (y_difference > Y_THRESHOLD_FOR_SWITCH_LEVEL) {
-                    //gameOver = true;
-                    [self loadNextLevel];
-                }
-                if (y_difference < -Y_THRESHOLD_FOR_SWITCH_LEVEL) {
-                    //gameOver = true;
-                    [self loadPreviousLevel];
-                }
-            }
-        }
-    }
+//    if (!in_game) {
+//        float y_difference = locInSelf.y - initialTouchPoint.y;
+//        float absolute_x_difference = fabs(locInSelf.x - initialTouchPoint.x);
+//        
+//        if (!gameOver) {
+//            if (absolute_x_difference < ALLOWABLE_X_DIFFERENCE) {
+//                if (y_difference > Y_THRESHOLD_FOR_SWITCH_LEVEL) {
+//                    //gameOver = true;
+//                    [self loadNextLevel];
+//                }
+//                if (y_difference < -Y_THRESHOLD_FOR_SWITCH_LEVEL) {
+//                    //gameOver = true;
+//                    [self loadPreviousLevel];
+//                }
+//            }
+//        }
+//    }
 
     
     currentPoint = locInSelf;
@@ -249,12 +274,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (!player && !gameOver) {
-        [self createPlayer];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"dismiss logo" object:nil];
-        in_game = true;
-        return;
-    }
     
     Line *currentLine = [arrayOfLines lastObject];
     for (Terrain* ter in currentLine.terrainArray) {
@@ -277,8 +296,8 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     [self addChild:player];
     currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + (self.view.bounds.size.width / 8) * _constants.SCALE_COEFFICIENT.dy, [self convertPointToView:player.position].y);
     
-    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
-    [logoLabel runAction:logoFadeOut completion:^{[logoLabel removeFromParent];}];
+//    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
+//    [logoLabel runAction:logoFadeOut completion:^{[logoLabel removeFromParent];}];
     
 
 }
@@ -435,33 +454,16 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     }
 }
 
-//-(void)updateTimerLabelWithTime:(double)time{
-//    if (time > 10) {
-//        timerLabel.text = [[NSString stringWithFormat:@"%f", time] substringToIndex:5];
-//    }
-//    else {
-//        timerLabel.text = [[NSString stringWithFormat:@"%f", time] substringToIndex:4];
-//    }
-//}
-//
-//-(void)updateTime:(CFTimeInterval)currentTime{
-//    if (previousTime == 0) {
-//        previousTime = currentTime;
-//    }
-//    double difference = currentTime - previousTime;
-//    if (difference > .001) {
-//        [self updateTimerLabelWithTime:playerScore.time];
-//        playerScore.time += currentTime - previousTime;
-//        previousTime = currentTime;
-//    }
-//}
-
 -(void)update:(CFTimeInterval)currentTime {
     if (tutorial_mode_on) {
         
-        if (!passed_first_obstacle) {
+        if (!found_first_obstacle) {
             [self tutorialCheckForFirstObstacle];
         }
+        if (!passed_first_obstacle) {
+            [self tutorialCheckForFirstEvasion];
+        }
+        
     }
 
     [self checkForOldLines];
@@ -550,26 +552,42 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 }
 
 -(void)tutorialCheckForFirstObstacle{
-    //NSLog(@"[_obstacles calculateAccumulatedFrame].origin.x: %f", [_obstacles calculateAccumulatedFrame].origin.x);
-    for (Obstacle* obs in _obstacles.children) {
-        CGPoint obsPositionInView = [self.view convertPoint:[self convertPoint:obs.position fromNode:_obstacles] fromScene:self];
-        //NSLog(@"obsPositionInView: %f, %f", obsPositionInView.x, obsPositionInView.y);
-        //NSLog(@"self.view.bounds.size.width: %f", self.view.bounds.size.width);
+    Obstacle *obs = [_obstacles.children firstObject];
+    CGPoint obsPositionInView = [self.view convertPoint:[self convertPoint:obs.position fromNode:_obstacles] fromScene:self];
 
-        if (obsPositionInView.x < (self.view.bounds.size.width / 2)) {
-            passed_first_obstacle = true;
-            self.view.paused = true;
-            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-            [popupDict setValue:@"Avoid the masks!" forKey:@"popup text"];
-            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(obsPositionInView.x, obsPositionInView.y + 100)] forKey:@"popup position"];
-    
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
-        }
-        
+    if (obsPositionInView.x < (self.view.bounds.size.width * 3/4)) {
+        found_first_obstacle = true;
+        popup_engaged = true;
+        self.view.paused = true;
+        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+        [popupDict setValue:@"Avoid the masks!" forKey:@"popup text"];
+        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(obsPositionInView.x, obsPositionInView.y + 100)] forKey:@"popup position"];
+
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
     }
-
-
+        
 }
+
+-(void)tutorialCheckForFirstEvasion{
+    Obstacle *obs = [_obstacles.children firstObject];
+    CGPoint obsPositionInView = [self.view convertPoint:[self convertPoint:obs.position fromNode:_obstacles] fromScene:self];
+
+    //CGPoint playerPositionInView = [self.view convertPoint:player.position fromScene:self];
+    
+    if (obsPositionInView.x < 0) {
+        passed_first_obstacle = true;
+        popup_engaged = true;
+        self.view.paused = true;
+        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+        [popupDict setValue:@"Great! Now run to the end of the level." forKey:@"popup text"];
+        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+    }
+    
+}
+
+
 
 - (void)centerCameraOnPlayer {
     if (!stopScrolling) {
