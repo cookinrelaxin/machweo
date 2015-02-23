@@ -164,6 +164,7 @@ int CLIFF_VERTEX_COUNT = 15;
         [_textureShapeNode removeFromParent];
     }
     _textureShapeNode = [self shapeNodeWithVertices:_vertices];
+    _textureShapeNode.alpha = 0.75f;
     [self addChild:_textureShapeNode];
 
 }
@@ -290,6 +291,8 @@ int CLIFF_VERTEX_COUNT = 15;
            // int height_die_d = arc4random_uniform((z_d * h_s) / (4 * z_t));
             int height_die_d = arc4random_uniform(h_s / 5);
             sprite.position = CGPointMake(sprite.position.x, sprite.position.y + height_die_d);
+            
+            sprite.alpha = 0.75f;
             
             [node addChild:sprite];
             [_decos addObject:sprite];

@@ -98,7 +98,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
                     [logoLabel runAction:logoFadeOut completion:^{
                         [logoLabel removeFromParent];
                         logoLabel = nil;
-                        if ([levelName isEqualToString:@"The Journey Begins"]) {
+                        if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
                             tutorial_mode_on = true;
                             
                             NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
@@ -220,17 +220,17 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     
     if (player) {
         Line *currentLine = [arrayOfLines lastObject];
-        for (Terrain* ter in currentLine.terrainArray) {
+//        for (Terrain* ter in currentLine.terrainArray) {
             //NSLog(@"ter.color: %@", ter.color);
             //
-            for (SKSpriteNode* deco in ter.decos) {
-                SKAction *fadeAction = [SKAction fadeAlphaTo:0.75f duration:1];
-                [deco runAction:fadeAction];
-            }
-            
-            SKAction *fadeAction = [SKAction fadeAlphaTo:0.75f duration:1];
-            [ter runAction:fadeAction];
-        }
+//            for (SKSpriteNode* deco in ter.decos) {
+//                SKAction *fadeAction = [SKAction fadeAlphaTo:0.75f duration:1];
+//                [deco runAction:fadeAction];
+//            }
+//            
+//            SKAction *fadeAction = [SKAction fadeAlphaTo:0.75f duration:1];
+//            [ter runAction:fadeAction];
+//        }
         Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
         [arrayOfLines addObject:newLine];
         
@@ -571,7 +571,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         self.view.paused = true;
         NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
         [popupDict setValue:@"Avoid the masks!" forKey:@"popup text"];
-        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(obsPositionInView.x, obsPositionInView.y + 100)] forKey:@"popup position"];
+        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(obsPositionInView.x, obsPositionInView.y + 50)] forKey:@"popup position"];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
     }
