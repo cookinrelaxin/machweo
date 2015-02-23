@@ -465,6 +465,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         }
         
     }
+    [self checkForLastObstacle];
 
     [self checkForOldLines];
     [self deallocOldLines];
@@ -485,6 +486,15 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"update velocity" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"{%f, %f}", player.velocity.dx, player.velocity.dy] forKey:@"velocity"]];
     [self drawLines];
    // [self generateDecorations];
+}
+
+-(void)checkForLastObstacle{
+    Obstacle* lastObstacle = [_obstacles.children lastObject];
+    CGPoint lastObstaclePosInView = [self.view convertPoint:[self convertPoint:lastObstacle.position fromNode:_obstacles] fromScene:self];
+    if (lastObstaclePosInView.x < (self.view.bounds.size.width * 3/4)) {
+        stopScrolling = true;
+    }
+
 }
 
 -(void)checkForLostGame{
@@ -618,14 +628,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         //NSLog(@"self.size.width: %f", self.size.width);
         
         for (SKSpriteNode* deco in _decorations.children) {
-            if ([deco.name isEqualToString:@"rightMostNode"]) {
-                CGPoint posInScene = [self convertPoint:CGPointMake(CGRectGetMaxX(deco.frame), deco.position.y) fromNode:_decorations];
-                if (posInScene.x <= self.size.width){
-                    stopScrolling = true;
-                    return;
-                }
-
-            }
             float fractionalCoefficient = deco.zPosition / _constants.OBSTACLE_Z_POSITION;
             CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
             deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y - parallaxAdjustedDifference.dy);

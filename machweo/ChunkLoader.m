@@ -19,7 +19,6 @@ typedef enum ElementVarieties
     xPosition,
     yPosition,
     zPosition,
-    isRightMostNode,
     motionType,
     speedType,
     terrainPool,
@@ -114,10 +113,6 @@ typedef enum NodeTypes
         currentElement = zPosition;
         return;
     }
-    if ([elementName isEqualToString:@"isRightMostNode"]) {
-        currentElement = isRightMostNode;
-        return;
-    }
     if ([elementName isEqualToString:@"motionType"]) {
         currentElement = motionType;
         return;
@@ -204,12 +199,6 @@ typedef enum NodeTypes
                 currentNodeType = decoration;
                 return;
             }
-        }
-        if (currentElement == isRightMostNode) {
-            if ([string isEqualToString:@"yes"]) {
-                currentNode.name = @"rightMostNode";
-            }
-            return;
         }
         if (currentElement == motionType) {
             if (currentNodeType == obstacle) {
