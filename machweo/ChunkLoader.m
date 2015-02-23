@@ -255,6 +255,7 @@ typedef enum NodeTypes
     }
     
     for (SKSpriteNode *deco in decorationArray) {
+       // NSLog(@"decoName: %@", deco.name);
         deco.size = CGSizeMake(deco.size.width * constants.SCALE_COEFFICIENT.dy, deco.size.height * constants.SCALE_COEFFICIENT.dy);
         deco.position = CGPointMake(deco.position.x * constants.SCALE_COEFFICIENT.dy, deco.position.y * constants.SCALE_COEFFICIENT.dy);
         deco.position = [obstacles convertPoint:deco.position fromNode:world];

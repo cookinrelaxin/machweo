@@ -501,7 +501,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         [player updateEdges];
         [physicsComponent calculatePlayerPosition:player withLineArray:arrayOfLines];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"update velocity" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSString stringWithFormat:@"{%f, %f}", player.velocity.dx, player.velocity.dy] forKey:@"velocity"]];
     [self drawLines];
    // [self generateDecorations];
 }
