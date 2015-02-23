@@ -25,7 +25,6 @@
 		659B21D01A5E1C1300885C04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21CF1A5E1C1300885C04 /* main.m */; };
 		659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659B21DF1A5E1C1300885C04 /* Images.xcassets */; };
 		659B21EF1A5E1C1400885C04 /* machweoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21EE1A5E1C1400885C04 /* machweoTests.m */; };
-		7808A95F1A75D17200544C78 /* african_textile_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7808A95E1A75D17200544C78 /* african_textile_1.jpg */; };
 		782AE76A1A74B89900FF4225 /* levels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6D61A74B89900FF4225 /* levels.xml */; };
 		782AE76C1A74B89900FF4225 /* button.ai in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6DA1A74B89900FF4225 /* button.ai */; };
 		782AE76D1A74B89900FF4225 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6DB1A74B89900FF4225 /* button.png */; };
@@ -178,7 +177,6 @@
 		785A53E61A9597A400ED2E37 /* rock3.ai in Resources */ = {isa = PBXBuildFile; fileRef = 785A53E01A9597A400ED2E37 /* rock3.ai */; };
 		785A53E71A9597A400ED2E37 /* rock3_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53E11A9597A400ED2E37 /* rock3_decoration.png */; };
 		7867A47D1A9AE4010083F95F /* Far From Home v3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7867A47C1A9AE4010083F95F /* Far From Home v3.xml */; };
-		7867A4811A9AE4290083F95F /* Far From Home v3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7867A4801A9AE4290083F95F /* Far From Home v3.xml */; };
 		7883AE3D1A8EEB60006A94A4 /* menulogo1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */; };
 		7883AE3F1A8EEC24006A94A4 /* menulogohalfx.png in Resources */ = {isa = PBXBuildFile; fileRef = 7883AE3E1A8EEC24006A94A4 /* menulogohalfx.png */; };
 		788563C51A96D95C00F49980 /* A Hero is Born.xml in Resources */ = {isa = PBXBuildFile; fileRef = 788563C31A96D95C00F49980 /* A Hero is Born.xml */; };
@@ -258,7 +256,6 @@
 		659B21E81A5E1C1400885C04 /* machweoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = machweoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		659B21ED1A5E1C1400885C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659B21EE1A5E1C1400885C04 /* machweoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = machweoTests.m; sourceTree = "<group>"; };
-		7808A95E1A75D17200544C78 /* african_textile_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = african_textile_1.jpg; sourceTree = "<group>"; };
 		782AE6D61A74B89900FF4225 /* levels.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = levels.xml; sourceTree = "<group>"; };
 		782AE6DA1A74B89900FF4225 /* button.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = button.ai; sourceTree = "<group>"; };
 		782AE6DB1A74B89900FF4225 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
@@ -411,7 +408,6 @@
 		785A53E01A9597A400ED2E37 /* rock3.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rock3.ai; sourceTree = "<group>"; };
 		785A53E11A9597A400ED2E37 /* rock3_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock3_decoration.png; sourceTree = "<group>"; };
 		7867A47C1A9AE4010083F95F /* Far From Home v3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = "Far From Home v3.xml"; path = "../../../../machweo-world-creator/MachweoWorldCreator/formatted game assets (zack's folder)/level files/Far From Home v3.xml"; sourceTree = "<group>"; };
-		7867A4801A9AE4290083F95F /* Far From Home v3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Far From Home v3.xml"; sourceTree = "<group>"; };
 		7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menulogo1x.png; sourceTree = "<group>"; };
 		7883AE3E1A8EEC24006A94A4 /* menulogohalfx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menulogohalfx.png; sourceTree = "<group>"; };
 		788563C31A96D95C00F49980 /* A Hero is Born.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "A Hero is Born.xml"; sourceTree = "<group>"; };
@@ -547,22 +543,12 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		7808A95D1A75D17200544C78 /* brush textures */ = {
-			isa = PBXGroup;
-			children = (
-				7808A95E1A75D17200544C78 /* african_textile_1.jpg */,
-			);
-			name = "brush textures";
-			path = "sprites/brush textures";
-			sourceTree = "<group>";
-		};
 		782AE6C71A74B89900FF4225 /* formatted game assets (zack's folder) */ = {
 			isa = PBXGroup;
 			children = (
 				788563C21A96D95C00F49980 /* level files */,
 				78D4142C1A957E9C00618227 /* music */,
 				78C0F8A71A92D47500382159 /* fonts */,
-				7808A95D1A75D17200544C78 /* brush textures */,
 				782AE6D51A74B89900FF4225 /* screen data */,
 				782AE6D81A74B89900FF4225 /* sprites */,
 			);
@@ -815,7 +801,6 @@
 				784491591A9AABB6005AAAC4 /* A Hero Is Born v2.xml */,
 				7844915A1A9AABB6005AAAC4 /* Far From Home v2.xml */,
 				7844915B1A9AABB6005AAAC4 /* The Journey Begins v2.xml */,
-				7867A4801A9AE4290083F95F /* Far From Home v3.xml */,
 				7844915F1A9ACF86005AAAC4 /* The Journey Begins v3.xml */,
 				7867A47C1A9AE4010083F95F /* Far From Home v3.xml */,
 				784491691A9AE213005AAAC4 /* A Hero Is Born v3.xml */,
@@ -1027,7 +1012,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				782AE7951A74B89900FF4225 /* grass.ai in Resources */,
-				7867A4811A9AE4290083F95F /* Far From Home v3.xml in Resources */,
 				782AE7841A74B89900FF4225 /* cloudopaque.png in Resources */,
 				782AE7961A74B89900FF4225 /* grass.png in Resources */,
 				7844915E1A9AABB6005AAAC4 /* The Journey Begins v2.xml in Resources */,
@@ -1058,7 +1042,6 @@
 				782AE7AE1A74B89900FF4225 /* rotate.ai in Resources */,
 				782AE7A21A74B89900FF4225 /* circlemask.ai in Resources */,
 				78F9322D1A8854CB007947DD /* african_textile_3_terrain.png in Resources */,
-				7808A95F1A75D17200544C78 /* african_textile_1.jpg in Resources */,
 				782AE77B1A74B89900FF4225 /* cloud3.ai in Resources */,
 				659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */,
 				782AE7861A74B89900FF4225 /* cloudopaque3_decoration.png in Resources */,
