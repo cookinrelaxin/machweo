@@ -239,7 +239,7 @@ typedef enum NodeTypes
         obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
         obstacle.position = CGPointMake(obstacle.position.x * constants.SCALE_COEFFICIENT.dy, obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
         obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
-        //im sorry for the magic number, but it should be the same as constants._PLAYER_AND_OBSTACLE_Z_POSITION;
+        
         obstacle.zPosition = constants.OBSTACLE_Z_POSITION;
         
         obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:obstacle.texture size:obstacle.size];

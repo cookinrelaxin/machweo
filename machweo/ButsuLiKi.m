@@ -292,6 +292,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     [self calculatePlayerRotation:player];
     [self calculatePlayerVelocity:player];
     player.position = CGPointMake(player.position.x + player.velocity.dx * constants.PHYSICS_SCALAR_MULTIPLIER, player.position.y + player.velocity.dy * constants.PHYSICS_SCALAR_MULTIPLIER);
+    //player.position = CGPointMake(player.position.x + player.velocity.dx, player.position.y + player.velocity.dy);
   //  NSLog(@"player.position.y: %f", player.position.y);
    // NSLog(@"player.position.y scaled: %f", player.position.y * constants.PHYSICS_SCALAR_MULTIPLIER);
     player.roughlyOnLine = false;

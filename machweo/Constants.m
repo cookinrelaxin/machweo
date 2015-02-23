@@ -26,11 +26,27 @@ int midpoint(int n1, int n2)
 
     
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
-    //NSLog(@"screenSize: %f, %f", screenSize.width, screenSize.height);
+    //float scaleFactor = [[UIScreen mainScreen] scale];
+    float scaleFactor = [[UIScreen mainScreen] nativeScale];
+    NSLog(@"screenSize: %f, %f", screenSize.width, screenSize.height);
+    NSLog(@"scaleFactor: %f", scaleFactor);
     
     //_IDEAL_SCREEN_SIZE = CGSizeMake(1366, 768);
-    _IDEAL_SCREEN_SIZE = CGSizeMake(2732, 1536);
+    _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 1024);
+
+    
+//    if ([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) {
+//        _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / (_IDEAL_SCREEN_SIZE.width * scaleFactor), screenSize.height / (_IDEAL_SCREEN_SIZE.height * scaleFactor));
+//        //_PLAYER_SIZE = 15;
+//
+//    }
+//    else {
+//        _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
+//        //_PLAYER_SIZE = 30;
+//    }
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
+    NSLog(@"_SCALE_COEFFICIENT: %f, %f", _SCALE_COEFFICIENT.dx, _SCALE_COEFFICIENT.dy);
+
     _PLAYER_SIZE = 30;
     
     _PLAYER_Z_POSITION = 100;
@@ -65,7 +81,6 @@ int midpoint(int n1, int n2)
     _LOGO_LABEL_FONT_NAME = @"Skranji";
     
     
-    float scaleFactor = [[UIScreen mainScreen] scale];
     _PHYSICS_SCALAR_MULTIPLIER =_SCALE_COEFFICIENT.dy * scaleFactor;
     //NSLog(@"_SCALE_COEFFICIENT: %f",_SCALE_COEFFICIENT.dy);
    // NSLog(@"_PHYSICS_SCALAR_MULTIPLIER: %f", _PHYSICS_SCALAR_MULTIPLIER);
