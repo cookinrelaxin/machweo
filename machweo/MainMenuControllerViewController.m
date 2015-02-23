@@ -157,6 +157,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if (!gameLoaded) {
+        gameLoaded = true;
+        [self initGame];
+    }
     
     _logoView.frame = self.view.bounds;
     _logoView.userInteractionEnabled = false;
@@ -246,6 +250,9 @@
                   currentPopup.textLabel.numberOfLines = 2;
                   //v.textLabel.font =
                   currentPopup.textLabel.hidden = false;
+                  [[NSNotificationCenter defaultCenter] postNotificationName:@"allow dismiss popup" object:nil];
+
+                  
                   // whatever you need to do when animations are complete
                   
             }];
@@ -275,14 +282,15 @@
 }
 
 
--(void)viewWillLayoutSubviews{
-    [super viewWillLayoutSubviews];
-    
-    if (!gameLoaded) {
-        gameLoaded = true;
-        [self initGame];
-    }
-}
+//-(void)viewWillLayoutSubviews{
+//    [super viewWillLayoutSubviews];
+//    
+//    if (!gameLoaded) {
+//        gameLoaded = true;
+//        [self initGame];
+//    }
+//    
+//}
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];

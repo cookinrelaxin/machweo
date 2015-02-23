@@ -168,6 +168,7 @@
 		7844915D1A9AABB6005AAAC4 /* Far From Home v2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7844915A1A9AABB6005AAAC4 /* Far From Home v2.xml */; };
 		7844915E1A9AABB6005AAAC4 /* The Journey Begins v2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7844915B1A9AABB6005AAAC4 /* The Journey Begins v2.xml */; };
 		784491601A9ACF86005AAAC4 /* The Journey Begins v3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7844915F1A9ACF86005AAAC4 /* The Journey Begins v3.xml */; };
+		784491661A9ADA29005AAAC4 /* The Journey Begins v4.xml in Resources */ = {isa = PBXBuildFile; fileRef = 784491651A9ADA29005AAAC4 /* The Journey Begins v4.xml */; };
 		7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7852BC6B1A71FF6D0038447B /* gameModel.xcdatamodeld */; };
 		785A53E21A9597A400ED2E37 /* rock1.ai in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DC1A9597A400ED2E37 /* rock1.ai */; };
 		785A53E31A9597A400ED2E37 /* rock1_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DD1A9597A400ED2E37 /* rock1_decoration.png */; };
@@ -397,6 +398,7 @@
 		7844915A1A9AABB6005AAAC4 /* Far From Home v2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Far From Home v2.xml"; sourceTree = "<group>"; };
 		7844915B1A9AABB6005AAAC4 /* The Journey Begins v2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "The Journey Begins v2.xml"; sourceTree = "<group>"; };
 		7844915F1A9ACF86005AAAC4 /* The Journey Begins v3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "The Journey Begins v3.xml"; sourceTree = "<group>"; };
+		784491651A9ADA29005AAAC4 /* The Journey Begins v4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "The Journey Begins v4.xml"; sourceTree = "<group>"; };
 		7852BC6C1A71FF6D0038447B /* gameModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = gameModel.xcdatamodel; sourceTree = "<group>"; };
 		785A53DC1A9597A400ED2E37 /* rock1.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rock1.ai; sourceTree = "<group>"; };
 		785A53DD1A9597A400ED2E37 /* rock1_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock1_decoration.png; sourceTree = "<group>"; };
@@ -808,6 +810,7 @@
 				7844915A1A9AABB6005AAAC4 /* Far From Home v2.xml */,
 				7844915B1A9AABB6005AAAC4 /* The Journey Begins v2.xml */,
 				7844915F1A9ACF86005AAAC4 /* The Journey Begins v3.xml */,
+				784491651A9ADA29005AAAC4 /* The Journey Begins v4.xml */,
 				78344E521A97EA2200F9A5DF /* Far From Home.xml */,
 				788563C41A96D95C00F49980 /* The Journey Begins.xml */,
 			);
@@ -1141,6 +1144,7 @@
 				782AE7B91A74B89900FF4225 /* dawn2_decoration.png in Resources */,
 				782AE7CF1A74B89900FF4225 /* nightstars2.ai in Resources */,
 				782AE7A41A74B89900FF4225 /* hexagon.ai in Resources */,
+				784491661A9ADA29005AAAC4 /* The Journey Begins v4.xml in Resources */,
 				782AE7D41A74B89900FF4225 /* spikesunyell.ai in Resources */,
 				782AE7E81A74B89900FF4225 /* tree_decoration.png in Resources */,
 				782AE76F1A74B89900FF4225 /* cloud.png in Resources */,

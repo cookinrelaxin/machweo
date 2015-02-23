@@ -115,15 +115,32 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         }];
 
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
-                terrainPool = [NSMutableArray array];
+        terrainPool = [NSMutableArray array];
         [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
         
         [self performSunrise];
         [self startMusic];
+        [self setupObservers];
+        
+        
         
         
     }
     return self;
+}
+
+-(void)setupObservers{
+    __weak GameScene *weakSelf = self;
+    
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    [center addObserverForName:@"allow dismiss popup"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         weakSelf.allowDismissPopup = true;
+     }];
 }
 
 -(void)performSunrise{
@@ -219,7 +236,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     previousPoint = currentPoint = initialTouchPoint = positionInSelf;
     
     if (player) {
-        Line *currentLine = [arrayOfLines lastObject];
+//        Line *currentLine = [arrayOfLines lastObject];
 //        for (Terrain* ter in currentLine.terrainArray) {
             //NSLog(@"ter.color: %@", ter.color);
             //
@@ -234,9 +251,10 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
         [arrayOfLines addObject:newLine];
         
-        if (tutorial_mode_on && popup_engaged) {
+        if (tutorial_mode_on && popup_engaged && _allowDismissPopup) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"remove popup" object:nil];
             self.view.paused = false;
+            _allowDismissPopup = false;
         }
     }
     

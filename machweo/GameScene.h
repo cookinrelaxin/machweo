@@ -16,6 +16,7 @@
 @property (nonatomic, strong) SKNode* decorations;
 @property (nonatomic, strong) Constants *constants;
 @property (nonatomic) BOOL shangoBrokeHisBack;
+@property (nonatomic) BOOL allowDismissPopup;
 
 -(instancetype)initWithSize:(CGSize)size forLevel:(NSString *)levelName withinView:(SKView*)view;
     @end
