@@ -34,7 +34,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     
     NSMutableArray* terrainPool;
     NSMutableArray* backgroundPool;
-    NSMutableArray* previousChunkBuckets;
+    NSMutableArray* previousChunks;
     NSMutableDictionary* textureDict;
     
 
@@ -130,10 +130,10 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
         terrainPool = [NSMutableArray array];
-        previousChunkBuckets = [NSMutableArray array];
-        NSMutableArray* bucket = [NSMutableArray array];
-        [previousChunkBuckets addObject:bucket];
-        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:bucket withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
+        previousChunks = [NSMutableArray array];
+       // NSMutableArray* bucket = [NSMutableArray array];
+        //[previousChunkBuckets addObject:bucket];
+        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
         
         backgroundPool = [NSMutableArray array];
         textureDict = _constants.TEXTURE_DICT;
@@ -616,26 +616,27 @@ int ALLOWABLE_X_DIFFERENCE = 10;
             NSString* nextChunk = [_constants.LEVEL_ARRAY objectAtIndex:newIndex];
             NSLog(@"next chunk: %@", nextChunk);
             //NSLog(@"lastObstaclePosInSelf: %f, %f", lastObstaclePosInSelf.x, lastObstaclePosInSelf.y);
-            if (previousChunkBuckets.count > 1) {
+            //if (previousChunks.count > 1) {
                 
                 NSMutableArray* trash = [NSMutableArray array];
-                NSMutableArray* oldBucket = [previousChunkBuckets firstObject];
-                for (SKSpriteNode* sprite in oldBucket) {
+                for (SKSpriteNode* sprite in previousChunks) {
+                    CGPoint posInSelf = [self convertPoint:CGPointMake(sprite.position.x + (sprite.size.width / 2), sprite.position.y) fromNode:sprite.parent];
+                    if (posInSelf.x > 0) {
+                        continue;
+                    }
+                    
                     [sprite removeFromParent];
                     [trash addObject:sprite];
                 }
                 for (SKSpriteNode* sprite in trash) {
                     NSLog(@"sprite: %@", sprite);
-                    [oldBucket removeObject:sprite];
+                    [previousChunks removeObject:sprite];
                 }
                 trash = nil;
-                [previousChunkBuckets removeObject:oldBucket];
-            };
-            NSMutableArray* newBucket = [NSMutableArray array];
-            [previousChunkBuckets addObject:newBucket];
+            //}
             
             ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:nextChunk];
-            [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:newBucket withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
+            [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
             
             //[self winGame];
         }
