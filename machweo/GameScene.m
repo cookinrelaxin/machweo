@@ -13,6 +13,12 @@
 #import "ChunkLoader.h"
 #import "Score.h"
 #import <AVFoundation/AVFoundation.h>
+
+typedef enum TimesOfDay
+{
+    AM_8
+} TimeOfDay;
+
 int Y_THRESHOLD_FOR_SWITCH_LEVEL = 40;
 int ALLOWABLE_X_DIFFERENCE = 10;
 
@@ -27,6 +33,9 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     //Obstacle* nextObstacle;
     
     NSMutableArray* terrainPool;
+    NSMutableArray* backgroundPool;
+    NSMutableDictionary* textureDict;
+
     
     double previousTime;
     BOOL stopScrolling;
@@ -47,6 +56,9 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     BOOL passed_first_obstacle;
     BOOL popup_engaged;
     //Obstacle* firstObstacle;
+    
+    TimeOfDay currentTimeOfDay;
+
 
     
     
@@ -118,9 +130,15 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         terrainPool = [NSMutableArray array];
         [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
         
+        backgroundPool = [NSMutableArray array];
+        textureDict = _constants.TEXTURE_DICT;
+        currentTimeOfDay = AM_8;
+        [self generateBackgrounds];
+
         [self performSunrise];
         [self startMusic];
         [self setupObservers];
+
         
         
         
@@ -143,14 +161,80 @@ int ALLOWABLE_X_DIFFERENCE = 10;
      }];
 }
 
+-(void)generateBackgrounds{
+    // assume for now that we should load four backgrounds at a time
+    //something like if the right edge of the first entry in backgroundPool isnt visible on the screen, remove it and add a new background
+    SKSpriteNode* firstBackground = [backgroundPool firstObject];
+    if (firstBackground) {
+        //NSLog(@"firstBackground");
+        CGPoint positionInView = [self convertPoint:firstBackground.position fromNode:_decorations];
+        float rightEdgeOfFirstBackground = positionInView.x + (firstBackground.size.width / 2);
+        if (rightEdgeOfFirstBackground < 0) {
+            NSLog(@"(rightEdgeOfFirstBackground < 0)");
+            NSString* backgroundName;
+            switch (currentTimeOfDay) {
+                case AM_8:
+                    backgroundName = @"AM_8";
+                    break;
+            }
+            
+            SKTexture *backgroundTexture = [_constants.TEXTURE_DICT objectForKey:backgroundName];
+            if (backgroundTexture == nil) {
+                backgroundTexture = [SKTexture textureWithImageNamed:backgroundName];
+                [textureDict setValue:backgroundTexture forKey:backgroundName];
+            }
+            
+            SKSpriteNode* lastBackground = [backgroundPool lastObject];
+            SKSpriteNode* background = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
+            background.zPosition = _constants.BACKGROUND_Z_POSITION;
+            background.size = CGSizeMake(background.size.width * _constants.SCALE_COEFFICIENT.dy, background.size.height * _constants.SCALE_COEFFICIENT.dy);
+            background.position = CGPointMake(background.size.width + lastBackground.position.x, self.size.height / 2);
+            [_decorations addChild:background];
+            [backgroundPool removeObject:firstBackground];
+            [backgroundPool addObject:background];
+        }
+    }
+    else{
+        
+
+        NSString* backgroundName;
+        switch (currentTimeOfDay) {
+            case AM_8:
+                backgroundName = @"AM_8";
+                break;
+        }
+        
+        SKTexture *backgroundTexture = [_constants.TEXTURE_DICT objectForKey:backgroundName];
+        if (backgroundTexture == nil) {
+            backgroundTexture = [SKTexture textureWithImageNamed:backgroundName];
+            [textureDict setValue:backgroundTexture forKey:backgroundName];
+        }
+        
+        if (backgroundTexture) {
+            for (int i = 1; i < _constants.NUMBER_OF_BACKGROUND_SIMUL; i ++) {
+                SKSpriteNode* background = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
+                background.zPosition = _constants.BACKGROUND_Z_POSITION;
+                background.position = CGPointMake(i * (backgroundTexture.size.width / 2), self.size.height / 2);
+                background.size = CGSizeMake(background.size.width * _constants.SCALE_COEFFICIENT.dy, background.size.height * _constants.SCALE_COEFFICIENT.dy);
+                background.position = CGPointMake(background.position.x * _constants.SCALE_COEFFICIENT.dy, background.position.y);
+                [_decorations addChild:background];
+                [backgroundPool addObject:background];
+            }
+            
+        }
+    }
+    
+}
+
 -(void)performSunrise{
     sunNode = [SKSpriteNode spriteNodeWithImageNamed:@"sun_decoration"];
     [_decorations addChild:sunNode];
     sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
-    sunNode.zPosition = 1;
+    sunNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
     sunNode.position = CGPointMake(self.position.x + self.size.width / 2, 0 - (sunNode.size.height / 2));
     SKAction* sunriseAction = [SKAction moveToY:(self.size.height - (sunNode.size.height / 2))  duration:2.0f];
     [sunNode runAction:sunriseAction];
+    
 }
 
 -(void)performSunset{
@@ -158,28 +242,28 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     [sunNode runAction:sunsetAction];
 }
 
--(void)loadPreviousLevel{
-    
-    Constants* constants = [Constants sharedInstance];
-    NSMutableArray* levelArray = constants.LEVEL_ARRAY;
-    int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY - 1;
-    if ((newIndex >= 0) && (newIndex < levelArray.count)) {
-        constants.CURRENT_INDEX_IN_LEVEL_ARRAY --;
-        //NSLog(@"loadPreviousLevel");
-        [self winGame];
-    }
-}
-
--(void)loadNextLevel{
-    Constants* constants = [Constants sharedInstance];
-    NSMutableArray* levelArray = constants.LEVEL_ARRAY;
-    int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
-    if ((newIndex >= 0) && (newIndex < levelArray.count)) {
-        constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
-        //NSLog(@"loadNextLevel");
-        [self winGame];
-    }
-}
+//-(void)loadPreviousLevel{
+//    
+//    Constants* constants = [Constants sharedInstance];
+//    NSMutableArray* levelArray = constants.LEVEL_ARRAY;
+//    int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY - 1;
+//    if ((newIndex >= 0) && (newIndex < levelArray.count)) {
+//        constants.CURRENT_INDEX_IN_LEVEL_ARRAY --;
+//        //NSLog(@"loadPreviousLevel");
+//        [self winGame];
+//    }
+//}
+//
+//-(void)loadNextLevel{
+//    Constants* constants = [Constants sharedInstance];
+//    NSMutableArray* levelArray = constants.LEVEL_ARRAY;
+//    int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
+//    if ((newIndex >= 0) && (newIndex < levelArray.count)) {
+//        constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
+//        //NSLog(@"loadNextLevel");
+//        [self winGame];
+//    }
+//}
 
 -(void)startMusic{
     //[self runAction:[SKAction playSoundFileNamed:@"gametrack.mp3" waitForCompletion:NO]];
@@ -483,8 +567,8 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         }
         
     }
-    [self checkForLastObstacle];
-
+    //[self checkForLastObstacle];
+    [self generateBackgrounds];
     [self checkForOldLines];
     [self deallocOldLines];
     if (!player.touchesEnded) {
@@ -502,7 +586,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         [physicsComponent calculatePlayerPosition:player withLineArray:arrayOfLines];
     }
     [self drawLines];
-   // [self generateDecorations];
 }
 
 -(void)checkForLastObstacle{
@@ -553,7 +636,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 
 -(void)checkForWonGame{
     if (player.position.x > self.size.width + player.size.width / 2) {
-        [self loadNextLevel];
+        //[self loadNextLevel];
     }
 }
 

@@ -53,7 +53,7 @@ typedef enum NodeTypes
 -(instancetype)initWithFile:(NSString*)fileName{
     constants = [Constants sharedInstance];
     
-    textureDict = [NSMutableDictionary dictionary];
+    textureDict = constants.TEXTURE_DICT;
     
     obstacleArray = [NSMutableArray array];
     decorationArray = [NSMutableArray array];

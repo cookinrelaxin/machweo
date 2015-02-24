@@ -42,6 +42,8 @@ int midpoint(int n1, int n2)
     _PLAYER_Z_POSITION = 100;
     _FOREGROUND_Z_POSITION = _PLAYER_Z_POSITION + 1;
     _OBSTACLE_Z_POSITION = _FOREGROUND_Z_POSITION + 1;
+    _BACKGROUND_Z_POSITION = 2;
+    _SUN_AND_MOON_Z_POSITION = _BACKGROUND_Z_POSITION + .1;
     _HUD_Z_POSITION = _OBSTACLE_Z_POSITION + 1;
     _BRUSH_FRACTION_OF_PLAYER_SIZE = 1;
     
@@ -86,6 +88,8 @@ int midpoint(int n1, int n2)
     _GRAVITY = .30;
     
     _CURRENT_INDEX_IN_LEVEL_ARRAY = 0;
+    _TEXTURE_DICT = [NSMutableDictionary dictionary];
+    _NUMBER_OF_BACKGROUND_SIMUL = 9;
     
 
     return self;

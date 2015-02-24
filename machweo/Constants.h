@@ -36,6 +36,7 @@ extern int midpoint(int n1, int n2);
 //@property (readonly, nonatomic) int LINE_Z_POSITION;
 @property (readonly, nonatomic) int FOREGROUND_Z_POSITION;
 @property (readonly, nonatomic) int BACKGROUND_Z_POSITION;
+@property (readonly, nonatomic) float SUN_AND_MOON_Z_POSITION;
 
 @property (readonly, nonatomic) int HUD_Z_POSITION;
 
@@ -69,7 +70,10 @@ extern int midpoint(int n1, int n2);
 @property(readonly, nonatomic) int OBSTACLE_HIT_CATEGORY;
 
 @property(nonatomic) NSMutableArray* LEVEL_ARRAY;
+@property(nonatomic) NSMutableDictionary* TEXTURE_DICT;
+
 @property(nonatomic) int CURRENT_INDEX_IN_LEVEL_ARRAY;
+@property(nonatomic) int NUMBER_OF_BACKGROUND_SIMUL;
 
 //@property(readonly, nonatomic) int DEFAULT_COIN_VALUE;
 
