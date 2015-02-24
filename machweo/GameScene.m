@@ -34,7 +34,9 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     
     NSMutableArray* terrainPool;
     NSMutableArray* backgroundPool;
+    NSMutableArray* previousChunkBuckets;
     NSMutableDictionary* textureDict;
+    
 
     
     double previousTime;
@@ -86,49 +88,52 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         //init hud
         
-        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
-        //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
-        logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
-        //logoLabel.fontColor = [UIColor redColor];
-        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        logoLabel.zPosition = _constants.HUD_Z_POSITION;
-        logoLabel.text = @"MACHWEO";
-        //logoLabel.text = levelName;
-        [self addChild:logoLabel];
-        //SKAction* logoFadeIn = [SKAction fadeInWithDuration:1];
-        logoLabel.alpha = 0.0f;
-        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
-        [logoLabel runAction:logoFadeIn completion:^{
-            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
-            [logoLabel runAction:logoFadeOut completion:^{
-                //NSLog(@"fade in again");
-                logoLabel.text = levelName;
-                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
-                [logoLabel runAction:logoFadeInAgain completion:^{
-                    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
-                    [logoLabel runAction:logoFadeOut completion:^{
-                        [logoLabel removeFromParent];
-                        logoLabel = nil;
-                        if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
-                            tutorial_mode_on = true;
-                            
-                            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-                            [popupDict setValue:@"draw a path with your finger" forKey:@"popup text"];
-                            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
-                            
-                            popup_engaged = true;
-                        }
-
-                    }];
-                }];
-            }];
-        }];
+//        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+//        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
+//        //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
+//        logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
+//        //logoLabel.fontColor = [UIColor redColor];
+//        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+//        logoLabel.zPosition = _constants.HUD_Z_POSITION;
+//        logoLabel.text = @"MACHWEO";
+//        //logoLabel.text = levelName;
+//        [self addChild:logoLabel];
+//        //SKAction* logoFadeIn = [SKAction fadeInWithDuration:1];
+//        logoLabel.alpha = 0.0f;
+//        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
+//        [logoLabel runAction:logoFadeIn completion:^{
+//            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
+//            [logoLabel runAction:logoFadeOut completion:^{
+//                //NSLog(@"fade in again");
+//                logoLabel.text = levelName;
+//                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
+//                [logoLabel runAction:logoFadeInAgain completion:^{
+//                    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
+//                    [logoLabel runAction:logoFadeOut completion:^{
+//                        [logoLabel removeFromParent];
+//                        logoLabel = nil;
+//                        if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
+//                            tutorial_mode_on = true;
+//                            
+//                            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+//                            [popupDict setValue:@"draw a path with your finger" forKey:@"popup text"];
+//                            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
+//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+//                            
+//                            popup_engaged = true;
+//                        }
+//
+//                    }];
+//                }];
+//            }];
+//        }];
 
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
         terrainPool = [NSMutableArray array];
-        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andTerrain:_terrain withinView:view andLines:arrayOfLines andTerrainPool:terrainPool];
+        previousChunkBuckets = [NSMutableArray array];
+        NSMutableArray* bucket = [NSMutableArray array];
+        [previousChunkBuckets addObject:bucket];
+        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:bucket withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
         
         backgroundPool = [NSMutableArray array];
         textureDict = _constants.TEXTURE_DICT;
@@ -228,7 +233,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 
 -(void)performSunrise{
     sunNode = [SKSpriteNode spriteNodeWithImageNamed:@"sun_decoration"];
-    [_decorations addChild:sunNode];
+    [self addChild:sunNode];
     sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
     sunNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
     sunNode.position = CGPointMake(self.position.x + self.size.width / 2, 0 - (sunNode.size.height / 2));
@@ -292,8 +297,9 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         //NSLog(@"fade out");
         if ((backgroundMusicPlayer.volume - 0.05) < 0) {
             if (!restartGameNotificationSent) {
-                restartGameNotificationSent = true;
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
+                //restartGameNotificationSent = true;
+                //[[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
+                [self restartGame];
             }
             //NSLog(@"nullify the background music");
             backgroundMusicPlayer = nil;
@@ -567,7 +573,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         }
         
     }
-    //[self checkForLastObstacle];
+    [self checkForLastObstacle];
     [self generateBackgrounds];
     [self checkForOldLines];
     [self deallocOldLines];
@@ -590,10 +596,65 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 
 -(void)checkForLastObstacle{
     Obstacle* lastObstacle = [_obstacles.children lastObject];
-    CGPoint lastObstaclePosInView = [self.view convertPoint:[self convertPoint:lastObstacle.position fromNode:_obstacles] fromScene:self];
+    CGPoint lastObstaclePosInSelf = [self convertPoint:lastObstacle.position fromNode:_obstacles];
+    //NSLog(@"lastObstaclePos: %f, %f", lastObstacle.position.x, lastObstacle.position.y);
+    //NSLog(@"lastObstaclePosInSelf: %f, %f", lastObstaclePosInSelf.x, lastObstaclePosInSelf.y);
+
+    CGPoint lastObstaclePosInView = [self.view convertPoint:lastObstaclePosInSelf fromScene:self];
     if (lastObstaclePosInView.x < (self.view.bounds.size.width * 3/4)) {
-        stopScrolling = true;
+        //NSLog(@"lastObstacle: %@", lastObstacle);
+
+        //NSLog(@"(lastObstaclePosInView.x < (self.view.bounds.size.width * 3/4))");
+        NSMutableArray* levelArray = _constants.LEVEL_ARRAY;
+        int newIndex = _constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
+        //NSLog(@"newIndex: %i", newIndex);
+        //NSLog(@"levelArray.count: %i", levelArray.count);
+
+        if ((newIndex >= 0) && (newIndex < levelArray.count)) {
+            _constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
+            NSLog(@"load next chunk");
+            NSString* nextChunk = [_constants.LEVEL_ARRAY objectAtIndex:newIndex];
+            NSLog(@"next chunk: %@", nextChunk);
+            //NSLog(@"lastObstaclePosInSelf: %f, %f", lastObstaclePosInSelf.x, lastObstaclePosInSelf.y);
+            if (previousChunkBuckets.count > 1) {
+                
+                NSMutableArray* trash = [NSMutableArray array];
+                NSMutableArray* oldBucket = [previousChunkBuckets firstObject];
+                for (SKSpriteNode* sprite in oldBucket) {
+                    [sprite removeFromParent];
+                    [trash addObject:sprite];
+                }
+                for (SKSpriteNode* sprite in trash) {
+                    NSLog(@"sprite: %@", sprite);
+                    [oldBucket removeObject:sprite];
+                }
+                trash = nil;
+                [previousChunkBuckets removeObject:oldBucket];
+            };
+            NSMutableArray* newBucket = [NSMutableArray array];
+            [previousChunkBuckets addObject:newBucket];
+            
+            ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:nextChunk];
+            [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:newBucket withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
+            
+            //[self winGame];
+        }
+        else{
+            stopScrolling = true;
+        }
+        
     }
+    
+    //-(void)loadNextLevel{
+    //    Constants* constants = [Constants sharedInstance];
+    //    NSMutableArray* levelArray = constants.LEVEL_ARRAY;
+    //    int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
+    //    if ((newIndex >= 0) && (newIndex < levelArray.count)) {
+    //        constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
+    //        //NSLog(@"loadNextLevel");
+    //        [self winGame];
+    //    }
+    //}
 
 }
 
@@ -610,12 +671,18 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         [self loseGame];
     }
 }
+-(void)checkForWonGame{
+    if (player.position.x > self.size.width + player.size.width / 2) {
+        //[self loadNextLevel];
+    }
+}
 
 
 -(void)loseGame{
     gameOver = true;
     [self performSunset];
     [self fadeVolumeOut];
+    //_constants.CURRENT_INDEX_IN_LEVEL_ARRAY = 0;
 //    if (!restartGameNotificationSent) {
 //        restartGameNotificationSent = true;
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
@@ -628,17 +695,15 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     gameOver = true;
     [self performSunset];
     [self fadeVolumeOut];
+    //_constants.CURRENT_INDEX_IN_LEVEL_ARRAY = 0;
+
 //    if (!restartGameNotificationSent) {
 //        restartGameNotificationSent = true;
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
 //    }
 }
 
--(void)checkForWonGame{
-    if (player.position.x > self.size.width + player.size.width / 2) {
-        //[self loadNextLevel];
-    }
-}
+
 
 -(void)tellObstaclesToMove{
     for (Obstacle* obs in _obstacles.children) {
@@ -649,8 +714,9 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 
 
 -(void)restartGame{
-    self.view.paused = false;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil userInfo:nil];
+    //self.view.paused = false;
+    restartGameNotificationSent = true;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
 
 }
 

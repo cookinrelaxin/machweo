@@ -300,7 +300,8 @@
 -(void)initGame{
     _gameSceneView.ignoresSiblingOrder = YES;
     Constants* constants = [Constants sharedInstance];
-    NSString* levelName = [constants.LEVEL_ARRAY objectAtIndex:constants.CURRENT_INDEX_IN_LEVEL_ARRAY];
+    //NSString* levelName = [constants.LEVEL_ARRAY objectAtIndex:constants.CURRENT_INDEX_IN_LEVEL_ARRAY];
+    NSString* levelName = [constants.LEVEL_ARRAY objectAtIndex:0];
     NSLog(@"levelName: %@", levelName);
     GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) forLevel:levelName withinView:_gameSceneView];
     [_gameSceneView presentScene: newScene];

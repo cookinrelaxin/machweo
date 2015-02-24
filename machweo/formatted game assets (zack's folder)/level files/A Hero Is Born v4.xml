@@ -402,5 +402,10 @@
         <yPosition>162.192795</yPosition>
         <zPosition>80.000000</zPosition>
     </node>
-    <terrainPool></terrainPool>
+    <terrainPool>
+        <terrainPoolMember>tree_decoration</terrainPoolMember>
+        <terrainPoolMember>tree4_decoration</terrainPoolMember>
+        <terrainPoolMember>tree3_decoration</terrainPoolMember>
+        <terrainPoolMember>tree2_decoration</terrainPoolMember>
+    </terrainPool>
 </worldnodes>
