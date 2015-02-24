@@ -57,6 +57,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     BOOL found_first_obstacle;
     BOOL passed_first_obstacle;
     BOOL popup_engaged;
+    BOOL chunkLoading;
     //Obstacle* firstObstacle;
     
     TimeOfDay currentTimeOfDay;
@@ -595,68 +596,66 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 }
 
 -(void)checkForLastObstacle{
-    Obstacle* lastObstacle = [_obstacles.children lastObject];
-    CGPoint lastObstaclePosInSelf = [self convertPoint:lastObstacle.position fromNode:_obstacles];
-    //NSLog(@"lastObstaclePos: %f, %f", lastObstacle.position.x, lastObstacle.position.y);
-    //NSLog(@"lastObstaclePosInSelf: %f, %f", lastObstaclePosInSelf.x, lastObstaclePosInSelf.y);
-
-    CGPoint lastObstaclePosInView = [self.view convertPoint:lastObstaclePosInSelf fromScene:self];
-    if (lastObstaclePosInView.x < (self.view.bounds.size.width * 3/4)) {
-        //NSLog(@"lastObstacle: %@", lastObstacle);
-
-        //NSLog(@"(lastObstaclePosInView.x < (self.view.bounds.size.width * 3/4))");
-        NSMutableArray* levelArray = _constants.LEVEL_ARRAY;
-        int newIndex = _constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
-        //NSLog(@"newIndex: %i", newIndex);
-        //NSLog(@"levelArray.count: %i", levelArray.count);
-
-        if ((newIndex >= 0) && (newIndex < levelArray.count)) {
-            _constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
-            NSLog(@"load next chunk");
-            NSString* nextChunk = [_constants.LEVEL_ARRAY objectAtIndex:newIndex];
-            NSLog(@"next chunk: %@", nextChunk);
-            //NSLog(@"lastObstaclePosInSelf: %f, %f", lastObstaclePosInSelf.x, lastObstaclePosInSelf.y);
-            //if (previousChunks.count > 1) {
-                
-                NSMutableArray* trash = [NSMutableArray array];
-                for (SKSpriteNode* sprite in previousChunks) {
-                    CGPoint posInSelf = [self convertPoint:CGPointMake(sprite.position.x + (sprite.size.width / 2), sprite.position.y) fromNode:sprite.parent];
-                    if (posInSelf.x > 0) {
-                        continue;
-                    }
-                    
-                    [sprite removeFromParent];
-                    [trash addObject:sprite];
-                }
-                for (SKSpriteNode* sprite in trash) {
-                    NSLog(@"sprite: %@", sprite);
-                    [previousChunks removeObject:sprite];
-                }
-                trash = nil;
-            //}
-            
-            ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:nextChunk];
-            [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
-            
-            //[self winGame];
-        }
-        else{
-            stopScrolling = true;
-        }
+    if (!chunkLoading) {
         
-    }
-    
-    //-(void)loadNextLevel{
-    //    Constants* constants = [Constants sharedInstance];
-    //    NSMutableArray* levelArray = constants.LEVEL_ARRAY;
-    //    int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
-    //    if ((newIndex >= 0) && (newIndex < levelArray.count)) {
-    //        constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
-    //        //NSLog(@"loadNextLevel");
-    //        [self winGame];
-    //    }
-    //}
+        Obstacle* lastObstacle = [_obstacles.children lastObject];
+        CGPoint lastObstaclePosInSelf = [self convertPoint:lastObstacle.position fromNode:_obstacles];
+        //NSLog(@"lastObstaclePos: %f, %f", lastObstacle.position.x, lastObstacle.position.y);
+        //NSLog(@"lastObstaclePosInSelf: %f, %f", lastObstaclePosInSelf.x, lastObstaclePosInSelf.y);
 
+        CGPoint lastObstaclePosInView = [self.view convertPoint:lastObstaclePosInSelf fromScene:self];
+        //if (lastObstaclePosInView.x < (self.view.bounds.size.width * 3/4)) {
+          if (lastObstaclePosInView.x < self.view.bounds.size.width) {
+            //NSLog(@"lastObstacle: %@", lastObstacle);
+
+            //NSLog(@"(lastObstaclePosInView.x < (self.view.bounds.size.width * 3/4))");
+            NSMutableArray* levelArray = _constants.LEVEL_ARRAY;
+            int newIndex = _constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
+            //NSLog(@"newIndex: %i", newIndex);
+            //NSLog(@"levelArray.count: %i", levelArray.count);
+
+            if ((newIndex >= 0) && (newIndex < levelArray.count)) {
+                _constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
+                NSLog(@"load next chunk");
+                NSString* nextChunk = [_constants.LEVEL_ARRAY objectAtIndex:newIndex];
+                NSLog(@"next chunk: %@", nextChunk);
+                //NSLog(@"lastObstaclePosInSelf: %f, %f", lastObstaclePosInSelf.x, lastObstaclePosInSelf.y);
+                //if (previousChunks.count > 1) {
+                    
+                    NSMutableArray* trash = [NSMutableArray array];
+                    for (SKSpriteNode* sprite in previousChunks) {
+                        CGPoint posInSelf = [self convertPoint:CGPointMake(sprite.position.x + (sprite.size.width / 2), sprite.position.y) fromNode:sprite.parent];
+                        if (posInSelf.x > 0) {
+                            continue;
+                        }
+                        
+                        [sprite removeFromParent];
+                        [trash addObject:sprite];
+                    }
+                    for (SKSpriteNode* sprite in trash) {
+                        //NSLog(@"sprite: %@", sprite);
+                        [previousChunks removeObject:sprite];
+                    }
+                    trash = nil;
+                //}
+                chunkLoading = true;
+                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+                    ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:nextChunk];
+                    //dispatch_sync(dispatch_get_main_queue(), ^{
+                        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
+                        chunkLoading = false;
+                    //});
+                });
+                
+                
+                //[self winGame];
+            }
+            else{
+                stopScrolling = true;
+            }
+            
+        }
+    }
 }
 
 -(void)checkForLostGame{
