@@ -89,45 +89,46 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         //init hud
         
-//        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-//        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
-//        //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
-//        logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
-//        //logoLabel.fontColor = [UIColor redColor];
-//        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-//        logoLabel.zPosition = _constants.HUD_Z_POSITION;
-//        logoLabel.text = @"MACHWEO";
-//        //logoLabel.text = levelName;
-//        [self addChild:logoLabel];
-//        //SKAction* logoFadeIn = [SKAction fadeInWithDuration:1];
-//        logoLabel.alpha = 0.0f;
-//        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
-//        [logoLabel runAction:logoFadeIn completion:^{
-//            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
-//            [logoLabel runAction:logoFadeOut completion:^{
-//                //NSLog(@"fade in again");
-//                logoLabel.text = levelName;
-//                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
-//                [logoLabel runAction:logoFadeInAgain completion:^{
-//                    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
-//                    [logoLabel runAction:logoFadeOut completion:^{
-//                        [logoLabel removeFromParent];
-//                        logoLabel = nil;
-//                        if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
-//                            tutorial_mode_on = true;
-//                            
-//                            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-//                            [popupDict setValue:@"draw a path with your finger" forKey:@"popup text"];
-//                            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
-//                            
-//                            popup_engaged = true;
-//                        }
-//
-//                    }];
-//                }];
-//            }];
-//        }];
+        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
+        //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
+        logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
+        //logoLabel.fontColor = [UIColor redColor];
+        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        logoLabel.zPosition = _constants.HUD_Z_POSITION;
+        logoLabel.text = @"MACHWEO";
+        //logoLabel.text = levelName;
+        [self addChild:logoLabel];
+        //SKAction* logoFadeIn = [SKAction fadeInWithDuration:1];
+        logoLabel.alpha = 0.0f;
+        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
+        [logoLabel runAction:logoFadeIn completion:^{
+            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
+            [logoLabel runAction:logoFadeOut completion:^{
+                //NSLog(@"fade in again");
+                logoLabel.text = levelName;
+                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
+                [logoLabel runAction:logoFadeInAgain completion:^{
+                    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
+                    [logoLabel runAction:logoFadeOut completion:^{
+                        [logoLabel removeFromParent];
+                        logoLabel = nil;                  //[[NSNotificationCenter defaultCenter] postNotificationName:@"allow dismiss popup" object:nil];
+
+                        if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
+                            tutorial_mode_on = true;
+                            
+                            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+                            [popupDict setValue:@"Draw a path for Maasai, and don't let him touch the ground!" forKey:@"popup text"];
+                            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
+                            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+                            
+                            popup_engaged = true;
+                        }
+
+                    }];
+                }];
+            }];
+        }];
 
         ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
         terrainPool = [NSMutableArray array];
@@ -239,7 +240,11 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     sunNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
     sunNode.position = CGPointMake(self.position.x + self.size.width / 2, 0 - (sunNode.size.height / 2));
     SKAction* sunriseAction = [SKAction moveToY:(self.size.height - (sunNode.size.height / 2))  duration:2.0f];
-    [sunNode runAction:sunriseAction];
+    [sunNode runAction:sunriseAction completion:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"remove popup" object:nil];
+    }];
+    
+
     
 }
 
@@ -247,29 +252,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2))  duration:2.0f];
     [sunNode runAction:sunsetAction];
 }
-
-//-(void)loadPreviousLevel{
-//    
-//    Constants* constants = [Constants sharedInstance];
-//    NSMutableArray* levelArray = constants.LEVEL_ARRAY;
-//    int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY - 1;
-//    if ((newIndex >= 0) && (newIndex < levelArray.count)) {
-//        constants.CURRENT_INDEX_IN_LEVEL_ARRAY --;
-//        //NSLog(@"loadPreviousLevel");
-//        [self winGame];
-//    }
-//}
-//
-//-(void)loadNextLevel{
-//    Constants* constants = [Constants sharedInstance];
-//    NSMutableArray* levelArray = constants.LEVEL_ARRAY;
-//    int newIndex = constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
-//    if ((newIndex >= 0) && (newIndex < levelArray.count)) {
-//        constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
-//        //NSLog(@"loadNextLevel");
-//        [self winGame];
-//    }
-//}
 
 -(void)startMusic{
     //[self runAction:[SKAction playSoundFileNamed:@"gametrack.mp3" waitForCompletion:NO]];
@@ -641,10 +623,10 @@ int ALLOWABLE_X_DIFFERENCE = 10;
                 chunkLoading = true;
                 dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
                     ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:nextChunk];
-                    //dispatch_sync(dispatch_get_main_queue(), ^{
+                    dispatch_sync(dispatch_get_main_queue(), ^{
                         [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
                         chunkLoading = false;
-                    //});
+                    });
                 });
                 
                 
@@ -662,9 +644,18 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 
     if (player.physicsBody.allContactedBodies.count > 0) {
         [self loseGame];
+        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+        [popupDict setValue:@"Uh oh, you hit an obstacle. Try again!" forKey:@"popup text"];
+        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+
     }
     if (player.position.y < 0 - (player.size.height / 2)) {
         [self loseGame];
+        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+        [popupDict setValue:@"Oops! You fell off the path. That's ok, have another try." forKey:@"popup text"];
+        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
     }
     
     if (_shangoBrokeHisBack) {
@@ -682,13 +673,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     gameOver = true;
     [self performSunset];
     [self fadeVolumeOut];
-    //_constants.CURRENT_INDEX_IN_LEVEL_ARRAY = 0;
-//    if (!restartGameNotificationSent) {
-//        restartGameNotificationSent = true;
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
-//    }
 
-   // self.view.paused = true;
 }
 
 -(void)winGame{
@@ -738,7 +723,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
         [popupDict setValue:@"Avoid the masks!" forKey:@"popup text"];
         [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(obsPositionInView.x, obsPositionInView.y + 50)] forKey:@"popup position"];
-
         [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
     }
         
@@ -755,9 +739,8 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         popup_engaged = true;
         self.view.paused = true;
         NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-        [popupDict setValue:@"Great! Now run to the end of the level." forKey:@"popup text"];
+        [popupDict setValue:@"Great! That's about it. Now see how far you can run!" forKey:@"popup text"];
         [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
     }
     

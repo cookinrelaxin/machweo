@@ -75,6 +75,15 @@ extern int midpoint(int n1, int n2);
 @property(nonatomic) int CURRENT_INDEX_IN_LEVEL_ARRAY;
 @property(nonatomic) int NUMBER_OF_BACKGROUND_SIMUL;
 
+@property(nonatomic) float DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO;
+@property(nonatomic) float DEFAULT_POPUP_HEIGHT_TO_CHAR_RATIO;
+@property(nonatomic) CGSize MIN_POPUP_SIZE;
+@property(nonatomic) CGSize MAX_POPUP_SIZE;
+
+@property (nonatomic) NSString* POPUP_FONT_NAME;
+
+
+
 //@property(readonly, nonatomic) int DEFAULT_COIN_VALUE;
 
 

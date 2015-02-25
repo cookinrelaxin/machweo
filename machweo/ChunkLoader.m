@@ -161,6 +161,13 @@ typedef enum NodeTypes
             if (spriteTexture) {
                 if (currentNodeType == obstacle) {
                     currentNode = [Obstacle obstacleWithTextureAndPhysicsBody:spriteTexture];
+                    Obstacle* obstacle = (Obstacle*)currentNode;
+                    obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
+                    obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:obstacle.size];
+                    currentNode.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
+                    currentNode.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
+                    currentNode.physicsBody.dynamic = false;
+
                 }
                 else if (currentNodeType == decoration){
                     currentNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
@@ -230,28 +237,17 @@ typedef enum NodeTypes
 
 -(void)loadWorld:(SKNode*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations andBucket:(NSMutableArray*)bucket withinView:(SKView *)view andLines:(NSMutableArray*)lines andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset{
     constants = [Constants sharedInstance];
-//    for (NSString* decoName in terrainPoolArray) {
-//     //   NSLog(@"decoName: %@", decoName);
-//        [terrainPool addObject:decoName];
-//    }
+    for (NSString* decoName in terrainPoolArray) {
+     //   NSLog(@"decoName: %@", decoName);
+        [terrainPool addObject:decoName];
+    }
     
     for (Obstacle *obstacle in obstacleArray) {
-        obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
         obstacle.position = CGPointMake((obstacle.position.x * constants.SCALE_COEFFICIENT.dy), obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
         obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
         obstacle.position = CGPointMake(obstacle.position.x + xOffset, obstacle.position.y);
 
         obstacle.zPosition = constants.OBSTACLE_Z_POSITION;
-        
-        obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:obstacle.texture size:obstacle.size];
-        obstacle.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
-        obstacle.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
-        //obstacle.physicsBody.collisionBitMask = 3;
-        
-        // NSLog(@"obstacle.physicsBody.categoryBitMask: %d", obstacle.physicsBody.categoryBitMask);
-        // NSLog(@"obstacle.physicsBody.contactTestBitMask: %d", obstacle.physicsBody.contactTestBitMask);
-        
-        obstacle.physicsBody.dynamic = false;
         [obstacles addChild:obstacle];
         [bucket addObject:obstacle];
     }

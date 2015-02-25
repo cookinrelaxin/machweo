@@ -176,6 +176,8 @@
 		785A53E51A9597A400ED2E37 /* rock2_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DF1A9597A400ED2E37 /* rock2_decoration.png */; };
 		785A53E61A9597A400ED2E37 /* rock3.ai in Resources */ = {isa = PBXBuildFile; fileRef = 785A53E01A9597A400ED2E37 /* rock3.ai */; };
 		785A53E71A9597A400ED2E37 /* rock3_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53E11A9597A400ED2E37 /* rock3_decoration.png */; };
+		787BB5431A9D656400DF2D7C /* Amatic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 787BB5411A9D61F000DF2D7C /* Amatic-Bold.ttf */; };
+		787BB5441A9D656400DF2D7C /* AmaticSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 787BB5421A9D61F000DF2D7C /* AmaticSC-Regular.ttf */; };
 		787DA32D1A9C0B350093EC23 /* The Journey Begins v5.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787DA32C1A9C0B350093EC23 /* The Journey Begins v5.xml */; };
 		787DA3351A9C21DD0093EC23 /* Far From Home v3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787DA3331A9C21DD0093EC23 /* Far From Home v3.xml */; };
 		787DA3391A9C22B20093EC23 /* A Hero Is Born v4.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787DA3381A9C22B20093EC23 /* A Hero Is Born v4.xml */; };
@@ -188,7 +190,6 @@
 		78B566901A7C703E00011E86 /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B5668F1A7C703E00011E86 /* Terrain.m */; };
 		78B986AF1A746CAF00C4EA18 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986AE1A746CAF00C4EA18 /* Score.m */; };
 		78B986B21A74827B00C4EA18 /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986B11A74827B00C4EA18 /* Coin.m */; };
-		78C0F8AB1A92D47500382159 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8A81A92D47500382159 /* OFL.txt */; };
 		78C0F8AC1A92D47500382159 /* Skranji-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */; };
 		78C0F8AD1A92D47500382159 /* Skranji-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */; };
 		78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */; };
@@ -409,6 +410,8 @@
 		785A53DF1A9597A400ED2E37 /* rock2_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock2_decoration.png; sourceTree = "<group>"; };
 		785A53E01A9597A400ED2E37 /* rock3.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rock3.ai; sourceTree = "<group>"; };
 		785A53E11A9597A400ED2E37 /* rock3_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock3_decoration.png; sourceTree = "<group>"; };
+		787BB5411A9D61F000DF2D7C /* Amatic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Amatic-Bold.ttf"; sourceTree = "<group>"; };
+		787BB5421A9D61F000DF2D7C /* AmaticSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmaticSC-Regular.ttf"; sourceTree = "<group>"; };
 		787DA32C1A9C0B350093EC23 /* The Journey Begins v5.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "The Journey Begins v5.xml"; sourceTree = "<group>"; };
 		787DA3331A9C21DD0093EC23 /* Far From Home v3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Far From Home v3.xml"; sourceTree = "<group>"; };
 		787DA3381A9C22B20093EC23 /* A Hero Is Born v4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "A Hero Is Born v4.xml"; sourceTree = "<group>"; };
@@ -426,7 +429,6 @@
 		78B986AE1A746CAF00C4EA18 /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
 		78B986B01A74827B00C4EA18 /* Coin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
 		78B986B11A74827B00C4EA18 /* Coin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coin.m; sourceTree = "<group>"; };
-		78C0F8A81A92D47500382159 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Bold.ttf"; sourceTree = "<group>"; };
 		78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Regular.ttf"; sourceTree = "<group>"; };
 		78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuControllerViewController.h; sourceTree = "<group>"; };
@@ -885,7 +887,8 @@
 		78C0F8A71A92D47500382159 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				78C0F8A81A92D47500382159 /* OFL.txt */,
+				787BB5411A9D61F000DF2D7C /* Amatic-Bold.ttf */,
+				787BB5421A9D61F000DF2D7C /* AmaticSC-Regular.ttf */,
 				78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */,
 				78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */,
 			);
@@ -1017,6 +1020,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				787BB5431A9D656400DF2D7C /* Amatic-Bold.ttf in Resources */,
+				787BB5441A9D656400DF2D7C /* AmaticSC-Regular.ttf in Resources */,
 				782AE7951A74B89900FF4225 /* grass.ai in Resources */,
 				787DA3351A9C21DD0093EC23 /* Far From Home v3.xml in Resources */,
 				782AE7841A74B89900FF4225 /* cloudopaque.png in Resources */,
@@ -1036,7 +1041,6 @@
 				782AE77F1A74B89900FF4225 /* cloud4.0_decoration.png in Resources */,
 				782AE7791A74B89900FF4225 /* cloud3.0.png in Resources */,
 				787DA32D1A9C0B350093EC23 /* The Journey Begins v5.xml in Resources */,
-				78C0F8AB1A92D47500382159 /* OFL.txt in Resources */,
 				78FFBC791A8EAC9500996198 /* chapters_button_clicked.png in Resources */,
 				78F9322B1A8854CB007947DD /* african_textile_1.jpg in Resources */,
 				782AE7CC1A74B89900FF4225 /* night.ai in Resources */,

@@ -7,6 +7,7 @@
 //
 
 #import "PopupView.h"
+#import "Constants.h"
 float HEIGHTOFPOPUPTRIANGLE = 10;
 float WIDTHOFPOPUPTRIANGLE = 20;
 float borderRadius = 8;
@@ -18,18 +19,22 @@ float strokeWidth = 3;
 
 -(instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]){
+        Constants* constants = [Constants sharedInstance];
+        
         self.desiredFrameSize = frame.size;
         self.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, 10);
         
-        self.alpha = 0.75;
+        //self.alpha = 0.75;
         self.backgroundColor = [UIColor clearColor];
         
         //UILabel *yourLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
-        _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + borderRadius, self.bounds.origin.y + borderRadius, self.desiredFrameSize.width - borderRadius - strokeWidth, self.desiredFrameSize.height - borderRadius - strokeWidth)];
+        _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + borderRadius + strokeWidth, self.bounds.origin.y + borderRadius + strokeWidth, self.desiredFrameSize.width - borderRadius - strokeWidth - (borderRadius * 2), self.desiredFrameSize.height - (borderRadius * 2))];
 
         [_textLabel setTextColor:[UIColor blackColor]];
         [_textLabel setBackgroundColor:[UIColor clearColor]];
-        [_textLabel setFont:[UIFont fontWithName: @"Trebuchet MS" size: 30.0f]];
+        UIFont* font = [UIFont fontWithName:constants.POPUP_FONT_NAME size: 30.0f];
+        [_textLabel setFont:font];
+        
         _textLabel.text = @"Hello!";
         _textLabel.adjustsFontSizeToFitWidth = YES;
         _textLabel.textAlignment = NSTextAlignmentCenter;
@@ -58,7 +63,7 @@ float strokeWidth = 3;
     CGContextSetLineJoin(context, kCGLineJoinRound);
     CGContextSetLineWidth(context, strokeWidth);
     UIColor* strokeColor = [UIColor darkGrayColor];
-    UIColor* fillColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
+    UIColor* fillColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:.80];
     //UIColor* fillColor = [UIColor clearColor];
 
     CGContextSetStrokeColorWithColor(context, strokeColor.CGColor);

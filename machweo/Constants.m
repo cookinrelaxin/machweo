@@ -28,7 +28,7 @@ int midpoint(int n1, int n2)
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     //float scaleFactor = [[UIScreen mainScreen] scale];
     float scaleFactor = [[UIScreen mainScreen] nativeScale];
-//    NSLog(@"screenSize: %f, %f", screenSize.width, screenSize.height);
+    NSLog(@"screenSize: %f, %f", screenSize.width, screenSize.height);
 //    NSLog(@"scaleFactor: %f", scaleFactor);
     
     //_IDEAL_SCREEN_SIZE = CGSizeMake(1366, 768);
@@ -90,6 +90,17 @@ int midpoint(int n1, int n2)
     _CURRENT_INDEX_IN_LEVEL_ARRAY = 0;
     _TEXTURE_DICT = [NSMutableDictionary dictionary];
     _NUMBER_OF_BACKGROUND_SIMUL = 9;
+    
+    _DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO = 250 / 20;
+    _DEFAULT_POPUP_HEIGHT_TO_CHAR_RATIO = 100 / 20;
+    _MIN_POPUP_SIZE = CGSizeMake((screenSize.width / 4), (screenSize.height / 6));
+    _MAX_POPUP_SIZE = CGSizeMake((screenSize.width / 2), (screenSize.height / 4));
+    //_POPUP_FONT_NAME = @"Amatic SC";
+    //_POPUP_FONT_NAME = @"AmaticSC-Bold";
+    _POPUP_FONT_NAME = @"Skranji";
+
+
+
     
 
     return self;

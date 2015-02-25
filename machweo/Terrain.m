@@ -254,6 +254,7 @@ int CLIFF_VERTEX_COUNT = 15;
 //}
 
 -(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node withZposition:(float)zPos andSlope:(float)slope{
+    //NSLog(@"terrainPool:%@", terrainPool);
     if(_permitDecorations && (terrainPool.count > 0)){
     
         int probability1 = constants.TERRAIN_VERTEX_DECORATION_CHANCE_DENOM;
