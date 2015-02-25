@@ -50,8 +50,10 @@ extern int midpoint(int n1, int n2);
 @property (readonly, nonatomic) float Y_PARALLAX_COEFFICIENT;
 
 //HUD
-@property (readonly, nonatomic) float TIMER_LABEL_FONT_SIZE;
-@property (readonly, nonatomic) UIColor* TIMER_LABEL_FONT_COLOR;
+@property (readonly, nonatomic) float DISTANCE_LABEL_FONT_SIZE;
+@property (readonly, nonatomic) UIColor* DISTANCE_LABEL_FONT_COLOR;
+@property (readonly, nonatomic) NSString* DISTANCE_LABEL_FONT_NAME;
+
 
 @property (readonly, nonatomic) float LOADING_LABEL_FONT_SIZE;
 @property (readonly, nonatomic) UIColor* LOADING_LABEL_FONT_COLOR;

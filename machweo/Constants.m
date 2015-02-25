@@ -44,7 +44,9 @@ int midpoint(int n1, int n2)
     _OBSTACLE_Z_POSITION = _FOREGROUND_Z_POSITION + 1;
     _BACKGROUND_Z_POSITION = 2;
     _SUN_AND_MOON_Z_POSITION = _BACKGROUND_Z_POSITION + .1;
-    _HUD_Z_POSITION = _OBSTACLE_Z_POSITION + 1;
+    
+    //higher than any obstacle;
+    _HUD_Z_POSITION = 120;
     _BRUSH_FRACTION_OF_PLAYER_SIZE = 1;
     
     _TERRAIN_VERTEX_DECORATION_CHANCE_DENOM = 5;
@@ -57,8 +59,10 @@ int midpoint(int n1, int n2)
     _PLAYER_HIT_CATEGORY = 1;
     _OBSTACLE_HIT_CATEGORY = 2;
     
-    _TIMER_LABEL_FONT_SIZE = 50;
-    _TIMER_LABEL_FONT_COLOR = [UIColor whiteColor];
+    _DISTANCE_LABEL_FONT_SIZE = 100;
+    _DISTANCE_LABEL_FONT_COLOR = [UIColor whiteColor];
+    _DISTANCE_LABEL_FONT_NAME = @"Skranji";
+
     
     _LOADING_LABEL_FONT_SIZE = 100;
     _LOADING_LABEL_FONT_COLOR = [UIColor whiteColor];

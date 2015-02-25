@@ -310,8 +310,8 @@
     if (height > constants.MAX_POPUP_SIZE.height) {
         height = constants.MAX_POPUP_SIZE.height;
     }
-    NSLog(@"popup width: %f", width);
-    NSLog(@"popup height: %f", height);
+    //NSLog(@"popup width: %f", width);
+    //NSLog(@"popup height: %f", height);
 
     return CGSizeMake(width, height);
 

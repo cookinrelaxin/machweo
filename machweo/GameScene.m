@@ -37,9 +37,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     NSMutableArray* previousChunks;
     NSMutableDictionary* textureDict;
     
-
-    
-    double previousTime;
     BOOL stopScrolling;
     BOOL gameWon;
     BOOL restartGameNotificationSent;
@@ -58,13 +55,15 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     BOOL passed_first_obstacle;
     BOOL popup_engaged;
     BOOL chunkLoading;
-    //Obstacle* firstObstacle;
     
     TimeOfDay currentTimeOfDay;
-
+    NSUInteger distance_traveled;
+    
+    float previousPlayerXPosition_hypothetical;
+    float currentPlayerXPosition_hypothetical;
 
     
-    
+    SKLabelNode* distanceLabel;
     
 }
 
@@ -99,7 +98,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         logoLabel.text = @"MACHWEO";
         //logoLabel.text = levelName;
         [self addChild:logoLabel];
-        //SKAction* logoFadeIn = [SKAction fadeInWithDuration:1];
         logoLabel.alpha = 0.0f;
         SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
         [logoLabel runAction:logoFadeIn completion:^{
@@ -112,7 +110,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
                     SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
                     [logoLabel runAction:logoFadeOut completion:^{
                         [logoLabel removeFromParent];
-                        logoLabel = nil;                  //[[NSNotificationCenter defaultCenter] postNotificationName:@"allow dismiss popup" object:nil];
+                        logoLabel = nil;
 
                         if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
                             tutorial_mode_on = true;
@@ -145,6 +143,15 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         [self performSunrise];
         [self startMusic];
         [self setupObservers];
+        
+        distanceLabel = [SKLabelNode labelNodeWithFontNamed:_constants.DISTANCE_LABEL_FONT_NAME];
+        distanceLabel.fontSize = _constants.DISTANCE_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
+        distanceLabel.fontColor = _constants.DISTANCE_LABEL_FONT_COLOR;
+        distanceLabel.position = CGPointMake(CGRectGetMidX(self.frame), distanceLabel.fontSize / 4);
+        distanceLabel.zPosition = _constants.HUD_Z_POSITION;
+        distanceLabel.text = @"0";
+        distanceLabel.hidden = true;
+        [self addChild:distanceLabel];
 
         
         
@@ -254,8 +261,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 }
 
 -(void)startMusic{
-    //[self runAction:[SKAction playSoundFileNamed:@"gametrack.mp3" waitForCompletion:NO]];
-    
     NSError *error;
     NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"gametrack" withExtension:@"mp3"];
     backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
@@ -298,6 +303,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 {
     if (!player && !gameOver && !logoLabel) {
         [self createPlayer];
+        distanceLabel.hidden = false;
         //[[NSNotificationCenter defaultCenter] postNotificationName:@"dismiss logo" object:nil];
         in_game = true;
         //return;
@@ -309,18 +315,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     previousPoint = currentPoint = initialTouchPoint = positionInSelf;
     
     if (player) {
-//        Line *currentLine = [arrayOfLines lastObject];
-//        for (Terrain* ter in currentLine.terrainArray) {
-            //NSLog(@"ter.color: %@", ter.color);
-            //
-//            for (SKSpriteNode* deco in ter.decos) {
-//                SKAction *fadeAction = [SKAction fadeAlphaTo:0.75f duration:1];
-//                [deco runAction:fadeAction];
-//            }
-//            
-//            SKAction *fadeAction = [SKAction fadeAlphaTo:0.75f duration:1];
-//            [ter runAction:fadeAction];
-//        }
         Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
         [arrayOfLines addObject:newLine];
         
@@ -545,6 +539,29 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     }
 }
 
+-(void)updateDistanceLabelWithDistance:(NSUInteger)distance{
+    //if (time > 10) {
+    //    timerLabel.text = [[NSString stringWithFormat:@"%f", time] substringToIndex:5];
+    //}
+   // else {
+    distanceLabel.text = [NSString stringWithFormat:@"%lu m", (unsigned long)distance];
+    //}
+}
+
+-(void)updateDistance{
+//    if (previousTime == 0) {
+//        previousTime = currentTime;
+//    }
+    currentPlayerXPosition_hypothetical += player.velocity.dx;
+    
+    double difference = currentPlayerXPosition_hypothetical - previousPlayerXPosition_hypothetical;
+    if (difference > 30) {
+        distance_traveled += 1;
+        [self updateDistanceLabelWithDistance:distance_traveled];
+        currentPlayerXPosition_hypothetical = previousPlayerXPosition_hypothetical;
+    }
+}
+
 -(void)update:(CFTimeInterval)currentTime {
     if (tutorial_mode_on) {
         
@@ -556,6 +573,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         }
         
     }
+    [self updateDistance];
     [self checkForLastObstacle];
     [self generateBackgrounds];
     [self checkForOldLines];
