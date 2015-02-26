@@ -71,10 +71,11 @@ extern int midpoint(int n1, int n2);
 @property(readonly, nonatomic) int PLAYER_HIT_CATEGORY;
 @property(readonly, nonatomic) int OBSTACLE_HIT_CATEGORY;
 
-@property(nonatomic) NSMutableArray* LEVEL_ARRAY;
+@property(nonatomic) NSMutableDictionary* OBSTACLE_SETS;
+@property(nonatomic) NSMutableDictionary* BIOMES;
+
 @property(nonatomic) NSMutableDictionary* TEXTURE_DICT;
 
-@property(nonatomic) int CURRENT_INDEX_IN_LEVEL_ARRAY;
 @property(nonatomic) int NUMBER_OF_BACKGROUND_SIMUL;
 
 @property(nonatomic) float DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO;

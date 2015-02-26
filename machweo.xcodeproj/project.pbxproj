@@ -192,6 +192,8 @@
 		78B986B21A74827B00C4EA18 /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986B11A74827B00C4EA18 /* Coin.m */; };
 		78C0F8AC1A92D47500382159 /* Skranji-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */; };
 		78C0F8AD1A92D47500382159 /* Skranji-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */; };
+		78C77B1F1A9EB27C000A5728 /* obstacleSet_13_e.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78C77B1E1A9EB27C000A5728 /* obstacleSet_13_e.xml */; };
+		78C77B211A9EB70D000A5728 /* decorationSet_sahara_night_c.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78C77B201A9EB70D000A5728 /* decorationSet_sahara_night_c.xml */; };
 		78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */; };
 		78D4142E1A957E9C00618227 /* gametrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78D4142D1A957E9C00618227 /* gametrack.mp3 */; };
 		78F9322B1A8854CB007947DD /* african_textile_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 78F932261A8854CB007947DD /* african_textile_1.jpg */; };
@@ -431,6 +433,8 @@
 		78B986B11A74827B00C4EA18 /* Coin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coin.m; sourceTree = "<group>"; };
 		78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Bold.ttf"; sourceTree = "<group>"; };
 		78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Regular.ttf"; sourceTree = "<group>"; };
+		78C77B1E1A9EB27C000A5728 /* obstacleSet_13_e.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_13_e.xml; sourceTree = "<group>"; };
+		78C77B201A9EB70D000A5728 /* decorationSet_sahara_night_c.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = decorationSet_sahara_night_c.xml; sourceTree = "<group>"; };
 		78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuControllerViewController.h; sourceTree = "<group>"; };
 		78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuControllerViewController.m; sourceTree = "<group>"; };
 		78D4142D1A957E9C00618227 /* gametrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gametrack.mp3; sourceTree = "<group>"; };
@@ -812,6 +816,8 @@
 				787DA3381A9C22B20093EC23 /* A Hero Is Born v4.xml */,
 				784491651A9ADA29005AAAC4 /* The Journey Begins v4.xml */,
 				787DA3331A9C21DD0093EC23 /* Far From Home v3.xml */,
+				78C77B1E1A9EB27C000A5728 /* obstacleSet_13_e.xml */,
+				78C77B201A9EB70D000A5728 /* decorationSet_sahara_night_c.xml */,
 				787DA32C1A9C0B350093EC23 /* The Journey Begins v5.xml */,
 				78344E521A97EA2200F9A5DF /* Far From Home.xml */,
 				788563C41A96D95C00F49980 /* The Journey Begins.xml */,
@@ -1106,6 +1112,7 @@
 				782AE7C61A74B89900FF4225 /* dusk1.ai in Resources */,
 				782AE79C1A74B89900FF4225 /* mountain2.ai in Resources */,
 				784491601A9ACF86005AAAC4 /* The Journey Begins v3.xml in Resources */,
+				78C77B1F1A9EB27C000A5728 /* obstacleSet_13_e.xml in Resources */,
 				782AE7901A74B89900FF4225 /* cloudred4.png in Resources */,
 				782AE7E21A74B89900FF4225 /* tree2.ai in Resources */,
 				782AE7711A74B89900FF4225 /* cloud1.0_decoration.png in Resources */,
@@ -1201,6 +1208,7 @@
 				782AE7891A74B89900FF4225 /* cloudopaque_decoration.png in Resources */,
 				78FFBC821A8EAC9500996198 /* purpleglass.png in Resources */,
 				782AE7A81A74B89900FF4225 /* obstacle2.ai in Resources */,
+				78C77B211A9EB70D000A5728 /* decorationSet_sahara_night_c.xml in Resources */,
 				785A53E61A9597A400ED2E37 /* rock3.ai in Resources */,
 				788563C61A96D95C00F49980 /* The Journey Begins.xml in Resources */,
 				78F9322F1A8854CB007947DD /* dirt1_terrain.png in Resources */,

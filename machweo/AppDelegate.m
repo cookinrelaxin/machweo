@@ -15,9 +15,20 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    LevelParser* parser = [[LevelParser alloc] prepopulateLevelCells];
-    [Constants sharedInstance].LEVEL_ARRAY = parser.levels;
-    NSLog(@"[Constants sharedInstance].LEVEL_ARRAY: %@", [Constants sharedInstance].LEVEL_ARRAY);
+    LevelParser* parser = [[LevelParser alloc] init];
+    
+    NSMutableDictionary* biome = [parser.biomes valueForKey:@"sahara"];
+    NSMutableArray* timeOfDay = [biome valueForKey:@"night"];
+    NSLog(@"[timeOfDay objectAtIndex:0]: %@", [timeOfDay objectAtIndex:0]);
+    
+    NSMutableDictionary* obstacleSets = parser.obstacleSets;
+    NSMutableArray* difficulty = [obstacleSets valueForKey:@"13"];
+    NSLog(@"[difficulty objectAtIndex:0]: %@", [difficulty objectAtIndex:0]);
+
+    [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
+    [Constants sharedInstance].BIOMES = parser.biomes;
+
+    //NSLog(@"[Constants sharedInstance].LEVEL_ARRAY: %@", [Constants sharedInstance].LEVEL_ARRAY);
     
     //[[GameDataManager sharedInstance] loadGameData];
     return YES;

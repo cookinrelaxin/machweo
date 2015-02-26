@@ -9,169 +9,100 @@
 #import "LevelParser.h"
 //#import "GameDataManager.h"
 
-typedef enum ElementVarieties
-{
-    level
-} Element;
-
 
 @implementation LevelParser{
-    Element currentElement;
-    //NSManagedObject* currentChapterObject;
-    //GameDataManager* dataManager;
-
-    BOOL charactersFound;
     
 }
 
--(instancetype)prepopulateLevelCells{
-    //dataManager = [GameDataManager sharedInstance];
-    
-    _levels = [NSMutableArray array];
-    
-    BOOL success;
-    NSURL *levelXMLURL = [[NSBundle mainBundle]
-                     URLForResource: @"levels" withExtension:@"xml"];
-     //NSLog(@"levelXMLURL: %@", levelXMLURL);
-    NSXMLParser* levelParser = [[NSXMLParser alloc] initWithContentsOfURL:levelXMLURL];
-    
-    if (levelParser){
-         //NSLog(@"parse chapter");
-        [levelParser setDelegate:self];
-        [levelParser setShouldResolveExternalEntities:YES];
-        success = [levelParser parse];
-    }
-    
-    return self;
-}
-
--(void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError{
-    NSLog(@"error:%@",parseError.localizedDescription);
-}
-
--(void)parserDidStartDocument:(NSXMLParser *)parser{
-     NSLog(@"did start levels document");
-}
-
-//-(void)parserDidEndDocument:(NSXMLParser *)parser{
-//    NSError *error = nil;
-//    
-//    if (![[dataManager managedObjectContext] save:&error]) {
-//        NSLog(@"Unable to save managed object context.");
-//        NSLog(@"%@, %@", error, error.localizedDescription);
-//    }
-//    else{
-//        NSManagedObjectContext* context = [GameDataManager sharedInstance].managedObjectContext;
-//        NSLog(@"managed object context saved for levels.");
-//        
-//        NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Chapter" inManagedObjectContext:context];
-//        [fetchRequest setEntity:entity];
-//        
-//        NSError *error = nil;
-//        NSArray *result = [context executeFetchRequest:fetchRequest error:&error];
-//        
-//        if (error) {
-//            NSLog(@"Unable to execute fetch request.");
-//            NSLog(@"%@, %@", error, error.localizedDescription);
-//            
-//        } else {
-//            //   NSLog(@"%@", result);
-//            for (NSManagedObject* obj in result) {
-//                NSLog(@"%@", [obj valueForKey:@"name"]);
-//                
-//            }
-//        }
-//        
-//        
-//    }
-//}
-
-- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
-    charactersFound = false;
-    if ([elementName isEqualToString:@"level"]) {
-        currentElement = level;
-//        NSEntityDescription *entityDescription = [NSEntityDescription entityForName:@"Chapter" inManagedObjectContext:[dataManager managedObjectContext]];
-//        currentChapterObject = [[NSManagedObject alloc] initWithEntity:entityDescription insertIntoManagedObjectContext:[dataManager managedObjectContext]];
-        return;
-    }
-//    if ([elementName isEqualToString:@"name"]) {
-//        currentElement = name;
-//        return;
-//    }
-//    if ([elementName isEqualToString:@"imageName"]) {
-//        currentElement = imageName;
-//        return;
-//    }
-//    if ([elementName isEqualToString:@"levelName"]) {
-//        currentElement = levelName;
-//        return;
-//    }
-}
-//
-//-(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
-//    
-//    if ([elementName isEqualToString:@"chapter"]) {
-//        if (currentChapter != nil) {
-//            [_chapters addObject:currentChapter];
-//        }
-//    }
-//}
-
--(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
-    if (!charactersFound) {
-        charactersFound = true;
-        switch (currentElement) {
-            case level:{
-                NSString *fixedString = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-                //NSLog(@"fixedString: %@", fixedString);
-                //NSLog(@"fixedString.length: %lu", (unsigned long)fixedString.length);
-
-                if([fixedString length] == 0){
-                   // NSLog(@"break");
-                     break;
-                }
-                [_levels addObject:fixedString];
+-(instancetype)init{
+    if (self = [super init]) {
+        _obstacleSets = [NSMutableDictionary dictionary];
+        _biomes = [NSMutableDictionary dictionary];
+        
+        NSArray* urls = [self findXMLURLs];
+        for (NSURL* url in urls) {
+            NSString* name = [[url lastPathComponent] stringByDeletingPathExtension];
+            //NSLog(@"name: %@", name);
+            if ([name hasPrefix:@"obstacleSet"]) {
+                [self processObstacleSet:name];
+                continue;
             }
-//            case name:
-//                [currentChapterObject setValue:string forKey:@"name"];
-//                break;
-//            case imageName:{
-//                if(![currentChapterObject valueForKey:@"imageName"]){
-//                    [currentChapterObject setValue:string forKey:@"imageName"];
-//                }
-//            }
-//                break;
-//            case chapter:
-//                break;
-//            case levels:
-//                break;
-//            case levelName:{
-//                NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] initWithEntityName:@"Level"];
-//                
-//                NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K == %@", @"name", string];
-//                [fetchRequest setPredicate:predicate];
-//
-//                NSError *fetchError = nil;
-//                NSArray *result = [[GameDataManager sharedInstance].managedObjectContext executeFetchRequest:fetchRequest error:&fetchError];
-//                
-//                if (!fetchError) {
-//                    NSMutableSet *levels = [currentChapterObject mutableSetValueForKey:@"levels"];
-//                    [levels addObject:result.firstObject];
-//                    
-//
-//                } else {
-//                    NSLog(@"Error fetching data.");
-//                    NSLog(@"%@, %@", fetchError, fetchError.localizedDescription);
-//                }
-//                
-//                 break;
-//                }
-
+            if ([name hasPrefix:@"decorationSet"]) {
+                [self processDecorationSet:name];
+                continue;
+            }
+            
         }
 
     }
+    
+    
+    return self;
 }
+-(void)processObstacleSet:(NSString*)obstacleSetName{
+    NSArray* componentArray = [obstacleSetName componentsSeparatedByString:@"_"];
+    NSLog(@"componentArray: %@", componentArray);
+    NSString* difficulty = ((NSString*)[componentArray objectAtIndex:1]);
+    NSMutableArray* difficultyArray = [_obstacleSets objectForKey:difficulty];
+    if (!difficultyArray) {
+        difficultyArray = [NSMutableArray array];
+        [_obstacleSets setValue:difficultyArray forKey:difficulty];
+    }
+    
+    [difficultyArray addObject:obstacleSetName];
+    return;
+    
+}
+
+-(void)processDecorationSet:(NSString*)decorationSetName{
+    NSArray* componentArray = [decorationSetName componentsSeparatedByString:@"_"];
+    NSLog(@"componentArray: %@", componentArray);
+    NSString* biome = ((NSString*)[componentArray objectAtIndex:1]);
+    NSMutableDictionary* biomeDict = [_biomes objectForKey:biome];
+    if (!biomeDict) {
+        biomeDict = [NSMutableDictionary dictionary];
+        [_biomes setValue:biomeDict forKey:biome];
+    }
+    
+    NSString* timeOfDay = ((NSString*)[componentArray objectAtIndex:2]);
+    if ([timeOfDay isEqualToString:@"day"] || [timeOfDay isEqualToString:@"night"]) {
+        NSLog(@"timeOfDay: %@", timeOfDay);
+        NSMutableArray* timeArray = [biomeDict valueForKey:timeOfDay];
+        if (!timeArray) {
+            NSLog(@"timeOfDay: %@", timeOfDay);
+            timeArray = [NSMutableArray array];
+            [biomeDict setValue:timeArray forKey:timeOfDay];
+        }
+        [timeArray addObject:decorationSetName];
+    }
+    else{
+        NSLog(@"error: time of day must be either day or night");
+    }
+    
+    return;
+    
+}
+
+-(NSArray*)findXMLURLs{
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSURL *bundleRoot = [[NSBundle mainBundle] bundleURL];
+    NSArray * dirContents =
+    [fm contentsOfDirectoryAtURL:bundleRoot
+      includingPropertiesForKeys:@[]
+                         options:NSDirectoryEnumerationSkipsHiddenFiles
+                           error:nil];
+    NSPredicate * fltr = [NSPredicate predicateWithFormat:@"pathExtension='xml'"];
+    NSArray * onlyXMLS = [dirContents filteredArrayUsingPredicate:fltr];
+    
+    return onlyXMLS;
+    
+}
+
+
+
+
+
+
 
 @end
 
