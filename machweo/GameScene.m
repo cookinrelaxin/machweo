@@ -10,7 +10,7 @@
 #import "Player.h"
 #import "Obstacle.h"
 #import "Line.h"
-#import "ChunkLoader.h"
+#import "WorldStreamer.h"
 #import "Score.h"
 #import <AVFoundation/AVFoundation.h>
 

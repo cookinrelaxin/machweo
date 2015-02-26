@@ -194,6 +194,7 @@
 		78C0F8AD1A92D47500382159 /* Skranji-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */; };
 		78C77B1F1A9EB27C000A5728 /* obstacleSet_13_e.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78C77B1E1A9EB27C000A5728 /* obstacleSet_13_e.xml */; };
 		78C77B211A9EB70D000A5728 /* decorationSet_sahara_night_c.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78C77B201A9EB70D000A5728 /* decorationSet_sahara_night_c.xml */; };
+		78C77B241A9EBEAC000A5728 /* WorldStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C77B231A9EBEAC000A5728 /* WorldStreamer.m */; };
 		78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */; };
 		78D4142E1A957E9C00618227 /* gametrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78D4142D1A957E9C00618227 /* gametrack.mp3 */; };
 		78F9322B1A8854CB007947DD /* african_textile_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 78F932261A8854CB007947DD /* african_textile_1.jpg */; };
@@ -435,6 +436,8 @@
 		78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Regular.ttf"; sourceTree = "<group>"; };
 		78C77B1E1A9EB27C000A5728 /* obstacleSet_13_e.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_13_e.xml; sourceTree = "<group>"; };
 		78C77B201A9EB70D000A5728 /* decorationSet_sahara_night_c.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = decorationSet_sahara_night_c.xml; sourceTree = "<group>"; };
+		78C77B221A9EBEAC000A5728 /* WorldStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldStreamer.h; sourceTree = "<group>"; };
+		78C77B231A9EBEAC000A5728 /* WorldStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldStreamer.m; sourceTree = "<group>"; };
 		78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuControllerViewController.h; sourceTree = "<group>"; };
 		78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuControllerViewController.m; sourceTree = "<group>"; };
 		78D4142D1A957E9C00618227 /* gametrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gametrack.mp3; sourceTree = "<group>"; };
@@ -845,6 +848,8 @@
 				788788031A7333A9002987B7 /* GameDataManager.m */,
 				6509D2C31A5E290300F1BBA6 /* ChunkLoader.h */,
 				6509D2991A5E290300F1BBA6 /* ChunkLoader.m */,
+				78C77B221A9EBEAC000A5728 /* WorldStreamer.h */,
+				78C77B231A9EBEAC000A5728 /* WorldStreamer.m */,
 			);
 			name = "game streaming";
 			sourceTree = "<group>";
@@ -1241,6 +1246,7 @@
 				6509D2ED1A5E290300F1BBA6 /* Line.m in Sources */,
 				6509D2DD1A5E290300F1BBA6 /* LoadingScene.m in Sources */,
 				6509D2D01A5E290300F1BBA6 /* GameScene.m in Sources */,
+				78C77B241A9EBEAC000A5728 /* WorldStreamer.m in Sources */,
 				7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */,
 				6509D2D51A5E290300F1BBA6 /* Constants.m in Sources */,
 				6509D2D21A5E290300F1BBA6 /* Obstacle.m in Sources */,
