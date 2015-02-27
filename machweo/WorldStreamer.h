@@ -12,13 +12,9 @@
 
 @interface WorldStreamer : NSObject
 
--(instancetype)initWithWorld:(SKScene*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations andBucket:(NSMutableArray*)bucket withinView:(SKView *)view andLines:(NSMutableArray*)lines andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset;
+-(instancetype)initWithWorld:(SKScene*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations withinView:(SKView *)view andLines:(NSMutableArray*)lines andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset;
 
-//-(NSString*)calculateNextBiome;
-//-(void)loadChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance andTimeOfDay:(TimeOfDay)timeOfDay;
-
-//-(void)checkForLastObstacleWithDistance:(NSUInteger)distance andTimeOfDay:(TimeOfDay)timeOfDay;
--(void)decideToLoadChunksWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay;
+-(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay;
 
 
 

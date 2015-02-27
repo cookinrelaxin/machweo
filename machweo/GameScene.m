@@ -129,14 +129,13 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 
         //ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
         terrainPool = [NSMutableArray array];
-        previousChunks = [NSMutableArray array];
         //[cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
-        worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
+        worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
         
         backgroundPool = [NSMutableArray array];
         textureDict = _constants.TEXTURE_DICT;
         currentTimeOfDay = AM_8;
-        [worldStreamer decideToLoadChunksWithPlayerDistance:0 andTimeOfDay:currentTimeOfDay];
+        [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
         [self generateBackgrounds];
 
         [self performSunrise];
@@ -581,7 +580,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         
     }
     [self updateDistance];
-    [worldStreamer decideToLoadChunksWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
+    [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
     [self generateBackgrounds];
     [self checkForOldLines];
     [self deallocOldLines];
