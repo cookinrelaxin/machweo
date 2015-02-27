@@ -42,6 +42,15 @@ typedef enum TimesOfDay
     
 } TimeOfDay;
 
+typedef enum Biomes
+{
+    savanna,
+    sahara
+    
+} Biome;
+
+
+
 
 
 @interface Constants : NSObject
