@@ -75,9 +75,12 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         _obstacles = [SKNode node];
         _terrain = [SKNode node];
         _decorations = [SKNode node];
+        _skies = [SKNode node];
         [self addChild:_obstacles];
         [self addChild:_terrain];
         [self addChild:_decorations];
+        [self addChild:_skies];
+
         physicsComponent = [[ButsuLiKi alloc] init];
         arrayOfLines = [NSMutableArray array];
         
@@ -133,6 +136,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         backgroundPool = [NSMutableArray array];
         textureDict = _constants.TEXTURE_DICT;
         currentTimeOfDay = AM_8;
+        [worldStreamer decideToLoadChunksWithPlayerDistance:0 andTimeOfDay:currentTimeOfDay];
         [self generateBackgrounds];
 
         [self performSunrise];
@@ -206,7 +210,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
             background.zPosition = _constants.BACKGROUND_Z_POSITION;
             background.size = CGSizeMake(background.size.width * _constants.SCALE_COEFFICIENT.dy, background.size.height * _constants.SCALE_COEFFICIENT.dy);
             background.position = CGPointMake(background.size.width + lastBackground.position.x, self.size.height / 2);
-            [_decorations addChild:background];
+            [_skies addChild:background];
             [backgroundPool removeObject:firstBackground];
             [backgroundPool addObject:background];
         }
@@ -234,7 +238,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
                 background.position = CGPointMake(i * (backgroundTexture.size.width / 2), self.size.height / 2);
                 background.size = CGSizeMake(background.size.width * _constants.SCALE_COEFFICIENT.dy, background.size.height * _constants.SCALE_COEFFICIENT.dy);
                 background.position = CGPointMake(background.position.x * _constants.SCALE_COEFFICIENT.dy, background.position.y);
-                [_decorations addChild:background];
+                [_skies addChild:background];
                 [backgroundPool addObject:background];
             }
             
@@ -577,7 +581,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         
     }
     [self updateDistance];
-    [worldStreamer checkForLastObstacleWithDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
+    [worldStreamer decideToLoadChunksWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
     [self generateBackgrounds];
     [self checkForOldLines];
     [self deallocOldLines];
@@ -802,6 +806,12 @@ int ALLOWABLE_X_DIFFERENCE = 10;
             CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
             deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y - parallaxAdjustedDifference.dy);
         }
+        for (SKSpriteNode* sky in _skies.children) {
+            float fractionalCoefficient = sky.zPosition / _constants.OBSTACLE_Z_POSITION;
+            CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
+            sky.position = CGPointMake(sky.position.x - parallaxAdjustedDifference.dx, sky.position.y - parallaxAdjustedDifference.dy);
+        }
+        
     }
     
 }

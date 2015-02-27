@@ -14,6 +14,8 @@
 @property (nonatomic, strong) SKNode* obstacles;
 @property (nonatomic, strong) SKNode* terrain;
 @property (nonatomic, strong) SKNode* decorations;
+@property (nonatomic, strong) SKNode* skies;
+
 @property (nonatomic, strong) Constants *constants;
 @property (nonatomic) BOOL shangoBrokeHisBack;
 @property (nonatomic) BOOL allowDismissPopup;

@@ -174,7 +174,7 @@ int SWITCH_BIOMES_DENOM = 10;
 //                    });
 //                });
               
-              [self loadObstacleChunkWithXOffset:lastObstaclePosInSelf.x andDistance:distance];
+              [self loadObstacleChunkWithXOffset:lastObstaclePosInSelf.x + ((lastObstacle.size.width / 2) * (arc4random_uniform(3) + 1)) andDistance:distance];
 
 
                 //[self winGame];
@@ -194,6 +194,7 @@ int SWITCH_BIOMES_DENOM = 10;
         SKSpriteNode* lastDeco = [_decorations.children lastObject];
         if (!lastDeco) {
             [self loadDecorationChunkWithXOffset:0 andTimeOfDay:timeOfDay];
+            
             return;
         }
         CGPoint lastDecoPosInSelf = [_world convertPoint:lastDeco.position fromNode:_decorations];
