@@ -235,12 +235,7 @@ typedef enum NodeTypes
     }
 }
 
--(void)loadWorld:(SKNode*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations andBucket:(NSMutableArray*)bucket withinView:(SKView *)view andLines:(NSMutableArray*)lines andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset{
-    constants = [Constants sharedInstance];
-    for (NSString* decoName in terrainPoolArray) {
-     //   NSLog(@"decoName: %@", decoName);
-        [terrainPool addObject:decoName];
-    }
+-(void)loadObstaclesInWorld:(SKNode *)world withObstacles:(SKNode *)obstacles andBucket:(NSMutableArray *)bucket withinView:(SKView *)view andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
     
     for (Obstacle *obstacle in obstacleArray) {
         obstacle.position = CGPointMake((obstacle.position.x * constants.SCALE_COEFFICIENT.dy), obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
@@ -252,13 +247,26 @@ typedef enum NodeTypes
         [bucket addObject:obstacle];
     }
     
+    
+    
+}
+
+-(void)loadDecorationsInWorld:(SKNode *)world withDecorations:(SKNode *)decorations andBucket:(NSMutableArray *)bucket withinView:(SKView *)view andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
+    
+    constants = [Constants sharedInstance];
+    
+    for (NSString* decoName in terrainPoolArray) {
+        //   NSLog(@"decoName: %@", decoName);
+        [terrainPool addObject:decoName];
+    }
+    
     for (SKSpriteNode *deco in decorationArray) {
-       // NSLog(@"decoName: %@", deco.name);
+        // NSLog(@"decoName: %@", deco.name);
         deco.size = CGSizeMake(deco.size.width * constants.SCALE_COEFFICIENT.dy, deco.size.height * constants.SCALE_COEFFICIENT.dy);
         deco.position = CGPointMake((deco.position.x * constants.SCALE_COEFFICIENT.dy), deco.position.y * constants.SCALE_COEFFICIENT.dy);
         deco.position = [decorations convertPoint:deco.position fromNode:world];
         deco.position = CGPointMake(deco.position.x + xOffset, deco.position.y);
-
+        
         [decorations addChild:deco];
         [bucket addObject:deco];
     }

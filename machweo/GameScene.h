@@ -17,6 +17,7 @@
 @property (nonatomic, strong) Constants *constants;
 @property (nonatomic) BOOL shangoBrokeHisBack;
 @property (nonatomic) BOOL allowDismissPopup;
+@property (nonatomic) BOOL stopScrolling;
 
--(instancetype)initWithSize:(CGSize)size forLevel:(NSString *)levelName withinView:(SKView*)view;
+-(instancetype)initWithSize:(CGSize)size withinView:(SKView*)view;
     @end

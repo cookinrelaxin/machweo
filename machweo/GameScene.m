@@ -14,11 +14,6 @@
 #import "Score.h"
 #import <AVFoundation/AVFoundation.h>
 
-typedef enum TimesOfDay
-{
-    AM_8
-} TimeOfDay;
-
 int Y_THRESHOLD_FOR_SWITCH_LEVEL = 40;
 int ALLOWABLE_X_DIFFERENCE = 10;
 
@@ -37,7 +32,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     NSMutableArray* previousChunks;
     NSMutableDictionary* textureDict;
     
-    BOOL stopScrolling;
     BOOL gameWon;
     BOOL restartGameNotificationSent;
     BOOL gameOver;
@@ -54,7 +48,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     BOOL found_first_obstacle;
     BOOL passed_first_obstacle;
     BOOL popup_engaged;
-    BOOL chunkLoading;
+    //BOOL chunkLoading;
     
     TimeOfDay currentTimeOfDay;
     NSUInteger distance_traveled;
@@ -65,6 +59,8 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     
     SKLabelNode* distanceLabel;
     
+    WorldStreamer* worldStreamer;
+    
 }
 
 -(void)dealloc{
@@ -72,7 +68,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     NSLog(@"dealloc game scene");
 }
 
--(instancetype)initWithSize:(CGSize)size forLevel:(NSString *)levelName withinView:(SKView*)view{
+-(instancetype)initWithSize:(CGSize)size withinView:(SKView*)view{
     if (self = [super initWithSize:size]){
         //playerScore = [[Score alloc] init];
         _constants = [Constants sharedInstance];
@@ -88,52 +84,51 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         //init hud
         
-        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
-        //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
-        logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
-        //logoLabel.fontColor = [UIColor redColor];
-        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        logoLabel.zPosition = _constants.HUD_Z_POSITION;
-        logoLabel.text = @"MACHWEO";
-        //logoLabel.text = levelName;
-        [self addChild:logoLabel];
-        logoLabel.alpha = 0.0f;
-        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
-        [logoLabel runAction:logoFadeIn completion:^{
-            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
-            [logoLabel runAction:logoFadeOut completion:^{
-                //NSLog(@"fade in again");
-                logoLabel.text = levelName;
-                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
-                [logoLabel runAction:logoFadeInAgain completion:^{
-                    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
-                    [logoLabel runAction:logoFadeOut completion:^{
-                        [logoLabel removeFromParent];
-                        logoLabel = nil;
+//        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+//        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
+//        //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
+//        logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
+//        //logoLabel.fontColor = [UIColor redColor];
+//        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+//        logoLabel.zPosition = _constants.HUD_Z_POSITION;
+//        logoLabel.text = @"MACHWEO";
+//        //logoLabel.text = levelName;
+//        [self addChild:logoLabel];
+//        logoLabel.alpha = 0.0f;
+//        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
+//        [logoLabel runAction:logoFadeIn completion:^{
+//            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
+//            [logoLabel runAction:logoFadeOut completion:^{
+//                //NSLog(@"fade in again");
+//                logoLabel.text = levelName;
+//                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
+//                [logoLabel runAction:logoFadeInAgain completion:^{
+//                    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
+//                    [logoLabel runAction:logoFadeOut completion:^{
+//                        [logoLabel removeFromParent];
+//                        logoLabel = nil;
+//
+//                        if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
+//                            tutorial_mode_on = true;
+//                            
+//                            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+//                            [popupDict setValue:@"Draw a path for Maasai, and don't let him touch the ground!" forKey:@"popup text"];
+//                            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
+//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+//                            
+//                            popup_engaged = true;
+//                        }
+//
+//                    }];
+//                }];
+//            }];
+//        }];
 
-                        if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
-                            tutorial_mode_on = true;
-                            
-                            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-                            [popupDict setValue:@"Draw a path for Maasai, and don't let him touch the ground!" forKey:@"popup text"];
-                            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-                            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
-                            
-                            popup_engaged = true;
-                        }
-
-                    }];
-                }];
-            }];
-        }];
-
-        ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
+        //ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
         terrainPool = [NSMutableArray array];
         previousChunks = [NSMutableArray array];
-       // NSMutableArray* bucket = [NSMutableArray array];
-        //[previousChunkBuckets addObject:bucket];
-        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
+        //[cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
+        worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
         
         backgroundPool = [NSMutableArray array];
         textureDict = _constants.TEXTURE_DICT;
@@ -173,6 +168,14 @@ int ALLOWABLE_X_DIFFERENCE = 10;
      {
          weakSelf.allowDismissPopup = true;
      }];
+    
+    [center addObserverForName:@"stop scrolling"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         weakSelf.stopScrolling = true;
+     }];
 }
 
 -(void)generateBackgrounds{
@@ -186,11 +189,11 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         if (rightEdgeOfFirstBackground < 0) {
             NSLog(@"(rightEdgeOfFirstBackground < 0)");
             NSString* backgroundName;
-            switch (currentTimeOfDay) {
-                case AM_8:
+            //switch (currentTimeOfDay) {
+             //   case AM_8:
                     backgroundName = @"AM_8";
-                    break;
-            }
+              //      break;
+            //}
             
             SKTexture *backgroundTexture = [_constants.TEXTURE_DICT objectForKey:backgroundName];
             if (backgroundTexture == nil) {
@@ -212,11 +215,11 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         
 
         NSString* backgroundName;
-        switch (currentTimeOfDay) {
-            case AM_8:
+        //switch (currentTimeOfDay) {
+         //   case AM_8:
                 backgroundName = @"AM_8";
-                break;
-        }
+         //       break;
+        //}
         
         SKTexture *backgroundTexture = [_constants.TEXTURE_DICT objectForKey:backgroundName];
         if (backgroundTexture == nil) {
@@ -574,7 +577,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         
     }
     [self updateDistance];
-    [self checkForLastObstacle];
+    [worldStreamer checkForLastObstacleWithDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
     [self generateBackgrounds];
     [self checkForOldLines];
     [self deallocOldLines];
@@ -595,68 +598,68 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     [self drawLines];
 }
 
--(void)checkForLastObstacle{
-    if (!chunkLoading) {
-        
-        Obstacle* lastObstacle = [_obstacles.children lastObject];
-        CGPoint lastObstaclePosInSelf = [self convertPoint:lastObstacle.position fromNode:_obstacles];
-        //NSLog(@"lastObstaclePos: %f, %f", lastObstacle.position.x, lastObstacle.position.y);
-        //NSLog(@"lastObstaclePosInSelf: %f, %f", lastObstaclePosInSelf.x, lastObstaclePosInSelf.y);
-
-        CGPoint lastObstaclePosInView = [self.view convertPoint:lastObstaclePosInSelf fromScene:self];
-        //if (lastObstaclePosInView.x < (self.view.bounds.size.width * 3/4)) {
-          if (lastObstaclePosInView.x < self.view.bounds.size.width) {
-            //NSLog(@"lastObstacle: %@", lastObstacle);
-
-            //NSLog(@"(lastObstaclePosInView.x < (self.view.bounds.size.width * 3/4))");
-            NSMutableArray* levelArray = _constants.LEVEL_ARRAY;
-            int newIndex = _constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
-            //NSLog(@"newIndex: %i", newIndex);
-            //NSLog(@"levelArray.count: %i", levelArray.count);
-
-            if ((newIndex >= 0) && (newIndex < levelArray.count)) {
-                _constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
-                NSLog(@"load next chunk");
-                NSString* nextChunk = [_constants.LEVEL_ARRAY objectAtIndex:newIndex];
-                NSLog(@"next chunk: %@", nextChunk);
-                //NSLog(@"lastObstaclePosInSelf: %f, %f", lastObstaclePosInSelf.x, lastObstaclePosInSelf.y);
-                //if (previousChunks.count > 1) {
-                    
-                    NSMutableArray* trash = [NSMutableArray array];
-                    for (SKSpriteNode* sprite in previousChunks) {
-                        CGPoint posInSelf = [self convertPoint:CGPointMake(sprite.position.x + (sprite.size.width / 2), sprite.position.y) fromNode:sprite.parent];
-                        if (posInSelf.x > 0) {
-                            continue;
-                        }
-                        
-                        [sprite removeFromParent];
-                        [trash addObject:sprite];
-                    }
-                    for (SKSpriteNode* sprite in trash) {
-                        //NSLog(@"sprite: %@", sprite);
-                        [previousChunks removeObject:sprite];
-                    }
-                    trash = nil;
-                //}
-                chunkLoading = true;
-                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-                    ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:nextChunk];
-                    dispatch_sync(dispatch_get_main_queue(), ^{
-                        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
-                        chunkLoading = false;
-                    });
-                });
-                
-                
-                //[self winGame];
-            }
-            else{
-                stopScrolling = true;
-            }
-            
-        }
-    }
-}
+//-(void)checkForLastObstacle{
+//    if (!chunkLoading) {
+//        
+//        Obstacle* lastObstacle = [_obstacles.children lastObject];
+//        CGPoint lastObstaclePosInSelf = [self convertPoint:lastObstacle.position fromNode:_obstacles];
+//        //NSLog(@"lastObstaclePos: %f, %f", lastObstacle.position.x, lastObstacle.position.y);
+//        //NSLog(@"lastObstaclePosInSelf: %f, %f", lastObstaclePosInSelf.x, lastObstaclePosInSelf.y);
+//
+//        CGPoint lastObstaclePosInView = [self.view convertPoint:lastObstaclePosInSelf fromScene:self];
+//        //if (lastObstaclePosInView.x < (self.view.bounds.size.width * 3/4)) {
+//          if (lastObstaclePosInView.x < self.view.bounds.size.width) {
+//            //NSLog(@"lastObstacle: %@", lastObstacle);
+//
+//            //NSLog(@"(lastObstaclePosInView.x < (self.view.bounds.size.width * 3/4))");
+////            NSMutableArray* levelArray = _constants.LEVEL_ARRAY;
+//  //          int newIndex = _constants.CURRENT_INDEX_IN_LEVEL_ARRAY + 1;
+//            //NSLog(@"newIndex: %i", newIndex);
+//            //NSLog(@"levelArray.count: %i", levelArray.count);
+//
+//            if ((newIndex >= 0) && (newIndex < levelArray.count)) {
+//                _constants.CURRENT_INDEX_IN_LEVEL_ARRAY ++;
+//                NSLog(@"load next chunk");
+//                NSString* nextChunk = [_constants.LEVEL_ARRAY objectAtIndex:newIndex];
+//                NSLog(@"next chunk: %@", nextChunk);
+//                //NSLog(@"lastObstaclePosInSelf: %f, %f", lastObstaclePosInSelf.x, lastObstaclePosInSelf.y);
+//                //if (previousChunks.count > 1) {
+//                    
+//                    NSMutableArray* trash = [NSMutableArray array];
+//                    for (SKSpriteNode* sprite in previousChunks) {
+//                        CGPoint posInSelf = [self convertPoint:CGPointMake(sprite.position.x + (sprite.size.width / 2), sprite.position.y) fromNode:sprite.parent];
+//                        if (posInSelf.x > 0) {
+//                            continue;
+//                        }
+//                        
+//                        [sprite removeFromParent];
+//                        [trash addObject:sprite];
+//                    }
+//                    for (SKSpriteNode* sprite in trash) {
+//                        //NSLog(@"sprite: %@", sprite);
+//                        [previousChunks removeObject:sprite];
+//                    }
+//                    trash = nil;
+//                //}
+//                chunkLoading = true;
+//                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+//                    ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:nextChunk];
+//                    dispatch_sync(dispatch_get_main_queue(), ^{
+//                        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
+//                        chunkLoading = false;
+//                    });
+//                });
+//                
+//                
+//                //[self winGame];
+//            }
+//            else{
+//                stopScrolling = true;
+//            }
+//            
+//        }
+//    }
+//}
 
 -(void)checkForLostGame{
 
@@ -767,7 +770,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 
 
 - (void)centerCameraOnPlayer {
-    if (!stopScrolling) {
+    if (!_stopScrolling) {
         currentDesiredPlayerPositionInView = CGPointMake(currentDesiredPlayerPositionInView.x, [self convertPointToView:player.position].y);
         
         CGPoint playerPreviousPosition = CGPointMake(player.xCoordinateOfLeftSide + player.size.width / 2, player.yCoordinateOfBottomSide + player.size.height / 2);

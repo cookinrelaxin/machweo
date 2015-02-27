@@ -11,6 +11,8 @@
 
 @interface ChunkLoader : NSObject <NSXMLParserDelegate>
 
--(void)loadWorld:(SKNode*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations andBucket:(NSMutableArray*)bucket withinView:(SKView*)view andLines:(NSMutableArray*)lines andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset;
+//-(void)loadWorld:(SKNode*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations andBucket:(NSMutableArray*)bucket withinView:(SKView*)view andLines:(NSMutableArray*)lines andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset;
+-(void)loadObstaclesInWorld:(SKNode*)world withObstacles:(SKNode*)obstacles andBucket:(NSMutableArray*)bucket withinView:(SKView*)view andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset;
+-(void)loadDecorationsInWorld:(SKNode*)world withDecorations:(SKNode*)decorations andBucket:(NSMutableArray*)bucket withinView:(SKView*)view andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset;
 -(instancetype)initWithFile:(NSString*)fileName;
 @end

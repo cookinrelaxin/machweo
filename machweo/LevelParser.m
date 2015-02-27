@@ -69,7 +69,7 @@
         NSLog(@"timeOfDay: %@", timeOfDay);
         NSMutableArray* timeArray = [biomeDict valueForKey:timeOfDay];
         if (!timeArray) {
-            NSLog(@"timeOfDay: %@", timeOfDay);
+            //NSLog(@"timeOfDay: %@", timeOfDay);
             timeArray = [NSMutableArray array];
             [biomeDict setValue:timeArray forKey:timeOfDay];
         }

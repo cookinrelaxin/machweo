@@ -25,7 +25,6 @@
 		659B21D01A5E1C1300885C04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21CF1A5E1C1300885C04 /* main.m */; };
 		659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659B21DF1A5E1C1300885C04 /* Images.xcassets */; };
 		659B21EF1A5E1C1400885C04 /* machweoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21EE1A5E1C1400885C04 /* machweoTests.m */; };
-		782AE76A1A74B89900FF4225 /* levels.xml in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6D61A74B89900FF4225 /* levels.xml */; };
 		782AE76C1A74B89900FF4225 /* button.ai in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6DA1A74B89900FF4225 /* button.ai */; };
 		782AE76D1A74B89900FF4225 /* button.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6DB1A74B89900FF4225 /* button.png */; };
 		782AE76E1A74B89900FF4225 /* cloud.ai in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6DD1A74B89900FF4225 /* cloud.ai */; };
@@ -154,7 +153,6 @@
 		78344E441A97E39C00F9A5DF /* purpletree_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E421A97E39C00F9A5DF /* purpletree_decoration.png */; };
 		78344E451A97E39C00F9A5DF /* purpletree2_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E431A97E39C00F9A5DF /* purpletree2_decoration.png */; };
 		78344E511A97E9F700F9A5DF /* kilimanjaro_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E501A97E9F700F9A5DF /* kilimanjaro_decoration.png */; };
-		78344E531A97EA2200F9A5DF /* Far From Home.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78344E521A97EA2200F9A5DF /* Far From Home.xml */; };
 		78383FB11A8AF0F700712BFD /* ghosttreemudafucka_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB01A8AF0F700712BFD /* ghosttreemudafucka_decoration.png */; };
 		78383FBA1A8B099F00712BFD /* dirtmcgirt.ai in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB31A8B099F00712BFD /* dirtmcgirt.ai */; };
 		78383FBB1A8B099F00712BFD /* dirtmcgirt.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB41A8B099F00712BFD /* dirtmcgirt.png */; };
@@ -163,12 +161,12 @@
 		78383FBE1A8B099F00712BFD /* lotusquilt_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB71A8B099F00712BFD /* lotusquilt_decoration.png */; };
 		78383FBF1A8B099F00712BFD /* opticalillusion.ai in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB81A8B099F00712BFD /* opticalillusion.ai */; };
 		78383FC01A8B099F00712BFD /* opticalillusion_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB91A8B099F00712BFD /* opticalillusion_decoration.png */; };
-		7844915C1A9AABB6005AAAC4 /* A Hero Is Born v2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 784491591A9AABB6005AAAC4 /* A Hero Is Born v2.xml */; };
-		7844915D1A9AABB6005AAAC4 /* Far From Home v2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7844915A1A9AABB6005AAAC4 /* Far From Home v2.xml */; };
-		7844915E1A9AABB6005AAAC4 /* The Journey Begins v2.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7844915B1A9AABB6005AAAC4 /* The Journey Begins v2.xml */; };
-		784491601A9ACF86005AAAC4 /* The Journey Begins v3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7844915F1A9ACF86005AAAC4 /* The Journey Begins v3.xml */; };
-		784491661A9ADA29005AAAC4 /* The Journey Begins v4.xml in Resources */ = {isa = PBXBuildFile; fileRef = 784491651A9ADA29005AAAC4 /* The Journey Begins v4.xml */; };
-		7844916A1A9AE213005AAAC4 /* A Hero Is Born v3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 784491691A9AE213005AAAC4 /* A Hero Is Born v3.xml */; };
+		783BF06D1A9FFFC9001CC097 /* decorationSet_savanna_day_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF0661A9FFFC9001CC097 /* decorationSet_savanna_day_a.xml */; };
+		783BF06E1A9FFFC9001CC097 /* decorationSet_savanna_day_b.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF0671A9FFFC9001CC097 /* decorationSet_savanna_day_b.xml */; };
+		783BF06F1A9FFFC9001CC097 /* decorationSet_savanna_night_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF0681A9FFFC9001CC097 /* decorationSet_savanna_night_a.xml */; };
+		783BF0701A9FFFC9001CC097 /* obstacleSet_1_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF06A1A9FFFC9001CC097 /* obstacleSet_1_a.xml */; };
+		783BF0711A9FFFC9001CC097 /* obstacleSet_1_b.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF06B1A9FFFC9001CC097 /* obstacleSet_1_b.xml */; };
+		783BF0721A9FFFC9001CC097 /* obstacleSet_1_c.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF06C1A9FFFC9001CC097 /* obstacleSet_1_c.xml */; };
 		7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7852BC6B1A71FF6D0038447B /* gameModel.xcdatamodeld */; };
 		785A53E21A9597A400ED2E37 /* rock1.ai in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DC1A9597A400ED2E37 /* rock1.ai */; };
 		785A53E31A9597A400ED2E37 /* rock1_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DD1A9597A400ED2E37 /* rock1_decoration.png */; };
@@ -178,13 +176,8 @@
 		785A53E71A9597A400ED2E37 /* rock3_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53E11A9597A400ED2E37 /* rock3_decoration.png */; };
 		787BB5431A9D656400DF2D7C /* Amatic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 787BB5411A9D61F000DF2D7C /* Amatic-Bold.ttf */; };
 		787BB5441A9D656400DF2D7C /* AmaticSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 787BB5421A9D61F000DF2D7C /* AmaticSC-Regular.ttf */; };
-		787DA32D1A9C0B350093EC23 /* The Journey Begins v5.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787DA32C1A9C0B350093EC23 /* The Journey Begins v5.xml */; };
-		787DA3351A9C21DD0093EC23 /* Far From Home v3.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787DA3331A9C21DD0093EC23 /* Far From Home v3.xml */; };
-		787DA3391A9C22B20093EC23 /* A Hero Is Born v4.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787DA3381A9C22B20093EC23 /* A Hero Is Born v4.xml */; };
 		7883AE3D1A8EEB60006A94A4 /* menulogo1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */; };
 		7883AE3F1A8EEC24006A94A4 /* menulogohalfx.png in Resources */ = {isa = PBXBuildFile; fileRef = 7883AE3E1A8EEC24006A94A4 /* menulogohalfx.png */; };
-		788563C51A96D95C00F49980 /* A Hero is Born.xml in Resources */ = {isa = PBXBuildFile; fileRef = 788563C31A96D95C00F49980 /* A Hero is Born.xml */; };
-		788563C61A96D95C00F49980 /* The Journey Begins.xml in Resources */ = {isa = PBXBuildFile; fileRef = 788563C41A96D95C00F49980 /* The Journey Begins.xml */; };
 		788788041A7333A9002987B7 /* GameDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 788788031A7333A9002987B7 /* GameDataManager.m */; };
 		7892A1701A995E5A00CA64CE /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7892A16F1A995E5A00CA64CE /* PopupView.m */; };
 		78B566901A7C703E00011E86 /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B5668F1A7C703E00011E86 /* Terrain.m */; };
@@ -192,8 +185,6 @@
 		78B986B21A74827B00C4EA18 /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986B11A74827B00C4EA18 /* Coin.m */; };
 		78C0F8AC1A92D47500382159 /* Skranji-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */; };
 		78C0F8AD1A92D47500382159 /* Skranji-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */; };
-		78C77B1F1A9EB27C000A5728 /* obstacleSet_13_e.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78C77B1E1A9EB27C000A5728 /* obstacleSet_13_e.xml */; };
-		78C77B211A9EB70D000A5728 /* decorationSet_sahara_night_c.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78C77B201A9EB70D000A5728 /* decorationSet_sahara_night_c.xml */; };
 		78C77B241A9EBEAC000A5728 /* WorldStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C77B231A9EBEAC000A5728 /* WorldStreamer.m */; };
 		78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */; };
 		78D4142E1A957E9C00618227 /* gametrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78D4142D1A957E9C00618227 /* gametrack.mp3 */; };
@@ -262,7 +253,6 @@
 		659B21E81A5E1C1400885C04 /* machweoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = machweoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		659B21ED1A5E1C1400885C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659B21EE1A5E1C1400885C04 /* machweoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = machweoTests.m; sourceTree = "<group>"; };
-		782AE6D61A74B89900FF4225 /* levels.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = levels.xml; sourceTree = "<group>"; };
 		782AE6DA1A74B89900FF4225 /* button.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = button.ai; sourceTree = "<group>"; };
 		782AE6DB1A74B89900FF4225 /* button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button.png; sourceTree = "<group>"; };
 		782AE6DD1A74B89900FF4225 /* cloud.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cloud.ai; sourceTree = "<group>"; };
@@ -391,7 +381,6 @@
 		78344E421A97E39C00F9A5DF /* purpletree_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpletree_decoration.png; sourceTree = "<group>"; };
 		78344E431A97E39C00F9A5DF /* purpletree2_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpletree2_decoration.png; sourceTree = "<group>"; };
 		78344E501A97E9F700F9A5DF /* kilimanjaro_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilimanjaro_decoration.png; sourceTree = "<group>"; };
-		78344E521A97EA2200F9A5DF /* Far From Home.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Far From Home.xml"; sourceTree = "<group>"; };
 		78383FB01A8AF0F700712BFD /* ghosttreemudafucka_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ghosttreemudafucka_decoration.png; sourceTree = "<group>"; };
 		78383FB31A8B099F00712BFD /* dirtmcgirt.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dirtmcgirt.ai; sourceTree = "<group>"; };
 		78383FB41A8B099F00712BFD /* dirtmcgirt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dirtmcgirt.png; sourceTree = "<group>"; };
@@ -400,12 +389,12 @@
 		78383FB71A8B099F00712BFD /* lotusquilt_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lotusquilt_decoration.png; sourceTree = "<group>"; };
 		78383FB81A8B099F00712BFD /* opticalillusion.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = opticalillusion.ai; sourceTree = "<group>"; };
 		78383FB91A8B099F00712BFD /* opticalillusion_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opticalillusion_decoration.png; sourceTree = "<group>"; };
-		784491591A9AABB6005AAAC4 /* A Hero Is Born v2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "A Hero Is Born v2.xml"; sourceTree = "<group>"; };
-		7844915A1A9AABB6005AAAC4 /* Far From Home v2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Far From Home v2.xml"; sourceTree = "<group>"; };
-		7844915B1A9AABB6005AAAC4 /* The Journey Begins v2.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "The Journey Begins v2.xml"; sourceTree = "<group>"; };
-		7844915F1A9ACF86005AAAC4 /* The Journey Begins v3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "The Journey Begins v3.xml"; sourceTree = "<group>"; };
-		784491651A9ADA29005AAAC4 /* The Journey Begins v4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "The Journey Begins v4.xml"; sourceTree = "<group>"; };
-		784491691A9AE213005AAAC4 /* A Hero Is Born v3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "A Hero Is Born v3.xml"; sourceTree = "<group>"; };
+		783BF0661A9FFFC9001CC097 /* decorationSet_savanna_day_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = decorationSet_savanna_day_a.xml; sourceTree = "<group>"; };
+		783BF0671A9FFFC9001CC097 /* decorationSet_savanna_day_b.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = decorationSet_savanna_day_b.xml; sourceTree = "<group>"; };
+		783BF0681A9FFFC9001CC097 /* decorationSet_savanna_night_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = decorationSet_savanna_night_a.xml; sourceTree = "<group>"; };
+		783BF06A1A9FFFC9001CC097 /* obstacleSet_1_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_1_a.xml; sourceTree = "<group>"; };
+		783BF06B1A9FFFC9001CC097 /* obstacleSet_1_b.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_1_b.xml; sourceTree = "<group>"; };
+		783BF06C1A9FFFC9001CC097 /* obstacleSet_1_c.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_1_c.xml; sourceTree = "<group>"; };
 		7852BC6C1A71FF6D0038447B /* gameModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = gameModel.xcdatamodel; sourceTree = "<group>"; };
 		785A53DC1A9597A400ED2E37 /* rock1.ai */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rock1.ai; sourceTree = "<group>"; };
 		785A53DD1A9597A400ED2E37 /* rock1_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock1_decoration.png; sourceTree = "<group>"; };
@@ -415,13 +404,8 @@
 		785A53E11A9597A400ED2E37 /* rock3_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock3_decoration.png; sourceTree = "<group>"; };
 		787BB5411A9D61F000DF2D7C /* Amatic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Amatic-Bold.ttf"; sourceTree = "<group>"; };
 		787BB5421A9D61F000DF2D7C /* AmaticSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmaticSC-Regular.ttf"; sourceTree = "<group>"; };
-		787DA32C1A9C0B350093EC23 /* The Journey Begins v5.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "The Journey Begins v5.xml"; sourceTree = "<group>"; };
-		787DA3331A9C21DD0093EC23 /* Far From Home v3.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Far From Home v3.xml"; sourceTree = "<group>"; };
-		787DA3381A9C22B20093EC23 /* A Hero Is Born v4.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "A Hero Is Born v4.xml"; sourceTree = "<group>"; };
 		7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menulogo1x.png; sourceTree = "<group>"; };
 		7883AE3E1A8EEC24006A94A4 /* menulogohalfx.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menulogohalfx.png; sourceTree = "<group>"; };
-		788563C31A96D95C00F49980 /* A Hero is Born.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "A Hero is Born.xml"; sourceTree = "<group>"; };
-		788563C41A96D95C00F49980 /* The Journey Begins.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "The Journey Begins.xml"; sourceTree = "<group>"; };
 		788788021A7333A9002987B7 /* GameDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataManager.h; sourceTree = "<group>"; };
 		788788031A7333A9002987B7 /* GameDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataManager.m; sourceTree = "<group>"; };
 		7892A16E1A995E5A00CA64CE /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
@@ -434,8 +418,6 @@
 		78B986B11A74827B00C4EA18 /* Coin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coin.m; sourceTree = "<group>"; };
 		78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Bold.ttf"; sourceTree = "<group>"; };
 		78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Regular.ttf"; sourceTree = "<group>"; };
-		78C77B1E1A9EB27C000A5728 /* obstacleSet_13_e.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_13_e.xml; sourceTree = "<group>"; };
-		78C77B201A9EB70D000A5728 /* decorationSet_sahara_night_c.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = decorationSet_sahara_night_c.xml; sourceTree = "<group>"; };
 		78C77B221A9EBEAC000A5728 /* WorldStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldStreamer.h; sourceTree = "<group>"; };
 		78C77B231A9EBEAC000A5728 /* WorldStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldStreamer.m; sourceTree = "<group>"; };
 		78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuControllerViewController.h; sourceTree = "<group>"; };
@@ -562,18 +544,9 @@
 				788563C21A96D95C00F49980 /* level files */,
 				78D4142C1A957E9C00618227 /* music */,
 				78C0F8A71A92D47500382159 /* fonts */,
-				782AE6D51A74B89900FF4225 /* screen data */,
 				782AE6D81A74B89900FF4225 /* sprites */,
 			);
 			path = "formatted game assets (zack's folder)";
-			sourceTree = "<group>";
-		};
-		782AE6D51A74B89900FF4225 /* screen data */ = {
-			isa = PBXGroup;
-			children = (
-				782AE6D61A74B89900FF4225 /* levels.xml */,
-			);
-			path = "screen data";
 			sourceTree = "<group>";
 		};
 		782AE6D81A74B89900FF4225 /* sprites */ = {
@@ -794,6 +767,26 @@
 			path = "line quilt";
 			sourceTree = "<group>";
 		};
+		783BF0651A9FFFC9001CC097 /* decorationSets */ = {
+			isa = PBXGroup;
+			children = (
+				783BF0661A9FFFC9001CC097 /* decorationSet_savanna_day_a.xml */,
+				783BF0671A9FFFC9001CC097 /* decorationSet_savanna_day_b.xml */,
+				783BF0681A9FFFC9001CC097 /* decorationSet_savanna_night_a.xml */,
+			);
+			path = decorationSets;
+			sourceTree = "<group>";
+		};
+		783BF0691A9FFFC9001CC097 /* obstacleSets */ = {
+			isa = PBXGroup;
+			children = (
+				783BF06A1A9FFFC9001CC097 /* obstacleSet_1_a.xml */,
+				783BF06B1A9FFFC9001CC097 /* obstacleSet_1_b.xml */,
+				783BF06C1A9FFFC9001CC097 /* obstacleSet_1_c.xml */,
+			);
+			path = obstacleSets;
+			sourceTree = "<group>";
+		};
 		785A53DB1A9597A400ED2E37 /* rock */ = {
 			isa = PBXGroup;
 			children = (
@@ -810,20 +803,8 @@
 		788563C21A96D95C00F49980 /* level files */ = {
 			isa = PBXGroup;
 			children = (
-				788563C31A96D95C00F49980 /* A Hero is Born.xml */,
-				784491591A9AABB6005AAAC4 /* A Hero Is Born v2.xml */,
-				784491691A9AE213005AAAC4 /* A Hero Is Born v3.xml */,
-				7844915A1A9AABB6005AAAC4 /* Far From Home v2.xml */,
-				7844915B1A9AABB6005AAAC4 /* The Journey Begins v2.xml */,
-				7844915F1A9ACF86005AAAC4 /* The Journey Begins v3.xml */,
-				787DA3381A9C22B20093EC23 /* A Hero Is Born v4.xml */,
-				784491651A9ADA29005AAAC4 /* The Journey Begins v4.xml */,
-				787DA3331A9C21DD0093EC23 /* Far From Home v3.xml */,
-				78C77B1E1A9EB27C000A5728 /* obstacleSet_13_e.xml */,
-				78C77B201A9EB70D000A5728 /* decorationSet_sahara_night_c.xml */,
-				787DA32C1A9C0B350093EC23 /* The Journey Begins v5.xml */,
-				78344E521A97EA2200F9A5DF /* Far From Home.xml */,
-				788563C41A96D95C00F49980 /* The Journey Begins.xml */,
+				783BF0651A9FFFC9001CC097 /* decorationSets */,
+				783BF0691A9FFFC9001CC097 /* obstacleSets */,
 			);
 			path = "level files";
 			sourceTree = "<group>";
@@ -1034,10 +1015,8 @@
 				787BB5431A9D656400DF2D7C /* Amatic-Bold.ttf in Resources */,
 				787BB5441A9D656400DF2D7C /* AmaticSC-Regular.ttf in Resources */,
 				782AE7951A74B89900FF4225 /* grass.ai in Resources */,
-				787DA3351A9C21DD0093EC23 /* Far From Home v3.xml in Resources */,
 				782AE7841A74B89900FF4225 /* cloudopaque.png in Resources */,
 				782AE7961A74B89900FF4225 /* grass.png in Resources */,
-				7844915E1A9AABB6005AAAC4 /* The Journey Begins v2.xml in Resources */,
 				7883AE3F1A8EEC24006A94A4 /* menulogohalfx.png in Resources */,
 				78383FC01A8B099F00712BFD /* opticalillusion_decoration.png in Resources */,
 				6509D2E91A5E290300F1BBA6 /* brush7.png in Resources */,
@@ -1051,7 +1030,6 @@
 				782AE7D01A74B89900FF4225 /* nightstars2_decoration.png in Resources */,
 				782AE77F1A74B89900FF4225 /* cloud4.0_decoration.png in Resources */,
 				782AE7791A74B89900FF4225 /* cloud3.0.png in Resources */,
-				787DA32D1A9C0B350093EC23 /* The Journey Begins v5.xml in Resources */,
 				78FFBC791A8EAC9500996198 /* chapters_button_clicked.png in Resources */,
 				78F9322B1A8854CB007947DD /* african_textile_1.jpg in Resources */,
 				782AE7CC1A74B89900FF4225 /* night.ai in Resources */,
@@ -1060,6 +1038,7 @@
 				78383FBD1A8B099F00712BFD /* linequilt.png in Resources */,
 				782AE7831A74B89900FF4225 /* cloud_decoration.png in Resources */,
 				782AE7CA1A74B89900FF4225 /* moon.ai in Resources */,
+				783BF06E1A9FFFC9001CC097 /* decorationSet_savanna_day_b.xml in Resources */,
 				782AE7E31A74B89900FF4225 /* tree2_decoration.png in Resources */,
 				782AE7B81A74B89900FF4225 /* dawn2.ai in Resources */,
 				782AE7AE1A74B89900FF4225 /* rotate.ai in Resources */,
@@ -1071,10 +1050,10 @@
 				78FFBC7A1A8EAC9500996198 /* chapters_button_not_clicked.png in Resources */,
 				782AE7D51A74B89900FF4225 /* spikesunyell_decoration.png in Resources */,
 				782AE78C1A74B89900FF4225 /* cloudred2.png in Resources */,
-				7844916A1A9AE213005AAAC4 /* A Hero Is Born v3.xml in Resources */,
 				782AE7721A74B89900FF4225 /* cloud2.0.png in Resources */,
 				782AE7CB1A74B89900FF4225 /* moon_decoration.png in Resources */,
 				78383FB11A8AF0F700712BFD /* ghosttreemudafucka_decoration.png in Resources */,
+				783BF0721A9FFFC9001CC097 /* obstacleSet_1_c.xml in Resources */,
 				782AE7C41A74B89900FF4225 /* dayog.ai in Resources */,
 				782AE7991A74B89900FF4225 /* redgrass.ai in Resources */,
 				782AE7741A74B89900FF4225 /* cloud2.ai in Resources */,
@@ -1089,14 +1068,12 @@
 				782AE7C81A74B89900FF4225 /* dusk3.ai in Resources */,
 				78FFBC851A8EAC9500996198 /* settings_button_not_clicked.png in Resources */,
 				7883AE3D1A8EEB60006A94A4 /* menulogo1x.png in Resources */,
-				7844915D1A9AABB6005AAAC4 /* Far From Home v2.xml in Resources */,
 				782AE7E11A74B89900FF4225 /* tree.ai in Resources */,
 				782AE7C31A74B89900FF4225 /* AM_8.png in Resources */,
 				782AE7931A74B89900FF4225 /* blackgrass.gif in Resources */,
 				6509D2EA1A5E290300F1BBA6 /* fatbrush.png in Resources */,
 				782AE7771A74B89900FF4225 /* cloud2opaque.png in Resources */,
 				6509D2EB1A5E290300F1BBA6 /* mediumbrush.png in Resources */,
-				78344E531A97EA2200F9A5DF /* Far From Home.xml in Resources */,
 				782AE79D1A74B89900FF4225 /* mountain2.png in Resources */,
 				782AE7E71A74B89900FF4225 /* tree4_decoration.png in Resources */,
 				78FFBC7E1A8EAC9500996198 /* leaderboard_button_not_clicked.png in Resources */,
@@ -1116,8 +1093,6 @@
 				782AE7AB1A74B89900FF4225 /* obstacle3_obstacle.png in Resources */,
 				782AE7C61A74B89900FF4225 /* dusk1.ai in Resources */,
 				782AE79C1A74B89900FF4225 /* mountain2.ai in Resources */,
-				784491601A9ACF86005AAAC4 /* The Journey Begins v3.xml in Resources */,
-				78C77B1F1A9EB27C000A5728 /* obstacleSet_13_e.xml in Resources */,
 				782AE7901A74B89900FF4225 /* cloudred4.png in Resources */,
 				782AE7E21A74B89900FF4225 /* tree2.ai in Resources */,
 				782AE7711A74B89900FF4225 /* cloud1.0_decoration.png in Resources */,
@@ -1150,7 +1125,6 @@
 				6509D2CC1A5E290300F1BBA6 /* Main.storyboard in Resources */,
 				782AE7D61A74B89900FF4225 /* sun_decoration.png in Resources */,
 				782AE7BA1A74B89900FF4225 /* dawn4.ai in Resources */,
-				787DA3391A9C22B20093EC23 /* A Hero Is Born v4.xml in Resources */,
 				782AE7911A74B89900FF4225 /* cloudred4_decoration.png in Resources */,
 				782AE7D31A74B89900FF4225 /* spikesun_decoration.png in Resources */,
 				78C0F8AD1A92D47500382159 /* Skranji-Regular.ttf in Resources */,
@@ -1163,7 +1137,6 @@
 				782AE7B91A74B89900FF4225 /* dawn2_decoration.png in Resources */,
 				782AE7CF1A74B89900FF4225 /* nightstars2.ai in Resources */,
 				782AE7A41A74B89900FF4225 /* hexagon.ai in Resources */,
-				784491661A9ADA29005AAAC4 /* The Journey Begins v4.xml in Resources */,
 				782AE7D41A74B89900FF4225 /* spikesunyell.ai in Resources */,
 				782AE7E81A74B89900FF4225 /* tree_decoration.png in Resources */,
 				782AE76F1A74B89900FF4225 /* cloud.png in Resources */,
@@ -1174,17 +1147,18 @@
 				782AE77C1A74B89900FF4225 /* cloud3.png in Resources */,
 				782AE7B11A74B89900FF4225 /* square_obstacle.png in Resources */,
 				782AE7A51A74B89900FF4225 /* hexagon_obstacle.png in Resources */,
+				783BF06D1A9FFFC9001CC097 /* decorationSet_savanna_day_a.xml in Resources */,
 				6509D2EC1A5E290300F1BBA6 /* smallbrush.png in Resources */,
 				78344E511A97E9F700F9A5DF /* kilimanjaro_decoration.png in Resources */,
 				782AE7D11A74B89900FF4225 /* nightstars_decoration.png in Resources */,
 				782AE79F1A74B89900FF4225 /* mountain3_decoration.ai in Resources */,
 				785A53E41A9597A400ED2E37 /* rock2.ai in Resources */,
 				782AE7B01A74B89900FF4225 /* square.ai in Resources */,
-				7844915C1A9AABB6005AAAC4 /* A Hero Is Born v2.xml in Resources */,
 				782AE7BF1A74B89900FF4225 /* day3_decoration.png in Resources */,
 				782AE7DF1A74B89900FF4225 /* redtree4_decoration.png in Resources */,
 				78FFBC801A8EAC9500996198 /* menu_line.png in Resources */,
 				782AE7D71A74B89900FF4225 /* chapterCellTestBackgroundImage.png in Resources */,
+				783BF0701A9FFFC9001CC097 /* obstacleSet_1_a.xml in Resources */,
 				782AE7B51A74B89900FF4225 /* totem_obstacle.png in Resources */,
 				785A53E21A9597A400ED2E37 /* rock1.ai in Resources */,
 				78FFBC841A8EAC9500996198 /* settings_button_clicked.png in Resources */,
@@ -1207,18 +1181,16 @@
 				785A53E31A9597A400ED2E37 /* rock1_decoration.png in Resources */,
 				782AE7821A74B89900FF4225 /* cloud4_decoration.png in Resources */,
 				782AE7CD1A74B89900FF4225 /* night_decoration.png in Resources */,
+				783BF06F1A9FFFC9001CC097 /* decorationSet_savanna_night_a.xml in Resources */,
 				782AE7A31A74B89900FF4225 /* circlemask_obstacle.png in Resources */,
-				788563C51A96D95C00F49980 /* A Hero is Born.xml in Resources */,
 				78383FBF1A8B099F00712BFD /* opticalillusion.ai in Resources */,
 				782AE7891A74B89900FF4225 /* cloudopaque_decoration.png in Resources */,
 				78FFBC821A8EAC9500996198 /* purpleglass.png in Resources */,
 				782AE7A81A74B89900FF4225 /* obstacle2.ai in Resources */,
-				78C77B211A9EB70D000A5728 /* decorationSet_sahara_night_c.xml in Resources */,
 				785A53E61A9597A400ED2E37 /* rock3.ai in Resources */,
-				788563C61A96D95C00F49980 /* The Journey Begins.xml in Resources */,
 				78F9322F1A8854CB007947DD /* dirt1_terrain.png in Resources */,
 				782AE7DE1A74B89900FF4225 /* redtree4.ai in Resources */,
-				782AE76A1A74B89900FF4225 /* levels.xml in Resources */,
+				783BF0711A9FFFC9001CC097 /* obstacleSet_1_b.xml in Resources */,
 				785A53E71A9597A400ED2E37 /* rock3_decoration.png in Resources */,
 				782AE78F1A74B89900FF4225 /* cloudred3_decoration.png in Resources */,
 			);
