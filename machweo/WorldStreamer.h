@@ -12,7 +12,7 @@
 
 @interface WorldStreamer : NSObject
 
--(instancetype)initWithWorld:(SKScene*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations withinView:(SKView *)view andLines:(NSMutableArray*)lines andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset;
+-(instancetype)initWithWorld:(SKScene*)world withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations withinView:(SKView *)view andLines:(NSMutableArray*)lines andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset andTimeOfDay:(TimeOfDay)timeOfDay;
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay;
 

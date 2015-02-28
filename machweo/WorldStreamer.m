@@ -39,7 +39,7 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
     
 }
 
--(instancetype)initWithWorld:(SKScene *)world withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
+-(instancetype)initWithWorld:(SKScene *)world withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset andTimeOfDay:(TimeOfDay)timeOfDay{
     if (self = [super init]) {
         _world = world;
         _obstacles = obstacles;
@@ -52,8 +52,13 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
         in_use_obstacle_pool = [NSMutableArray array];
         unused_deco_pool = [NSMutableArray array];
         in_use_deco_pool = [NSMutableArray array];
-        
         constants = [Constants sharedInstance];
+        
+        [self preloadObstacleChunkWithDistance:0];
+        [self loadNextObstacleWithXOffset:0];
+        [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
+        [self loadNextDecoWithXOffset:0 andMinimumZPosition:0];
+        
         
         
     }
@@ -82,9 +87,22 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
     NSString* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
     ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
     [obstacleSetParser pourObstaclesIntoBucket:unused_obstacle_pool];
+    //NSLog(@"unused_obstacle_pool: %@", unused_obstacle_pool);
+}
+
+-(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay{
+    Biome biome = [self calculateNextBiome];
+    NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
+    ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
+    [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool];
+    //NSLog(@"unused_deco_pool: %@", unused_deco_pool);
+    
 }
 
 -(void)loadNextObstacleWithXOffset:(float)xOffset{
+    if (unused_obstacle_pool.count < 1) {
+        return;
+    }
     
     Obstacle* newObstacle = [unused_obstacle_pool objectAtIndex:0];
     [unused_obstacle_pool removeObject:newObstacle];
@@ -99,13 +117,6 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
     
 }
 
--(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay{
-    Biome biome = [self calculateNextBiome];
-    NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
-    ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
-    [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool];
-}
-
 -(void)loadNextDecoWithXOffset:(float)xOffset andMinimumZPosition:(float)minimumZPosition{
     
     SKSpriteNode* decoToLoad;
@@ -115,7 +126,11 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
             break;
         }
     }
+    if (!decoToLoad) {
+        return;
+    }
     [unused_deco_pool removeObject:decoToLoad];
+    
     
     decoToLoad.size = CGSizeMake(decoToLoad.size.width * constants.SCALE_COEFFICIENT.dy, decoToLoad.size.height * constants.SCALE_COEFFICIENT.dy);
     decoToLoad.position = CGPointMake((decoToLoad.position.x * constants.SCALE_COEFFICIENT.dy), decoToLoad.position.y * constants.SCALE_COEFFICIENT.dy);
@@ -136,7 +151,7 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
         CGPoint decoPositionInWorld = [_world convertPoint:deco.position fromNode:_obstacles];
         CGPoint decoPositionInView = [_view convertPoint:decoPositionInWorld fromScene:_world];
         
-        if (decoPositionInView.x < (_view.bounds.size.width - (deco.size.width / 2))){
+        if (decoPositionInView.x < (_view.bounds.size.width + (deco.size.width / 2))){
             [trash addObject:deco];
         }
     }
@@ -163,7 +178,7 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
         CGPoint obsPositionInWorld = [_world convertPoint:obs.position fromNode:_obstacles];
         CGPoint obsPositionInView = [_view convertPoint:obsPositionInWorld fromScene:_world];
         
-        if (obsPositionInView.x < (_view.bounds.size.width - (obs.size.width / 2))){
+        if (obsPositionInView.x < (_view.bounds.size.width + (obs.size.width / 2))){
             [trash addObject:obs];
         }
     }
@@ -195,25 +210,34 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay{
     
-    if([self checkForOldDecos]){
-        [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
-    }
-    if([self checkForOldObstacles]){
+//    if([self shouldParseNewDecorationSet]){
+//        NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
+//        [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
+//    }
+    if([self shouldParseNewObstacleSet]){
+        //NSLog(@"[self preloadObstacleChunkWithDistance:playerDistance]");
         [self preloadObstacleChunkWithDistance:playerDistance];
     }
     
     //what the hell should our xOffsets be?
     float xOffset = 0;
 
-    float minimumZpositionToLoad = [self checkForOldDecos];
-    if (minimumZpositionToLoad > 0) {
-        [self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad];
-    }
+//    float minimumZpositionToLoad = [self checkForOldDecos];
+//    if (minimumZpositionToLoad > 0) {
+//        NSLog(@"[self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad]");
+//        [self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad];
+//    }
+    [self loadNextDecoWithXOffset:xOffset andMinimumZPosition:0];
     
-    if ([self checkForOldObstacles]) {
-        [self loadNextObstacleWithXOffset:xOffset];
-        
-    }
+   // NSLog(@"in_use_deco_pool: %@", in_use_deco_pool);
+   // NSLog(@"unused_deco_pool: %@", unused_deco_pool);
+
+    
+//    if ([self checkForOldObstacles]) {
+//        //NSLog(@"[self loadNextObstacleWithXOffset:xOffset]");
+//        [self loadNextObstacleWithXOffset:xOffset];
+//        
+//    }
     
 }
 
