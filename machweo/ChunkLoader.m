@@ -243,7 +243,7 @@ typedef enum NodeTypes
             if ([currentNode isKindOfClass:[Decoration class]]) {
                 Decoration* deco = (Decoration*)currentNode;
                 deco.uniqueID = string;
-                NSLog(@")
+                //NSLog(@"deco.uniqueID: %@", deco.uniqueID);
             }
             if ([currentNode isKindOfClass:[Obstacle class]]) {
                 Obstacle* obs = (Obstacle*)currentNode;

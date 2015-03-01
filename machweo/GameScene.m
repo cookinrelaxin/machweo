@@ -190,7 +190,7 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         CGPoint positionInView = [self convertPoint:firstBackground.position fromNode:_decorations];
         float rightEdgeOfFirstBackground = positionInView.x + (firstBackground.size.width / 2);
         if (rightEdgeOfFirstBackground < 0) {
-            NSLog(@"(rightEdgeOfFirstBackground < 0)");
+           // NSLog(@"(rightEdgeOfFirstBackground < 0)");
             NSString* backgroundName;
             //switch (currentTimeOfDay) {
              //   case AM_8:
