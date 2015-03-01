@@ -10,9 +10,11 @@
 #import "ChunkLoader.h"
 #import "Obstacle.h"
 
-int SWITCH_BIOMES_DENOM = 10;
-int THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET = 3;
-int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
+const int SWITCH_BIOMES_DENOM = 10;
+const int THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET = 3;
+const int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
+const int MAX_IN_USE_DECO_POOL_COUNT = 20;
+
 
 
 @implementation WorldStreamer{
@@ -30,6 +32,8 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
     NSMutableArray* in_use_obstacle_pool;
     NSMutableArray* unused_deco_pool;
     NSMutableArray* in_use_deco_pool;
+    
+    NSUInteger numberOfDecosToLoad;
     
 
     
@@ -54,9 +58,10 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
         in_use_deco_pool = [NSMutableArray array];
         constants = [Constants sharedInstance];
         
-        [self preloadObstacleChunkWithDistance:0];
-        [self loadNextObstacleWithXOffset:0];
+        //[self preloadObstacleChunkWithDistance:0];
+        //[self loadNextObstacleWithXOffset:0];
         [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
+        numberOfDecosToLoad = unused_deco_pool.count;
         [self loadNextDecoWithXOffset:0 andMinimumZPosition:0];
         
         
@@ -118,54 +123,52 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
 }
 
 -(void)loadNextDecoWithXOffset:(float)xOffset andMinimumZPosition:(float)minimumZPosition{
+    NSMutableArray* trash = [NSMutableArray array];
     
-    SKSpriteNode* decoToLoad;
-    for (SKSpriteNode* newDeco in unused_deco_pool) {
-        if (newDeco.zPosition >= minimumZPosition) {
-            decoToLoad = newDeco;
+    for (SKSpriteNode* decoToLoad in unused_deco_pool) {
+        if (numberOfDecosToLoad > 0) {
+            if (decoToLoad.zPosition >= minimumZPosition) {
+                [in_use_deco_pool addObject:decoToLoad];
+                [trash addObject:decoToLoad];
+                decoToLoad.size = CGSizeMake(decoToLoad.size.width * constants.SCALE_COEFFICIENT.dy, decoToLoad.size.height * constants.SCALE_COEFFICIENT.dy);
+                decoToLoad.position = CGPointMake((decoToLoad.position.x * constants.SCALE_COEFFICIENT.dy), decoToLoad.position.y * constants.SCALE_COEFFICIENT.dy);
+                decoToLoad.position = [_decorations convertPoint:decoToLoad.position fromNode:_world];
+                decoToLoad.position = CGPointMake(decoToLoad.position.x + xOffset + (decoToLoad.size.width / 2), decoToLoad.position.y);
+                [_decorations addChild:decoToLoad];
+            }
+            //numberOfDecosToLoad --;
+        }
+        else{
             break;
         }
     }
-    if (!decoToLoad) {
-        return;
+    for (SKSpriteNode* decoToDecache in trash) {
+        [unused_deco_pool removeObject:decoToDecache];
     }
-    [unused_deco_pool removeObject:decoToLoad];
-    
-    
-    decoToLoad.size = CGSizeMake(decoToLoad.size.width * constants.SCALE_COEFFICIENT.dy, decoToLoad.size.height * constants.SCALE_COEFFICIENT.dy);
-    decoToLoad.position = CGPointMake((decoToLoad.position.x * constants.SCALE_COEFFICIENT.dy), decoToLoad.position.y * constants.SCALE_COEFFICIENT.dy);
-    decoToLoad.position = [_decorations convertPoint:decoToLoad.position fromNode:_world];
-    decoToLoad.position = CGPointMake(decoToLoad.position.x + xOffset, decoToLoad.position.y);
-
-    [_decorations addChild:decoToLoad];
-    [in_use_deco_pool addObject:decoToLoad];
+    trash = nil;
 
 }
 
--(float)checkForOldDecos{
+-(void)cleanUpOldDecos{
     NSMutableArray* trash = [NSMutableArray array];
     
-    float maxZposition = 0;
-    
     for (SKSpriteNode* deco in in_use_deco_pool) {
-        CGPoint decoPositionInWorld = [_world convertPoint:deco.position fromNode:_obstacles];
+        CGPoint decoPositionInWorld = [_world convertPoint:deco.position fromNode:_decorations];
         CGPoint decoPositionInView = [_view convertPoint:decoPositionInWorld fromScene:_world];
         
-        if (decoPositionInView.x < (_view.bounds.size.width + (deco.size.width / 2))){
+        if (decoPositionInView.x < (0 - (deco.size.width / 2))){
+            //NSLog(@"[trash addObject:deco];");
             [trash addObject:deco];
         }
     }
-    
-    for (Obstacle* deco in trash) {
-        if (deco.zPosition > maxZposition) {
-            maxZposition = deco.zPosition;
-        }
+    //numberOfDecosToLoad = 0;
+    for (SKSpriteNode* deco in trash) {
+        //numberOfDecosToLoad ++;
         [deco removeFromParent];
         [in_use_deco_pool removeObject:deco];
     }
     
     trash = nil;
-    return maxZposition;
     
 }
 
@@ -178,7 +181,7 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
         CGPoint obsPositionInWorld = [_world convertPoint:obs.position fromNode:_obstacles];
         CGPoint obsPositionInView = [_view convertPoint:obsPositionInWorld fromScene:_world];
         
-        if (obsPositionInView.x < (_view.bounds.size.width + (obs.size.width / 2))){
+        if (obsPositionInView.x < (0 - (obs.size.width / 2))){
             [trash addObject:obs];
         }
     }
@@ -194,6 +197,8 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
 
 }
 
+
+
 -(BOOL)shouldParseNewObstacleSet{
     if (unused_obstacle_pool.count < THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET) {
         return true;
@@ -202,34 +207,61 @@ int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
 }
 
 -(BOOL)shouldParseNewDecorationSet{
+    
+
     if (unused_deco_pool.count < THRESHOLD_FOR_PARSING_NEW_DECORATION_SET) {
         return true;
     }
     return false;
 }
 
+-(float)calculateMinZPosition{
+    float minZPosition = FLT_MAX;
+    
+    for (SKSpriteNode* deco in in_use_deco_pool) {
+        if (deco.zPosition < minZPosition) {
+            minZPosition = deco.zPosition;
+        }
+    }
+    if (in_use_deco_pool.count == 0) {
+        minZPosition = 0;
+    }
+    return minZPosition;
+}
+
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay{
     
-//    if([self shouldParseNewDecorationSet]){
-//        NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
-//        [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
-//    }
-    if([self shouldParseNewObstacleSet]){
-        //NSLog(@"[self preloadObstacleChunkWithDistance:playerDistance]");
-        [self preloadObstacleChunkWithDistance:playerDistance];
+    if([self shouldParseNewDecorationSet]){
+        //NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
+        [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
     }
+
+//    if([self shouldParseNewObstacleSet]){
+//        //NSLog(@"[self preloadObstacleChunkWithDistance:playerDistance]");
+//        [self preloadObstacleChunkWithDistance:playerDistance];
+//    }
     
     //what the hell should our xOffsets be?
-    float xOffset = 0;
+    float xOffset = _view.bounds.size.width;
 
-//    float minimumZpositionToLoad = [self checkForOldDecos];
-//    if (minimumZpositionToLoad > 0) {
-//        NSLog(@"[self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad]");
-//        [self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad];
-//    }
-    [self loadNextDecoWithXOffset:xOffset andMinimumZPosition:0];
+    [self cleanUpOldDecos];
+    if (in_use_deco_pool.count < MAX_IN_USE_DECO_POOL_COUNT) {
+        numberOfDecosToLoad = 10;
+    }
+    else{
+        numberOfDecosToLoad = 0;
+    }
+    //NSLog(@"unused_deco_pool.count: %lu", unused_deco_pool.count);
+    //NSLog(@"in_use_deco_pool.count: %lu", in_use_deco_pool.count);
+
+    //NSLog(@"numberOfDecosToLoad: %lu", numberOfDecosToLoad);
+    //NSLog(@"[self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad]");
+    float minimumZpositionToLoad = [self calculateMinZPosition];
+    minimumZpositionToLoad = 0;
+    //NSLog(@"minimumZpositionToLoad: %f", minimumZpositionToLoad);
+
+    [self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad];
     
-   // NSLog(@"in_use_deco_pool: %@", in_use_deco_pool);
    // NSLog(@"unused_deco_pool: %@", unused_deco_pool);
 
     
