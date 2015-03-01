@@ -12,9 +12,11 @@
 #import "Decoration.h"
 
 const int SWITCH_BIOMES_DENOM = 10;
-const int THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET = 3;
-const int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 3;
+const int THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET = 10;
+const int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 10;
 const int MAX_IN_USE_DECO_POOL_COUNT = 20;
+const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
+
 
 
 
@@ -91,11 +93,18 @@ const int MAX_IN_USE_DECO_POOL_COUNT = 20;
 }
 
 -(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay{
-    Biome biome = [self calculateNextBiome];
-    NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
-    ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
-    [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool];
-    //NSLog(@"unused_deco_pool: %@", unused_deco_pool);
+    chunkLoading = true;
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        Biome biome = [self calculateNextBiome];
+        NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
+        ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
+        [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool];
+        //NSLog(@"unused_deco_pool: %@", unused_deco_pool);
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            chunkLoading = false;
+        });
+    });
+    
     
 }
 
@@ -231,18 +240,15 @@ const int MAX_IN_USE_DECO_POOL_COUNT = 20;
     float xOffset = _view.bounds.size.width;
 
     [self cleanUpOldDecos];
-    if (in_use_deco_pool.count < MAX_IN_USE_DECO_POOL_COUNT) {
-        numberOfDecosToLoad = 10;
+    NSUInteger desiredNumDecosToLoad = MAX_NUM_DECOS_TO_LOAD;
+    if ((desiredNumDecosToLoad + in_use_deco_pool.count) < MAX_IN_USE_DECO_POOL_COUNT) {
+        desiredNumDecosToLoad = abs(MAX_IN_USE_DECO_POOL_COUNT - (int)desiredNumDecosToLoad);
     }
-    else{
-        numberOfDecosToLoad = 0;
-    }
-    //NSLog(@"unused_deco_pool.count: %lu", unused_deco_pool.count);
-    //NSLog(@"in_use_deco_pool.count: %lu", in_use_deco_pool.count);
-
-    //NSLog(@"numberOfDecosToLoad: %lu", numberOfDecosToLoad);
-    //NSLog(@"[self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad]");
-    //NSLog(@"minimumZpositionToLoad: %f", minimumZpositionToLoad);
+    numberOfDecosToLoad = desiredNumDecosToLoad;
+    NSLog(@"unused_deco_pool.count: %lu", unused_deco_pool.count);
+    NSLog(@"in_use_deco_pool.count: %lu", in_use_deco_pool.count);
+    NSLog(@"numberOfDecosToLoad: %lu", numberOfDecosToLoad);
+    NSLog(@"[self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad]");
 
     [self loadNextDecoWithXOffset:xOffset];
     
