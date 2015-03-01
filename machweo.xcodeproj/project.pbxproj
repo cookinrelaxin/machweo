@@ -163,7 +163,6 @@
 		78383FC01A8B099F00712BFD /* opticalillusion_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78383FB91A8B099F00712BFD /* opticalillusion_decoration.png */; };
 		783BF06D1A9FFFC9001CC097 /* decorationSet_savanna_day_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF0661A9FFFC9001CC097 /* decorationSet_savanna_day_a.xml */; };
 		783BF06E1A9FFFC9001CC097 /* decorationSet_savanna_day_b.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF0671A9FFFC9001CC097 /* decorationSet_savanna_day_b.xml */; };
-		783BF06F1A9FFFC9001CC097 /* decorationSet_savanna_night_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF0681A9FFFC9001CC097 /* decorationSet_savanna_night_a.xml */; };
 		783BF0701A9FFFC9001CC097 /* obstacleSet_1_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF06A1A9FFFC9001CC097 /* obstacleSet_1_a.xml */; };
 		783BF0711A9FFFC9001CC097 /* obstacleSet_1_b.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF06B1A9FFFC9001CC097 /* obstacleSet_1_b.xml */; };
 		783BF0721A9FFFC9001CC097 /* obstacleSet_1_c.xml in Resources */ = {isa = PBXBuildFile; fileRef = 783BF06C1A9FFFC9001CC097 /* obstacleSet_1_c.xml */; };
@@ -180,6 +179,8 @@
 		7883AE3F1A8EEC24006A94A4 /* menulogohalfx.png in Resources */ = {isa = PBXBuildFile; fileRef = 7883AE3E1A8EEC24006A94A4 /* menulogohalfx.png */; };
 		788788041A7333A9002987B7 /* GameDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 788788031A7333A9002987B7 /* GameDataManager.m */; };
 		7892A1701A995E5A00CA64CE /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7892A16F1A995E5A00CA64CE /* PopupView.m */; };
+		78952A541AA2A75C00A065C2 /* decorationSet_savanna_day_c.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78952A531AA2A75C00A065C2 /* decorationSet_savanna_day_c.xml */; };
+		78952A5E1AA2C01900A065C2 /* Decoration.m in Sources */ = {isa = PBXBuildFile; fileRef = 78952A5D1AA2C01900A065C2 /* Decoration.m */; };
 		78B566901A7C703E00011E86 /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B5668F1A7C703E00011E86 /* Terrain.m */; };
 		78B986AF1A746CAF00C4EA18 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986AE1A746CAF00C4EA18 /* Score.m */; };
 		78B986B21A74827B00C4EA18 /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986B11A74827B00C4EA18 /* Coin.m */; };
@@ -391,7 +392,6 @@
 		78383FB91A8B099F00712BFD /* opticalillusion_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = opticalillusion_decoration.png; sourceTree = "<group>"; };
 		783BF0661A9FFFC9001CC097 /* decorationSet_savanna_day_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = decorationSet_savanna_day_a.xml; sourceTree = "<group>"; };
 		783BF0671A9FFFC9001CC097 /* decorationSet_savanna_day_b.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = decorationSet_savanna_day_b.xml; sourceTree = "<group>"; };
-		783BF0681A9FFFC9001CC097 /* decorationSet_savanna_night_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = decorationSet_savanna_night_a.xml; sourceTree = "<group>"; };
 		783BF06A1A9FFFC9001CC097 /* obstacleSet_1_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_1_a.xml; sourceTree = "<group>"; };
 		783BF06B1A9FFFC9001CC097 /* obstacleSet_1_b.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_1_b.xml; sourceTree = "<group>"; };
 		783BF06C1A9FFFC9001CC097 /* obstacleSet_1_c.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_1_c.xml; sourceTree = "<group>"; };
@@ -410,6 +410,9 @@
 		788788031A7333A9002987B7 /* GameDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataManager.m; sourceTree = "<group>"; };
 		7892A16E1A995E5A00CA64CE /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
 		7892A16F1A995E5A00CA64CE /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
+		78952A531AA2A75C00A065C2 /* decorationSet_savanna_day_c.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = decorationSet_savanna_day_c.xml; sourceTree = "<group>"; };
+		78952A5C1AA2C01900A065C2 /* Decoration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoration.h; sourceTree = "<group>"; };
+		78952A5D1AA2C01900A065C2 /* Decoration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Decoration.m; sourceTree = "<group>"; };
 		78B5668E1A7C703E00011E86 /* Terrain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Terrain.h; sourceTree = "<group>"; };
 		78B5668F1A7C703E00011E86 /* Terrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terrain.m; sourceTree = "<group>"; };
 		78B986AD1A746CAF00C4EA18 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
@@ -772,7 +775,7 @@
 			children = (
 				783BF0661A9FFFC9001CC097 /* decorationSet_savanna_day_a.xml */,
 				783BF0671A9FFFC9001CC097 /* decorationSet_savanna_day_b.xml */,
-				783BF0681A9FFFC9001CC097 /* decorationSet_savanna_night_a.xml */,
+				78952A531AA2A75C00A065C2 /* decorationSet_savanna_day_c.xml */,
 			);
 			path = decorationSets;
 			sourceTree = "<group>";
@@ -844,6 +847,8 @@
 				78B5668F1A7C703E00011E86 /* Terrain.m */,
 				6509D29F1A5E290300F1BBA6 /* Obstacle.h */,
 				6509D2981A5E290300F1BBA6 /* Obstacle.m */,
+				78952A5C1AA2C01900A065C2 /* Decoration.h */,
+				78952A5D1AA2C01900A065C2 /* Decoration.m */,
 				6509D2C41A5E290300F1BBA6 /* Line.h */,
 				6509D2CA1A5E290300F1BBA6 /* Line.m */,
 			);
@@ -1024,6 +1029,7 @@
 				782AE76D1A74B89900FF4225 /* button.png in Resources */,
 				782AE7B31A74B89900FF4225 /* totem2.ai in Resources */,
 				782AE79A1A74B89900FF4225 /* redgrass_decoration.png in Resources */,
+				78952A541AA2A75C00A065C2 /* decorationSet_savanna_day_c.xml in Resources */,
 				782AE7C91A74B89900FF4225 /* dusk3_decoration.png in Resources */,
 				782AE7751A74B89900FF4225 /* cloud2.png in Resources */,
 				782AE7AC1A74B89900FF4225 /* obstacle4.ai in Resources */,
@@ -1181,7 +1187,6 @@
 				785A53E31A9597A400ED2E37 /* rock1_decoration.png in Resources */,
 				782AE7821A74B89900FF4225 /* cloud4_decoration.png in Resources */,
 				782AE7CD1A74B89900FF4225 /* night_decoration.png in Resources */,
-				783BF06F1A9FFFC9001CC097 /* decorationSet_savanna_night_a.xml in Resources */,
 				782AE7A31A74B89900FF4225 /* circlemask_obstacle.png in Resources */,
 				78383FBF1A8B099F00712BFD /* opticalillusion.ai in Resources */,
 				782AE7891A74B89900FF4225 /* cloudopaque_decoration.png in Resources */,
@@ -1225,6 +1230,7 @@
 				6509D2D11A5E290300F1BBA6 /* ButsuLiKi.m in Sources */,
 				6509D2D41A5E290300F1BBA6 /* Player.m in Sources */,
 				78B986AF1A746CAF00C4EA18 /* Score.m in Sources */,
+				78952A5E1AA2C01900A065C2 /* Decoration.m in Sources */,
 				6509D2D91A5E290300F1BBA6 /* LevelParser.m in Sources */,
 				7892A1701A995E5A00CA64CE /* PopupView.m in Sources */,
 				78B986B21A74827B00C4EA18 /* Coin.m in Sources */,

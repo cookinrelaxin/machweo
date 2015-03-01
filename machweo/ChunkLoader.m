@@ -8,6 +8,7 @@
 
 #import "ChunkLoader.h"
 #import "Obstacle.h"
+#import "Decoration.h"
 #import "Terrain.h"
 #import "Line.h"
 
@@ -22,7 +23,9 @@ typedef enum ElementVarieties
     motionType,
     speedType,
     terrainPool,
-    terrainPoolMember
+    terrainPoolMember,
+    uniqueID
+
     
 } Element;
 
@@ -129,6 +132,10 @@ typedef enum NodeTypes
         currentElement = terrainPoolMember;
         return;
     }
+    if ([elementName isEqualToString:@"uniqueID"]) {
+        currentElement = uniqueID;
+        return;
+    }
 }
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
@@ -170,7 +177,7 @@ typedef enum NodeTypes
 
                 }
                 else if (currentNodeType == decoration){
-                    currentNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
+                    currentNode = [Decoration spriteNodeWithTexture:spriteTexture];
                 }
             }
             else{
@@ -231,6 +238,17 @@ typedef enum NodeTypes
             }
             //NSLog(@"spriteTexture :%@", spriteTexture);
             [terrainPoolArray addObject:spriteTexture];
+        }
+        if (currentElement == uniqueID) {
+            if ([currentNode isKindOfClass:[Decoration class]]) {
+                Decoration* deco = (Decoration*)currentNode;
+                deco.uniqueID = string;
+                NSLog(@")
+            }
+            if ([currentNode isKindOfClass:[Obstacle class]]) {
+                Obstacle* obs = (Obstacle*)currentNode;
+                obs.uniqueID = string;
+            }
         }
     }
 }

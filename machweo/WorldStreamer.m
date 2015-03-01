@@ -34,13 +34,7 @@ const int MAX_IN_USE_DECO_POOL_COUNT = 20;
     NSMutableArray* in_use_deco_pool;
     
     NSUInteger numberOfDecosToLoad;
-    
-
-    
-    
-    
-    
-    
+   
 }
 
 -(instancetype)initWithWorld:(SKScene *)world withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset andTimeOfDay:(TimeOfDay)timeOfDay{
