@@ -93,17 +93,10 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 }
 
 -(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay{
-    chunkLoading = true;
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        Biome biome = [self calculateNextBiome];
-        NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
-        ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
-        [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool];
-        //NSLog(@"unused_deco_pool: %@", unused_deco_pool);
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            chunkLoading = false;
-        });
-    });
+    Biome biome = [self calculateNextBiome];
+    NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
+    ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
+    [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool];
     
     
 }
@@ -216,7 +209,6 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 }
 
 -(BOOL)shouldParseNewDecorationSet{
-    
 
     if (unused_deco_pool.count < THRESHOLD_FOR_PARSING_NEW_DECORATION_SET) {
         return true;
@@ -228,7 +220,13 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     
     if([self shouldParseNewDecorationSet]){
         //NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
-        [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
+        chunkLoading = true;
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+            [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                chunkLoading = false;
+            });
+        });
     }
 
 //    if([self shouldParseNewObstacleSet]){
@@ -245,10 +243,10 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         desiredNumDecosToLoad = abs(MAX_IN_USE_DECO_POOL_COUNT - (int)desiredNumDecosToLoad);
     }
     numberOfDecosToLoad = desiredNumDecosToLoad;
-    NSLog(@"unused_deco_pool.count: %lu", unused_deco_pool.count);
-    NSLog(@"in_use_deco_pool.count: %lu", in_use_deco_pool.count);
-    NSLog(@"numberOfDecosToLoad: %lu", numberOfDecosToLoad);
-    NSLog(@"[self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad]");
+   // NSLog(@"unused_deco_pool.count: %lu", unused_deco_pool.count);
+    //NSLog(@"in_use_deco_pool.count: %lu", in_use_deco_pool.count);
+   // NSLog(@"numberOfDecosToLoad: %lu", numberOfDecosToLoad);
+   // NSLog(@"[self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad]");
 
     [self loadNextDecoWithXOffset:xOffset];
     
@@ -292,119 +290,6 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     return 1;
 }
 
-//-(void)checkForLastObstacleWithDistance:(NSUInteger)distance{
-//    if (!chunkLoading) {
-//
-//        Obstacle* lastObstacle = [_obstacles.children lastObject];
-//        if (!lastObstacle) {
-//            [self loadObstacleChunkWithXOffset:_view.bounds.size.width andDistance:0];
-//            
-//            return;
-//        }
-//        CGPoint lastObstaclePosInSelf = [_world convertPoint:lastObstacle.position fromNode:_obstacles];
-//
-//        CGPoint lastObstaclePosInView = [_view convertPoint:lastObstaclePosInSelf fromScene:_world];
-//          if (lastObstaclePosInView.x < _view.bounds.size.width) {
-//                NSLog(@"load next chunk");
-//                    NSMutableArray* trash = [NSMutableArray array];
-//                    for (SKSpriteNode* sprite in _bucket) {
-//                        if (![sprite isKindOfClass:[Obstacle class]]) {
-//                            continue;
-//                        }
-//                        CGPoint posInSelf = [_world convertPoint:CGPointMake(sprite.position.x + (sprite.size.width / 2), sprite.position.y) fromNode:sprite.parent];
-//                        if (posInSelf.x > 0) {
-//                            continue;
-//                        }
-//
-//                        [sprite removeFromParent];
-//                        [trash addObject:sprite];
-//                    }
-//                    for (SKSpriteNode* sprite in trash) {
-//                        [_bucket removeObject:sprite];
-//                    }
-//                    trash = nil;
-////                }
-////                chunkLoading = true;
-////                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-////                    ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:nextChunk];
-////                    dispatch_sync(dispatch_get_main_queue(), ^{
-////                        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
-////                        chunkLoading = false;
-////                    });
-////                });
-//              
-//              [self loadObstacleChunkWithXOffset:lastObstaclePosInSelf.x + ((lastObstacle.size.width / 2) * (arc4random_uniform(3) + 1)) andDistance:distance];
-//
-//
-//                //[self winGame];
-//            }
-//        else{
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"stopScrolling" object:nil];
-//
-////                stopScrolling = true;
-//        }
-//
-//    }
-//}
-//
-//-(void)checkForLastDecorationWithTimeOfDay:(TimeOfDay)timeOfDay{
-//    if (!chunkLoading) {
-//        
-//        SKSpriteNode* lastDeco = [_decorations.children lastObject];
-//        if (!lastDeco) {
-//            [self loadDecorationChunkWithXOffset:0 andTimeOfDay:timeOfDay];
-//            
-//            return;
-//        }
-//        CGPoint lastDecoPosInSelf = [_world convertPoint:lastDeco.position fromNode:_decorations];
-//        
-//        CGPoint lastDecoPosInView = [_view convertPoint:lastDecoPosInSelf fromScene:_world];
-//        if (lastDecoPosInView.x < _view.bounds.size.width) {
-//            NSLog(@"load next chunk");
-//            NSMutableArray* trash = [NSMutableArray array];
-//            for (SKSpriteNode* sprite in _bucket) {
-//                if ([sprite isKindOfClass:[Obstacle class]]) {
-//                    continue;
-//                }
-//                CGPoint posInSelf = [_world convertPoint:CGPointMake(sprite.position.x + (sprite.size.width / 2), sprite.position.y) fromNode:sprite.parent];
-//                if (posInSelf.x > 0) {
-//                    SKAction* fadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
-//                    [sprite runAction:fadeOut completion:^{
-//                        [sprite removeFromParent];
-//                    }];
-//                    continue;
-//                }
-//                
-//                [sprite removeFromParent];
-//                [trash addObject:sprite];
-//            }
-//            for (SKSpriteNode* sprite in trash) {
-//                [_bucket removeObject:sprite];
-//            }
-//            trash = nil;
-//            //                }
-//            //                chunkLoading = true;
-//            //                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-//            //                    ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:nextChunk];
-//            //                    dispatch_sync(dispatch_get_main_queue(), ^{
-//            //                        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
-//            //                        chunkLoading = false;
-//            //                    });
-//            //                });
-//            
-//            [self loadDecorationChunkWithXOffset:lastDecoPosInSelf.x + (lastDeco.size.width / 2) andTimeOfDay:timeOfDay];
-//            
-//            
-//            //[self winGame];
-//        }
-////        else{
-////            [[NSNotificationCenter defaultCenter] postNotificationName:@"stopScrolling" object:nil];
-////            
-////            //                stopScrolling = true;
-////        }
-//        
-//    }
-//}
 
 
 -(NSString*)timeOfDayToString:(TimeOfDay)timeOfDay :(BOOL)exact{

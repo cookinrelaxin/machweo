@@ -41,7 +41,7 @@
 }
 -(void)processObstacleSet:(NSString*)obstacleSetName{
     NSArray* componentArray = [obstacleSetName componentsSeparatedByString:@"_"];
-    NSLog(@"componentArray: %@", componentArray);
+    //NSLog(@"componentArray: %@", componentArray);
     NSString* difficulty = ((NSString*)[componentArray objectAtIndex:1]);
     NSMutableArray* difficultyArray = [_obstacleSets objectForKey:difficulty];
     if (!difficultyArray) {
@@ -56,7 +56,7 @@
 
 -(void)processDecorationSet:(NSString*)decorationSetName{
     NSArray* componentArray = [decorationSetName componentsSeparatedByString:@"_"];
-    NSLog(@"componentArray: %@", componentArray);
+    //NSLog(@"componentArray: %@", componentArray);
     NSString* biome = ((NSString*)[componentArray objectAtIndex:1]);
     NSMutableDictionary* biomeDict = [_biomes objectForKey:biome];
     if (!biomeDict) {
@@ -66,7 +66,7 @@
     
     NSString* timeOfDay = ((NSString*)[componentArray objectAtIndex:2]);
     if ([timeOfDay isEqualToString:@"day"] || [timeOfDay isEqualToString:@"night"]) {
-        NSLog(@"timeOfDay: %@", timeOfDay);
+        //NSLog(@"timeOfDay: %@", timeOfDay);
         NSMutableArray* timeArray = [biomeDict valueForKey:timeOfDay];
         if (!timeArray) {
             //NSLog(@"timeOfDay: %@", timeOfDay);
