@@ -45,7 +45,8 @@ typedef enum TimesOfDay
 typedef enum Biomes
 {
     savanna,
-    sahara
+    sahara,
+    numBiomes
     
 } Biome;
 

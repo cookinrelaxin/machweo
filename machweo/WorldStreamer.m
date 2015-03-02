@@ -13,8 +13,11 @@
 
 const int SWITCH_BIOMES_DENOM = 10;
 const int THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET = 10;
-const int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 10;
-const int MAX_IN_USE_DECO_POOL_COUNT = 20;
+//const int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 20;
+const int MAX_IN_USE_DECO_POOL_COUNT = 60;
+const int MAX_UNUSED_DECO_POOL_COUNT = 60;
+
+
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 
@@ -28,6 +31,8 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     NSMutableArray* _lines;
     NSMutableArray* _terrainPool;
     Biome currentBiome;
+    Biome previousBiome;
+
     Constants* constants;
     BOOL chunkLoading;
     
@@ -57,6 +62,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         
         //[self preloadObstacleChunkWithDistance:0];
         //[self loadNextObstacleWithXOffset:0];
+        [self calculateNextBiome];
         [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
         numberOfDecosToLoad = unused_deco_pool.count;
         [self loadNextDecoWithXOffset:0];
@@ -71,17 +77,22 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 
 -(Biome)calculateNextBiome{
-    int chance = arc4random_uniform(10);
+    NSUInteger chance = arc4random_uniform(SWITCH_BIOMES_DENOM);
+    Biome newbiome = currentBiome;
+    previousBiome = currentBiome;
     if (chance == 0) {
-        //for now just pick savanna
-        //return @"savanna";
-        return savanna;
+        NSUInteger biomeRoll = arc4random_uniform(numBiomes);
+        switch (biomeRoll) {
+            case savanna:
+                newbiome = savanna;
+                break;
+            case sahara:
+                newbiome = sahara;
+                break;
+        }
+        currentBiome = newbiome;
     }
-    //else{
-    return currentBiome;
-    //}
-    
-    //return nil;
+    return newbiome;
 }
 
 -(void)preloadObstacleChunkWithDistance:(NSUInteger)distance{
@@ -94,6 +105,10 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 -(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay{
     Biome biome = [self calculateNextBiome];
+    if (previousBiome != currentBiome) {
+        NSLog(@"clear old biome");
+        [unused_deco_pool removeAllObjects];
+    }
     NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
     ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
     [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool];
@@ -125,10 +140,13 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         
         for (Decoration* decoToLoad in unused_deco_pool) {
             BOOL skip = NO;
-            for (Decoration *usedDeco in in_use_deco_pool) {
-                if ([decoToLoad.uniqueID isEqualToString:usedDeco.uniqueID]) {
-                    skip = YES;
-                    break;
+            if (currentBiome == savanna) {
+                for (Decoration *usedDeco in in_use_deco_pool) {
+                    if ([decoToLoad.uniqueID isEqualToString:usedDeco.uniqueID]) {
+                        //NSLog(@"skip");
+                        skip = YES;
+                        break;
+                    }
                 }
             }
             if (skip) {
@@ -210,7 +228,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 -(BOOL)shouldParseNewDecorationSet{
 
-    if (unused_deco_pool.count < THRESHOLD_FOR_PARSING_NEW_DECORATION_SET) {
+    if (((unused_deco_pool.count < MAX_UNUSED_DECO_POOL_COUNT) && (in_use_deco_pool.count < MAX_IN_USE_DECO_POOL_COUNT))) {
         return true;
     }
     return false;
@@ -221,12 +239,12 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     if([self shouldParseNewDecorationSet]){
         //NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
         chunkLoading = true;
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        //dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
             [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
-            dispatch_sync(dispatch_get_main_queue(), ^{
+            //dispatch_sync(dispatch_get_main_queue(), ^{
                 chunkLoading = false;
-            });
-        });
+            //});
+       // });
     }
 
 //    if([self shouldParseNewObstacleSet]){
@@ -239,12 +257,14 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
     [self cleanUpOldDecos];
     NSUInteger desiredNumDecosToLoad = MAX_NUM_DECOS_TO_LOAD;
-    if ((desiredNumDecosToLoad + in_use_deco_pool.count) < MAX_IN_USE_DECO_POOL_COUNT) {
-        desiredNumDecosToLoad = abs(MAX_IN_USE_DECO_POOL_COUNT - (int)desiredNumDecosToLoad);
-    }
+//    if ((desiredNumDecosToLoad + in_use_deco_pool.count) < MAX_IN_USE_DECO_POOL_COUNT) {
+//        desiredNumDecosToLoad = abs(MAX_IN_USE_DECO_POOL_COUNT - (int)desiredNumDecosToLoad);
+//    }
     numberOfDecosToLoad = desiredNumDecosToLoad;
-   // NSLog(@"unused_deco_pool.count: %lu", unused_deco_pool.count);
-    //NSLog(@"in_use_deco_pool.count: %lu", in_use_deco_pool.count);
+    if (!chunkLoading) {
+        //NSLog(@"unused_deco_pool.count: %lu", unused_deco_pool.count);
+        //NSLog(@"in_use_deco_pool.count: %lu", in_use_deco_pool.count);
+    }
    // NSLog(@"numberOfDecosToLoad: %lu", numberOfDecosToLoad);
    // NSLog(@"[self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad]");
 
