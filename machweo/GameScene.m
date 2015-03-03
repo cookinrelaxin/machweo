@@ -39,6 +39,8 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     
     SKLabelNode* logoLabel;
     SKSpriteNode* sunNode;
+    SKSpriteNode* moonNode;
+
     
     AVAudioPlayer* backgroundMusicPlayer;
     
@@ -55,7 +57,6 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     
     float previousPlayerXPosition_hypothetical;
     float currentPlayerXPosition_hypothetical;
-
     
     SKLabelNode* distanceLabel;
     
@@ -135,10 +136,10 @@ int ALLOWABLE_X_DIFFERENCE = 10;
         backgroundPool = [NSMutableArray array];
         textureDict = _constants.TEXTURE_DICT;
         currentTimeOfDay = AM_8;
-        worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0 andTimeOfDay:currentTimeOfDay];
+        //worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0 andTimeOfDay:currentTimeOfDay];
         [self generateBackgrounds];
 
-        [self performSunrise];
+        [self organizeTheHeavens];
         [self startMusic];
         [self setupObservers];
         
@@ -246,23 +247,39 @@ int ALLOWABLE_X_DIFFERENCE = 10;
     
 }
 
--(void)performSunrise{
-    sunNode = [SKSpriteNode spriteNodeWithImageNamed:@"sun_decoration"];
-    [self addChild:sunNode];
-    sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
-    sunNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
-    sunNode.position = CGPointMake(self.position.x + self.size.width / 2, 0 - (sunNode.size.height / 2));
-    SKAction* sunriseAction = [SKAction moveToY:(self.size.height - (sunNode.size.height / 2))  duration:2.0f];
-    [sunNode runAction:sunriseAction completion:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"remove popup" object:nil];
-    }];
+-(void)organizeTheHeavens{
+    {
+        sunNode = [SKSpriteNode spriteNodeWithImageNamed:@"sun_decoration"];
+        [self addChild:sunNode];
+        sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
+        sunNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
+        UIBezierPath *sunPath = [UIBezierPath bezierPath];
+        float sunOrbitRadius = self.size.height * .6;
+        CGPoint sunOrbitCenter = CGPointMake(self.size.width / 2, sunNode.size.height / 2);
+        [sunPath addArcWithCenter:sunOrbitCenter radius:sunOrbitRadius startAngle:0 endAngle:2 * M_PI clockwise:NO];
+        SKAction* sunriseAction = [SKAction followPath:sunPath.CGPath asOffset:NO orientToPath:NO duration:10];
+        [sunNode runAction:[SKAction repeatActionForever:sunriseAction] completion:^{
+        }];
+    }
     
-
+    {
+        moonNode = [SKSpriteNode spriteNodeWithImageNamed:@"moon_decoration"];
+        [self addChild:moonNode];
+        moonNode.size = CGSizeMake(moonNode.size.width * _constants.SCALE_COEFFICIENT.dy, moonNode.size.height * _constants.SCALE_COEFFICIENT.dy);
+        moonNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
+        UIBezierPath *moonPath = [UIBezierPath bezierPath];
+        float moonOrbitRadius = self.size.height * .6;
+        CGPoint moonOrbitCenter = CGPointMake(self.size.width / 2, moonNode.size.height / 2);
+        [moonPath addArcWithCenter:moonOrbitCenter radius:moonOrbitRadius startAngle:0 endAngle:2 * M_PI clockwise:NO];
+        SKAction* moonriseAction = [SKAction followPath:moonPath.CGPath asOffset:NO orientToPath:NO duration:7];
+        [moonNode runAction:[SKAction repeatActionForever:moonriseAction] completion:^{
+        }];
+    }
     
 }
 
 -(void)performSunset{
-    SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2))  duration:2.0f];
+    SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2)) duration:2.0f];
     [sunNode runAction:sunsetAction];
 }
 
