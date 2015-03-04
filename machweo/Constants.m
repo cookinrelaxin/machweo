@@ -92,7 +92,7 @@ int midpoint(int n1, int n2)
     _GRAVITY = .30;
     
     _TEXTURE_DICT = [NSMutableDictionary dictionary];
-    _NUMBER_OF_BACKGROUND_SIMUL = 9;
+    _NUMBER_OF_BACKGROUND_SIMUL = 8;
     
     _DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO = 250 / 20;
     _DEFAULT_POPUP_HEIGHT_TO_CHAR_RATIO = 100 / 20;
