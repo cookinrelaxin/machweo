@@ -62,8 +62,9 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         
         //[self preloadObstacleChunkWithDistance:0];
         //[self loadNextObstacleWithXOffset:0];
-        [self calculateNextBiome];
-        [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
+        currentBiome = savanna;
+        [self calculateNextBiomeWithDistance:0];
+        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0];
         numberOfDecosToLoad = unused_deco_pool.count;
         [self loadNextDecoWithXOffset:0];
         
@@ -76,23 +77,44 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 }
 
 
--(Biome)calculateNextBiome{
-    NSUInteger chance = arc4random_uniform(SWITCH_BIOMES_DENOM);
-    Biome newbiome = currentBiome;
-    previousBiome = currentBiome;
-    if (chance == 0) {
-        NSUInteger biomeRoll = arc4random_uniform(numBiomes);
-        switch (biomeRoll) {
-            case savanna:
-                newbiome = savanna;
-                break;
-            case sahara:
-                newbiome = sahara;
-                break;
-        }
-        currentBiome = newbiome;
+-(Biome)calculateNextBiomeWithDistance:(NSUInteger)distance{
+    //NSUInteger chance = arc4random_uniform(SWITCH_BIOMES_DENOM);
+    //Biome newbiome = currentBiome;
+    //previousBiome = currentBiome;
+//    if (chance == 0) {
+//        NSUInteger biomeRoll = arc4random_uniform(numBiomes);
+//        switch (biomeRoll) {
+//            case savanna:
+//                newbiome = savanna;
+//                break;
+//            case sahara:
+//                newbiome = sahara;
+//                break;
+//            case jungle:
+//                newbiome = jungle;
+//                break;
+//                
+//        }
+//        currentBiome = newbiome;
+//    }
+//    return newbiome;
+//    return jungle;
+    NSUInteger roundedDistance = RoundDownTo(distance, 500);
+    NSLog(@"roundedDistance: %lu", (unsigned long)roundedDistance);
+    if ((roundedDistance % 1500) == 0) {
+       previousBiome = currentBiome = jungle;
+        return jungle;
     }
-    return newbiome;
+    if ((roundedDistance % 1000) == 0) {
+        previousBiome = currentBiome = sahara;
+        return sahara;
+    }
+    if ((roundedDistance % 500) == 0) {
+       previousBiome = currentBiome = savanna;
+        return savanna;
+    }
+    else return currentBiome;
+    
 }
 
 -(void)preloadObstacleChunkWithDistance:(NSUInteger)distance{
@@ -103,8 +125,8 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     //NSLog(@"unused_obstacle_pool: %@", unused_obstacle_pool);
 }
 
--(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay{
-    Biome biome = [self calculateNextBiome];
+-(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay andDistance:(NSUInteger)distance{
+    Biome biome = [self calculateNextBiomeWithDistance:distance];
     if (previousBiome != currentBiome) {
         NSLog(@"clear old biome");
         [unused_deco_pool removeAllObjects];
@@ -240,7 +262,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         //NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
         chunkLoading = true;
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-            [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
+            [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:playerDistance];
             dispatch_sync(dispatch_get_main_queue(), ^{
                 chunkLoading = false;
             });
@@ -473,6 +495,8 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
             return @"savanna";
         case sahara:
             return @"sahara";
+        case jungle:
+            return @"jungle";
     }
     NSLog(@"unknown biome. cannot convert to string");
     return nil;

@@ -46,6 +46,7 @@ typedef enum Biomes
 {
     savanna,
     sahara,
+    jungle,
     numBiomes
     
 } Biome;

@@ -91,7 +91,7 @@ int DIURNAL_PERIOD = 10; //seconds
         //playerScore = [[Score alloc] init];
         _constants = [Constants sharedInstance];
         skyWidth = RAW_SKY_WIDTH * _constants.SCALE_COEFFICIENT.dy;
-        NSLog(@"skyWidth: %f", skyWidth);
+        //NSLog(@"skyWidth: %f", skyWidth);
         //sky_displacement_per_frame = SKY_WIDTH / (60 * DIURNAL_PERIOD);
         //NSLog(@"sky_displacement_per_frame: %d", sky_displacement_per_frame);
 
