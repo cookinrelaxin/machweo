@@ -18,8 +18,9 @@ int Y_THRESHOLD_FOR_SWITCH_LEVEL = 40;
 int ALLOWABLE_X_DIFFERENCE = 10;
 //from 1 to 16
 int TENGGRI_COUNT = 16;
-int SKY_WIDTH = 10368; // pixels
+int RAW_SKY_WIDTH = 10368; // pixels
 int DIURNAL_PERIOD = 10; //seconds
+
 
 
 
@@ -68,8 +69,14 @@ int DIURNAL_PERIOD = 10; //seconds
     
     WorldStreamer* worldStreamer;
     
+    float skyWidth;
     NSUInteger currentIndexInTenggri;
-    int sky_displacement_per_frame;
+    float sky_displacement_coefficient;
+    BOOL sunPathAdjusted;
+    CGPoint centerOfSolarOrbit;
+    float radiusOfSolarOrbit;
+
+    CGPoint previousSunPos;
 
     
 }
@@ -83,8 +90,11 @@ int DIURNAL_PERIOD = 10; //seconds
     if (self = [super initWithSize:size]){
         //playerScore = [[Score alloc] init];
         _constants = [Constants sharedInstance];
-        SKY_WIDTH *= _constants.SCALE_COEFFICIENT.dy;
-        sky_displacement_per_frame = SKY_WIDTH / (60 * DIURNAL_PERIOD);
+        skyWidth = RAW_SKY_WIDTH * _constants.SCALE_COEFFICIENT.dy;
+        NSLog(@"skyWidth: %f", skyWidth);
+        //sky_displacement_per_frame = SKY_WIDTH / (60 * DIURNAL_PERIOD);
+        //NSLog(@"sky_displacement_per_frame: %d", sky_displacement_per_frame);
+
         _obstacles = [SKNode node];
         _terrain = [SKNode node];
         _decorations = [SKNode node];
@@ -237,7 +247,7 @@ int DIURNAL_PERIOD = 10; //seconds
         }
     }
     else{
-        currentIndexInTenggri = 16;
+        currentIndexInTenggri = 5;
         
         // there are 16 sky images / tenggri in 16 parts
         for (int i = 16; i >= 1; i --) {
@@ -249,23 +259,27 @@ int DIURNAL_PERIOD = 10; //seconds
 
 
         }
-//
-//            SKSpriteNode* background = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
-//            background.zPosition = _constants.BACKGROUND_Z_POSITION;
-//            background.position = CGPointMake((backgroundTexture.size.width / 2), self.size.height / 2);
-//            background.size = CGSizeMake(background.size.width * _constants.SCALE_COEFFICIENT.dy, background.size.height * _constants.SCALE_COEFFICIENT.dy);
-//            background.position = CGPointMake(background.position.x * _constants.SCALE_COEFFICIENT.dy, background.position.y);
-//            [_skies addChild:background];
-//            [backgroundPool addObject:background];
-//        currentIndexInTenggri = 2;
-        
-        //for (int i = 1; i <= _constants.NUMBER_OF_BACKGROUND_SIMUL; i ++) {
-            //[self generateBackgrounds :true];
-       // }
         return;
         
     }
     
+}
+
+-(void)fadeMoon{
+    float differenceFromPeak = fabsf((sunNode.position.y - (centerOfSolarOrbit.y + radiusOfSolarOrbit)));
+    //NSLog(@"differenceFromPeak :%f", differenceFromPeak);
+    if  (differenceFromPeak < 1) {
+        //[moonNode runAction:[SKAction fadeOutWithDuration:.5]];
+        [moonNode runAction:[SKAction fadeAlphaTo:0 duration:.5]];
+        //moonNode.alpha = 0;
+    }
+    float differenceFromDip = fabsf((sunNode.position.y - (centerOfSolarOrbit.y - radiusOfSolarOrbit)));
+    //NSLog(@"differenceFromDip :%f", differenceFromDip);
+    if (differenceFromDip < 1) {
+        //[moonNode runAction:[SKAction fadeInWithDuration:.5]];
+        [moonNode runAction:[SKAction fadeAlphaTo:1 duration:.5]];
+
+    }
 }
 
 -(void)organizeTheHeavens{
@@ -275,27 +289,31 @@ int DIURNAL_PERIOD = 10; //seconds
         sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
         sunNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
         UIBezierPath *sunPath = [UIBezierPath bezierPath];
-        float sunOrbitRadius = self.size.height * .6;
-        CGPoint sunOrbitCenter = CGPointMake(self.size.width / 2, sunNode.size.height / 2);
-        [sunPath addArcWithCenter:sunOrbitCenter radius:sunOrbitRadius startAngle:0 endAngle:2 * M_PI clockwise:NO];
+        radiusOfSolarOrbit = self.size.height * .6;
+        centerOfSolarOrbit = CGPointMake(self.size.width / 2, sunNode.size.height / 2);
+        [sunPath addArcWithCenter:centerOfSolarOrbit radius:radiusOfSolarOrbit startAngle:0 endAngle:2 * M_PI clockwise:NO];
         SKAction* sunriseAction = [SKAction followPath:sunPath.CGPath asOffset:NO orientToPath:NO duration:DIURNAL_PERIOD];
         [sunNode runAction:[SKAction repeatActionForever:sunriseAction] completion:^{
         }];
+        //sunPathAdjusted = true;
+        
+        NSLog(@"skyWidth / (2 * M_PI * radiusOfSolarOrbit): %f", skyWidth / (2 * M_PI * radiusOfSolarOrbit));
+        sky_displacement_coefficient = skyWidth / (2 * M_PI * radiusOfSolarOrbit);
     }
     
-//    {
-//        moonNode = [SKSpriteNode spriteNodeWithImageNamed:@"moon_decoration"];
-//        [self addChild:moonNode];
-//        moonNode.size = CGSizeMake(moonNode.size.width * _constants.SCALE_COEFFICIENT.dy, moonNode.size.height * _constants.SCALE_COEFFICIENT.dy);
-//        moonNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
-//        UIBezierPath *moonPath = [UIBezierPath bezierPath];
-//        float moonOrbitRadius = self.size.height * .6;
-//        CGPoint moonOrbitCenter = CGPointMake(self.size.width / 2, moonNode.size.height / 2);
-//        [moonPath addArcWithCenter:moonOrbitCenter radius:moonOrbitRadius startAngle:0 endAngle:2 * M_PI clockwise:NO];
-//        SKAction* moonriseAction = [SKAction followPath:moonPath.CGPath asOffset:NO orientToPath:NO duration:7];
-//        [moonNode runAction:[SKAction repeatActionForever:moonriseAction] completion:^{
-//        }];
-//    }
+    {
+        moonNode = [SKSpriteNode spriteNodeWithImageNamed:@"moon_decoration"];
+        [self addChild:moonNode];
+        moonNode.size = CGSizeMake(moonNode.size.width * _constants.SCALE_COEFFICIENT.dy, moonNode.size.height * _constants.SCALE_COEFFICIENT.dy);
+        moonNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
+        UIBezierPath *moonPath = [UIBezierPath bezierPath];
+        float moonOrbitRadius = self.size.height * .6;
+        CGPoint moonOrbitCenter = CGPointMake(self.size.width / 2, moonNode.size.height / 2);
+        [moonPath addArcWithCenter:moonOrbitCenter radius:moonOrbitRadius startAngle:0 endAngle:2 * M_PI clockwise:NO];
+        SKAction* moonriseAction = [SKAction followPath:moonPath.CGPath asOffset:NO orientToPath:NO duration:5];
+        [moonNode runAction:[SKAction repeatActionForever:moonriseAction] completion:^{
+        }];
+    }
     
 }
 
@@ -607,6 +625,7 @@ int DIURNAL_PERIOD = 10; //seconds
 }
 
 -(void)update:(CFTimeInterval)currentTime {
+    
     if (tutorial_mode_on) {
         
         if (!found_first_obstacle) {
@@ -637,8 +656,11 @@ int DIURNAL_PERIOD = 10; //seconds
         [physicsComponent calculatePlayerPosition:player withLineArray:arrayOfLines];
     }
     [self drawLines];
-    _skies.position = CGPointMake(_skies.position.x + sky_displacement_per_frame, _skies.position.y);
-
+    [self fadeMoon];
+    
+    float dX = sqrtf(powf(sunNode.position.x - previousSunPos.x, 2) + powf(sunNode.position.y - previousSunPos.y, 2));
+    _skies.position = CGPointMake(_skies.position.x + (dX * sky_displacement_coefficient), _skies.position.y);
+    previousSunPos = sunNode.position;
 }
 
 
@@ -673,14 +695,14 @@ int DIURNAL_PERIOD = 10; //seconds
 
 -(void)loseGame{
     gameOver = true;
-    [self performSunset];
+    //[self performSunset];
     [self fadeVolumeOut];
 
 }
 
 -(void)winGame{
     gameOver = true;
-    [self performSunset];
+    //[self performSunset];
     [self fadeVolumeOut];
     //_constants.CURRENT_INDEX_IN_LEVEL_ARRAY = 0;
 

@@ -239,12 +239,12 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     if([self shouldParseNewDecorationSet]){
         //NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
         chunkLoading = true;
-        //dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
             [self preloadDecorationChunkWithTimeOfDay:timeOfDay];
-            //dispatch_sync(dispatch_get_main_queue(), ^{
+            dispatch_sync(dispatch_get_main_queue(), ^{
                 chunkLoading = false;
-            //});
-       // });
+            });
+        });
     }
 
 //    if([self shouldParseNewObstacleSet]){
@@ -254,21 +254,24 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     
     //what the hell should our xOffsets be?
     float xOffset = _view.bounds.size.width;
-
-    [self cleanUpOldDecos];
+    if (!chunkLoading) {
+        [self cleanUpOldDecos];
+    }
     NSUInteger desiredNumDecosToLoad = MAX_NUM_DECOS_TO_LOAD;
 //    if ((desiredNumDecosToLoad + in_use_deco_pool.count) < MAX_IN_USE_DECO_POOL_COUNT) {
 //        desiredNumDecosToLoad = abs(MAX_IN_USE_DECO_POOL_COUNT - (int)desiredNumDecosToLoad);
 //    }
     numberOfDecosToLoad = desiredNumDecosToLoad;
     if (!chunkLoading) {
+        
         //NSLog(@"unused_deco_pool.count: %lu", unused_deco_pool.count);
         //NSLog(@"in_use_deco_pool.count: %lu", in_use_deco_pool.count);
     }
    // NSLog(@"numberOfDecosToLoad: %lu", numberOfDecosToLoad);
    // NSLog(@"[self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad]");
-
-    [self loadNextDecoWithXOffset:xOffset];
+    if (!chunkLoading) {
+        [self loadNextDecoWithXOffset:xOffset];
+    }
     
    // NSLog(@"unused_deco_pool: %@", unused_deco_pool);
 
