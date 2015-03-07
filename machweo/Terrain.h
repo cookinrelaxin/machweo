@@ -12,7 +12,7 @@
 @interface Terrain : SKNode
 @property(nonatomic, strong) NSMutableArray* vertices;
 
-@property(nonatomic, strong) SKColor* color;
+//@property(nonatomic, strong) SKColor* color;
 @property(nonatomic, strong) SKShapeNode* textureShapeNode;
 @property(nonatomic) BOOL isClosed;
 @property(nonatomic) BOOL permitDecorations;
@@ -20,7 +20,7 @@
 
 
 -(instancetype)initWithImage:(UIImage*)image forSceneSize:(CGSize)size;
--(void)closeLoopAndFillTerrainInView:(SKView*)view;
+-(void)closeLoopAndFillTerrainInView:(SKView*)view withCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY;
 -(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node withZposition:(float)zPos andSlope:(float)slope;
 -(void)changeDecorationPermissions:(CGPoint)currentPoint;
 -(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope;

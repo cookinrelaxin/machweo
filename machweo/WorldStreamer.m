@@ -17,6 +17,8 @@ const int THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET = 10;
 const int MAX_IN_USE_DECO_POOL_COUNT = 60;
 const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 
+const int STADE_LENGTH = 500;
+
 
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
@@ -78,39 +80,19 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 
 -(Biome)calculateNextBiomeWithDistance:(NSUInteger)distance{
-    //NSUInteger chance = arc4random_uniform(SWITCH_BIOMES_DENOM);
-    //Biome newbiome = currentBiome;
-    //previousBiome = currentBiome;
-//    if (chance == 0) {
-//        NSUInteger biomeRoll = arc4random_uniform(numBiomes);
-//        switch (biomeRoll) {
-//            case savanna:
-//                newbiome = savanna;
-//                break;
-//            case sahara:
-//                newbiome = sahara;
-//                break;
-//            case jungle:
-//                newbiome = jungle;
-//                break;
-//                
-//        }
-//        currentBiome = newbiome;
-//    }
-//    return newbiome;
-//    return jungle;
-    NSUInteger roundedDistance = RoundDownTo(distance, 500);
-    NSLog(@"roundedDistance: %lu", (unsigned long)roundedDistance);
-    if ((roundedDistance % 1500) == 0) {
-       previousBiome = currentBiome = jungle;
+    previousBiome = currentBiome;
+    NSUInteger roundedDistance = RoundDownTo(distance, STADE_LENGTH);
+    //NSLog(@"roundedDistance: %lu", (unsigned long)roundedDistance);
+    if ((roundedDistance % (STADE_LENGTH * 3)) == 0) {
+        currentBiome = jungle;
         return jungle;
     }
-    if ((roundedDistance % 1000) == 0) {
-        previousBiome = currentBiome = sahara;
+    if ((roundedDistance % (STADE_LENGTH * 2)) == 0) {
+        currentBiome = sahara;
         return sahara;
     }
-    if ((roundedDistance % 500) == 0) {
-       previousBiome = currentBiome = savanna;
+    if ((roundedDistance % STADE_LENGTH) == 0) {
+        currentBiome = savanna;
         return savanna;
     }
     else return currentBiome;
@@ -258,7 +240,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay{
     
-    if([self shouldParseNewDecorationSet]){
+    if(!chunkLoading && [self shouldParseNewDecorationSet]){
         //NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
         chunkLoading = true;
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{

@@ -141,9 +141,9 @@ int CLIFF_VERTEX_COUNT = 15;
 //    [lastNSprites removeObject:last];
 //}
 
--(void)closeLoopAndFillTerrainInView:(SKView*)view{
+-(void)closeLoopAndFillTerrainInView:(SKView*)view withCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
 //    [self generateBackground:view];
-    [self generate:view];
+    [self generate:view withCurrentSunYPosition:sunY minY:minY andMaxY:maxY];
     
     _isClosed = false;
     //   _permitVertices = false;
@@ -159,16 +159,35 @@ int CLIFF_VERTEX_COUNT = 15;
     
 }
 
--(void)generate:(SKView*)view{
+-(void)generate:(SKView*)view withCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
+    
     if (_textureShapeNode) {
         [_textureShapeNode removeFromParent];
     }
     _textureShapeNode = [self shapeNodeWithVertices:_vertices];
-    _textureShapeNode.alpha = 0.75f;
+    _textureShapeNode.fillColor = [self findTimeSpecificTerrainColorWithCurrentSunYPosition:sunY minY:minY andMaxY:maxY];
+    //_textureShapeNode.fillColor = [SKColor colorWithHue:100 saturation:100 brightness:100 alpha:1];
+
+    //_textureShapeNode.alpha = 0.75f;
+    
     [self addChild:_textureShapeNode];
 
 }
 
+-(SKColor*)findTimeSpecificTerrainColorWithCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
+    float a = minY;
+    float b = maxY;
+    
+    float c = 255;
+    float d = 196;
+    
+    float hue = c - ((fabsf(d - c) / fabsf(b - a)) * (b - sunY));
+    NSLog(@"hue: %f", hue);
+    
+    SKColor* terCol = [SKColor colorWithHue:hue saturation:100 brightness:100 alpha:1];
+    
+    return terCol;
+}
 
 
 -(SKShapeNode*)shapeNodeWithVertices:(NSMutableArray*)vertexArray{
@@ -176,7 +195,7 @@ int CLIFF_VERTEX_COUNT = 15;
     SKShapeNode* node = [SKShapeNode node];
     node.position = CGPointZero;
     //node.zPosition = self.zPosition;
-    node.fillColor = _color;
+    //node.fillColor = [SKColor colorWithHue:100 saturation:100 brightness:100 alpha:1];
     //node.fillColor = [UIColor colorWithHue:drand48() saturation:1.0 brightness:1.0 alpha:1.0];
     //node.fillTexture = _terrainTexture;
     node.antialiased = false;

@@ -42,7 +42,7 @@
         //Terrain* ter = [[Terrain alloc] initWithTexture:[SKTexture textureWithImageNamed:textureName] forSceneSize:sceneSize];
         Terrain* ter = [[Terrain alloc] initWithImage:[UIImage imageNamed:textureName] forSceneSize:sceneSize];
         //ter.color = [SKColor whiteColor];
-        ter.color = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
+      //  ter.color = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
         ter.vertices = [NSMutableArray array];
        // int dZ = arc4random_uniform(20);
         ter.zPosition = constants.FOREGROUND_Z_POSITION - (constants.ZPOSITION_DIFFERENCE_PER_LAYER * i);

@@ -19,7 +19,9 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 //from 1 to 16
 int TENGGRI_COUNT = 16;
 int RAW_SKY_WIDTH = 10368; // pixels
-int DIURNAL_PERIOD = 10; //seconds
+int DIURNAL_PERIOD = 30; //seconds
+int LUNAR_PERIOD = 25; //seconds
+
 
 
 
@@ -266,19 +268,30 @@ int DIURNAL_PERIOD = 10; //seconds
 }
 
 -(void)fadeMoon{
-    float differenceFromPeak = fabsf((sunNode.position.y - (centerOfSolarOrbit.y + radiusOfSolarOrbit)));
-    //NSLog(@"differenceFromPeak :%f", differenceFromPeak);
-    if  (differenceFromPeak < 1) {
-        //[moonNode runAction:[SKAction fadeOutWithDuration:.5]];
-        [moonNode runAction:[SKAction fadeAlphaTo:0 duration:.5]];
-        //moonNode.alpha = 0;
+//    float differenceFromPeak = fabsf((sunNode.position.y - (centerOfSolarOrbit.y + radiusOfSolarOrbit)));
+//    //NSLog(@"differenceFromPeak :%f", differenceFromPeak);
+//    if  (differenceFromPeak < 1) {
+//        //[moonNode runAction:[SKAction fadeOutWithDuration:.5]];
+//        [moonNode runAction:[SKAction fadeAlphaTo:0 duration:.5]];
+//        //moonNode.alpha = 0;
+//    }
+//    float differenceFromDip = fabsf((sunNode.position.y - (centerOfSolarOrbit.y - radiusOfSolarOrbit)));
+//    //NSLog(@"differenceFromDip :%f", differenceFromDip);
+//    if (differenceFromDip < 1) {
+//        //[moonNode runAction:[SKAction fadeInWithDuration:.5]];
+//        [moonNode runAction:[SKAction fadeAlphaTo:1 duration:.5]];
+//
+//    }
+    if (sunNode.position.y > 0) {
+        if (moonNode.alpha == 1) {
+            [moonNode runAction:[SKAction fadeAlphaTo:0 duration:3]];
+        }
     }
-    float differenceFromDip = fabsf((sunNode.position.y - (centerOfSolarOrbit.y - radiusOfSolarOrbit)));
-    //NSLog(@"differenceFromDip :%f", differenceFromDip);
-    if (differenceFromDip < 1) {
-        //[moonNode runAction:[SKAction fadeInWithDuration:.5]];
-        [moonNode runAction:[SKAction fadeAlphaTo:1 duration:.5]];
-
+    
+    if (sunNode.position.y < 0) {
+        if (moonNode.alpha == 0) {
+            [moonNode runAction:[SKAction fadeAlphaTo:1 duration:3]];
+        }
     }
 }
 
@@ -310,7 +323,7 @@ int DIURNAL_PERIOD = 10; //seconds
         float moonOrbitRadius = self.size.height * .6;
         CGPoint moonOrbitCenter = CGPointMake(self.size.width / 2, moonNode.size.height / 2);
         [moonPath addArcWithCenter:moonOrbitCenter radius:moonOrbitRadius startAngle:0 endAngle:2 * M_PI clockwise:NO];
-        SKAction* moonriseAction = [SKAction followPath:moonPath.CGPath asOffset:NO orientToPath:NO duration:5];
+        SKAction* moonriseAction = [SKAction followPath:moonPath.CGPath asOffset:NO orientToPath:NO duration:LUNAR_PERIOD];
         [moonNode runAction:[SKAction repeatActionForever:moonriseAction] completion:^{
         }];
     }
@@ -594,7 +607,7 @@ int DIURNAL_PERIOD = 10; //seconds
         if (line.shouldDraw) {
             //line.terrain.lineVertices = line.nodeArray;
             for (Terrain* ter in line.terrainArray) {
-                [ter closeLoopAndFillTerrainInView:self.view];
+                [ter closeLoopAndFillTerrainInView:self.view withCurrentSunYPosition:sunNode.position.y minY:centerOfSolarOrbit.y - radiusOfSolarOrbit andMaxY:centerOfSolarOrbit.y + radiusOfSolarOrbit];
             }
         }
    // });
