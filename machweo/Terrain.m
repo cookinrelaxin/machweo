@@ -167,7 +167,7 @@ int CLIFF_VERTEX_COUNT = 15;
     _textureShapeNode = [self shapeNodeWithVertices:_vertices];
     _textureShapeNode.fillColor = [self findTimeSpecificTerrainColorWithCurrentSunYPosition:sunY minY:minY andMaxY:maxY];
     //_textureShapeNode.fillColor = [SKColor colorWithHue:100 saturation:100 brightness:100 alpha:1];
-
+    //NSLog(@"_textureShapeNode.fillColor: %@", _textureShapeNode.fillColor);
     //_textureShapeNode.alpha = 0.75f;
     
     [self addChild:_textureShapeNode];
@@ -178,13 +178,17 @@ int CLIFF_VERTEX_COUNT = 15;
     float a = minY;
     float b = maxY;
     
-    float c = 255;
-    float d = 196;
+    //float c = 255;
+    //float d = 196;
+    float c = 196;
+    float d = 255;
     
-    float hue = c - ((fabsf(d - c) / fabsf(b - a)) * (b - sunY));
+    //float hue = c - ((fabsf(d - c) / fabsf(b - a)) * (b - sunY));
+    float hue = c + ((fabsf(d - c) / fabsf(b - a)) * (b - sunY));
+    
     NSLog(@"hue: %f", hue);
     
-    SKColor* terCol = [SKColor colorWithHue:hue saturation:100 brightness:100 alpha:1];
+    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:1.0 brightness:1.0 alpha:1.0];
     
     return terCol;
 }
@@ -194,15 +198,13 @@ int CLIFF_VERTEX_COUNT = 15;
     
     SKShapeNode* node = [SKShapeNode node];
     node.position = CGPointZero;
-    //node.zPosition = self.zPosition;
-    //node.fillColor = [SKColor colorWithHue:100 saturation:100 brightness:100 alpha:1];
+    //node.fillColor = [SKColor colorWithHue:100 saturation:1.0 brightness:1.0 alpha:1.0];
     //node.fillColor = [UIColor colorWithHue:drand48() saturation:1.0 brightness:1.0 alpha:1.0];
     //node.fillTexture = _terrainTexture;
     node.antialiased = false;
     node.strokeColor = nil;
     node.physicsBody = nil;
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
-    //node.lineWidth = 1;
     
     if (!beforeCliffAddedToVertices) {
         CGPoint firstVertex = [(NSValue*)[vertexArray firstObject] CGPointValue];
