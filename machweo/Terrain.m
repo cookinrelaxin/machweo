@@ -174,22 +174,50 @@ int CLIFF_VERTEX_COUNT = 15;
 
 }
 
+//2 gradient point scheme
+
+//-(SKColor*)findTimeSpecificTerrainColorWithCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
+//    float a = minY;
+//    float b = maxY;
+//    float c = 196;
+//    float d = 255;
+//    float hue = c + ((fabsf(d - c) / fabsf(b - a)) * (b - sunY));
+//    //NSLog(@"hue: %f", hue);
+//    float minB = .4;
+//    float alpha = .8;
+//    float brightness = sunY / maxY;
+//    brightness = (brightness < minB) ? minB : brightness;
+//    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:1.0 brightness:brightness alpha:alpha];
+//    
+//    return terCol;
+//}
+
 -(SKColor*)findTimeSpecificTerrainColorWithCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
-    float a = minY;
+    // that is, sunset, of course
+    float a_1 = 0;
+    float a_2 = minY;
     float b = maxY;
     
-    //float c = 255;
-    //float d = 196;
     float c = 196;
     float d = 255;
+    float e = 360;
+    float hue = 1;
+    if (sunY > a_1) {
+        hue = c + ((fabsf(e - c) / fabsf(b - a_1)) * (b - sunY));
+    }
+    else{
+        hue = e - ((fabsf(d - e) / fabsf(a_1 - a_2)) * (a_1 - sunY));
+        //NSLog(@"hue: %f", hue);
+
+    }
     
-    //float hue = c - ((fabsf(d - c) / fabsf(b - a)) * (b - sunY));
-    float hue = c + ((fabsf(d - c) / fabsf(b - a)) * (b - sunY));
-    
-    NSLog(@"hue: %f", hue);
-    
-    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:1.0 brightness:1.0 alpha:1.0];
-    
+    //NSLog(@"hue: %f", hue);
+    float minB = .4;
+    float alpha = .9;
+    float brightness = sunY / maxY;
+    brightness = (brightness < minB) ? minB : brightness;
+    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:1.0 brightness:brightness alpha:alpha];
+
     return terCol;
 }
 

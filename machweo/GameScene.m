@@ -18,9 +18,9 @@ int Y_THRESHOLD_FOR_SWITCH_LEVEL = 40;
 int ALLOWABLE_X_DIFFERENCE = 10;
 //from 1 to 16
 int TENGGRI_COUNT = 16;
-int RAW_SKY_WIDTH = 10368; // pixels
-int DIURNAL_PERIOD = 30; //seconds
-int LUNAR_PERIOD = 25; //seconds
+int RAW_SKY_WIDTH = 8192; // pixels
+int DIURNAL_PERIOD = 60; //seconds
+int LUNAR_PERIOD = 20; //seconds
 
 
 
@@ -92,7 +92,8 @@ int LUNAR_PERIOD = 25; //seconds
     if (self = [super initWithSize:size]){
         //playerScore = [[Score alloc] init];
         _constants = [Constants sharedInstance];
-        skyWidth = RAW_SKY_WIDTH * _constants.SCALE_COEFFICIENT.dy;
+        //skyWidth = RAW_SKY_WIDTH * _constants.SCALE_COEFFICIENT.dy;
+        skyWidth = RAW_SKY_WIDTH;
         //NSLog(@"skyWidth: %f", skyWidth);
         //sky_displacement_per_frame = SKY_WIDTH / (60 * DIURNAL_PERIOD);
         //NSLog(@"sky_displacement_per_frame: %d", sky_displacement_per_frame);
@@ -219,7 +220,7 @@ int LUNAR_PERIOD = 25; //seconds
            // NSLog(@"(rightEdgeOfFirstBackground < 0)");
             NSString* tenggriCountString = (currentIndexInTenggri < 10) ? [NSString stringWithFormat:@"0%lu", currentIndexInTenggri] : [NSString stringWithFormat:@"%lu", currentIndexInTenggri];
             
-            NSString* backgroundName = [NSString stringWithFormat:@"tenggri_%@", tenggriCountString];
+            NSString* backgroundName = [NSString stringWithFormat:@"tenggriPS_%@", tenggriCountString];
 //            NSLog(@"backgroundName: %@", backgroundName);
 
             SKTexture *backgroundTexture = [_constants.TEXTURE_DICT objectForKey:backgroundName];
@@ -229,7 +230,7 @@ int LUNAR_PERIOD = 25; //seconds
 
             SKSpriteNode* background = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
             background.zPosition = _constants.BACKGROUND_Z_POSITION;
-            background.size = CGSizeMake(background.size.width * _constants.SCALE_COEFFICIENT.dy, background.size.height * _constants.SCALE_COEFFICIENT.dy);
+            background.size = CGSizeMake(background.size.width, background.size.height * _constants.SCALE_COEFFICIENT.dy);
             if (!lastBackground) {
                 background.position = CGPointMake(self.size.width - (background.size.width / 2), self.size.height / 2);
             }
@@ -249,12 +250,12 @@ int LUNAR_PERIOD = 25; //seconds
         }
     }
     else{
-        currentIndexInTenggri = 5;
+        currentIndexInTenggri = 2;
         
         // there are 16 sky images / tenggri in 16 parts
         for (int i = 16; i >= 1; i --) {
             NSString* tenggriCountString = (currentIndexInTenggri < 10) ? [NSString stringWithFormat:@"0%lu", currentIndexInTenggri] : [NSString stringWithFormat:@"%lu", currentIndexInTenggri];
-            NSString* backgroundName = [NSString stringWithFormat:@"tenggri_%@", tenggriCountString];
+            NSString* backgroundName = [NSString stringWithFormat:@"tenggriPS_%@", tenggriCountString];
             SKTexture * tex = [SKTexture textureWithImageNamed:backgroundName];
             [textureDict setValue:tex forKey:backgroundName];
             [self generateBackgrounds :true];
