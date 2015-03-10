@@ -36,7 +36,6 @@ int LUNAR_PERIOD = 20; //seconds
     //Score* playerScore;
     //Obstacle* nextObstacle;
     
-    NSMutableArray* terrainPool;
     NSMutableArray* backgroundPool;
     NSMutableArray* previousChunks;
     NSMutableDictionary* textureDict;
@@ -154,14 +153,13 @@ int LUNAR_PERIOD = 20; //seconds
 //        }];
 
         //ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
-        terrainPool = [NSMutableArray array];
         //[cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
         
         
         backgroundPool = [NSMutableArray array];
         textureDict = _constants.TEXTURE_DICT;
         currentTimeOfDay = AM_8;
-        worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0 andTimeOfDay:currentTimeOfDay];
+        worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0 andTimeOfDay:currentTimeOfDay];
         [self generateBackgrounds :false];
 
         [self organizeTheHeavens];
@@ -515,7 +513,7 @@ int LUNAR_PERIOD = 20; //seconds
             [ter changeDecorationPermissions:newPoint];
         }
        // int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 2;
-        [ter generateDecorationAtVertex:newPoint fromTerrainPool:terrainPool inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
+        [ter generateDecorationAtVertex:newPoint fromTerrainPool:[worldStreamer getTerrainPool] inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
     }
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
@@ -746,7 +744,7 @@ int LUNAR_PERIOD = 20; //seconds
 -(void)generateDecorations{
     for (Line* line in arrayOfLines) {
         // if (!player.touchesEnded) {
-        [line generateConnectingLinesInTerrainNode:_terrain withTerrainPool:terrainPool andDecoNode:_decorations :!player.touchesEnded];
+        [line generateConnectingLinesInTerrainNode:_terrain withTerrainPool:[worldStreamer getTerrainPool] andDecoNode:_decorations :!player.touchesEnded];
     }
 }
 

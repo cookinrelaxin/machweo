@@ -10,7 +10,7 @@
     </node>
     <node>
         <type>DecorationSignifier</type>
-        <name>jungeltree6_decoration</name>
+        <name>jungletree6_decoration</name>
         <uniqueID>775117</uniqueID>
         <xPosition>332.066254</xPosition>
         <yPosition>125.300575</yPosition>
@@ -120,5 +120,17 @@
         <yPosition>131.910370</yPosition>
         <zPosition>115.000000</zPosition>
     </node>
-    <terrainPool></terrainPool>
+    <terrainPool>
+        <terrainPoolMember>junglebush5_decoration</terrainPoolMember>
+        <terrainPoolMember>junglebush6_decoration</terrainPoolMember>
+        <terrainPoolMember>junglebush7_decoration</terrainPoolMember>
+        <terrainPoolMember>junglebush8_decoration</terrainPoolMember>
+        <terrainPoolMember>jungleplant11_decoration</terrainPoolMember>
+        <terrainPoolMember>jungleplant1_decoration</terrainPoolMember>
+        <terrainPoolMember>jungleplant14_decoration</terrainPoolMember>
+        <terrainPoolMember>jungletree9_decoration</terrainPoolMember>
+        <terrainPoolMember>jungletree10_decoration</terrainPoolMember>
+        <terrainPoolMember>jungleplant8_decoration</terrainPoolMember>
+        <terrainPoolMember>jungleplant6_decoration</terrainPoolMember>
+    </terrainPool>
 </worldnodes>

@@ -8,6 +8,7 @@
 
 #import "Terrain.h"
 #import "Constants.h"
+#import "Decoration.h"
 
 int CLIFF_VERTEX_COUNT = 15;
 
@@ -20,6 +21,7 @@ int CLIFF_VERTEX_COUNT = 15;
     NSMutableArray* beforeCliff;
     NSMutableArray* endCliff;
     BOOL beforeCliffAddedToVertices;
+    float terrainAlpha;
     
     //UIImage* textureSource;
     
@@ -70,7 +72,7 @@ int CLIFF_VERTEX_COUNT = 15;
     
 }
 -(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope{
-    for (SKSpriteNode* deco in _decos) {
+    for (Decoration* deco in _decos) {
         if ([deco.name isEqualToString:@"corrected"]) {
             continue;
         }
@@ -213,7 +215,7 @@ int CLIFF_VERTEX_COUNT = 15;
     
     //NSLog(@"hue: %f", hue);
     float minB = .4;
-    float alpha = .9;
+    terrainAlpha = .9;
     float brightness = sunY / maxY;
     brightness = (brightness < minB) ? minB : brightness;
     //NSLog(@"brightness: %f", brightness);
@@ -225,7 +227,7 @@ int CLIFF_VERTEX_COUNT = 15;
 
     //NSLog(@"saturation: %f", saturation);
 
-    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:saturation brightness:brightness alpha:alpha];
+    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:saturation brightness:brightness alpha:terrainAlpha];
 
     return terCol;
 }
@@ -322,8 +324,11 @@ int CLIFF_VERTEX_COUNT = 15;
             int castedDie2 = arc4random_uniform((int)terrainPool.count);
             //    NSLog(@"castedDie2: %i", castedDie2);
             SKTexture* tex = [terrainPool objectAtIndex:castedDie2];
-            SKSpriteNode* sprite = [SKSpriteNode spriteNodeWithTexture:tex];
+            Decoration* sprite = [Decoration spriteNodeWithTexture:tex];
             sprite.size = CGSizeMake(sprite.size.width * constants.SCALE_COEFFICIENT.dy, sprite.size.height * constants.SCALE_COEFFICIENT.dy);
+            if (sprite.size.width > (((SKScene*)node.parent).size.width / 5)) {
+                sprite.size = CGSizeMake(sprite.size.width / 2, sprite.size.height / 2);
+            }
             if (zPos == 0) {
                 int zPositionDie = arc4random_uniform(30);
                 sprite.zPosition = self.zPosition - 1 - zPositionDie;
@@ -351,7 +356,7 @@ int CLIFF_VERTEX_COUNT = 15;
             int height_die_d = arc4random_uniform(h_s / 5);
             sprite.position = CGPointMake(sprite.position.x, sprite.position.y + height_die_d);
             
-            sprite.alpha = 0.75f;
+            sprite.alpha = terrainAlpha;
             
             [node addChild:sprite];
             [_decos addObject:sprite];

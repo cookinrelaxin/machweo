@@ -16,7 +16,7 @@
 //-(void)loadDecorationsInWorld:(SKNode*)world withDecorations:(SKNode*)decorations andBucket:(NSMutableArray*)bucket withinView:(SKView*)view andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset;
 
 -(void)pourObstaclesIntoBucket:(NSMutableArray*)bucket;
--(void)pourDecorationsIntoBucket:(NSMutableArray*)bucket;
+-(void)pourDecorationsIntoBucket:(NSMutableArray*)bucket andTerrainPool:(NSMutableArray*)terrainPool;
 
 -(instancetype)initWithFile:(NSString*)fileName;
 @end

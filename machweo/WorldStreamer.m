@@ -47,14 +47,14 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
    
 }
 
--(instancetype)initWithWorld:(SKScene *)world withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset andTimeOfDay:(TimeOfDay)timeOfDay{
+-(instancetype)initWithWorld:(SKScene *)world withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines withXOffset:(float)xOffset andTimeOfDay:(TimeOfDay)timeOfDay{
     if (self = [super init]) {
         _world = world;
         _obstacles = obstacles;
         _decorations = decorations;
         _view = view;
         _lines = lines;
-        _terrainPool = terrainPool;
+        _terrainPool = [NSMutableArray array];
         
         unused_obstacle_pool = [NSMutableArray array];
         in_use_obstacle_pool = [NSMutableArray array];
@@ -76,6 +76,10 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     
     return  self;
     
+}
+
+-(NSMutableArray*)getTerrainPool{
+    return _terrainPool;
 }
 
 
@@ -112,17 +116,17 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     if (previousBiome != currentBiome) {
         NSLog(@"clear old biome");
         [unused_deco_pool removeAllObjects];
+        [_terrainPool removeAllObjects];
         for (Decoration* deco in in_use_deco_pool) {
             if ((deco.position.x - deco.size.width) > _view.bounds.size.width) {
                 [deco removeFromParent];
-                NSLog(@"((deco.position.x - deco.size.width) > _view.bounds.size.width)");
+                //NSLog(@"((deco.position.x - deco.size.width) > _view.bounds.size.width)");
             }
         }
     }
     NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
     ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
-    [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool];
-    
+    [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
     
 }
 
@@ -245,7 +249,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 }
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay{
-    
+    //NSLog(@"1. _terrainPool: %@", _terrainPool);
     if(!chunkLoading && [self shouldParseNewDecorationSet]){
         //NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
         chunkLoading = true;
@@ -256,6 +260,8 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
             });
         });
     }
+    //NSLog(@"3. _terrainPool: %@", _terrainPool);
+
 
 //    if([self shouldParseNewObstacleSet]){
 //        //NSLog(@"[self preloadObstacleChunkWithDistance:playerDistance]");
@@ -291,7 +297,8 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 //        [self loadNextObstacleWithXOffset:xOffset];
 //        
 //    }
-    
+    //NSLog(@"4. _terrainPool: %@", _terrainPool);
+
 }
 
 

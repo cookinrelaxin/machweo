@@ -253,49 +253,20 @@ typedef enum NodeTypes
     }
 }
 
-//-(void)loadObstaclesInWorld:(SKNode *)world withObstacles:(SKNode *)obstacles andBucket:(NSMutableArray *)bucket withinView:(SKView *)view andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
-//    
-//    for (Obstacle *obstacle in obstacleArray) {
-//        obstacle.position = CGPointMake((obstacle.position.x * constants.SCALE_COEFFICIENT.dy), obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
-//        obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
-//        obstacle.position = CGPointMake(obstacle.position.x + xOffset, obstacle.position.y);
-//
-//        obstacle.zPosition = constants.OBSTACLE_Z_POSITION;
-//        [obstacles addChild:obstacle];
-//        [bucket addObject:obstacle];
-//    }
-//    
-//    
-//    
-//}
-//
-//-(void)loadDecorationsInWorld:(SKNode *)world withDecorations:(SKNode *)decorations andBucket:(NSMutableArray *)bucket withinView:(SKView *)view andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
-//    
-//    constants = [Constants sharedInstance];
-//    
-//    for (NSString* decoName in terrainPoolArray) {
-//        //   NSLog(@"decoName: %@", decoName);
-//        [terrainPool addObject:decoName];
-//    }
-//    
-//    for (SKSpriteNode *deco in decorationArray) {
-//        // NSLog(@"decoName: %@", deco.name);
-//        deco.size = CGSizeMake(deco.size.width * constants.SCALE_COEFFICIENT.dy, deco.size.height * constants.SCALE_COEFFICIENT.dy);
-//        deco.position = CGPointMake((deco.position.x * constants.SCALE_COEFFICIENT.dy), deco.position.y * constants.SCALE_COEFFICIENT.dy);
-//        deco.position = [decorations convertPoint:deco.position fromNode:world];
-//        deco.position = CGPointMake(deco.position.x + xOffset, deco.position.y);
-//        
-//        [decorations addChild:deco];
-//        [bucket addObject:deco];
-//    }
-//    
-//}
-
 -(void)pourObstaclesIntoBucket:(NSMutableArray *)bucket{
     [bucket addObjectsFromArray:obstacleArray];
 }
--(void)pourDecorationsIntoBucket:(NSMutableArray *)bucket{
+-(void)pourDecorationsIntoBucket:(NSMutableArray *)bucket andTerrainPool:(NSMutableArray *)terrainPool{
     [bucket addObjectsFromArray:decorationArray];
+    //terrainPool = terrainPoolArray;
+    //NSLog(@"2. _terrainPool: %@", terrainPool);
+    for (SKTexture* tex in terrainPoolArray) {
+        if (![terrainPool containsObject:tex]) {
+            [terrainPool addObject:tex];
+        }
+    }
+   // [terrainPool addObjectsFromArray:terrainPoolArray];
+
 }
 
 @end
