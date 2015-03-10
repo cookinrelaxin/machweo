@@ -56,5 +56,6 @@
         <yPosition>423.647491</yPosition>
         <zPosition>52.000000</zPosition>
     </node>
-    <terrainPool></terrainPool>
+    <terrainPool>
+    </terrainPool>
 </worldnodes>

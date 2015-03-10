@@ -6,7 +6,7 @@
         <uniqueID>350063</uniqueID>
         <xPosition>243.561142</xPosition>
         <yPosition>57.156143</yPosition>
-        <zPosition>81.000000</zPosition>
+        <zPosition>82.000000</zPosition>
     </node>
     <node>
         <type>DecorationSignifier</type>
@@ -22,15 +22,7 @@
         <uniqueID>504658</uniqueID>
         <xPosition>763.340637</xPosition>
         <yPosition>243.796249</yPosition>
-        <zPosition>80.000000</zPosition>
-    </node>
-    <node>
-        <type>DecorationSignifier</type>
-        <name>shrub5_decoration</name>
-        <uniqueID>893919</uniqueID>
-        <xPosition>888.355652</xPosition>
-        <yPosition>50.612778</yPosition>
-        <zPosition>24.000000</zPosition>
+        <zPosition>82.000000</zPosition>
     </node>
     <node>
         <type>DecorationSignifier</type>
@@ -54,7 +46,7 @@
         <uniqueID>25766</uniqueID>
         <xPosition>1070.285400</xPosition>
         <yPosition>338.136108</yPosition>
-        <zPosition>64.000000</zPosition>
+        <zPosition>65.000000</zPosition>
     </node>
     <node>
         <type>DecorationSignifier</type>
