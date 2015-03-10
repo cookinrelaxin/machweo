@@ -2,121 +2,121 @@
 <worldnodes>
     <node>
         <type>DecorationSignifier</type>
-        <name>junglebush2_decoration</name>
-        <uniqueID>20918</uniqueID>
-        <xPosition>631.424622</xPosition>
-        <yPosition>-99.459030</yPosition>
-        <zPosition>50.000000</zPosition>
-    </node>
-    <node>
-        <type>DecorationSignifier</type>
-        <name>jungletree3_decoration</name>
-        <uniqueID>734631</uniqueID>
-        <xPosition>669.803772</xPosition>
-        <yPosition>244.420380</yPosition>
-        <zPosition>70.000000</zPosition>
-    </node>
-    <node>
-        <type>DecorationSignifier</type>
-        <name>junglegrass2_decoration</name>
-        <uniqueID>357857</uniqueID>
-        <xPosition>683.000000</xPosition>
-        <yPosition>86.250504</yPosition>
-        <zPosition>70.000000</zPosition>
-    </node>
-    <node>
-        <type>DecorationSignifier</type>
-        <name>junglegrass3_decoration</name>
-        <uniqueID>380987</uniqueID>
-        <xPosition>683.776978</xPosition>
-        <yPosition>50.275131</yPosition>
-        <zPosition>50.000000</zPosition>
-    </node>
-    <node>
-        <type>DecorationSignifier</type>
         <name>junglegrass1_decoration</name>
-        <uniqueID>698371</uniqueID>
-        <xPosition>684.342346</xPosition>
+        <uniqueID>30341</uniqueID>
+        <xPosition>682.999939</xPosition>
         <yPosition>131.910370</yPosition>
         <zPosition>115.000000</zPosition>
     </node>
     <node>
         <type>DecorationSignifier</type>
         <name>junglebush1_decoration</name>
-        <uniqueID>778797</uniqueID>
-        <xPosition>964.823059</xPosition>
+        <uniqueID>27592</uniqueID>
+        <xPosition>963.480469</xPosition>
         <yPosition>12.145964</yPosition>
         <zPosition>115.000000</zPosition>
     </node>
     <node>
         <type>DecorationSignifier</type>
-        <name>jungletree7_decoration</name>
-        <uniqueID>407726</uniqueID>
-        <xPosition>1040.421753</xPosition>
-        <yPosition>197.374115</yPosition>
-        <zPosition>60.000000</zPosition>
-    </node>
-    <node>
-        <type>DecorationSignifier</type>
-        <name>junglebush4_decoration</name>
-        <uniqueID>206921</uniqueID>
-        <xPosition>1258.607422</xPosition>
-        <yPosition>57.493752</yPosition>
+        <name>junglegrass2_decoration</name>
+        <uniqueID>992708</uniqueID>
+        <xPosition>682.182068</xPosition>
+        <yPosition>86.250504</yPosition>
         <zPosition>70.000000</zPosition>
     </node>
     <node>
         <type>DecorationSignifier</type>
+        <name>jungletree3_decoration</name>
+        <uniqueID>475110</uniqueID>
+        <xPosition>600.705200</xPosition>
+        <yPosition>244.420380</yPosition>
+        <zPosition>60.000000</zPosition>
+    </node>
+    <node>
+        <type>DecorationSignifier</type>
+        <name>junglebush2_decoration</name>
+        <uniqueID>766007</uniqueID>
+        <xPosition>630.841064</xPosition>
+        <yPosition>-99.459030</yPosition>
+        <zPosition>50.000000</zPosition>
+    </node>
+    <node>
+        <type>DecorationSignifier</type>
+        <name>junglegrass3_decoration</name>
+        <uniqueID>601895</uniqueID>
+        <xPosition>683.193237</xPosition>
+        <yPosition>50.275131</yPosition>
+        <zPosition>50.000000</zPosition>
+    </node>
+    <node>
+        <type>DecorationSignifier</type>
         <name>jungletree5_decoration</name>
-        <uniqueID>930608</uniqueID>
-        <xPosition>1368.594849</xPosition>
+        <uniqueID>996193</uniqueID>
+        <xPosition>1367.345215</xPosition>
         <yPosition>389.544617</yPosition>
         <zPosition>107.000000</zPosition>
     </node>
     <node>
         <type>DecorationSignifier</type>
         <name>junglebush3_decoration</name>
-        <uniqueID>783395</uniqueID>
-        <xPosition>1404.877563</xPosition>
+        <uniqueID>231112</uniqueID>
+        <xPosition>1403.686157</xPosition>
         <yPosition>40.540970</yPosition>
         <zPosition>102.000000</zPosition>
     </node>
     <node>
         <type>DecorationSignifier</type>
+        <name>junglebush4_decoration</name>
+        <uniqueID>366211</uniqueID>
+        <xPosition>1257.790771</xPosition>
+        <yPosition>57.493752</yPosition>
+        <zPosition>70.000000</zPosition>
+    </node>
+    <node>
+        <type>DecorationSignifier</type>
+        <name>jungletree7_decoration</name>
+        <uniqueID>282386</uniqueID>
+        <xPosition>978.667847</xPosition>
+        <yPosition>197.374115</yPosition>
+        <zPosition>40.000000</zPosition>
+    </node>
+    <node>
+        <type>DecorationSignifier</type>
+        <name>junglegrass1_decoration</name>
+        <uniqueID>100602</uniqueID>
+        <xPosition>1984.312012</xPosition>
+        <yPosition>131.910370</yPosition>
+        <zPosition>115.000000</zPosition>
+    </node>
+    <node>
+        <type>DecorationSignifier</type>
         <name>junglebush2_decoration</name>
-        <uniqueID>348670</uniqueID>
-        <xPosition>1656.777832</xPosition>
+        <uniqueID>753565</uniqueID>
+        <xPosition>1656.193604</xPosition>
         <yPosition>-7.975082</yPosition>
         <zPosition>50.000000</zPosition>
     </node>
     <node>
         <type>DecorationSignifier</type>
+        <name>junglegrass2_decoration</name>
+        <uniqueID>565283</uniqueID>
+        <xPosition>1992.602783</xPosition>
+        <yPosition>86.250504</yPosition>
+        <zPosition>70.000000</zPosition>
+    </node>
+    <node>
+        <type>DecorationSignifier</type>
         <name>junglegrass3_decoration</name>
-        <uniqueID>568943</uniqueID>
-        <xPosition>1938.753174</xPosition>
+        <uniqueID>949221</uniqueID>
+        <xPosition>1938.168945</xPosition>
         <yPosition>80.500908</yPosition>
         <zPosition>50.000000</zPosition>
     </node>
     <node>
         <type>DecorationSignifier</type>
         <name>junglegrass1_decoration</name>
-        <uniqueID>87942</uniqueID>
-        <xPosition>1985.653687</xPosition>
-        <yPosition>131.910370</yPosition>
-        <zPosition>115.000000</zPosition>
-    </node>
-    <node>
-        <type>DecorationSignifier</type>
-        <name>junglegrass2_decoration</name>
-        <uniqueID>653225</uniqueID>
-        <xPosition>1993.420654</xPosition>
-        <yPosition>86.250504</yPosition>
-        <zPosition>70.000000</zPosition>
-    </node>
-    <node>
-        <type>DecorationSignifier</type>
-        <name>junglegrass1_decoration</name>
-        <uniqueID>428811</uniqueID>
-        <xPosition>3136.728271</xPosition>
+        <uniqueID>610936</uniqueID>
+        <xPosition>3135.383789</xPosition>
         <yPosition>131.910370</yPosition>
         <zPosition>115.000000</zPosition>
     </node>

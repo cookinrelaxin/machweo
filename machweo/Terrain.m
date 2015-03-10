@@ -216,7 +216,16 @@ int CLIFF_VERTEX_COUNT = 15;
     float alpha = .9;
     float brightness = sunY / maxY;
     brightness = (brightness < minB) ? minB : brightness;
-    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:1.0 brightness:brightness alpha:alpha];
+    //NSLog(@"brightness: %f", brightness);
+    
+    float saturation = 1 - (sunY / maxY);
+    float minSat = .25;
+    saturation = (saturation < minSat) ? minSat : saturation;
+    saturation = (saturation > 1) ? 1 : saturation;
+
+    //NSLog(@"saturation: %f", saturation);
+
+    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:saturation brightness:brightness alpha:alpha];
 
     return terCol;
 }

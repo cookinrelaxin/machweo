@@ -112,6 +112,12 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     if (previousBiome != currentBiome) {
         NSLog(@"clear old biome");
         [unused_deco_pool removeAllObjects];
+        for (Decoration* deco in in_use_deco_pool) {
+            if ((deco.position.x - deco.size.width) > _view.bounds.size.width) {
+                [deco removeFromParent];
+                NSLog(@"((deco.position.x - deco.size.width) > _view.bounds.size.width)");
+            }
+        }
     }
     NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
     ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
@@ -144,7 +150,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         
         for (Decoration* decoToLoad in unused_deco_pool) {
             BOOL skip = NO;
-            if (currentBiome == savanna) {
+            if ((currentBiome == savanna) || (currentBiome == jungle)) {
                 for (Decoration *usedDeco in in_use_deco_pool) {
                     if ([decoToLoad.uniqueID isEqualToString:usedDeco.uniqueID]) {
                         //NSLog(@"skip");
