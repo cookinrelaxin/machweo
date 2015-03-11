@@ -19,8 +19,8 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 //from 1 to 16
 int TENGGRI_COUNT = 16;
 int RAW_SKY_WIDTH = 8192; // pixels
-int DIURNAL_PERIOD = 60; //seconds
-int LUNAR_PERIOD = 20; //seconds
+int DIURNAL_PERIOD = 90; //seconds
+int LUNAR_PERIOD = 40; //seconds
 
 
 
@@ -253,7 +253,8 @@ int LUNAR_PERIOD = 20; //seconds
         }
     }
     else{
-        currentIndexInTenggri = 2;
+        
+        currentIndexInTenggri = [self calculateInitialSkyImageIndex];
         
         // there are 16 sky images / tenggri in 16 parts
         for (int i = 16; i >= 1; i --) {
@@ -286,38 +287,101 @@ int LUNAR_PERIOD = 20; //seconds
 //        [moonNode runAction:[SKAction fadeAlphaTo:1 duration:.5]];
 //
 //    }
-    if (sunNode.position.y > 0) {
+    float sunY = [self convertPoint:sunNode.position fromNode:sunNode.parent].y;
+    if (sunY > 0) {
         if (moonNode.alpha == 1) {
             [moonNode runAction:[SKAction fadeAlphaTo:0 duration:3]];
         }
     }
     
-    if (sunNode.position.y < 0) {
+    if (sunY < 0) {
         if (moonNode.alpha == 0) {
             [moonNode runAction:[SKAction fadeAlphaTo:1 duration:3]];
         }
     }
 }
 
+
+// this method is absolutely unacceptable right now
+-(NSUInteger)calculateInitialSkyImageIndex{
+    float time = [self getCurrentTime];
+    NSUInteger roundedTime = (6 * floor((time / 6.0) + 0.5));
+    NSUInteger index = 1;
+    if ((roundedTime == 24) || (roundedTime == 0)) {
+        index = 11;
+    }
+    if (roundedTime == 6) {
+        index = 8;
+    }
+    if (roundedTime == 12) {
+        index = 2;
+    }
+    if (roundedTime == 18) {
+        index = 14;
+    }
+    
+    
+    NSLog(@"index:%lu", (unsigned long)index);
+    NSLog(@"roundedTime:%lu", (unsigned long)roundedTime);
+
+    return index;
+}
+
+-(float)getCurrentTime{
+    NSDateComponents *components = [[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian] components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:[NSDate date]];
+    
+    float time = (float)components.hour + (((float)components.minute) / 60.0);
+    NSLog(@"time: %f", time);
+    return time;
+}
+
+-(float)calculateInitialSolarRotation{
+//    NSDate* sourceDate = [NSDate date];
+//    
+//    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+//    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
+//    
+//    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:sourceDate];
+//    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:sourceDate];
+//    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
+//   // NSLog(@"interval: %f", interval);
+//
+//    NSDate* destinationDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:sourceDate];
+//    // the hour is not exactly correct on my phone
+    
+    float time = [self getCurrentTime];
+    float rotation = -((time * (M_PI / 12.0)) + M_PI_2);
+    NSLog(@"rotation: %f", rotation);
+    return rotation;
+
+}
+
 -(void)organizeTheHeavens{
     {
         sunNode = [SKSpriteNode spriteNodeWithImageNamed:@"sun_decoration"];
-        [self addChild:sunNode];
         sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
+
+        SKSpriteNode* sunPanel = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(self.size.height, self.size.height)];
+        centerOfSolarOrbit = CGPointMake(self.size.width / 2, (sunNode.size.height / 2));
+        sunPanel.position = centerOfSolarOrbit;
+        sunPanel.zRotation =  [self calculateInitialSolarRotation];
+
+        [self addChild:sunPanel];
+        
+        
         sunNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
-        UIBezierPath *sunPath = [UIBezierPath bezierPath];
         radiusOfSolarOrbit = self.size.height * .6;
-        centerOfSolarOrbit = CGPointMake(self.size.width / 2, sunNode.size.height / 2);
-        [sunPath addArcWithCenter:centerOfSolarOrbit radius:radiusOfSolarOrbit startAngle:0 endAngle:2 * M_PI clockwise:NO];
-        [sunPath applyTransform:CGAffineTransformMakeRotation(90)];
-        //sunPath = CGPathCreateCopyByTransformingPath(sunPath, CGAffineTransformMakeRotation(90));
-        NSLog(@"sunPath: %@", sunPath);
+        UIBezierPath *sunPath = [UIBezierPath bezierPathWithArcCenter:CGPointZero radius:radiusOfSolarOrbit startAngle:0 endAngle:2 * M_PI clockwise:NO];
+        //UIBezierPath *sunPath = [UIBezierPath bezierPathWithArcCenter:centerOfSolarOrbit radius:radiusOfSolarOrbit startAngle:0 endAngle:2 * M_PI clockwise:NO];
+        [sunPath closePath];
+       // [sunPath applyTransform:CGAffineTransformMakeRotation(M_PI / 4)];
         SKAction* sunriseAction = [SKAction followPath:sunPath.CGPath asOffset:NO orientToPath:NO duration:DIURNAL_PERIOD];
         [sunNode runAction:[SKAction repeatActionForever:sunriseAction] completion:^{
         }];
+        [sunPanel addChild:sunNode];
+
         //sunPathAdjusted = true;
         
-        NSLog(@"skyWidth / (2 * M_PI * radiusOfSolarOrbit): %f", skyWidth / (2 * M_PI * radiusOfSolarOrbit));
         sky_displacement_coefficient = skyWidth / (2 * M_PI * radiusOfSolarOrbit);
     }
     
@@ -614,7 +678,7 @@ int LUNAR_PERIOD = 20; //seconds
         if (line.shouldDraw) {
             //line.terrain.lineVertices = line.nodeArray;
             for (Terrain* ter in line.terrainArray) {
-                [ter closeLoopAndFillTerrainInView:self.view withCurrentSunYPosition:sunNode.position.y minY:centerOfSolarOrbit.y - radiusOfSolarOrbit andMaxY:centerOfSolarOrbit.y + radiusOfSolarOrbit];
+                [ter closeLoopAndFillTerrainInView:self.view withCurrentSunYPosition:[self convertPoint:sunNode.position fromNode:sunNode.parent].y minY:centerOfSolarOrbit.y - radiusOfSolarOrbit andMaxY:centerOfSolarOrbit.y + radiusOfSolarOrbit];
             }
         }
    // });
@@ -647,13 +711,14 @@ int LUNAR_PERIOD = 20; //seconds
 -(void)setDecoFilter{
     float maxY = centerOfSolarOrbit.y + radiusOfSolarOrbit;
     float minY = centerOfSolarOrbit.y - radiusOfSolarOrbit;
-
+    float sunY = [self convertPoint:sunNode.position fromNode:sunNode.parent].y;
+    
     float minBrightnessMultiplier = 1.0 / 10.0;
     float maxBrightnessMultiplier = 7.0 / 7.0;
     
-    float brightness = sunNode.position.y / maxY;
+    float brightness = sunY / maxY;
     float maxDistanceFromApex = maxY - minY;
-    float distanceFromApex = maxY - sunNode.position.y;
+    float distanceFromApex = maxY - sunY;
     float brightnessMultiplier = (distanceFromApex / maxDistanceFromApex) / 2.0;
     brightnessMultiplier = (brightnessMultiplier > maxBrightnessMultiplier) ? maxBrightnessMultiplier : brightnessMultiplier;
     brightnessMultiplier = (brightnessMultiplier < minBrightnessMultiplier) ? minBrightnessMultiplier : brightnessMultiplier;
