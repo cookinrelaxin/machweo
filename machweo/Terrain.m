@@ -22,6 +22,7 @@ int CLIFF_VERTEX_COUNT = 15;
     NSMutableArray* endCliff;
     BOOL beforeCliffAddedToVertices;
     float terrainAlpha;
+    float previousSunY;
     
     //UIImage* textureSource;
     
@@ -194,43 +195,77 @@ int CLIFF_VERTEX_COUNT = 15;
 //    return terCol;
 //}
 
--(SKColor*)findTimeSpecificTerrainColorWithCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
-    // that is, sunset, of course
-    float a_1 = 0;
-    float a_2 = minY;
-    float b = maxY;
-    
-    float c = 196;
-    float d = 255;
-    float e = 360;
-    float hue = 1;
-    if (sunY > a_1) {
-        hue = c + ((fabsf(e - c) / fabsf(b - a_1)) * (b - sunY));
-    }
-    else{
-        hue = e - ((fabsf(d - e) / fabsf(a_1 - a_2)) * (a_1 - sunY));
-        //NSLog(@"hue: %f", hue);
+//-(SKColor*)findTimeSpecificTerrainColorWithCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
+//    // that is, sunset, of course
+//    float a_1 = 0;
+//    float a_2 = minY;
+//    float b = maxY;
+//    
+//    float c = 196;
+//    //float d = 255;
+//    //float e = 360;
+//    float e = 270;
+//    
+//    float hue = 1;
+//    float dy = sunY - previousSunY;
+//    //if ((sunY > a_1) || (dy > 0)) {
+//        //if (dy > 0) {
+//         //   hue = c + ((fabsf(e - c) / fabsf(b - a_1)) * (b - sunY));
+//        //}
+//        //if (dy < 0) {
+//          //  hue = c + ((fabsf(d - c) / fabsf(b - a_1)) * (b - sunY));
+//        //}
+//
+//    //}
+////    else{
+////        hue = e - ((fabsf(d - e) / fabsf(a_1 - a_2)) * (a_1 - sunY));
+////        //NSLog(@"hue: %f", hue);
+////
+////    }
+//    hue = c + ((fabsf(e - c) / fabsf(b - a_2)) * (b - sunY));
+//    
+//    NSLog(@"hue: %f", hue);
+//    float minB = .4;
+//    terrainAlpha = .9;
+//    float brightness = sunY / maxY;
+//    brightness = (brightness < minB) ? minB : brightness;
+//    //NSLog(@"brightness: %f", brightness);
+//    
+//    float saturation = 1 - (sunY / maxY);
+//    float minSat = .25;
+//    saturation = (saturation < minSat) ? minSat : saturation;
+//    saturation = (saturation > 1) ? 1 : saturation;
+//
+//    //NSLog(@"saturation: %f", saturation);
+//
+//    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:saturation brightness:brightness alpha:terrainAlpha];
+//
+//    previousSunY = sunY;
+//    return terCol;
+//}
 
-    }
+-(SKColor*)findTimeSpecificTerrainColorWithCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
+//black and white
     
-    //NSLog(@"hue: %f", hue);
-    float minB = .4;
     terrainAlpha = .9;
     float brightness = sunY / maxY;
+    float minB = 0;
     brightness = (brightness < minB) ? minB : brightness;
     //NSLog(@"brightness: %f", brightness);
-    
+
     float saturation = 1 - (sunY / maxY);
     float minSat = .25;
     saturation = (saturation < minSat) ? minSat : saturation;
     saturation = (saturation > 1) ? 1 : saturation;
+    
+    float hue = 35.0 / 360.0;
+    
+    SKColor* terCol = [SKColor colorWithHue:hue saturation:saturation brightness:brightness alpha:terrainAlpha];
 
-    //NSLog(@"saturation: %f", saturation);
-
-    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:saturation brightness:brightness alpha:terrainAlpha];
-
+    previousSunY = sunY;
     return terCol;
 }
+
 
 
 -(SKShapeNode*)shapeNodeWithVertices:(NSMutableArray*)vertexArray{
