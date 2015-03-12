@@ -44,6 +44,8 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     NSMutableArray* in_use_deco_pool;
     
     NSUInteger numberOfDecosToLoad;
+    
+    NSMutableDictionary* IDDictionary;
    
 }
 
@@ -60,6 +62,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         in_use_obstacle_pool = [NSMutableArray array];
         unused_deco_pool = [NSMutableArray array];
         in_use_deco_pool = [NSMutableArray array];
+        IDDictionary = [NSMutableDictionary dictionary];
         constants = [Constants sharedInstance];
         
         //[self preloadObstacleChunkWithDistance:0];
@@ -153,15 +156,19 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         NSMutableArray* trash = [NSMutableArray array];
         
         for (Decoration* decoToLoad in unused_deco_pool) {
+            NSString* toLoadID = decoToLoad.uniqueID;
             BOOL skip = NO;
             if ((currentBiome == savanna) || (currentBiome == jungle)) {
-                for (Decoration *usedDeco in in_use_deco_pool) {
-                    if ([decoToLoad.uniqueID isEqualToString:usedDeco.uniqueID]) {
-                        //NSLog(@"skip");
-                        skip = YES;
-                        break;
-                    }
+                if ([IDDictionary valueForKey:toLoadID]) {
+                    skip = YES;
+
                 }
+//                for (Decoration *usedDeco in in_use_deco_pool) {
+//                    if ([toLoadID isEqualToString:usedDeco.uniqueID]) {
+//                        //NSLog(@"skip");
+//                        break;
+//                    }
+//                }
             }
             if (skip) {
                 continue;
@@ -173,7 +180,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
             decoToLoad.position = [_decorations convertPoint:decoToLoad.position fromNode:_world];
             decoToLoad.position = CGPointMake(decoToLoad.position.x + xOffset, decoToLoad.position.y);
             [_decorations addChild:decoToLoad];
-            //numberOfDecosToLoad --;
+            [IDDictionary setValue:@"lol" forKey:decoToLoad.uniqueID];
         }
         for (SKSpriteNode* decoToDecache in trash) {
             [unused_deco_pool removeObject:decoToDecache];
@@ -186,7 +193,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 -(void)cleanUpOldDecos{
     NSMutableArray* trash = [NSMutableArray array];
     
-    for (SKSpriteNode* deco in in_use_deco_pool) {
+    for (Decoration* deco in in_use_deco_pool) {
         CGPoint decoPositionInWorld = [_world convertPoint:deco.position fromNode:_decorations];
         CGPoint decoPositionInView = [_view convertPoint:decoPositionInWorld fromScene:_world];
         
@@ -196,10 +203,11 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         }
     }
     //numberOfDecosToLoad = 0;
-    for (SKSpriteNode* deco in trash) {
+    for (Decoration* deco in trash) {
         //numberOfDecosToLoad ++;
         [deco removeFromParent];
         [in_use_deco_pool removeObject:deco];
+        [IDDictionary removeObjectForKey:deco.uniqueID];
     }
     
     trash = nil;

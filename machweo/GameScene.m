@@ -592,6 +592,7 @@ int LUNAR_PERIOD = 7; //seconds
     [currentPointArray addObject:[NSValue valueWithCGPoint:currentPoint]];
     //NSLog(@"currentPointArray.count:%lu", (unsigned long)currentPointArray.count);
     for (Terrain* ter in currentLine.terrainArray) {
+        
         int backgroundOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 4;
 
         //int randomYd = arc4random_uniform(20);
@@ -606,12 +607,14 @@ int LUNAR_PERIOD = 7; //seconds
             newPoint = CGPointMake(currentPoint.x, currentLine.origin.y + randomYd + mellowedDifference + backgroundOffset);
 
         }
-            [ter.vertices addObject:[NSValue valueWithCGPoint:[ter convertPoint:newPoint fromNode:self]]];
+        [ter.vertices addObject:[NSValue valueWithCGPoint:[ter convertPoint:newPoint fromNode:self]]];
+
         if (!ter.permitDecorations){
             [ter changeDecorationPermissions:newPoint];
         }
        // int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 2;
         [ter generateDecorationAtVertex:newPoint fromTerrainPool:[worldStreamer getTerrainPool] inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
+        
     }
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
@@ -809,7 +812,8 @@ int LUNAR_PERIOD = 7; //seconds
     float dX = sqrtf(powf(sunNode.position.x - previousSunPos.x, 2) + powf(sunNode.position.y - previousSunPos.y, 2));
     _skies.position = CGPointMake(_skies.position.x + (dX * sky_displacement_coefficient), _skies.position.y);
     previousSunPos = sunNode.position;
-    //NSLog(@"sunNode.position: %f, %f", sunNode.position.x, sunNode.position.y);
+    
+    //NSLog(@"_decorations.children.count: %lu", _decorations.children.count);
 }
 
 

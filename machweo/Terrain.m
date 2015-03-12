@@ -146,7 +146,9 @@ int CLIFF_VERTEX_COUNT = 15;
 
 -(void)closeLoopAndFillTerrainInView:(SKView*)view withCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
 //    [self generateBackground:view];
-    [self generate:view withCurrentSunYPosition:sunY minY:minY andMaxY:maxY];
+    //dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
+        [self generate:view withCurrentSunYPosition:sunY minY:minY andMaxY:maxY];
+    //});
     
     _isClosed = false;
     //   _permitVertices = false;
@@ -176,73 +178,6 @@ int CLIFF_VERTEX_COUNT = 15;
     [self addChild:_textureShapeNode];
 
 }
-
-//2 gradient point scheme
-
-//-(SKColor*)findTimeSpecificTerrainColorWithCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
-//    float a = minY;
-//    float b = maxY;
-//    float c = 196;
-//    float d = 255;
-//    float hue = c + ((fabsf(d - c) / fabsf(b - a)) * (b - sunY));
-//    //NSLog(@"hue: %f", hue);
-//    float minB = .4;
-//    float alpha = .8;
-//    float brightness = sunY / maxY;
-//    brightness = (brightness < minB) ? minB : brightness;
-//    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:1.0 brightness:brightness alpha:alpha];
-//    
-//    return terCol;
-//}
-
-//-(SKColor*)findTimeSpecificTerrainColorWithCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
-//    // that is, sunset, of course
-//    float a_1 = 0;
-//    float a_2 = minY;
-//    float b = maxY;
-//    
-//    float c = 196;
-//    //float d = 255;
-//    //float e = 360;
-//    float e = 270;
-//    
-//    float hue = 1;
-//    float dy = sunY - previousSunY;
-//    //if ((sunY > a_1) || (dy > 0)) {
-//        //if (dy > 0) {
-//         //   hue = c + ((fabsf(e - c) / fabsf(b - a_1)) * (b - sunY));
-//        //}
-//        //if (dy < 0) {
-//          //  hue = c + ((fabsf(d - c) / fabsf(b - a_1)) * (b - sunY));
-//        //}
-//
-//    //}
-////    else{
-////        hue = e - ((fabsf(d - e) / fabsf(a_1 - a_2)) * (a_1 - sunY));
-////        //NSLog(@"hue: %f", hue);
-////
-////    }
-//    hue = c + ((fabsf(e - c) / fabsf(b - a_2)) * (b - sunY));
-//    
-//    NSLog(@"hue: %f", hue);
-//    float minB = .4;
-//    terrainAlpha = .9;
-//    float brightness = sunY / maxY;
-//    brightness = (brightness < minB) ? minB : brightness;
-//    //NSLog(@"brightness: %f", brightness);
-//    
-//    float saturation = 1 - (sunY / maxY);
-//    float minSat = .25;
-//    saturation = (saturation < minSat) ? minSat : saturation;
-//    saturation = (saturation > 1) ? 1 : saturation;
-//
-//    //NSLog(@"saturation: %f", saturation);
-//
-//    SKColor* terCol = [SKColor colorWithHue:hue / 360 saturation:saturation brightness:brightness alpha:terrainAlpha];
-//
-//    previousSunY = sunY;
-//    return terCol;
-//}
 
 -(SKColor*)findTimeSpecificTerrainColorWithCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
 //black and white
@@ -309,6 +244,7 @@ int CLIFF_VERTEX_COUNT = 15;
 
     
     for (NSValue* value in vertexArray) {
+        
         CGPoint vertex = [value CGPointValue];
         if (CGPointEqualToPoint(vertex, firstVertex)) {
             continue;
@@ -344,9 +280,12 @@ int CLIFF_VERTEX_COUNT = 15;
 }
 
 
-//-(void)dealloc{
-//    NSLog(@"dealloc terrain");
-//}
+-(void)dealloc{
+    //NSLog(@"dealloc terrain");
+    for (Decoration* deco in _decos) {
+        [deco removeFromParent];
+    }
+}
 
 -(void)generateDecorationAtVertex:(CGPoint)v fromTerrainPool:(NSMutableArray*)terrainPool inNode:(SKNode*)node withZposition:(float)zPos andSlope:(float)slope{
     //NSLog(@"terrainPool:%@", terrainPool);
