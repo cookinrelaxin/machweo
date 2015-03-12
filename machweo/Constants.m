@@ -37,7 +37,7 @@ int midpoint(int n1, int n2)
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
 //    NSLog(@"_SCALE_COEFFICIENT: %f, %f", _SCALE_COEFFICIENT.dx, _SCALE_COEFFICIENT.dy);
 
-    _PLAYER_SIZE = 30;
+    _PLAYER_SIZE = 100;
     
     _PLAYER_Z_POSITION = 100;
     _FOREGROUND_Z_POSITION = _PLAYER_Z_POSITION + 1;

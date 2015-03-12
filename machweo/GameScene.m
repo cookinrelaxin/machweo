@@ -12,6 +12,7 @@
 #import "Line.h"
 #import "WorldStreamer.h"
 #import "Score.h"
+#import "AnimationComponent.h"
 #import <AVFoundation/AVFoundation.h>
 
 int Y_THRESHOLD_FOR_SWITCH_LEVEL = 40;
@@ -33,6 +34,8 @@ int LUNAR_PERIOD = 7; //seconds
     CGPoint previousPoint;
     CGPoint currentPoint;
     ButsuLiKi *physicsComponent;
+    AnimationComponent *animationComponent;
+
     NSMutableArray *arrayOfLines;
     CGPoint currentDesiredPlayerPositionInView;
     //Score* playerScore;
@@ -110,6 +113,7 @@ int LUNAR_PERIOD = 7; //seconds
         [self addChild:_skies];
 
         physicsComponent = [[ButsuLiKi alloc] init];
+        animationComponent = [[AnimationComponent alloc] initAnimationDictionary];
         arrayOfLines = [NSMutableArray array];
         
         self.physicsWorld.gravity = CGVectorMake(0, 0);
@@ -552,10 +556,16 @@ int LUNAR_PERIOD = 7; //seconds
     player = [Player playerAtPoint:pointToInitAt];
     [self addChild:player];
     currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + (self.view.bounds.size.width / 8) * _constants.SCALE_COEFFICIENT.dy, [self convertPointToView:player.position].y);
-    
-//    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
-//    [logoLabel runAction:logoFadeOut completion:^{[logoLabel removeFromParent];}];
-    
+//    
+//    [player runAction:[SKAction repeatActionForever:
+//                      [SKAction animateWithTextures:animationComponent.runningFrames
+//                                       timePerFrame:0.05f
+//                                             resize:NO
+//                                            restore:YES]] withKey:@"runningMaasai"];
+//    
+////    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
+////    [logoLabel runAction:logoFadeOut completion:^{[logoLabel removeFromParent];}];
+//    
 
 }
 
@@ -802,6 +812,7 @@ int LUNAR_PERIOD = 7; //seconds
     }
     if (player && !gameOver) {
         [self centerCameraOnPlayer];
+        [self checkForNewAnimationState];
         [player resetMinsAndMaxs];
         [player updateEdges];
         [physicsComponent calculatePlayerPosition:player withLineArray:arrayOfLines];
@@ -814,6 +825,29 @@ int LUNAR_PERIOD = 7; //seconds
     previousSunPos = sunNode.position;
     
     //NSLog(@"_decorations.children.count: %lu", _decorations.children.count);
+}
+
+-(void)checkForNewAnimationState{
+    if (player.roughlyOnLine && ![player actionForKey:@"runningMaasai"]) {
+        [player removeAllActions];
+        [player runAction:[SKAction repeatActionForever:
+                           [SKAction animateWithTextures:animationComponent.runningFrames
+                                            timePerFrame:0.05f
+                                                  resize:NO
+                                                 restore:YES]] withKey:@"runningMaasai"];
+    }
+    
+    if (!player.roughlyOnLine && ![player actionForKey:@"jumpingMaasai"]) {
+        
+        [player removeAllActions];
+        [player runAction:
+                           [SKAction animateWithTextures:animationComponent.jumpingFrames
+                                            timePerFrame:0.05f
+                                                  resize:NO
+                                                 restore:YES] withKey:@"jumpingMaasai"];
+    }
+    
+    
 }
 
 

@@ -148,6 +148,9 @@
 		785A53E31A9597A400ED2E37 /* rock1_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DD1A9597A400ED2E37 /* rock1_decoration.png */; };
 		785A53E51A9597A400ED2E37 /* rock2_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DF1A9597A400ED2E37 /* rock2_decoration.png */; };
 		785A53E71A9597A400ED2E37 /* rock3_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53E11A9597A400ED2E37 /* rock3_decoration.png */; };
+		7877DCBB1AB131DE0050F132 /* AnimationComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7877DCBA1AB131DE0050F132 /* AnimationComponent.m */; };
+		7877DCD81AB13AB00050F132 /* runningDude.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7877DCD71AB13AB00050F132 /* runningDude.atlas */; };
+		7877DCDA1AB13E4C0050F132 /* jumpingDude.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7877DCD91AB13E4C0050F132 /* jumpingDude.atlas */; };
 		787BB5431A9D656400DF2D7C /* Amatic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 787BB5411A9D61F000DF2D7C /* Amatic-Bold.ttf */; };
 		787BB5441A9D656400DF2D7C /* AmaticSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 787BB5421A9D61F000DF2D7C /* AmaticSC-Regular.ttf */; };
 		7883AE3D1A8EEB60006A94A4 /* menulogo1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */; };
@@ -420,6 +423,10 @@
 		785A53DD1A9597A400ED2E37 /* rock1_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock1_decoration.png; sourceTree = "<group>"; };
 		785A53DF1A9597A400ED2E37 /* rock2_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock2_decoration.png; sourceTree = "<group>"; };
 		785A53E11A9597A400ED2E37 /* rock3_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock3_decoration.png; sourceTree = "<group>"; };
+		7877DCB91AB131DE0050F132 /* AnimationComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationComponent.h; sourceTree = "<group>"; };
+		7877DCBA1AB131DE0050F132 /* AnimationComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationComponent.m; sourceTree = "<group>"; };
+		7877DCD71AB13AB00050F132 /* runningDude.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = runningDude.atlas; sourceTree = "<group>"; };
+		7877DCD91AB13E4C0050F132 /* jumpingDude.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = jumpingDude.atlas; sourceTree = "<group>"; };
 		787BB5411A9D61F000DF2D7C /* Amatic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Amatic-Bold.ttf"; sourceTree = "<group>"; };
 		787BB5421A9D61F000DF2D7C /* AmaticSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmaticSC-Regular.ttf"; sourceTree = "<group>"; };
 		7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menulogo1x.png; sourceTree = "<group>"; };
@@ -662,6 +669,8 @@
 		782AE6D91A74B89900FF4225 /* animated shit */ = {
 			isa = PBXGroup;
 			children = (
+				7877DCD91AB13E4C0050F132 /* jumpingDude.atlas */,
+				7877DCD71AB13AB00050F132 /* runningDude.atlas */,
 				782AE6DB1A74B89900FF4225 /* button.png */,
 			);
 			path = "animated shit";
@@ -920,6 +929,8 @@
 		78A3ECEB1A6F45B9007FC498 /* game streaming */ = {
 			isa = PBXGroup;
 			children = (
+				7877DCB91AB131DE0050F132 /* AnimationComponent.h */,
+				7877DCBA1AB131DE0050F132 /* AnimationComponent.m */,
 				6509D2A81A5E290300F1BBA6 /* LevelParser.h */,
 				6509D2A61A5E290300F1BBA6 /* LevelParser.m */,
 				788788021A7333A9002987B7 /* GameDataManager.h */,
@@ -1228,6 +1239,7 @@
 				78E959141AAE81E700FA51EE /* jungleplant14_decoration.png in Resources */,
 				78337A241AA3F727008756CB /* dune10_decoration.png in Resources */,
 				78383FBD1A8B099F00712BFD /* linequilt.png in Resources */,
+				7877DCDA1AB13E4C0050F132 /* jumpingDude.atlas in Resources */,
 				782AE7831A74B89900FF4225 /* cloud_decoration.png in Resources */,
 				78D724761AAD3F2A008C559E /* tenggriPS_13.png in Resources */,
 				78E959191AAE81E700FA51EE /* jungleplant4_decoration.png in Resources */,
@@ -1349,6 +1361,7 @@
 				78337A471AA3F727008756CB /* dune7_decoration.png in Resources */,
 				78E959131AAE81E700FA51EE /* jungleplant13_decoration.png in Resources */,
 				78337A5E1AA404A3008756CB /* decorationSet_sahara_day_e.xml in Resources */,
+				7877DCD81AB13AB00050F132 /* runningDude.atlas in Resources */,
 				78337A511AA3F727008756CB /* shrub3_decoration.png in Resources */,
 				78E959241AAE81E700FA51EE /* jungletree14_decoration.png in Resources */,
 				78337A491AA3F727008756CB /* dune8_decoration.png in Resources */,
@@ -1452,6 +1465,7 @@
 				78B986AF1A746CAF00C4EA18 /* Score.m in Sources */,
 				78952A5E1AA2C01900A065C2 /* Decoration.m in Sources */,
 				6509D2D91A5E290300F1BBA6 /* LevelParser.m in Sources */,
+				7877DCBB1AB131DE0050F132 /* AnimationComponent.m in Sources */,
 				7892A1701A995E5A00CA64CE /* PopupView.m in Sources */,
 				78B986B21A74827B00C4EA18 /* Coin.m in Sources */,
 				78B566901A7C703E00011E86 /* Terrain.m in Sources */,
