@@ -19,8 +19,10 @@ int ALLOWABLE_X_DIFFERENCE = 10;
 //from 1 to 16
 int TENGGRI_COUNT = 16;
 int RAW_SKY_WIDTH = 8192; // pixels
-int DIURNAL_PERIOD = 90; //seconds
-int LUNAR_PERIOD = 40; //seconds
+//int DIURNAL_PERIOD = 90; //seconds
+//int LUNAR_PERIOD = 40; //seconds
+int DIURNAL_PERIOD = 15; //seconds
+int LUNAR_PERIOD = 7; //seconds
 
 
 
@@ -78,6 +80,7 @@ int LUNAR_PERIOD = 40; //seconds
     float radiusOfSolarOrbit;
 
     CGPoint previousSunPos;
+    SKSpriteNode* sunPanel;
 
     
 }
@@ -175,10 +178,42 @@ int LUNAR_PERIOD = 40; //seconds
         distanceLabel.hidden = true;
         [self addChild:distanceLabel];
         
-//        CIFilter *blur = [CIFilter filterWithName:@"CIGaussianBlur" keysAndValues:@"inputRadius", @5.0f, nil];
-//        //[blur setDefaults];
-//        self.filter = blur;
+//        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
+//        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+//        // CIColor *filterColor = [CIColor color]
+//        CIFilter* bloomFilter = [CIFilter filterWithName:@"CIBloom"];
+//        [bloomFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+//        [bloomFilter setValue:@(50.0) forKey:@"inputRadius"];
+//        [bloomFilter setValue:@(2.0) forKey:@"inputIntensity"];
+//
+//       // SKEffectNode* bloomEffect = [SKEffectNode node];
+//       // bloomEffect.filter = bloomFilter;
+//        //bloomEffect.shouldEnableEffects = true;
+//
+//        self.filter = bloomFilter;
 //        self.shouldEnableEffects = true;
+        
+//        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
+//        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+//        // CIColor *filterColor = [CIColor color]
+//        CIFilter* pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
+//        [pixellateFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+//        [pixellateFilter setValue:@(20.00) forKey:@"inputScale"];
+//
+//        self.filter = pixellateFilter;
+//        self.shouldEnableEffects = true;
+        
+        //CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
+        //CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+        // CIColor *filterColor = [CIColor color]
+        //CIFilter* blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+        //[blurFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+        //[blurFilter setValue:@(10.00) forKey:@"inputRadius"];
+
+        //self.filter = blurFilter;
+        //self.shouldEnableEffects = true;
+        
+        
 
         
         
@@ -321,8 +356,8 @@ int LUNAR_PERIOD = 40; //seconds
     }
     
     
-    NSLog(@"index:%lu", (unsigned long)index);
-    NSLog(@"roundedTime:%lu", (unsigned long)roundedTime);
+    //NSLog(@"index:%lu", (unsigned long)index);
+    //NSLog(@"roundedTime:%lu", (unsigned long)roundedTime);
 
     return index;
 }
@@ -331,27 +366,15 @@ int LUNAR_PERIOD = 40; //seconds
     NSDateComponents *components = [[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian] components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:[NSDate date]];
     
     float time = (float)components.hour + (((float)components.minute) / 60.0);
-    NSLog(@"time: %f", time);
+    //NSLog(@"time: %f", time);
     return time;
 }
 
 -(float)calculateInitialSolarRotation{
-//    NSDate* sourceDate = [NSDate date];
-//    
-//    NSTimeZone* sourceTimeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-//    NSTimeZone* destinationTimeZone = [NSTimeZone systemTimeZone];
-//    
-//    NSInteger sourceGMTOffset = [sourceTimeZone secondsFromGMTForDate:sourceDate];
-//    NSInteger destinationGMTOffset = [destinationTimeZone secondsFromGMTForDate:sourceDate];
-//    NSTimeInterval interval = destinationGMTOffset - sourceGMTOffset;
-//   // NSLog(@"interval: %f", interval);
-//
-//    NSDate* destinationDate = [[NSDate alloc] initWithTimeInterval:interval sinceDate:sourceDate];
-//    // the hour is not exactly correct on my phone
     
     float time = [self getCurrentTime];
     float rotation = -((time * (M_PI / 12.0)) + M_PI_2);
-    NSLog(@"rotation: %f", rotation);
+    //NSLog(@"rotation: %f", rotation);
     return rotation;
 
 }
@@ -361,24 +384,26 @@ int LUNAR_PERIOD = 40; //seconds
         sunNode = [SKSpriteNode spriteNodeWithImageNamed:@"sun_decoration"];
         sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
 
-        SKSpriteNode* sunPanel = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(self.size.height, self.size.height)];
+
+        sunPanel = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(self.size.width, self.size.height)];
         centerOfSolarOrbit = CGPointMake(self.size.width / 2, (sunNode.size.height / 2));
         sunPanel.position = centerOfSolarOrbit;
         sunPanel.zRotation =  [self calculateInitialSolarRotation];
+        sunPanel.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
 
         [self addChild:sunPanel];
         
         
-        sunNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
+        //sunNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
         radiusOfSolarOrbit = self.size.height * .6;
         UIBezierPath *sunPath = [UIBezierPath bezierPathWithArcCenter:CGPointZero radius:radiusOfSolarOrbit startAngle:0 endAngle:2 * M_PI clockwise:NO];
         //UIBezierPath *sunPath = [UIBezierPath bezierPathWithArcCenter:centerOfSolarOrbit radius:radiusOfSolarOrbit startAngle:0 endAngle:2 * M_PI clockwise:NO];
         [sunPath closePath];
-       // [sunPath applyTransform:CGAffineTransformMakeRotation(M_PI / 4)];
         SKAction* sunriseAction = [SKAction followPath:sunPath.CGPath asOffset:NO orientToPath:NO duration:DIURNAL_PERIOD];
         [sunNode runAction:[SKAction repeatActionForever:sunriseAction] completion:^{
         }];
         [sunPanel addChild:sunNode];
+ 
 
         //sunPathAdjusted = true;
         
@@ -398,7 +423,8 @@ int LUNAR_PERIOD = 40; //seconds
         [moonNode runAction:[SKAction repeatActionForever:moonriseAction] completion:^{
         }];
     }
-    
+    //[self setupSunAndMoonGlow];
+
 }
 
 -(void)performSunset{
@@ -713,8 +739,8 @@ int LUNAR_PERIOD = 40; //seconds
     float minY = centerOfSolarOrbit.y - radiusOfSolarOrbit;
     float sunY = [self convertPoint:sunNode.position fromNode:sunNode.parent].y;
     
-    float minBrightnessMultiplier = 1.0 / 10.0;
-    float maxBrightnessMultiplier = 7.0 / 7.0;
+    float minBrightnessMultiplier = 1.0 / 5.0;
+    float maxBrightnessMultiplier = 1.0;
     
     float brightness = sunY / maxY;
     float maxDistanceFromApex = maxY - minY;
@@ -726,7 +752,7 @@ int LUNAR_PERIOD = 40; //seconds
     //NSLog(@"brightnessMultiplier: %f", brightnessMultiplier);
     brightness *= brightnessMultiplier;
     float minB = -.20;
-    float maxB = .10;
+    float maxB = .20;
     brightness = (brightness < minB) ? minB : brightness;
     brightness = (brightness > maxB) ? maxB : brightness;
     
@@ -783,6 +809,7 @@ int LUNAR_PERIOD = 40; //seconds
     float dX = sqrtf(powf(sunNode.position.x - previousSunPos.x, 2) + powf(sunNode.position.y - previousSunPos.y, 2));
     _skies.position = CGPointMake(_skies.position.x + (dX * sky_displacement_coefficient), _skies.position.y);
     previousSunPos = sunNode.position;
+    //NSLog(@"sunNode.position: %f, %f", sunNode.position.x, sunNode.position.y);
 }
 
 

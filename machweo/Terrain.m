@@ -393,6 +393,7 @@ int CLIFF_VERTEX_COUNT = 15;
             
             sprite.alpha = terrainAlpha;
             
+            
             [node addChild:sprite];
             [_decos addObject:sprite];
             
