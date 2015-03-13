@@ -23,6 +23,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     
    __block float yMin = player.position.y;
     player.roughlyOnLine = false;
+    player.endOfLine = false;
     previousSlope = player.currentSlope;
     player.currentSlope = 0.0f;
     
@@ -77,12 +78,18 @@ const float OFFLINE_ROTATION_SPEED = .02f;
                 player.currentRotationSpeed = ONLINE_ROTATION_SPEED;
 
                 
-                
-                
-                if (rightNode == pointArray.lastObject) {
+                CGPoint lastPoint = ((NSValue*)pointArray.lastObject).CGPointValue;
+                if (fabsf(lastPoint.x - rightNode.CGPointValue.x) < player.size.width) {
                     player.endOfLine = true;
+                    //NSLog(@"player.endOfLine = true");
                     player.currentRotationSpeed = OFFLINE_ROTATION_SPEED;
                 }
+                
+//                if (rightNode == pointArray.lastObject) {
+//                    player.endOfLine = true;
+//                    NSLog(@"player.endOfLine = true");
+//                    player.currentRotationSpeed = OFFLINE_ROTATION_SPEED;
+//                }
 //                if ((rightNode == pointArray.lastObject) && (player.position.x > rightPoint.x)) {
 //                    player.endOfLine = true;
 //                }
@@ -247,7 +254,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     }
     
     if ((player.velocity.dy < 0) && player.endOfLine) {
-        player.endOfLine = false;
+        //player.endOfLine = false;
         player.velocity = CGVectorMake(player.velocity.dx, 0);
     }
 

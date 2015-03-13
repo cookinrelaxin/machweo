@@ -20,7 +20,7 @@
         SKTextureAtlas *runningAtlas = [SKTextureAtlas atlasNamed:@"runningDude"];
         NSUInteger numImages = runningAtlas.textureNames.count;
         for (int i=1; i <= numImages; i++) {
-            NSString *textureName = [NSString stringWithFormat:@"cloakman%d", i];
+            NSString *textureName = [NSString stringWithFormat:@"runthing%d", i];
             SKTexture *tex = [runningAtlas textureNamed:textureName];
             [_runningFrames addObject:tex];
         }

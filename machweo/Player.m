@@ -17,7 +17,7 @@
 
 +(instancetype)playerAtPoint:(CGPoint)point{
     Constants* constants = [Constants sharedInstance];
-    Player *player = [Player spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(constants.PLAYER_SIZE * constants.SCALE_COEFFICIENT.dy * 1.23, constants.PLAYER_SIZE * constants.SCALE_COEFFICIENT.dy)];
+    Player *player = [Player spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(constants.PLAYER_SIZE * constants.SCALE_COEFFICIENT.dy * .639658848614, constants.PLAYER_SIZE * constants.SCALE_COEFFICIENT.dy)];
     //Player *player = [Player spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(constants.PLAYER_SIZE, constants.PLAYER_SIZE * 2)];
     player.zPosition = constants.PLAYER_Z_POSITION;
     player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, constants.MAX_PLAYER_VELOCITY_DY);

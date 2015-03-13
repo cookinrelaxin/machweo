@@ -22,8 +22,8 @@ int TENGGRI_COUNT = 16;
 int RAW_SKY_WIDTH = 8192; // pixels
 //int DIURNAL_PERIOD = 90; //seconds
 //int LUNAR_PERIOD = 40; //seconds
-int DIURNAL_PERIOD = 15; //seconds
-int LUNAR_PERIOD = 7; //seconds
+int DIURNAL_PERIOD = 120; //seconds
+int LUNAR_PERIOD = 70; //seconds
 
 
 
@@ -765,7 +765,7 @@ int LUNAR_PERIOD = 7; //seconds
     //NSLog(@"brightnessMultiplier: %f", brightnessMultiplier);
     brightness *= brightnessMultiplier;
     float minB = -.20;
-    float maxB = .20;
+    float maxB = .15;
     brightness = (brightness < minB) ? minB : brightness;
     brightness = (brightness > maxB) ? maxB : brightness;
     
@@ -832,12 +832,12 @@ int LUNAR_PERIOD = 7; //seconds
         [player removeAllActions];
         [player runAction:[SKAction repeatActionForever:
                            [SKAction animateWithTextures:animationComponent.runningFrames
-                                            timePerFrame:0.05f
+                                            timePerFrame:0.04f
                                                   resize:NO
                                                  restore:YES]] withKey:@"runningMaasai"];
     }
     
-    if (!player.roughlyOnLine && ![player actionForKey:@"jumpingMaasai"]) {
+    if (player.endOfLine && ![player actionForKey:@"jumpingMaasai"]) {
         
         [player removeAllActions];
         [player runAction:
