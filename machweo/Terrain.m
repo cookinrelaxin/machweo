@@ -166,16 +166,20 @@ int CLIFF_VERTEX_COUNT = 15;
 
 -(void)generate:(SKView*)view withCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
     
-    if (_textureShapeNode) {
-        [_textureShapeNode removeFromParent];
-    }
-    _textureShapeNode = [self shapeNodeWithVertices:_vertices];
+//    if (_textureShapeNode) {
+//        [_textureShapeNode removeFromParent];
+//    }
+    //_textureShapeNode = [self shapeNodeWithVertices:_vertices];
+    [self shapeNodeWithVertices:_vertices];
     _textureShapeNode.fillColor = [self findTimeSpecificTerrainColorWithCurrentSunYPosition:sunY minY:minY andMaxY:maxY];
     //_textureShapeNode.fillColor = [SKColor colorWithHue:100 saturation:100 brightness:100 alpha:1];
     //NSLog(@"_textureShapeNode.fillColor: %@", _textureShapeNode.fillColor);
     //_textureShapeNode.alpha = 0.75f;
     
-    [self addChild:_textureShapeNode];
+    if (!_textureShapeNode.parent) {
+        [self addChild:_textureShapeNode];
+    }
+    //[self addChild:_textureShapeNode];
 
 }
 
@@ -203,9 +207,13 @@ int CLIFF_VERTEX_COUNT = 15;
 
 
 
--(SKShapeNode*)shapeNodeWithVertices:(NSMutableArray*)vertexArray{
+-(void)shapeNodeWithVertices:(NSMutableArray*)vertexArray{
     
-    SKShapeNode* node = [SKShapeNode node];
+    if (!_textureShapeNode) {
+        _textureShapeNode = [SKShapeNode node];
+    }
+    SKShapeNode* node = _textureShapeNode;
+    //node.path = NULL;
     node.position = CGPointZero;
     //node.fillColor = [SKColor colorWithHue:100 saturation:1.0 brightness:1.0 alpha:1.0];
     //node.fillColor = [UIColor colorWithHue:drand48() saturation:1.0 brightness:1.0 alpha:1.0];
@@ -276,7 +284,7 @@ int CLIFF_VERTEX_COUNT = 15;
     node.path = pathToDraw;
     //pathBoundingBox = CGPathGetPathBoundingBox(pathToDraw);
     CGPathRelease(pathToDraw);
-    return node;
+    //return node;
 }
 
 

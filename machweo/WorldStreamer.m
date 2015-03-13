@@ -17,7 +17,7 @@ const int THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET = 10;
 const int MAX_IN_USE_DECO_POOL_COUNT = 60;
 const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 
-const int STADE_LENGTH = 500;
+const int STADE_LENGTH = 250;
 
 
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
@@ -39,6 +39,7 @@ const Biome INITIAL_BIOME = savanna;
 
     Constants* constants;
     BOOL chunkLoading;
+    BOOL cleaningUpOldDecos;
     
     NSMutableArray* unused_obstacle_pool;
     NSMutableArray* in_use_obstacle_pool;
@@ -197,26 +198,41 @@ const Biome INITIAL_BIOME = savanna;
 }
 
 -(void)cleanUpOldDecos{
-    NSMutableArray* trash = [NSMutableArray array];
-    
-    for (Decoration* deco in in_use_deco_pool) {
-        CGPoint decoPositionInWorld = [_world convertPoint:deco.position fromNode:_decorations];
-        CGPoint decoPositionInView = [_view convertPoint:decoPositionInWorld fromScene:_world];
-        
-        if (decoPositionInView.x < (0 - (deco.size.width / 2))){
-            //NSLog(@"[trash addObject:deco];");
-            [trash addObject:deco];
-        }
+    if (!cleaningUpOldDecos) {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+            cleaningUpOldDecos = true;
+            NSMutableArray* trash = [NSMutableArray array];
+            
+            //for (Decoration* deco in in_use_deco_pool) {
+            for (int i = 0; i < in_use_deco_pool.count; i++) {
+                Decoration* deco = [in_use_deco_pool objectAtIndex:i];
+                if (!deco){
+                    continue;
+                }
+            
+                CGPoint decoPositionInWorld = [_world convertPoint:deco.position fromNode:_decorations];
+                CGPoint decoPositionInView = [_view convertPoint:decoPositionInWorld fromScene:_world];
+                
+                if (decoPositionInView.x < (0 - (deco.size.width / 2))){
+                    //NSLog(@"[trash addObject:deco];");
+                    [trash addObject:deco];
+                }
+            }
+
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                //numberOfDecosToLoad = 0;
+                for (Decoration* deco in trash) {
+                    //numberOfDecosToLoad ++;
+                    [deco removeFromParent];
+                    [in_use_deco_pool removeObject:deco];
+                    [IDDictionary removeObjectForKey:deco.uniqueID];
+                }
+                cleaningUpOldDecos = false;
+                //trash = nil;
+            });
+        });
     }
-    //numberOfDecosToLoad = 0;
-    for (Decoration* deco in trash) {
-        //numberOfDecosToLoad ++;
-        [deco removeFromParent];
-        [in_use_deco_pool removeObject:deco];
-        [IDDictionary removeObjectForKey:deco.uniqueID];
-    }
     
-    trash = nil;
     
 }
 

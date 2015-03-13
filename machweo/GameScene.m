@@ -715,12 +715,13 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)updateDistanceLabelWithDistance:(NSUInteger)distance{
-    //if (time > 10) {
-    //    timerLabel.text = [[NSString stringWithFormat:@"%f", time] substringToIndex:5];
-    //}
-   // else {
-    distanceLabel.text = [NSString stringWithFormat:@"%lu m", (unsigned long)distance];
-    //}
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
+        NSString* distanceString = [NSString stringWithFormat:@"%lu m", (unsigned long)distance];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            distanceLabel.text = distanceString;
+        });
+
+    });
 }
 
 -(void)updateDistance{
@@ -730,7 +731,7 @@ int LUNAR_PERIOD = 70; //seconds
     currentPlayerXPosition_hypothetical += player.velocity.dx;
     
     double difference = currentPlayerXPosition_hypothetical - previousPlayerXPosition_hypothetical;
-    if (difference > 30) {
+    if (difference > 50) {
         distance_traveled += 1;
         [self updateDistanceLabelWithDistance:distance_traveled];
         currentPlayerXPosition_hypothetical = previousPlayerXPosition_hypothetical;

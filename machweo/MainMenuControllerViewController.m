@@ -335,6 +335,7 @@
 
 -(void)initGame{
     _gameSceneView.ignoresSiblingOrder = YES;
+    _gameSceneView.showsFPS = YES;
     GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
     [_gameSceneView presentScene: newScene];
 }
