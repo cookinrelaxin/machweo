@@ -41,9 +41,9 @@ int LUNAR_PERIOD = 70; //seconds
     //Score* playerScore;
     //Obstacle* nextObstacle;
     
-    NSMutableArray* backgroundPool;
     NSMutableArray* previousChunks;
-    NSMutableDictionary* textureDict;
+    NSMutableDictionary* skyDict;
+    NSMutableArray* skyPool;
     
     BOOL gameWon;
     BOOL restartGameNotificationSent;
@@ -163,8 +163,8 @@ int LUNAR_PERIOD = 70; //seconds
         //[cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
         
         
-        backgroundPool = [NSMutableArray array];
-        textureDict = _constants.TEXTURE_DICT;
+        skyDict = [NSMutableDictionary dictionary];
+        skyPool = [NSMutableArray array];
         currentTimeOfDay = AM_8;
         worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0 andTimeOfDay:currentTimeOfDay];
         [self generateBackgrounds :false];
@@ -252,7 +252,7 @@ int LUNAR_PERIOD = 70; //seconds
 -(void)generateBackgrounds:(BOOL)forceLoad{
     // assume for now that we should load four backgrounds at a time
     //something like if the right edge of the first entry in backgroundPool isnt visible on the screen, remove it and add a new background
-    SKSpriteNode* firstBackground = [backgroundPool firstObject];
+    SKSpriteNode* firstBackground = [skyPool firstObject];
     if (firstBackground || forceLoad) {
         //NSLog(@"firstBackground");
         CGPoint positionInScene = [self convertPoint:firstBackground.position fromNode:_skies];
@@ -263,14 +263,16 @@ int LUNAR_PERIOD = 70; //seconds
             NSString* tenggriCountString = (currentIndexInTenggri < 10) ? [NSString stringWithFormat:@"0%lu", currentIndexInTenggri] : [NSString stringWithFormat:@"%lu", currentIndexInTenggri];
             
             NSString* backgroundName = [NSString stringWithFormat:@"tenggriPS_%@", tenggriCountString];
-//            NSLog(@"backgroundName: %@", backgroundName);
-
-            SKTexture *backgroundTexture = [_constants.TEXTURE_DICT objectForKey:backgroundName];
+            SKSpriteNode* background = [skyDict valueForKey:backgroundName];
+            if (!background) {
+                background = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:backgroundName]];
+                [skyDict setValue:background forKey:backgroundName];
+            }
             
-            SKSpriteNode* lastBackground = [backgroundPool lastObject];
-            //NSLog(@"lastBackground: %@", lastBackground);
+            SKSpriteNode* lastBackground = [skyPool lastObject];
 
-            SKSpriteNode* background = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
+            
+
             background.zPosition = _constants.BACKGROUND_Z_POSITION;
             background.size = CGSizeMake(background.size.width, background.size.height * _constants.SCALE_COEFFICIENT.dy);
             if (!lastBackground) {
@@ -279,11 +281,13 @@ int LUNAR_PERIOD = 70; //seconds
             else{
                 background.position = CGPointMake((lastBackground.position.x - lastBackground.size.width / 2) - (background.size.width / 2), self.size.height / 2);
             }
-            [_skies addChild:background];
-            if (!forceLoad) {
-                [backgroundPool removeObject:firstBackground];
+            if (!background.parent) {
+                [_skies addChild:background];
             }
-            [backgroundPool addObject:background];
+            if (!forceLoad) {
+                [skyPool removeObject:firstBackground];
+            }
+            [skyPool addObject:background];
             
             currentIndexInTenggri --;
             if (currentIndexInTenggri < 1) {
@@ -297,10 +301,10 @@ int LUNAR_PERIOD = 70; //seconds
         
         // there are 16 sky images / tenggri in 16 parts
         for (int i = 16; i >= 1; i --) {
-            NSString* tenggriCountString = (currentIndexInTenggri < 10) ? [NSString stringWithFormat:@"0%lu", currentIndexInTenggri] : [NSString stringWithFormat:@"%lu", currentIndexInTenggri];
-            NSString* backgroundName = [NSString stringWithFormat:@"tenggriPS_%@", tenggriCountString];
-            SKTexture * tex = [SKTexture textureWithImageNamed:backgroundName];
-            [textureDict setValue:tex forKey:backgroundName];
+//            NSString* tenggriCountString = (currentIndexInTenggri < 10) ? [NSString stringWithFormat:@"0%lu", currentIndexInTenggri] : [NSString stringWithFormat:@"%lu", currentIndexInTenggri];
+//            NSString* backgroundName = [NSString stringWithFormat:@"tenggriPS_%@", tenggriCountString];
+//            SKTexture * tex = [SKTexture textureWithImageNamed:backgroundName];
+//            [skyDict setValue:tex forKey:backgroundName];
             [self generateBackgrounds :true];
 
 
@@ -312,20 +316,6 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)fadeMoon{
-//    float differenceFromPeak = fabsf((sunNode.position.y - (centerOfSolarOrbit.y + radiusOfSolarOrbit)));
-//    //NSLog(@"differenceFromPeak :%f", differenceFromPeak);
-//    if  (differenceFromPeak < 1) {
-//        //[moonNode runAction:[SKAction fadeOutWithDuration:.5]];
-//        [moonNode runAction:[SKAction fadeAlphaTo:0 duration:.5]];
-//        //moonNode.alpha = 0;
-//    }
-//    float differenceFromDip = fabsf((sunNode.position.y - (centerOfSolarOrbit.y - radiusOfSolarOrbit)));
-//    //NSLog(@"differenceFromDip :%f", differenceFromDip);
-//    if (differenceFromDip < 1) {
-//        //[moonNode runAction:[SKAction fadeInWithDuration:.5]];
-//        [moonNode runAction:[SKAction fadeAlphaTo:1 duration:.5]];
-//
-//    }
     float sunY = [self convertPoint:sunNode.position fromNode:sunNode.parent].y;
     if (sunY > 0) {
         if (moonNode.alpha == 1) {

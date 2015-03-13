@@ -22,6 +22,8 @@ const int STADE_LENGTH = 500;
 
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
+const Biome INITIAL_BIOME = savanna;
+
 
 
 
@@ -90,17 +92,21 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     previousBiome = currentBiome;
     NSUInteger roundedDistance = RoundDownTo(distance, STADE_LENGTH);
     //NSLog(@"roundedDistance: %lu", (unsigned long)roundedDistance);
+    if (distance == 0) {
+        currentBiome = INITIAL_BIOME;
+        return INITIAL_BIOME;
+    }
     if ((roundedDistance % (STADE_LENGTH * 3)) == 0) {
+        currentBiome = savanna;
+        return savanna;
+    }
+    if ((roundedDistance % (STADE_LENGTH * 2)) == 0) {
         currentBiome = jungle;
         return jungle;
     }
-    if ((roundedDistance % (STADE_LENGTH * 2)) == 0) {
+    if ((roundedDistance % STADE_LENGTH) == 0) {
         currentBiome = sahara;
         return sahara;
-    }
-    if ((roundedDistance % STADE_LENGTH) == 0) {
-        currentBiome = savanna;
-        return savanna;
     }
     else return currentBiome;
     
