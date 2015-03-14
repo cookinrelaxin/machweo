@@ -17,7 +17,8 @@ const int THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET = 10;
 const int MAX_IN_USE_DECO_POOL_COUNT = 60;
 const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 
-const int MAX_DIFFICULTY = 40;
+// get it as high as possible
+const int MAX_DIFFICULTY = 2;
 
 const int STADE_LENGTH = 250;
 
@@ -325,18 +326,17 @@ const Biome INITIAL_BIOME = savanna;
 
 
 -(NSUInteger)calculateDifficultyFromDistance:(NSUInteger)distance{
-    // every 200 meters increment difficulty by 1;
     
-    //for now just return 0
-    NSUInteger roundedDistance = RoundDownTo(distance, STADE_LENGTH);
-    
-    NSUInteger difficulty = (roundedDistance / STADE_LENGTH) + 1;
-    if (difficulty > MAX_DIFFICULTY) {
-        difficulty = MAX_DIFFICULTY;
-    }
-    NSLog(@"difficulty: %lu", difficulty);
-    
-    return difficulty;
+//    NSUInteger roundedDistance = RoundDownTo(distance, STADE_LENGTH);
+//    
+//    NSUInteger difficulty = (roundedDistance / STADE_LENGTH) + 1;
+//    if (difficulty > MAX_DIFFICULTY) {
+//        difficulty = MAX_DIFFICULTY;
+//    }
+//    NSLog(@"difficulty: %lu", difficulty);
+//    
+//    return difficulty;
+    return 2;
 }
 
 -(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{
