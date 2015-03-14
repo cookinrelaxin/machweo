@@ -263,12 +263,12 @@ const Biome INITIAL_BIOME = savanna;
 
 
 
--(BOOL)shouldParseNewObstacleSet{
-    if (unused_obstacle_pool.count < THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET) {
-        return true;
-    }
-    return false;
-}
+//-(BOOL)shouldParseNewObstacleSet{
+//    if (unused_obstacle_pool.count < THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET) {
+//        return true;
+//    }
+//    return false;
+//}
 
 -(BOOL)shouldParseNewDecorationSet{
 
@@ -359,6 +359,78 @@ const Biome INITIAL_BIOME = savanna;
     //for now just return 0
     return 1;
 }
+
+//-(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{
+//    chunkLoading = true;
+//    NSUInteger difficulty = [self calculateDifficultyFromDistance:distance];
+//    //NSLog(@"difficulty: %lu", (unsigned long)difficulty);
+//    NSString* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
+//    //NSLog(@"obstacleSet: %@", obstacleSet);
+//    
+//    
+//    NSLog(@"xOffset: %f", xOffset);
+//    ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
+//    //[obstacleSetParser loadWorld:_world withObstacles:_obstacles andDecorations:_decorations andBucket:_bucket withinView:_view andLines:_lines andTerrainPool:_terrainPool withXOffset:xOffset];
+//    [obstacleSetParser loadObstaclesInWorld:_world withObstacles:_obstacles andBucket:_bucket withinView:_view andTerrainPool:_terrainPool withXOffset:xOffset];
+//    
+//    chunkLoading = false;
+//    
+//}
+
+//-(void)checkForLastObstacleWithDistance:(NSUInteger)distance{
+//    if (!chunkLoading) {
+//        
+//        Obstacle* lastObstacle = [_obstacles.children lastObject];
+//        if (!lastObstacle) {
+//            [self loadObstacleChunkWithXOffset:0 andDistance:0];
+//            
+//            return;
+//        }
+//        CGPoint lastObstaclePosInSelf = [_world convertPoint:lastObstacle.position fromNode:_obstacles];
+//        
+//        CGPoint lastObstaclePosInView = [_view convertPoint:lastObstaclePosInSelf fromScene:_world];
+//        if (lastObstaclePosInView.x < _view.bounds.size.width) {
+//            NSLog(@"load next chunk");
+//            NSMutableArray* trash = [NSMutableArray array];
+//            for (SKSpriteNode* sprite in _bucket) {
+//                if (![sprite isKindOfClass:[Obstacle class]]) {
+//                    continue;
+//                }
+//                CGPoint posInSelf = [_world convertPoint:CGPointMake(sprite.position.x + (sprite.size.width / 2), sprite.position.y) fromNode:sprite.parent];
+//                if (posInSelf.x > 0) {
+//                    continue;
+//                }
+//                
+//                [sprite removeFromParent];
+//                [trash addObject:sprite];
+//            }
+//            for (SKSpriteNode* sprite in trash) {
+//                [_bucket removeObject:sprite];
+//            }
+//            trash = nil;
+//            //                }
+//            //                chunkLoading = true;
+//            //                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+//            //                    ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:nextChunk];
+//            //                    dispatch_sync(dispatch_get_main_queue(), ^{
+//            //                        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
+//            //                        chunkLoading = false;
+//            //                    });
+//            //                });
+//            
+//            [self loadObstacleChunkWithXOffset:lastObstaclePosInSelf.x + ((lastObstacle.size.width / 2) * (arc4random_uniform(3) + 1)) andDistance:distance];
+//            
+//            
+//            //[self winGame];
+//        }
+//        else{
+//            [[NSNotificationCenter defaultCenter] postNotificationName:@"stopScrolling" object:nil];
+//            
+//            //                stopScrolling = true;
+//        }
+//        
+//    }
+//}
 
 
 
