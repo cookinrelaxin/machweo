@@ -17,6 +17,8 @@ const int THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET = 10;
 const int MAX_IN_USE_DECO_POOL_COUNT = 60;
 const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 
+const int MAX_DIFFICULTY = 40;
+
 const int STADE_LENGTH = 250;
 
 
@@ -41,7 +43,7 @@ const Biome INITIAL_BIOME = savanna;
     BOOL chunkLoading;
     BOOL cleaningUpOldDecos;
     
-    NSMutableArray* unused_obstacle_pool;
+    //NSMutableArray* unused_obstacle_pool;
     NSMutableArray* in_use_obstacle_pool;
     NSMutableArray* unused_deco_pool;
     NSMutableArray* in_use_deco_pool;
@@ -61,15 +63,13 @@ const Biome INITIAL_BIOME = savanna;
         _lines = lines;
         _terrainPool = [NSMutableArray array];
         
-        unused_obstacle_pool = [NSMutableArray array];
+        //unused_obstacle_pool = [NSMutableArray array];
         in_use_obstacle_pool = [NSMutableArray array];
         unused_deco_pool = [NSMutableArray array];
         in_use_deco_pool = [NSMutableArray array];
         IDDictionary = [NSMutableDictionary dictionary];
         constants = [Constants sharedInstance];
         
-        //[self preloadObstacleChunkWithDistance:0];
-        //[self loadNextObstacleWithXOffset:0];
         currentBiome = savanna;
         [self calculateNextBiomeWithDistance:0];
         [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0];
@@ -113,13 +113,13 @@ const Biome INITIAL_BIOME = savanna;
     
 }
 
--(void)preloadObstacleChunkWithDistance:(NSUInteger)distance{
-    NSUInteger difficulty = [self calculateDifficultyFromDistance:distance];
-    NSString* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
-    ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
-    [obstacleSetParser pourObstaclesIntoBucket:unused_obstacle_pool];
-    //NSLog(@"unused_obstacle_pool: %@", unused_obstacle_pool);
-}
+//-(void)preloadObstacleChunkWithDistance:(NSUInteger)distance{
+//    NSUInteger difficulty = [self calculateDifficultyFromDistance:distance];
+//    NSString* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
+//    ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
+//    [obstacleSetParser pourObstaclesIntoBucket:unused_obstacle_pool];
+//    //NSLog(@"unused_obstacle_pool: %@", unused_obstacle_pool);
+//}
 
 -(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay andDistance:(NSUInteger)distance{
     Biome biome = [self calculateNextBiomeWithDistance:distance];
@@ -140,23 +140,23 @@ const Biome INITIAL_BIOME = savanna;
     
 }
 
--(void)loadNextObstacleWithXOffset:(float)xOffset{
-    if (unused_obstacle_pool.count < 1) {
-        return;
-    }
-    
-    Obstacle* newObstacle = [unused_obstacle_pool objectAtIndex:0];
-    [unused_obstacle_pool removeObject:newObstacle];
-    
-    newObstacle.position = CGPointMake((newObstacle.position.x * constants.SCALE_COEFFICIENT.dy), newObstacle.position.y * constants.SCALE_COEFFICIENT.dy);
-    newObstacle.position = [_obstacles convertPoint:newObstacle.position fromNode:_world];
-    newObstacle.position = CGPointMake(newObstacle.position.x + xOffset, newObstacle.position.y);
-
-    newObstacle.zPosition = constants.OBSTACLE_Z_POSITION;
-    [_obstacles addChild:newObstacle];
-    [in_use_obstacle_pool addObject:newObstacle];
-    
-}
+//-(void)loadNextObstacleWithXOffset:(float)xOffset{
+//    if (unused_obstacle_pool.count < 1) {
+//        return;
+//    }
+//    
+//    Obstacle* newObstacle = [unused_obstacle_pool objectAtIndex:0];
+//    [unused_obstacle_pool removeObject:newObstacle];
+//    
+//    newObstacle.position = CGPointMake((newObstacle.position.x * constants.SCALE_COEFFICIENT.dy), newObstacle.position.y * constants.SCALE_COEFFICIENT.dy);
+//    newObstacle.position = [_obstacles convertPoint:newObstacle.position fromNode:_world];
+//    newObstacle.position = CGPointMake(newObstacle.position.x + xOffset, newObstacle.position.y);
+//
+//    newObstacle.zPosition = constants.OBSTACLE_Z_POSITION;
+//    [_obstacles addChild:newObstacle];
+//    [in_use_obstacle_pool addObject:newObstacle];
+//    
+//}
 
 -(void)loadNextDecoWithXOffset:(float)xOffset{
     if (numberOfDecosToLoad > 0) {
@@ -262,14 +262,6 @@ const Biome INITIAL_BIOME = savanna;
 }
 
 
-
-//-(BOOL)shouldParseNewObstacleSet{
-//    if (unused_obstacle_pool.count < THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET) {
-//        return true;
-//    }
-//    return false;
-//}
-
 -(BOOL)shouldParseNewDecorationSet{
 
     if (((unused_deco_pool.count < MAX_UNUSED_DECO_POOL_COUNT) && (in_use_deco_pool.count < MAX_IN_USE_DECO_POOL_COUNT))) {
@@ -279,7 +271,6 @@ const Biome INITIAL_BIOME = savanna;
 }
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay{
-    //NSLog(@"1. _terrainPool: %@", _terrainPool);
     if(!chunkLoading && [self shouldParseNewDecorationSet]){
         //NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
         chunkLoading = true;
@@ -290,44 +281,24 @@ const Biome INITIAL_BIOME = savanna;
             });
         });
     }
-    //NSLog(@"3. _terrainPool: %@", _terrainPool);
 
 
-//    if([self shouldParseNewObstacleSet]){
-//        //NSLog(@"[self preloadObstacleChunkWithDistance:playerDistance]");
-//        [self preloadObstacleChunkWithDistance:playerDistance];
-//    }
+    [self checkForLastObstacleWithDistance:playerDistance];
     
-    //what the hell should our xOffsets be?
     float xOffset = _view.bounds.size.width;
     if (!chunkLoading) {
         [self cleanUpOldDecos];
     }
     NSUInteger desiredNumDecosToLoad = MAX_NUM_DECOS_TO_LOAD;
-//    if ((desiredNumDecosToLoad + in_use_deco_pool.count) < MAX_IN_USE_DECO_POOL_COUNT) {
-//        desiredNumDecosToLoad = abs(MAX_IN_USE_DECO_POOL_COUNT - (int)desiredNumDecosToLoad);
-//    }
     numberOfDecosToLoad = desiredNumDecosToLoad;
     if (!chunkLoading) {
-        
         //NSLog(@"unused_deco_pool.count: %lu", unused_deco_pool.count);
         //NSLog(@"in_use_deco_pool.count: %lu", in_use_deco_pool.count);
     }
-   // NSLog(@"numberOfDecosToLoad: %lu", numberOfDecosToLoad);
-   // NSLog(@"[self loadNextDecoWithXOffset:xOffset andMinimumZPosition:minimumZpositionToLoad]");
+
     if (!chunkLoading) {
         [self loadNextDecoWithXOffset:xOffset];
     }
-    
-   // NSLog(@"unused_deco_pool: %@", unused_deco_pool);
-
-    
-//    if ([self checkForOldObstacles]) {
-//        //NSLog(@"[self loadNextObstacleWithXOffset:xOffset]");
-//        [self loadNextObstacleWithXOffset:xOffset];
-//        
-//    }
-    //NSLog(@"4. _terrainPool: %@", _terrainPool);
 
 }
 
@@ -354,83 +325,67 @@ const Biome INITIAL_BIOME = savanna;
 
 
 -(NSUInteger)calculateDifficultyFromDistance:(NSUInteger)distance{
- 
+    // every 200 meters increment difficulty by 1;
     
     //for now just return 0
-    return 1;
+    NSUInteger roundedDistance = RoundDownTo(distance, STADE_LENGTH);
+    
+    NSUInteger difficulty = (roundedDistance / STADE_LENGTH) + 1;
+    if (difficulty > MAX_DIFFICULTY) {
+        difficulty = MAX_DIFFICULTY;
+    }
+    NSLog(@"difficulty: %lu", difficulty);
+    
+    return difficulty;
 }
 
-//-(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{
-//    chunkLoading = true;
-//    NSUInteger difficulty = [self calculateDifficultyFromDistance:distance];
-//    //NSLog(@"difficulty: %lu", (unsigned long)difficulty);
-//    NSString* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
-//    //NSLog(@"obstacleSet: %@", obstacleSet);
-//    
-//    
-//    NSLog(@"xOffset: %f", xOffset);
-//    ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
-//    //[obstacleSetParser loadWorld:_world withObstacles:_obstacles andDecorations:_decorations andBucket:_bucket withinView:_view andLines:_lines andTerrainPool:_terrainPool withXOffset:xOffset];
-//    [obstacleSetParser loadObstaclesInWorld:_world withObstacles:_obstacles andBucket:_bucket withinView:_view andTerrainPool:_terrainPool withXOffset:xOffset];
-//    
-//    chunkLoading = false;
-//    
-//}
+-(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{
+    chunkLoading = true;
+    NSUInteger difficulty = [self calculateDifficultyFromDistance:distance];
+    //NSLog(@"difficulty: %lu", (unsigned long)difficulty);
+    NSString* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
+    //NSLog(@"obstacleSet: %@", obstacleSet);
+    
+    
+    //NSLog(@"xOffset: %f", xOffset);
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [obstacleSetParser loadObstaclesInWorld:_world withObstacles:_obstacles andBucket:in_use_obstacle_pool withinView:_view andTerrainPool:_terrainPool withXOffset:xOffset];
+            chunkLoading = false;
+        });
+    });
+    
+}
 
-//-(void)checkForLastObstacleWithDistance:(NSUInteger)distance{
-//    if (!chunkLoading) {
-//        
-//        Obstacle* lastObstacle = [_obstacles.children lastObject];
-//        if (!lastObstacle) {
-//            [self loadObstacleChunkWithXOffset:0 andDistance:0];
-//            
-//            return;
-//        }
-//        CGPoint lastObstaclePosInSelf = [_world convertPoint:lastObstacle.position fromNode:_obstacles];
-//        
-//        CGPoint lastObstaclePosInView = [_view convertPoint:lastObstaclePosInSelf fromScene:_world];
-//        if (lastObstaclePosInView.x < _view.bounds.size.width) {
-//            NSLog(@"load next chunk");
-//            NSMutableArray* trash = [NSMutableArray array];
-//            for (SKSpriteNode* sprite in _bucket) {
-//                if (![sprite isKindOfClass:[Obstacle class]]) {
-//                    continue;
-//                }
-//                CGPoint posInSelf = [_world convertPoint:CGPointMake(sprite.position.x + (sprite.size.width / 2), sprite.position.y) fromNode:sprite.parent];
-//                if (posInSelf.x > 0) {
-//                    continue;
-//                }
-//                
-//                [sprite removeFromParent];
-//                [trash addObject:sprite];
-//            }
-//            for (SKSpriteNode* sprite in trash) {
-//                [_bucket removeObject:sprite];
-//            }
-//            trash = nil;
-//            //                }
-//            //                chunkLoading = true;
-//            //                dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-//            //                    ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:nextChunk];
-//            //                    dispatch_sync(dispatch_get_main_queue(), ^{
-//            //                        [cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:self.view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:lastObstaclePosInSelf.x];
-//            //                        chunkLoading = false;
-//            //                    });
-//            //                });
-//            
-//            [self loadObstacleChunkWithXOffset:lastObstaclePosInSelf.x + ((lastObstacle.size.width / 2) * (arc4random_uniform(3) + 1)) andDistance:distance];
-//            
-//            
-//            //[self winGame];
-//        }
-//        else{
-//            [[NSNotificationCenter defaultCenter] postNotificationName:@"stopScrolling" object:nil];
-//            
-//            //                stopScrolling = true;
-//        }
-//        
-//    }
-//}
+-(void)checkForLastObstacleWithDistance:(NSUInteger)distance{
+    if (!chunkLoading) {
+        
+        Obstacle* lastObstacle = [_obstacles.children lastObject];
+        if (!lastObstacle) {
+            NSLog(@"load first obstacle chunk");
+            [self loadObstacleChunkWithXOffset:_view.bounds.size.width andDistance:0];
+            
+            return;
+        }
+        CGPoint lastObstaclePosInSelf = [_world convertPoint:lastObstacle.position fromNode:_obstacles];
+        
+        CGPoint lastObstaclePosInView = [_view convertPoint:lastObstaclePosInSelf fromScene:_world];
+        if (lastObstaclePosInView.x < _view.bounds.size.width) {
+            //NSLog(@"load next chunk");
+            
+            [self loadObstacleChunkWithXOffset:(lastObstaclePosInSelf.x + (lastObstacle.size.width / 2) + _view.bounds.size.width) andDistance:distance];
+            
+            
+            //[self winGame];
+        }
+        else{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"stopScrolling" object:nil];
+            
+        }
+        
+    }
+}
 
 
 

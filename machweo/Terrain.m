@@ -188,7 +188,7 @@ int CLIFF_VERTEX_COUNT = 15;
     
     terrainAlpha = .9;
     float brightness = sunY / maxY;
-    float minB = 0;
+    float minB = .25;
     brightness = (brightness < minB) ? minB : brightness;
     //NSLog(@"brightness: %f", brightness);
 

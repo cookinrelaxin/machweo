@@ -49,6 +49,7 @@ int LUNAR_PERIOD = 70; //seconds
     BOOL restartGameNotificationSent;
     BOOL gameOver;
     BOOL in_game;
+    BOOL player_created;
     
     SKLabelNode* logoLabel;
     SKSpriteNode* sunNode;
@@ -182,47 +183,9 @@ int LUNAR_PERIOD = 70; //seconds
         distanceLabel.hidden = true;
         [self addChild:distanceLabel];
         
-//        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
-//        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-//        // CIColor *filterColor = [CIColor color]
-//        CIFilter* bloomFilter = [CIFilter filterWithName:@"CIBloom"];
-//        [bloomFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-//        [bloomFilter setValue:@(50.0) forKey:@"inputRadius"];
-//        [bloomFilter setValue:@(2.0) forKey:@"inputIntensity"];
-//
-//       // SKEffectNode* bloomEffect = [SKEffectNode node];
-//       // bloomEffect.filter = bloomFilter;
-//        //bloomEffect.shouldEnableEffects = true;
-//
-//        self.filter = bloomFilter;
-//        self.shouldEnableEffects = true;
-        
-//        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
-//        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-//        // CIColor *filterColor = [CIColor color]
-//        CIFilter* pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
-//        [pixellateFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-//        [pixellateFilter setValue:@(20.00) forKey:@"inputScale"];
-//
-//        self.filter = pixellateFilter;
-//        self.shouldEnableEffects = true;
-        
-        //CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
-        //CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-        // CIColor *filterColor = [CIColor color]
-        //CIFilter* blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
-        //[blurFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-        //[blurFilter setValue:@(10.00) forKey:@"inputRadius"];
-
-        //self.filter = blurFilter;
-        //self.shouldEnableEffects = true;
-        
-        
-
-        
-        
-        
-        
+        CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
+        player = [Player playerAtPoint:pointToInitAt];
+    
     }
     return self;
 }
@@ -266,6 +229,9 @@ int LUNAR_PERIOD = 70; //seconds
             SKSpriteNode* background = [skyDict valueForKey:backgroundName];
             if (!background) {
                 background = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:backgroundName]];
+                background.zPosition = _constants.BACKGROUND_Z_POSITION;
+                background.size = CGSizeMake(background.size.width, background.size.height * _constants.SCALE_COEFFICIENT.dy);
+
                 [skyDict setValue:background forKey:backgroundName];
             }
             
@@ -273,8 +239,6 @@ int LUNAR_PERIOD = 70; //seconds
 
             
 
-            background.zPosition = _constants.BACKGROUND_Z_POSITION;
-            background.size = CGSizeMake(background.size.width, background.size.height * _constants.SCALE_COEFFICIENT.dy);
             if (!lastBackground) {
                 background.position = CGPointMake(self.size.width - (background.size.width / 2), self.size.height / 2);
             }
@@ -467,7 +431,7 @@ int LUNAR_PERIOD = 70; //seconds
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (!player && !gameOver && !logoLabel) {
+    if (!player_created && !gameOver && !logoLabel) {
         [self createPlayer];
         distanceLabel.hidden = false;
         //[[NSNotificationCenter defaultCenter] postNotificationName:@"dismiss logo" object:nil];
@@ -542,21 +506,9 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)createPlayer{
-    CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
-    player = [Player playerAtPoint:pointToInitAt];
+    player_created = true;
     [self addChild:player];
     currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + (self.view.bounds.size.width / 8) * _constants.SCALE_COEFFICIENT.dy, [self convertPointToView:player.position].y);
-//    
-//    [player runAction:[SKAction repeatActionForever:
-//                      [SKAction animateWithTextures:animationComponent.runningFrames
-//                                       timePerFrame:0.05f
-//                                             resize:NO
-//                                            restore:YES]] withKey:@"runningMaasai"];
-//    
-////    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
-////    [logoLabel runAction:logoFadeOut completion:^{[logoLabel removeFromParent];}];
-//    
-
 }
 
 -(void)createLineNode{
@@ -801,14 +753,15 @@ int LUNAR_PERIOD = 70; //seconds
         [self checkForWonGame];
         [self checkForLostGame];
     }
-    if (player && !gameOver) {
+    if (player_created && !gameOver) {
         [self centerCameraOnPlayer];
         [self checkForNewAnimationState];
         [player resetMinsAndMaxs];
         [player updateEdges];
         [physicsComponent calculatePlayerPosition:player withLineArray:arrayOfLines];
+        [self drawLines];
+
     }
-    [self drawLines];
     [self fadeMoon];
     
     float dX = sqrtf(powf(sunNode.position.x - previousSunPos.x, 2) + powf(sunNode.position.y - previousSunPos.y, 2));

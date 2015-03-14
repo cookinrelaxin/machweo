@@ -36,7 +36,6 @@ typedef enum SpeedType
 @property (nonatomic) Speed currentSpeedType;
 @property (nonatomic, strong) NSString* uniqueID;
 
-
 +(instancetype)obstacleWithTextureAndPhysicsBody:(SKTexture *)texture;
 
 -(NSString*)stringValueOfCurrentMotionType;
