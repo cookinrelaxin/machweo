@@ -327,16 +327,17 @@ const Biome INITIAL_BIOME = savanna;
 
 -(NSUInteger)calculateDifficultyFromDistance:(NSUInteger)distance{
     
-//    NSUInteger roundedDistance = RoundDownTo(distance, STADE_LENGTH);
-//    
-//    NSUInteger difficulty = (roundedDistance / STADE_LENGTH) + 1;
-//    if (difficulty > MAX_DIFFICULTY) {
-//        difficulty = MAX_DIFFICULTY;
-//    }
-//    NSLog(@"difficulty: %lu", difficulty);
-//    
-//    return difficulty;
-    return 2;
+    NSUInteger roundedDistance = RoundDownTo(distance, STADE_LENGTH);
+    
+    NSUInteger difficulty = (roundedDistance / STADE_LENGTH) + 1;
+    if (difficulty > MAX_DIFFICULTY) {
+        difficulty = MAX_DIFFICULTY;
+    }
+    NSLog(@"difficulty: %lu", difficulty);
+    
+    return difficulty;
+    
+    //return 2;
 }
 
 -(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{

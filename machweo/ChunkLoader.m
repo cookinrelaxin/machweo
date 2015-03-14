@@ -167,13 +167,13 @@ typedef enum NodeTypes
             
             if (spriteTexture) {
                 if (currentNodeType == obstacle) {
-                    currentNode = [Obstacle obstacleWithTextureAndPhysicsBody:spriteTexture];
+                    currentNode = [Obstacle obstacleWithTexture:spriteTexture];
                     Obstacle* obstacle = (Obstacle*)currentNode;
                     obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
-//                    obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:obstacle.size];
-//                    currentNode.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
-//                    currentNode.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
-//                    currentNode.physicsBody.dynamic = false;
+                    //obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:obstacle.size];
+                    //currentNode.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
+                    //currentNode.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
+                    //currentNode.physicsBody.dynamic = false;
 
                 }
                 else if (currentNodeType == decoration){
@@ -264,7 +264,6 @@ typedef enum NodeTypes
         obstacle.position = CGPointMake(obstacle.position.x + xOffset, obstacle.position.y);
         
         obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:obstacle.texture size:obstacle.size];
-        //obstacle.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:obstacle.size];
         currentNode.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
         currentNode.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
         currentNode.physicsBody.dynamic = false;
@@ -273,8 +272,6 @@ typedef enum NodeTypes
         [obstacles addChild:obstacle];
         [bucket addObject:obstacle];
     }
-
-
 
 }
 
