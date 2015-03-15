@@ -14,7 +14,10 @@ const int NUM_SPRITES_PER_TYPE= 12;
 
 @implementation SpritePreloader{
     NSMutableDictionary* obstaclePool;
+    NSMutableDictionary* skyPool;
+
     NSMutableDictionary* textureDict;
+    NSMutableArray* texArray;
     Constants* constants;
 
 }
@@ -22,6 +25,8 @@ const int NUM_SPRITES_PER_TYPE= 12;
     if (self = [super init]) {
         constants = [Constants sharedInstance];
         obstaclePool = [NSMutableDictionary dictionary];
+        skyPool = [NSMutableDictionary dictionary];
+        texArray = [NSMutableArray array];
         textureDict = constants.TEXTURE_DICT;
         
         NSArray* urls = [self findPNGURLs];
@@ -35,20 +40,43 @@ const int NUM_SPRITES_PER_TYPE= 12;
             if ([name hasSuffix:@"decoration"]) {
                 SKTexture *tex = [SKTexture textureWithImageNamed:name];
                 [textureDict setValue:tex forKey:name];
+                [texArray addObject:tex];
                 continue;
             }
+            if ([name hasPrefix:@"tenggriPS"]) {
+                [self preprocessSkyImage:name];
+                continue;
+            }
+            
         
         }
-        
+        [SKTexture preloadTextures:texArray withCompletionHandler:^{}];
+        texArray = nil;
     }
     
     return self;
 }
 
+-(void)preprocessSkyImage:(NSString*)skyName{
+    //NSLog(@"skyName: %@", skyName);
+    SKTexture* skyTex = [SKTexture textureWithImageNamed:skyName];
+    [texArray addObject:skyTex];
+    SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];
+    sky.zPosition = constants.BACKGROUND_Z_POSITION;
+    sky.size = CGSizeMake(sky.size.width, sky.size.height * constants.SCALE_COEFFICIENT.dy);
+    sky.name = skyName;
+    [skyPool setValue:sky forKey:sky.name];
+
+}
+
 -(NSMutableDictionary*)getObstaclePool{
     return obstaclePool;
 }
-                 
+
+-(NSMutableDictionary*)getSkyPool{
+    return skyPool;
+}
+
 -(void)populateObstacleSpritePoolWithName:(NSString*)spriteName{
     //NSLog(@"spriteName: %@", spriteName);
     

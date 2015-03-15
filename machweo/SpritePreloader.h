@@ -10,6 +10,7 @@
 
 @interface SpritePreloader : NSObject
 -(NSMutableDictionary*)getObstaclePool;
+-(NSMutableDictionary*)getSkyPool;
 
 
 @end

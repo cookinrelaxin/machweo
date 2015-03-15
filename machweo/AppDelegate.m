@@ -24,6 +24,7 @@
     [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
     [Constants sharedInstance].BIOMES = parser.biomes;
     [Constants sharedInstance].OBSTACLE_POOL = spritePreloader.getObstaclePool;
+    [Constants sharedInstance].SKY_DICT = spritePreloader.getSkyPool;
     
     //[[GameDataManager sharedInstance] loadGameData];
     return YES;

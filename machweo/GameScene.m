@@ -42,8 +42,8 @@ int LUNAR_PERIOD = 70; //seconds
     //Obstacle* nextObstacle;
     
     NSMutableArray* previousChunks;
-    NSMutableDictionary* skyDict;
     NSMutableArray* skyPool;
+    NSMutableDictionary* skyDict;
     
     BOOL gameWon;
     BOOL restartGameNotificationSent;
@@ -164,7 +164,7 @@ int LUNAR_PERIOD = 70; //seconds
         //[cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
         
         
-        skyDict = [NSMutableDictionary dictionary];
+        skyDict = _constants.SKY_DICT;
         skyPool = [NSMutableArray array];
         currentTimeOfDay = AM_8;
         worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0 andTimeOfDay:currentTimeOfDay];
@@ -227,13 +227,6 @@ int LUNAR_PERIOD = 70; //seconds
             
             NSString* backgroundName = [NSString stringWithFormat:@"tenggriPS_%@", tenggriCountString];
             SKSpriteNode* background = [skyDict valueForKey:backgroundName];
-            if (!background) {
-                background = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:backgroundName]];
-                background.zPosition = _constants.BACKGROUND_Z_POSITION;
-                background.size = CGSizeMake(background.size.width, background.size.height * _constants.SCALE_COEFFICIENT.dy);
-
-                [skyDict setValue:background forKey:backgroundName];
-            }
             
             SKSpriteNode* lastBackground = [skyPool lastObject];
 

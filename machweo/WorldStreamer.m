@@ -20,7 +20,7 @@ const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 // get it as high as possible
 const int MAX_DIFFICULTY = 2;
 
-const int STADE_LENGTH = 50;
+const int STADE_LENGTH = 250;
 
 
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
@@ -71,9 +71,10 @@ const Biome INITIAL_BIOME = savanna;
         IDDictionary = [NSMutableDictionary dictionary];
         
         currentBiome = savanna;
-        [self calculateNextBiomeWithDistance:0];
-        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0];
+        //[self calculateNextBiomeWithDistance:0];
+        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
         numberOfDecosToLoad = unused_deco_pool.count;
+        //numberOfDecosToLoad = MAX_IN_USE_DECO_POOL_COUNT;
         [self loadNextDecoWithXOffset:0];
         
         
@@ -113,50 +114,53 @@ const Biome INITIAL_BIOME = savanna;
     
 }
 
-//-(void)preloadObstacleChunkWithDistance:(NSUInteger)distance{
-//    NSUInteger difficulty = [self calculateDifficultyFromDistance:distance];
-//    NSString* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
-//    ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
-//    [obstacleSetParser pourObstaclesIntoBucket:unused_obstacle_pool];
-//    //NSLog(@"unused_obstacle_pool: %@", unused_obstacle_pool);
-//}
-
--(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay andDistance:(NSUInteger)distance{
+-(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay andDistance:(NSUInteger)distance asynchronous:(BOOL)async{
     Biome biome = [self calculateNextBiomeWithDistance:distance];
-    if (previousBiome != currentBiome) {
-        NSLog(@"clear old biome");
-        [unused_deco_pool removeAllObjects];
-        [_terrainPool removeAllObjects];
-        for (Decoration* deco in in_use_deco_pool) {
-            if ((deco.position.x - deco.size.width) > _view.bounds.size.width) {
-                [deco removeFromParent];
-                //NSLog(@"((deco.position.x - deco.size.width) > _view.bounds.size.width)");
+    if (async) {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+            if (previousBiome != currentBiome) {
+                NSLog(@"clear old biome");
+                [unused_deco_pool removeAllObjects];
+                [_terrainPool removeAllObjects];
+                for (Decoration* deco in in_use_deco_pool) {
+                    if ((deco.position.x - deco.size.width) > _view.bounds.size.width) {
+                        [deco removeFromParent];
+                        //NSLog(@"((deco.position.x - deco.size.width) > _view.bounds.size.width)");
+                    }
+                }
+            }
+            //});
+            //dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+            NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
+            ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
+            [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
+            chunkLoading = false;
+        });
+    }
+    else{
+        if (previousBiome != currentBiome) {
+            NSLog(@"clear old biome");
+            [unused_deco_pool removeAllObjects];
+            [_terrainPool removeAllObjects];
+            for (Decoration* deco in in_use_deco_pool) {
+                if ((deco.position.x - deco.size.width) > _view.bounds.size.width) {
+                    [deco removeFromParent];
+                    //NSLog(@"((deco.position.x - deco.size.width) > _view.bounds.size.width)");
+                }
             }
         }
+        //});
+        //dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+        NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
+        ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
+        [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
+        chunkLoading = false;
     }
-    NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
-    ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
-    [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
+    
+    
+
     
 }
-
-//-(void)loadNextObstacleWithXOffset:(float)xOffset{
-//    if (unused_obstacle_pool.count < 1) {
-//        return;
-//    }
-//    
-//    Obstacle* newObstacle = [unused_obstacle_pool objectAtIndex:0];
-//    [unused_obstacle_pool removeObject:newObstacle];
-//    
-//    newObstacle.position = CGPointMake((newObstacle.position.x * constants.SCALE_COEFFICIENT.dy), newObstacle.position.y * constants.SCALE_COEFFICIENT.dy);
-//    newObstacle.position = [_obstacles convertPoint:newObstacle.position fromNode:_world];
-//    newObstacle.position = CGPointMake(newObstacle.position.x + xOffset, newObstacle.position.y);
-//
-//    newObstacle.zPosition = constants.OBSTACLE_Z_POSITION;
-//    [_obstacles addChild:newObstacle];
-//    [in_use_obstacle_pool addObject:newObstacle];
-//    
-//}
 
 -(void)loadNextDecoWithXOffset:(float)xOffset{
     if (numberOfDecosToLoad > 0) {
@@ -170,12 +174,6 @@ const Biome INITIAL_BIOME = savanna;
                     skip = YES;
 
                 }
-//                for (Decoration *usedDeco in in_use_deco_pool) {
-//                    if ([toLoadID isEqualToString:usedDeco.uniqueID]) {
-//                        //NSLog(@"skip");
-//                        break;
-//                    }
-//                }
             }
             if (skip) {
                 continue;
@@ -279,14 +277,14 @@ const Biome INITIAL_BIOME = savanna;
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay{
     if(!chunkLoading && [self shouldParseNewDecorationSet]){
-        //NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
+//        //NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
         chunkLoading = true;
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-            [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:playerDistance];
-            dispatch_sync(dispatch_get_main_queue(), ^{
-                chunkLoading = false;
-            });
-        });
+//        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+            [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:playerDistance asynchronous:YES];
+//            //dispatch_sync(dispatch_get_main_queue(), ^{
+//            chunkLoading = false;
+//            //});
+//        });
     }
 
     [self checkForOldObstacles];
