@@ -20,7 +20,7 @@ const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 // get it as high as possible
 const int MAX_DIFFICULTY = 2;
 
-const int STADE_LENGTH = 250;
+const int STADE_LENGTH = 50;
 
 
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;

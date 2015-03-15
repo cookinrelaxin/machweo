@@ -11,6 +11,7 @@
 #import "GameDataManager.h"
 #import "LevelParser.h"
 #import "SpritePreloader.h"
+#import "AnimationComponent.h"
 
 
 @implementation AppDelegate
@@ -19,7 +20,7 @@
     LevelParser* parser = [[LevelParser alloc] init];
     SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
     
-
+    [AnimationComponent sharedInstance];
     [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
     [Constants sharedInstance].BIOMES = parser.biomes;
     [Constants sharedInstance].OBSTACLE_POOL = spritePreloader.getObstaclePool;

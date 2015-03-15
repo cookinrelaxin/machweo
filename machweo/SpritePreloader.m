@@ -33,12 +33,8 @@ const int NUM_SPRITES_PER_TYPE= 12;
                 continue;
             }
             if ([name hasSuffix:@"decoration"]) {
-                //SKTexture *spriteTexture = [textureDict objectForKey:name];
-                //if (spriteTexture == nil) {
-                  //  spriteTexture = [SKTexture textureWithImageNamed:obsName];
-                    [textureDict setValue:[SKTexture textureWithImageNamed:name] forKey:name];
-               // }
-                
+                SKTexture *tex = [SKTexture textureWithImageNamed:name];
+                [textureDict setValue:tex forKey:name];
                 continue;
             }
         

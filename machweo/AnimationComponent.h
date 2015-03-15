@@ -36,6 +36,6 @@
 @property (nonatomic) NSRange previousFrameRange;
 @property (nonatomic) NSRange currentFrameRange;
 
-- (id) initAnimationDictionary;
++ (instancetype)sharedInstance;
 
 @end

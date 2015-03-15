@@ -114,7 +114,7 @@ int LUNAR_PERIOD = 70; //seconds
         [self addChild:_skies];
 
         physicsComponent = [[ButsuLiKi alloc] init];
-        animationComponent = [[AnimationComponent alloc] initAnimationDictionary];
+        animationComponent = [AnimationComponent sharedInstance];
         arrayOfLines = [NSMutableArray array];
         
         self.physicsWorld.gravity = CGVectorMake(0, 0);
