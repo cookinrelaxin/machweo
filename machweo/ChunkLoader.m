@@ -166,7 +166,7 @@ typedef enum NodeTypes
                 if (firstObstacle) {
                     currentNode = firstObstacle;
                     [obstacleTypeArray removeObject:obstacleTypeArray.firstObject];
-                    NSLog(@"remove %@ from obstacle pool", string);
+                    //NSLog(@"remove %@ from obstacle pool", string);
                 }
                 //NSLog(@"obstacleTypeArray: %@", obstacleTypeArray);
                 return;
@@ -174,10 +174,6 @@ typedef enum NodeTypes
             }
             else if (currentNodeType == decoration){
                 SKTexture *spriteTexture = [textureDict objectForKey:string];
-                if (spriteTexture == nil) {
-                    spriteTexture = [SKTexture textureWithImageNamed:string];
-                    [textureDict setValue:spriteTexture forKey:string];
-                }
                 if (spriteTexture) {
                     currentNode = [Decoration spriteNodeWithTexture:spriteTexture];
                 }
@@ -237,13 +233,10 @@ typedef enum NodeTypes
         if (currentElement == terrainPoolMember) {
             //NSLog(@"add terrainPoolMember");
             SKTexture *spriteTexture = [textureDict objectForKey:string];
-            if (spriteTexture == nil) {
-                //NSLog(@"(spriteTexture == nil)");
-                spriteTexture = [SKTexture textureWithImageNamed:string];
-                [textureDict setValue:spriteTexture forKey:string];
+            if (spriteTexture) {
+                [terrainPoolArray addObject:spriteTexture];
             }
             //NSLog(@"spriteTexture :%@", spriteTexture);
-            [terrainPoolArray addObject:spriteTexture];
         }
         if (currentElement == uniqueID) {
             if ([currentNode isKindOfClass:[Decoration class]]) {

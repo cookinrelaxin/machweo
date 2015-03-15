@@ -32,6 +32,15 @@ const int NUM_SPRITES_PER_TYPE= 12;
                 [self populateObstacleSpritePoolWithName:name];
                 continue;
             }
+            if ([name hasSuffix:@"decoration"]) {
+                //SKTexture *spriteTexture = [textureDict objectForKey:name];
+                //if (spriteTexture == nil) {
+                  //  spriteTexture = [SKTexture textureWithImageNamed:obsName];
+                    [textureDict setValue:[SKTexture textureWithImageNamed:name] forKey:name];
+               // }
+                
+                continue;
+            }
         
         }
         
@@ -61,12 +70,8 @@ const int NUM_SPRITES_PER_TYPE= 12;
 }
 
 -(Obstacle*)obstaclePrototypeWithName:(NSString*)obsName{
-    SKTexture *spriteTexture = [textureDict objectForKey:obsName];
-    if (spriteTexture == nil) {
-        spriteTexture = [SKTexture textureWithImageNamed:obsName];
-        [textureDict setValue:spriteTexture forKey:obsName];
-    }
-    
+    SKTexture *spriteTexture = [SKTexture textureWithImageNamed:obsName];
+
     Obstacle* obstacle = [Obstacle obstacleWithTexture:spriteTexture];
     obstacle.name = obsName;
     obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);

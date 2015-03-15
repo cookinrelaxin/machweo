@@ -256,7 +256,7 @@ const Biome INITIAL_BIOME = savanna;
         NSMutableArray* obstacleTypeArray = [obstacle_pool valueForKey:obs.name];
         [obstacleTypeArray addObject:obs];
         //NSLog(@"obstacleTypeArray: %@", obstacleTypeArray);
-        NSLog(@"add %@ from obstacle pool", obs.name);
+        //NSLog(@"add %@ from obstacle pool", obs.name);
 
         //[obs removeFromParent];
         //[in_use_obstacle_pool removeObject:obs];
