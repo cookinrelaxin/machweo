@@ -44,8 +44,7 @@ const Biome INITIAL_BIOME = savanna;
     BOOL chunkLoading;
     BOOL cleaningUpOldDecos;
     
-    //NSMutableArray* unused_obstacle_pool;
-    NSMutableArray* in_use_obstacle_pool;
+    NSMutableDictionary* obstacle_pool;
     NSMutableArray* unused_deco_pool;
     NSMutableArray* in_use_deco_pool;
     
@@ -57,6 +56,8 @@ const Biome INITIAL_BIOME = savanna;
 
 -(instancetype)initWithWorld:(SKScene *)world withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines withXOffset:(float)xOffset andTimeOfDay:(TimeOfDay)timeOfDay{
     if (self = [super init]) {
+        constants = [Constants sharedInstance];
+
         _world = world;
         _obstacles = obstacles;
         _decorations = decorations;
@@ -64,12 +65,10 @@ const Biome INITIAL_BIOME = savanna;
         _lines = lines;
         _terrainPool = [NSMutableArray array];
         
-        //unused_obstacle_pool = [NSMutableArray array];
-        in_use_obstacle_pool = [NSMutableArray array];
+        obstacle_pool = constants.OBSTACLE_POOL;
         unused_deco_pool = [NSMutableArray array];
         in_use_deco_pool = [NSMutableArray array];
         IDDictionary = [NSMutableDictionary dictionary];
-        constants = [Constants sharedInstance];
         
         currentBiome = savanna;
         [self calculateNextBiomeWithDistance:0];
@@ -240,24 +239,31 @@ const Biome INITIAL_BIOME = savanna;
 -(BOOL)checkForOldObstacles{
     BOOL areThereAnyOldObstacles = false;
     
-    NSMutableArray* trash = [NSMutableArray array];
+    NSMutableArray* phoenices = [NSMutableArray array];
 
-    for (Obstacle* obs in in_use_obstacle_pool) {
+    for (Obstacle* obs in _obstacles.children) {
         CGPoint obsPositionInWorld = [_world convertPoint:obs.position fromNode:_obstacles];
         CGPoint obsPositionInView = [_view convertPoint:obsPositionInWorld fromScene:_world];
         
         if (obsPositionInView.x < (0 - (obs.size.width / 2))){
-            [trash addObject:obs];
+            [phoenices addObject:obs];
         }
     }
     
-    for (Obstacle* obs in trash) {
+    for (Obstacle* obs in phoenices) {
         areThereAnyOldObstacles = true;
         [obs removeFromParent];
-        [in_use_obstacle_pool removeObject:obs];
+        NSMutableArray* obstacleTypeArray = [obstacle_pool valueForKey:obs.name];
+        [obstacleTypeArray addObject:obs];
+        //NSLog(@"obstacleTypeArray: %@", obstacleTypeArray);
+        NSLog(@"add %@ from obstacle pool", obs.name);
+
+        //[obs removeFromParent];
+        //[in_use_obstacle_pool removeObject:obs];
+        
     }
 
-    trash = nil;
+    phoenices = nil;
     return areThereAnyOldObstacles;
 
 }
@@ -283,7 +289,7 @@ const Biome INITIAL_BIOME = savanna;
         });
     }
 
-
+    [self checkForOldObstacles];
     [self checkForLastObstacleWithDistance:playerDistance];
     
     float xOffset = _view.bounds.size.width;
@@ -333,7 +339,7 @@ const Biome INITIAL_BIOME = savanna;
     if (difficulty > MAX_DIFFICULTY) {
         difficulty = MAX_DIFFICULTY;
     }
-    NSLog(@"difficulty: %lu", difficulty);
+    //NSLog(@"difficulty: %lu", difficulty);
     
     return difficulty;
     
@@ -352,7 +358,7 @@ const Biome INITIAL_BIOME = savanna;
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
         dispatch_sync(dispatch_get_main_queue(), ^{
-            [obstacleSetParser loadObstaclesInWorld:_world withObstacles:_obstacles andBucket:in_use_obstacle_pool withinView:_view andTerrainPool:_terrainPool withXOffset:xOffset];
+            [obstacleSetParser loadObstaclesInWorld:_world withObstacles:_obstacles withinView:_view andTerrainPool:_terrainPool withXOffset:xOffset];
             chunkLoading = false;
         });
     });
@@ -364,7 +370,7 @@ const Biome INITIAL_BIOME = savanna;
         
         Obstacle* lastObstacle = [_obstacles.children lastObject];
         if (!lastObstacle) {
-            NSLog(@"load first obstacle chunk");
+            //NSLog(@"load first obstacle chunk");
             [self loadObstacleChunkWithXOffset:_view.bounds.size.width andDistance:0];
             
             return;

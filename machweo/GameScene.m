@@ -740,8 +740,6 @@ int LUNAR_PERIOD = 70; //seconds
         
     }
     [self setDecoFilter];
-    [self updateDistance];
-    [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
     [self generateBackgrounds :false];
     [self checkForOldLines];
     [self deallocOldLines];
@@ -754,6 +752,8 @@ int LUNAR_PERIOD = 70; //seconds
         [self checkForLostGame];
     }
     if (player_created && !gameOver) {
+        [self updateDistance];
+        [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
         [self centerCameraOnPlayer];
         [self checkForNewAnimationState];
         [player resetMinsAndMaxs];

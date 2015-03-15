@@ -159,26 +159,29 @@ typedef enum NodeTypes
     if (!charactersFound) {
         charactersFound = true;
         if (currentElement == name) {
-            SKTexture *spriteTexture = [textureDict objectForKey:string];
-            if (spriteTexture == nil) {
-                spriteTexture = [SKTexture textureWithImageNamed:string];
-                [textureDict setValue:spriteTexture forKey:string];
-            }
-            
-            if (spriteTexture) {
-                if (currentNodeType == obstacle) {
-                    currentNode = [Obstacle obstacleWithTexture:spriteTexture];
-                    Obstacle* obstacle = (Obstacle*)currentNode;
-                    obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
-                    //obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:obstacle.size];
-                    //currentNode.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
-                    //currentNode.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
-                    //currentNode.physicsBody.dynamic = false;
 
+            if (currentNodeType == obstacle) {
+                NSMutableArray* obstacleTypeArray = [constants.OBSTACLE_POOL valueForKey:string];
+                Obstacle* firstObstacle = obstacleTypeArray.firstObject;
+                if (firstObstacle) {
+                    currentNode = firstObstacle;
+                    [obstacleTypeArray removeObject:obstacleTypeArray.firstObject];
+                    NSLog(@"remove %@ from obstacle pool", string);
                 }
-                else if (currentNodeType == decoration){
+                //NSLog(@"obstacleTypeArray: %@", obstacleTypeArray);
+                return;
+
+            }
+            else if (currentNodeType == decoration){
+                SKTexture *spriteTexture = [textureDict objectForKey:string];
+                if (spriteTexture == nil) {
+                    spriteTexture = [SKTexture textureWithImageNamed:string];
+                    [textureDict setValue:spriteTexture forKey:string];
+                }
+                if (spriteTexture) {
                     currentNode = [Decoration spriteNodeWithTexture:spriteTexture];
                 }
+                return;
             }
             else{
                 currentNode = nil;
@@ -256,21 +259,15 @@ typedef enum NodeTypes
     }
 }
 
--(void)loadObstaclesInWorld:(SKNode *)world withObstacles:(SKNode *)obstacles andBucket:(NSMutableArray *)bucket withinView:(SKView *)view andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
+-(void)loadObstaclesInWorld:(SKNode *)world withObstacles:(SKNode *)obstacles withinView:(SKView *)view andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
 
     for (Obstacle *obstacle in obstacleArray) {
         obstacle.position = CGPointMake((obstacle.position.x * constants.SCALE_COEFFICIENT.dy), obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
         obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
         obstacle.position = CGPointMake(obstacle.position.x + xOffset, obstacle.position.y);
-        
-        obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:obstacle.texture size:obstacle.size];
-        currentNode.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
-        currentNode.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
-        currentNode.physicsBody.dynamic = false;
-
-        obstacle.zPosition = constants.OBSTACLE_Z_POSITION;
-        [obstacles addChild:obstacle];
-        [bucket addObject:obstacle];
+        if (!obstacle.parent) {
+            [obstacles addChild:obstacle];
+        }
     }
 
 }

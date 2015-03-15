@@ -25,6 +25,7 @@
 		659B21D01A5E1C1300885C04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21CF1A5E1C1300885C04 /* main.m */; };
 		659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659B21DF1A5E1C1300885C04 /* Images.xcassets */; };
 		659B21EF1A5E1C1400885C04 /* machweoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21EE1A5E1C1400885C04 /* machweoTests.m */; };
+		7813F6931AB5F7910092435D /* SpritePreloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7813F6921AB5F7910092435D /* SpritePreloader.m */; };
 		782AE76F1A74B89900FF4225 /* cloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6DE1A74B89900FF4225 /* cloud.png */; };
 		782AE7701A74B89900FF4225 /* cloud1.0.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6DF1A74B89900FF4225 /* cloud1.0.png */; };
 		782AE7711A74B89900FF4225 /* cloud1.0_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6E01A74B89900FF4225 /* cloud1.0_decoration.png */; };
@@ -305,6 +306,8 @@
 		659B21E81A5E1C1400885C04 /* machweoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = machweoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		659B21ED1A5E1C1400885C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659B21EE1A5E1C1400885C04 /* machweoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = machweoTests.m; sourceTree = "<group>"; };
+		7813F6911AB5F7910092435D /* SpritePreloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpritePreloader.h; sourceTree = "<group>"; };
+		7813F6921AB5F7910092435D /* SpritePreloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpritePreloader.m; sourceTree = "<group>"; };
 		782AE6DE1A74B89900FF4225 /* cloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud.png; sourceTree = "<group>"; };
 		782AE6DF1A74B89900FF4225 /* cloud1.0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud1.0.png; sourceTree = "<group>"; };
 		782AE6E01A74B89900FF4225 /* cloud1.0_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud1.0_decoration.png; sourceTree = "<group>"; };
@@ -952,6 +955,8 @@
 				788788031A7333A9002987B7 /* GameDataManager.m */,
 				6509D2C31A5E290300F1BBA6 /* ChunkLoader.h */,
 				6509D2991A5E290300F1BBA6 /* ChunkLoader.m */,
+				7813F6911AB5F7910092435D /* SpritePreloader.h */,
+				7813F6921AB5F7910092435D /* SpritePreloader.m */,
 				78C77B221A9EBEAC000A5728 /* WorldStreamer.h */,
 				78C77B231A9EBEAC000A5728 /* WorldStreamer.m */,
 			);
@@ -1489,6 +1494,7 @@
 				7892A1701A995E5A00CA64CE /* PopupView.m in Sources */,
 				78B986B21A74827B00C4EA18 /* Coin.m in Sources */,
 				78B566901A7C703E00011E86 /* Terrain.m in Sources */,
+				7813F6931AB5F7910092435D /* SpritePreloader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
