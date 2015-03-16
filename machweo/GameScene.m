@@ -558,8 +558,7 @@ int LUNAR_PERIOD = 70; //seconds
         if (!ter.permitDecorations){
             [ter changeDecorationPermissions:newPoint];
         }
-       // int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 2;
-        //[ter generateDecorationAtVertex:newPoint fromTerrainPool:[worldStreamer getTerrainPool] inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
+        [ter generateDecorationAtVertex:newPoint fromTerrainPool:[worldStreamer getTerrainPool] inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
         
     }
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];

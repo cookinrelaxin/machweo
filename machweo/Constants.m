@@ -101,6 +101,8 @@ int midpoint(int n1, int n2)
     //_POPUP_FONT_NAME = @"Amatic SC";
     //_POPUP_FONT_NAME = @"AmaticSC-Bold";
     _POPUP_FONT_NAME = @"Skranji";
+    
+    _jungle_textures_loaded = _sahara_textures_loaded = _savanna_textures_loaded = false;
 
 
 

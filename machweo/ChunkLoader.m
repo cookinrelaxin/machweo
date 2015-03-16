@@ -46,8 +46,9 @@ typedef enum NodeTypes
     Element currentElement;
     Node currentNodeType;
     BOOL charactersFound;
-    
     Constants* constants;
+    
+    Biome currentBiome;
     
     NSMutableDictionary* textureDict;
     
@@ -55,7 +56,16 @@ typedef enum NodeTypes
 
 -(instancetype)initWithFile:(NSString*)fileName{
     constants = [Constants sharedInstance];
-    
+    if ([fileName containsString:@"jungle"]) {
+        currentBiome = jungle;
+    }
+    if ([fileName containsString:@"savanna"]) {
+        currentBiome = savanna;
+    }
+    if ([fileName containsString:@"sahara"]) {
+        currentBiome = sahara;
+    }
+
     textureDict = constants.TEXTURE_DICT;
     
     obstacleArray = [NSMutableArray array];
@@ -88,6 +98,45 @@ typedef enum NodeTypes
 -(void)parserDidStartDocument:(NSXMLParser *)parser{
     // These objects are created here so that if a document is not found they will not be created
    // NSLog(@"did start document");
+}
+
+-(void)parserDidEndDocument:(NSXMLParser *)parser{
+    switch (currentBiome) {
+        case jungle:
+        {
+            if (!constants.jungle_textures_loaded) {
+                constants.jungle_textures_loaded = true;
+                [SKTexture preloadTextures:terrainPoolArray withCompletionHandler:^{
+                    NSLog(@"jungle terrain textures preloaded");
+                }];
+            }
+        }
+            break;
+        case sahara:
+        {
+            if (!constants.sahara_textures_loaded) {
+                constants.sahara_textures_loaded = true;
+
+                [SKTexture preloadTextures:terrainPoolArray withCompletionHandler:^{
+                    NSLog(@"sahara terrain textures preloaded");
+                }];
+            }
+        }
+            break;
+        case savanna:
+        {
+            if (!constants.savanna_textures_loaded) {
+                constants.savanna_textures_loaded = true;
+                
+                [SKTexture preloadTextures:terrainPoolArray withCompletionHandler:^{
+                    NSLog(@"savanna terrain textures preloaded");
+                }];
+            }
+        }
+            break;
+        case numBiomes:
+        break;
+    }
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
