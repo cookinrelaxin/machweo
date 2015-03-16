@@ -241,11 +241,6 @@
 		78E9592F1AAE81E700FA51EE /* junglelog3_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E959011AAE81E700FA51EE /* junglelog3_decoration.png */; };
 		78E959301AAE81E700FA51EE /* junglelog4.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E959021AAE81E700FA51EE /* junglelog4.png */; };
 		78E959311AAE81E700FA51EE /* junglelog_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E959031AAE81E700FA51EE /* junglelog_decoration.png */; };
-		78F9322B1A8854CB007947DD /* african_textile_1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 78F932261A8854CB007947DD /* african_textile_1.jpg */; };
-		78F9322C1A8854CB007947DD /* african_textile_2_terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F932271A8854CB007947DD /* african_textile_2_terrain.png */; };
-		78F9322D1A8854CB007947DD /* african_textile_3_terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F932281A8854CB007947DD /* african_textile_3_terrain.png */; };
-		78F9322E1A8854CB007947DD /* african_textile_5_terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F932291A8854CB007947DD /* african_textile_5_terrain.png */; };
-		78F9322F1A8854CB007947DD /* dirt1_terrain.png in Resources */ = {isa = PBXBuildFile; fileRef = 78F9322A1A8854CB007947DD /* dirt1_terrain.png */; };
 		78FFBC791A8EAC9500996198 /* chapters_button_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC6A1A8EAC9500996198 /* chapters_button_clicked.png */; };
 		78FFBC7A1A8EAC9500996198 /* chapters_button_not_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC6B1A8EAC9500996198 /* chapters_button_not_clicked.png */; };
 		78FFBC7B1A8EAC9500996198 /* highscores_button_clicked.png in Resources */ = {isa = PBXBuildFile; fileRef = 78FFBC6C1A8EAC9500996198 /* highscores_button_clicked.png */; };
@@ -532,11 +527,6 @@
 		78E959011AAE81E700FA51EE /* junglelog3_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = junglelog3_decoration.png; sourceTree = "<group>"; };
 		78E959021AAE81E700FA51EE /* junglelog4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = junglelog4.png; sourceTree = "<group>"; };
 		78E959031AAE81E700FA51EE /* junglelog_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = junglelog_decoration.png; sourceTree = "<group>"; };
-		78F932261A8854CB007947DD /* african_textile_1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = african_textile_1.jpg; sourceTree = "<group>"; };
-		78F932271A8854CB007947DD /* african_textile_2_terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = african_textile_2_terrain.png; sourceTree = "<group>"; };
-		78F932281A8854CB007947DD /* african_textile_3_terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = african_textile_3_terrain.png; sourceTree = "<group>"; };
-		78F932291A8854CB007947DD /* african_textile_5_terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = african_textile_5_terrain.png; sourceTree = "<group>"; };
-		78F9322A1A8854CB007947DD /* dirt1_terrain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dirt1_terrain.png; sourceTree = "<group>"; };
 		78FFBC6A1A8EAC9500996198 /* chapters_button_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chapters_button_clicked.png; sourceTree = "<group>"; };
 		78FFBC6B1A8EAC9500996198 /* chapters_button_not_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = chapters_button_not_clicked.png; sourceTree = "<group>"; };
 		78FFBC6C1A8EAC9500996198 /* highscores_button_clicked.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = highscores_button_clicked.png; sourceTree = "<group>"; };
@@ -666,7 +656,6 @@
 				785A53DB1A9597A400ED2E37 /* rock */,
 				78FFBC691A8EAC9500996198 /* menus */,
 				78383FB21A8B099F00712BFD /* line quilt */,
-				78F932251A8854CB007947DD /* terrain textures */,
 				782AE6D91A74B89900FF4225 /* animated shit */,
 				782AE6DC1A74B89900FF4225 /* clouds */,
 				782AE7011A74B89900FF4225 /* grass */,
@@ -1108,18 +1097,6 @@
 			path = log;
 			sourceTree = "<group>";
 		};
-		78F932251A8854CB007947DD /* terrain textures */ = {
-			isa = PBXGroup;
-			children = (
-				78F932261A8854CB007947DD /* african_textile_1.jpg */,
-				78F932271A8854CB007947DD /* african_textile_2_terrain.png */,
-				78F932281A8854CB007947DD /* african_textile_3_terrain.png */,
-				78F932291A8854CB007947DD /* african_textile_5_terrain.png */,
-				78F9322A1A8854CB007947DD /* dirt1_terrain.png */,
-			);
-			path = "terrain textures";
-			sourceTree = "<group>";
-		};
 		78FFBC691A8EAC9500996198 /* menus */ = {
 			isa = PBXGroup;
 			children = (
@@ -1250,7 +1227,6 @@
 				78D7246D1AAD3F2A008C559E /* tenggriPS_04.png in Resources */,
 				78952A701AA2CB0000A065C2 /* decorationSet_savanna_day_b.xml in Resources */,
 				78952A751AA2CB0000A065C2 /* decorationSet_savanna_day_g.xml in Resources */,
-				78F9322B1A8854CB007947DD /* african_textile_1.jpg in Resources */,
 				78D7246C1AAD3F2A008C559E /* tenggriPS_03.png in Resources */,
 				782AE7B41A74B89900FF4225 /* totem2_obstacle.png in Resources */,
 				78E959051AAE81E700FA51EE /* junglebush2_decoration.png in Resources */,
@@ -1273,7 +1249,6 @@
 				78D7246B1AAD3F2A008C559E /* tenggriPS_02.png in Resources */,
 				78337A4D1AA3F727008756CB /* shrub1_decoration.png in Resources */,
 				78E959041AAE81E700FA51EE /* junglebush1_decoration.png in Resources */,
-				78F9322D1A8854CB007947DD /* african_textile_3_terrain.png in Resources */,
 				659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */,
 				782AE7861A74B89900FF4225 /* cloudopaque3_decoration.png in Resources */,
 				78FFBC7A1A8EAC9500996198 /* chapters_button_not_clicked.png in Resources */,
@@ -1328,7 +1303,6 @@
 				78E959121AAE81E700FA51EE /* jungleplant12_decoration.png in Resources */,
 				78E9590A1AAE81E700FA51EE /* junglebush7_decoration.png in Resources */,
 				78C8F9591AB4CF26002905CC /* obstacleSet_2_b.xml in Resources */,
-				78F9322C1A8854CB007947DD /* african_textile_2_terrain.png in Resources */,
 				78FFBC7C1A8EAC9500996198 /* highscores_button_not_clicked.png in Resources */,
 				782AE7E51A74B89900FF4225 /* tree3_decoration.png in Resources */,
 				782AE7A91A74B89900FF4225 /* obstacle2_obstacle.png in Resources */,
@@ -1339,7 +1313,6 @@
 				78337A3C1AA3F727008756CB /* dune21_decoration.png in Resources */,
 				78C8F95A1AB4CF26002905CC /* obstacleSet_2_c.xml in Resources */,
 				78E959111AAE81E700FA51EE /* jungleplant11_decoration.png in Resources */,
-				78F9322E1A8854CB007947DD /* african_textile_5_terrain.png in Resources */,
 				78E9591D1AAE81E700FA51EE /* jungleplant8_decoration.png in Resources */,
 				782AE7A71A74B89900FF4225 /* obstacle1_obstacle.png in Resources */,
 				78337A4B1AA3F727008756CB /* dune9_decoration.png in Resources */,
@@ -1451,7 +1424,6 @@
 				783379E21AA3F6A0008756CB /* decorationSet_sahara_day_d.xml in Resources */,
 				782E522D1AA7F9A3004FE1F7 /* decorationSet_jungle_day_a.xml in Resources */,
 				783379E01AA3F6A0008756CB /* decorationSet_sahara_day_b.xml in Resources */,
-				78F9322F1A8854CB007947DD /* dirt1_terrain.png in Resources */,
 				783BF0711A9FFFC9001CC097 /* obstacleSet_1_b.xml in Resources */,
 				785A53E71A9597A400ED2E37 /* rock3_decoration.png in Resources */,
 				78E959091AAE81E700FA51EE /* junglebush6_decoration.png in Resources */,

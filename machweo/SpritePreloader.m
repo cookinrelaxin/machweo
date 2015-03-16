@@ -17,7 +17,6 @@ const int NUM_SPRITES_PER_TYPE= 12;
     NSMutableDictionary* skyPool;
 
     NSMutableDictionary* textureDict;
-    NSMutableArray* texArray;
     Constants* constants;
 
 }
@@ -26,7 +25,6 @@ const int NUM_SPRITES_PER_TYPE= 12;
         constants = [Constants sharedInstance];
         obstaclePool = [NSMutableDictionary dictionary];
         skyPool = [NSMutableDictionary dictionary];
-        texArray = [NSMutableArray array];
         textureDict = constants.TEXTURE_DICT;
         
         NSArray* urls = [self findPNGURLs];
@@ -40,7 +38,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
             if ([name hasSuffix:@"decoration"]) {
                 SKTexture *tex = [SKTexture textureWithImageNamed:name];
                 [textureDict setValue:tex forKey:name];
-                [texArray addObject:tex];
+                //[texArray addObject:tex];
                 continue;
             }
             if ([name hasPrefix:@"tenggriPS"]) {
@@ -50,8 +48,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
             
         
         }
-        [SKTexture preloadTextures:texArray withCompletionHandler:^{}];
-        texArray = nil;
+        //[SKTexture preloadTextures:texArray withCompletionHandler:^{}];
     }
     
     return self;
@@ -60,7 +57,6 @@ const int NUM_SPRITES_PER_TYPE= 12;
 -(void)preprocessSkyImage:(NSString*)skyName{
     //NSLog(@"skyName: %@", skyName);
     SKTexture* skyTex = [SKTexture textureWithImageNamed:skyName];
-    [texArray addObject:skyTex];
     SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];
     sky.zPosition = constants.BACKGROUND_Z_POSITION;
     sky.size = CGSizeMake(sky.size.width, sky.size.height * constants.SCALE_COEFFICIENT.dy);

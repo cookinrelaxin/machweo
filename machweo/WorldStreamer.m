@@ -20,7 +20,7 @@ const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 // get it as high as possible
 const int MAX_DIFFICULTY = 2;
 
-const int STADE_LENGTH = 250;
+const int STADE_LENGTH = 100;
 
 
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
@@ -73,7 +73,7 @@ const Biome INITIAL_BIOME = savanna;
         currentBiome = savanna;
         //[self calculateNextBiomeWithDistance:0];
         [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
-        numberOfDecosToLoad = unused_deco_pool.count;
+        //numberOfDecosToLoad = unused_deco_pool.count;
         //numberOfDecosToLoad = MAX_IN_USE_DECO_POOL_COUNT;
         [self loadNextDecoWithXOffset:0];
         
@@ -163,10 +163,11 @@ const Biome INITIAL_BIOME = savanna;
 }
 
 -(void)loadNextDecoWithXOffset:(float)xOffset{
-    if (numberOfDecosToLoad > 0) {
-        NSMutableArray* trash = [NSMutableArray array];
+    if (unused_deco_pool.count > 0) {
+        //NSMutableArray* trash = [NSMutableArray array];
         
-        for (Decoration* decoToLoad in unused_deco_pool) {
+        //for (Decoration* decoToLoad in unused_deco_pool) {
+        Decoration* decoToLoad = [unused_deco_pool firstObject];
             NSString* toLoadID = decoToLoad.uniqueID;
             BOOL skip = NO;
             if ((currentBiome == savanna) || (currentBiome == jungle)) {
@@ -176,10 +177,12 @@ const Biome INITIAL_BIOME = savanna;
                 }
             }
             if (skip) {
-                continue;
+                [unused_deco_pool removeObject:decoToLoad];
+                [self loadNextDecoWithXOffset:xOffset];
+                return;
             }
             [in_use_deco_pool addObject:decoToLoad];
-            [trash addObject:decoToLoad];
+            [unused_deco_pool removeObject:decoToLoad];
             decoToLoad.size = CGSizeMake(decoToLoad.size.width * constants.SCALE_COEFFICIENT.dy, decoToLoad.size.height * constants.SCALE_COEFFICIENT.dy);
             decoToLoad.position = CGPointMake((decoToLoad.position.x * constants.SCALE_COEFFICIENT.dy), decoToLoad.position.y * constants.SCALE_COEFFICIENT.dy);
             decoToLoad.position = [_decorations convertPoint:decoToLoad.position fromNode:_world];
@@ -187,11 +190,6 @@ const Biome INITIAL_BIOME = savanna;
             [_decorations addChild:decoToLoad];
             [IDDictionary setValue:@"lol" forKey:decoToLoad.uniqueID];
         }
-        for (SKSpriteNode* decoToDecache in trash) {
-            [unused_deco_pool removeObject:decoToDecache];
-        }
-        trash = nil;
-    }
 
 }
 
@@ -294,8 +292,8 @@ const Biome INITIAL_BIOME = savanna;
     if (!chunkLoading) {
         [self cleanUpOldDecos];
     }
-    NSUInteger desiredNumDecosToLoad = MAX_NUM_DECOS_TO_LOAD;
-    numberOfDecosToLoad = desiredNumDecosToLoad;
+    //NSUInteger desiredNumDecosToLoad = MAX_NUM_DECOS_TO_LOAD;
+   // numberOfDecosToLoad = desiredNumDecosToLoad;
     if (!chunkLoading) {
         //NSLog(@"unused_deco_pool.count: %lu", unused_deco_pool.count);
         //NSLog(@"in_use_deco_pool.count: %lu", in_use_deco_pool.count);

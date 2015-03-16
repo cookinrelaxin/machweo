@@ -238,9 +238,10 @@ int LUNAR_PERIOD = 70; //seconds
             else{
                 background.position = CGPointMake((lastBackground.position.x - lastBackground.size.width / 2) - (background.size.width / 2), self.size.height / 2);
             }
-            if (!background.parent) {
+            //if (!background.parent) {
+                [background removeFromParent];
                 [_skies addChild:background];
-            }
+            //}
             if (!forceLoad) {
                 [skyPool removeObject:firstBackground];
             }
@@ -558,7 +559,7 @@ int LUNAR_PERIOD = 70; //seconds
             [ter changeDecorationPermissions:newPoint];
         }
        // int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 2;
-        [ter generateDecorationAtVertex:newPoint fromTerrainPool:[worldStreamer getTerrainPool] inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
+        //[ter generateDecorationAtVertex:newPoint fromTerrainPool:[worldStreamer getTerrainPool] inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
         
     }
     [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
