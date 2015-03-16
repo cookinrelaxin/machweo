@@ -72,10 +72,16 @@ const Biome INITIAL_BIOME = savanna;
         
         currentBiome = savanna;
         //[self calculateNextBiomeWithDistance:0];
+        
+        // for double the fun
         [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
+        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
+
+        for (int i = 0; i < unused_deco_pool.count; i ++) {
+            [self loadNextDecoWithXOffset:0];
+        }
         //numberOfDecosToLoad = unused_deco_pool.count;
         //numberOfDecosToLoad = MAX_IN_USE_DECO_POOL_COUNT;
-        [self loadNextDecoWithXOffset:0];
         
         
         
