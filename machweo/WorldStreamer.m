@@ -18,7 +18,7 @@ const int MAX_IN_USE_DECO_POOL_COUNT = 60;
 const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 
 // get it as high as possible
-const int MAX_DIFFICULTY = 2;
+const int MAX_DIFFICULTY = 5;
 
 const int STADE_LENGTH = 250;
 
@@ -345,7 +345,7 @@ const Biome INITIAL_BIOME = savanna;
     
     return difficulty;
     
-    //return 2;
+    //return 4;
 }
 
 -(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{
