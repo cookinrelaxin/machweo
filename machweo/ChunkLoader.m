@@ -100,44 +100,44 @@ typedef enum NodeTypes
    // NSLog(@"did start document");
 }
 
--(void)parserDidEndDocument:(NSXMLParser *)parser{
-    switch (currentBiome) {
-        case jungle:
-        {
-            if (!constants.jungle_textures_loaded) {
-                constants.jungle_textures_loaded = true;
-                [SKTexture preloadTextures:terrainPoolArray withCompletionHandler:^{
-                    NSLog(@"jungle terrain textures preloaded");
-                }];
-            }
-        }
-            break;
-        case sahara:
-        {
-            if (!constants.sahara_textures_loaded) {
-                constants.sahara_textures_loaded = true;
-
-                [SKTexture preloadTextures:terrainPoolArray withCompletionHandler:^{
-                    NSLog(@"sahara terrain textures preloaded");
-                }];
-            }
-        }
-            break;
-        case savanna:
-        {
-            if (!constants.savanna_textures_loaded) {
-                constants.savanna_textures_loaded = true;
-                
-                [SKTexture preloadTextures:terrainPoolArray withCompletionHandler:^{
-                    NSLog(@"savanna terrain textures preloaded");
-                }];
-            }
-        }
-            break;
-        case numBiomes:
-        break;
-    }
-}
+//-(void)parserDidEndDocument:(NSXMLParser *)parser{
+//    switch (currentBiome) {
+//        case jungle:
+//        {
+//            if (!constants.jungle_textures_loaded) {
+//                constants.jungle_textures_loaded = true;
+//                [SKTexture preloadTextures:terrainPoolArray withCompletionHandler:^{
+//                    NSLog(@"jungle terrain textures preloaded");
+//                }];
+//            }
+//        }
+//            break;
+//        case sahara:
+//        {
+//            if (!constants.sahara_textures_loaded) {
+//                constants.sahara_textures_loaded = true;
+//
+//                [SKTexture preloadTextures:terrainPoolArray withCompletionHandler:^{
+//                    NSLog(@"sahara terrain textures preloaded");
+//                }];
+//            }
+//        }
+//            break;
+//        case savanna:
+//        {
+//            if (!constants.savanna_textures_loaded) {
+//                constants.savanna_textures_loaded = true;
+//                
+//                [SKTexture preloadTextures:terrainPoolArray withCompletionHandler:^{
+//                    NSLog(@"savanna terrain textures preloaded");
+//                }];
+//            }
+//        }
+//            break;
+//        case numBiomes:
+//        break;
+//    }
+//}
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
     charactersFound = false;
