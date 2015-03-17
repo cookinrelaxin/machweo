@@ -772,7 +772,7 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)checkForNewAnimationState{
-    if (player.roughlyOnLine && ![player actionForKey:@"runningMaasai"]) {
+    if ((player.roughlyOnLine || player.onGround) && ![player actionForKey:@"runningMaasai"]) {
         [player removeAllActions];
         [player runAction:[SKAction repeatActionForever:
                            [SKAction animateWithTextures:animationComponent.runningFrames
@@ -805,13 +805,13 @@ int LUNAR_PERIOD = 70; //seconds
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
 
     }
-    if (player.position.y < 0 - (player.size.height / 2)) {
-        [self loseGame];
-//        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-//        [popupDict setValue:@"Oops! You fell off the path. That's ok, have another try." forKey:@"popup text"];
-//        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
-    }
+//    if (player.position.y < 0 - (player.size.height / 2)) {
+//        [self loseGame];
+////        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+////        [popupDict setValue:@"Oops! You fell off the path. That's ok, have another try." forKey:@"popup text"];
+////        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
+////        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+//    }
     
     if (_shangoBrokeHisBack) {
         [self loseGame];

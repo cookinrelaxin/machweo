@@ -100,24 +100,23 @@ const Biome INITIAL_BIOME = savanna;
     previousBiome = currentBiome;
     NSUInteger roundedDistance = RoundDownTo(distance, STADE_LENGTH);
     //NSLog(@"roundedDistance: %lu", (unsigned long)roundedDistance);
-//    if (distance == 0) {
-//        currentBiome = INITIAL_BIOME;
-//        return INITIAL_BIOME;
-//    }
-//    if ((roundedDistance % (STADE_LENGTH * 3)) == 0) {
-//        currentBiome = savanna;
-//        return savanna;
-//    }
-//    if ((roundedDistance % (STADE_LENGTH * 2)) == 0) {
-//        currentBiome = jungle;
-//        return jungle;
-//    }
-//    if ((roundedDistance % STADE_LENGTH) == 0) {
-//        currentBiome = sahara;
-//        return sahara;
-//    }
-//    else return currentBiome;
-    return jungle;
+    if (distance == 0) {
+        currentBiome = INITIAL_BIOME;
+        return INITIAL_BIOME;
+    }
+    if ((roundedDistance % (STADE_LENGTH * 3)) == 0) {
+        currentBiome = savanna;
+        return savanna;
+    }
+    if ((roundedDistance % (STADE_LENGTH * 2)) == 0) {
+        currentBiome = jungle;
+        return jungle;
+    }
+    if ((roundedDistance % STADE_LENGTH) == 0) {
+        currentBiome = sahara;
+        return sahara;
+    }
+    else return currentBiome;
     
 }
 
