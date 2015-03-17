@@ -37,7 +37,7 @@ typedef enum NodeTypes
 
 @implementation ChunkLoader{
 
-    SKNode *currentNode;
+    AugmentedSprite *currentNode;
     Element currentElement;
     Node currentNodeType;
     BOOL charactersFound;
@@ -194,14 +194,14 @@ typedef enum NodeTypes
         }
         if (currentElement == xPosition) {
             //NSLog(@"xPosition: %@", string);
-            currentNode.position = CGPointMake([string floatValue], currentNode.position.y);
-            currentNode.position = CGPointMake(currentNode.position.x * constants.SCALE_COEFFICIENT.dy, currentNode.position.y);
+            currentNode.rawPosition = CGPointMake([string floatValue], currentNode.rawPosition.y);
+            currentNode.rawPosition = CGPointMake(currentNode.rawPosition.x * constants.SCALE_COEFFICIENT.dy, currentNode.rawPosition.y);
             return;
         }
         if (currentElement == yPosition) {
             //NSLog(@"yPosition: %@", string);
-            currentNode.position = CGPointMake(currentNode.position.x, [string floatValue]);
-            currentNode.position = CGPointMake(currentNode.position.x, currentNode.position.y * constants.SCALE_COEFFICIENT.dy);
+            currentNode.rawPosition = CGPointMake(currentNode.rawPosition.x, [string floatValue]);
+            currentNode.rawPosition = CGPointMake(currentNode.rawPosition.x, currentNode.rawPosition.y * constants.SCALE_COEFFICIENT.dy);
 
             return;
         }
@@ -260,36 +260,5 @@ typedef enum NodeTypes
         }
     }
 }
-//
-//-(void)loadObstaclesInWorld:(SKNode *)world withObstacles:(SKNode *)obstacles withinView:(SKView *)view andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
-//
-//    for (Obstacle *obstacle in _obstacleArray) {
-//        obstacle.position = CGPointMake((obstacle.position.x * constants.SCALE_COEFFICIENT.dy), obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
-//        obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
-//        obstacle.position = CGPointMake(obstacle.position.x + xOffset, obstacle.position.y);
-//        if (!obstacle.parent) {
-//            [obstacles addChild:obstacle];
-//        }
-//    }
-//
-//}
-//
-////-(void)pourObstaclesIntoBucket:(NSMutableArray *)bucket{
-////    [bucket addObjectsFromArray:obstacleArray];
-////}
-//
-//
-//-(void)pourDecorationsIntoBucket:(NSMutableArray *)bucket andTerrainPool:(NSMutableArray *)terrainPool{
-//    [bucket addObjectsFromArray:_decorationArray];
-//    //terrainPool = terrainPoolArray;
-//    //NSLog(@"2. _terrainPool: %@", terrainPool);
-//    for (SKTexture* tex in _terrainPoolArray) {
-//        if (![terrainPool containsObject:tex]) {
-//            [terrainPool addObject:tex];
-//        }
-//    }
-//   // [terrainPool addObjectsFromArray:terrainPoolArray];
-//
-//}
 
 @end

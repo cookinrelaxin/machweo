@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <SpriteKit/SpriteKit.h>
 #import "Constants.h"
+#import "AugmentedSprite.h"
 
 typedef enum MotionType
 {
@@ -30,11 +30,14 @@ typedef enum SpeedType
 } Speed;
 
 
-@interface Obstacle : SKSpriteNode
+@interface Obstacle : AugmentedSprite
 
 @property (nonatomic) Motion currentMotionType;
 @property (nonatomic) Speed currentSpeedType;
-@property (nonatomic, strong) NSString* uniqueID;
+//@property (nonatomic, strong) NSString* uniqueID;
+
+//@property (nonatomic) CGPoint rawPosition;
+
 
 +(instancetype)obstacleWithTexture:(SKTexture *)texture;
 

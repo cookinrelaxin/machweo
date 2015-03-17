@@ -214,6 +214,7 @@
 		78D724771AAD3F2A008C559E /* tenggriPS_14.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D724671AAD3F2A008C559E /* tenggriPS_14.png */; };
 		78D724781AAD3F2A008C559E /* tenggriPS_15.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D724681AAD3F2A008C559E /* tenggriPS_15.png */; };
 		78D724791AAD3F2A008C559E /* tenggriPS_16.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D724691AAD3F2A008C559E /* tenggriPS_16.png */; };
+		78DFE4891AB8A44F0046E1A9 /* AugmentedSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 78DFE4881AB8A44F0046E1A9 /* AugmentedSprite.m */; };
 		78E959041AAE81E700FA51EE /* junglebush1_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E958D51AAE81E700FA51EE /* junglebush1_decoration.png */; };
 		78E959051AAE81E700FA51EE /* junglebush2_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E958D61AAE81E700FA51EE /* junglebush2_decoration.png */; };
 		78E959061AAE81E700FA51EE /* junglebush3_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E958D71AAE81E700FA51EE /* junglebush3_decoration.png */; };
@@ -517,6 +518,8 @@
 		78D724671AAD3F2A008C559E /* tenggriPS_14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tenggriPS_14.png; sourceTree = "<group>"; };
 		78D724681AAD3F2A008C559E /* tenggriPS_15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tenggriPS_15.png; sourceTree = "<group>"; };
 		78D724691AAD3F2A008C559E /* tenggriPS_16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tenggriPS_16.png; sourceTree = "<group>"; };
+		78DFE4871AB8A44F0046E1A9 /* AugmentedSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AugmentedSprite.h; sourceTree = "<group>"; };
+		78DFE4881AB8A44F0046E1A9 /* AugmentedSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AugmentedSprite.m; sourceTree = "<group>"; };
 		78E958D51AAE81E700FA51EE /* junglebush1_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = junglebush1_decoration.png; sourceTree = "<group>"; };
 		78E958D61AAE81E700FA51EE /* junglebush2_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = junglebush2_decoration.png; sourceTree = "<group>"; };
 		78E958D71AAE81E700FA51EE /* junglebush3_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = junglebush3_decoration.png; sourceTree = "<group>"; };
@@ -1010,6 +1013,8 @@
 				6509D29A1A5E290300F1BBA6 /* Player.m */,
 				78B5668E1A7C703E00011E86 /* Terrain.h */,
 				78B5668F1A7C703E00011E86 /* Terrain.m */,
+				78DFE4871AB8A44F0046E1A9 /* AugmentedSprite.h */,
+				78DFE4881AB8A44F0046E1A9 /* AugmentedSprite.m */,
 				6509D29F1A5E290300F1BBA6 /* Obstacle.h */,
 				6509D2981A5E290300F1BBA6 /* Obstacle.m */,
 				78952A5C1AA2C01900A065C2 /* Decoration.h */,
@@ -1513,6 +1518,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78DFE4891AB8A44F0046E1A9 /* AugmentedSprite.m in Sources */,
 				6509D2D61A5E290300F1BBA6 /* AppDelegate.m in Sources */,
 				6509D2D31A5E290300F1BBA6 /* ChunkLoader.m in Sources */,
 				78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */,

@@ -192,7 +192,7 @@ const Biome INITIAL_BIOME = savanna;
             [unused_deco_pool removeObject:decoToLoad];
             //decoToLoad.size = CGSizeMake(decoToLoad.size.width * constants.SCALE_COEFFICIENT.dy, decoToLoad.size.height * constants.SCALE_COEFFICIENT.dy);
             //decoToLoad.position = CGPointMake((decoToLoad.position.x * constants.SCALE_COEFFICIENT.dy), decoToLoad.position.y * constants.SCALE_COEFFICIENT.dy);
-            decoToLoad.position = [_decorations convertPoint:decoToLoad.position fromNode:_world];
+            decoToLoad.position = [_decorations convertPoint:decoToLoad.rawPosition fromNode:_world];
             decoToLoad.position = CGPointMake(decoToLoad.position.x + xOffset, decoToLoad.position.y);
         if (!decoToLoad.parent) {
             [_decorations addChild:decoToLoad];
@@ -329,7 +329,6 @@ const Biome INITIAL_BIOME = savanna;
     NSUInteger chance = arc4random_uniform((uint)biomeArray.count);
     NSMutableArray* decorationSet = [biomeArray objectAtIndex:chance];
     //NSLog(@"decorationSet: %@", decorationSet);
-
     return decorationSet;
 }
 
@@ -357,7 +356,7 @@ const Biome INITIAL_BIOME = savanna;
     //NSLog(@"obstacleSet: %@", obstacleSet);
     for (Obstacle *obstacle in obstacleSet) {
         //obstacle.position = CGPointMake((obstacle.position.x * constants.SCALE_COEFFICIENT.dy), obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
-        obstacle.position = [_obstacles convertPoint:obstacle.position fromNode:_world];
+        obstacle.position = [_obstacles convertPoint:obstacle.rawPosition fromNode:_world];
         obstacle.position = CGPointMake(obstacle.position.x + xOffset, obstacle.position.y);
         if (!obstacle.parent) {
             [_obstacles addChild:obstacle];
