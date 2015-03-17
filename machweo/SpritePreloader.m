@@ -62,7 +62,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
 -(void)preprocessSkyImage:(NSString*)skyName{
     //NSLog(@"skyName: %@", skyName);
     UIImage* img = [UIImage imageNamed:skyName];
-    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy)];
+    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width, img.size.height * constants.SCALE_COEFFICIENT.dy)];
     SKTexture* skyTex = [SKTexture textureWithImage:img];
     [texArray addObject:skyTex];
     SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];

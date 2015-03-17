@@ -307,8 +307,7 @@ int CLIFF_VERTEX_COUNT = 15;
             //    NSLog(@"castedDie2: %i", castedDie2);
             SKTexture* tex = [terrainPool objectAtIndex:castedDie2];
             Decoration* sprite = [Decoration spriteNodeWithTexture:tex];
-            sprite.size = CGSizeMake(sprite.size.width * constants.SCALE_COEFFICIENT.dy, sprite.size.height * constants.SCALE_COEFFICIENT.dy);
-            if (sprite.size.width > (((SKScene*)node.parent).size.width / 5)) {
+            if (sprite.size.width > (((SKScene*)node.parent).size.height / 2)) {
                 sprite.size = CGSizeMake(sprite.size.width / 2, sprite.size.height / 2);
             }
             if (zPos == 0) {
