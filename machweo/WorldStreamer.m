@@ -102,23 +102,25 @@ const Biome INITIAL_BIOME = savanna;
     previousBiome = currentBiome;
     NSUInteger roundedDistance = RoundDownTo(distance, STADE_LENGTH);
     //NSLog(@"roundedDistance: %lu", (unsigned long)roundedDistance);
-    if (distance == 0) {
-        currentBiome = INITIAL_BIOME;
-        return INITIAL_BIOME;
-    }
-    if ((roundedDistance % (STADE_LENGTH * 3)) == 0) {
-        currentBiome = savanna;
-        return savanna;
-    }
-    if ((roundedDistance % (STADE_LENGTH * 2)) == 0) {
-        currentBiome = jungle;
-        return jungle;
-    }
-    if ((roundedDistance % STADE_LENGTH) == 0) {
-        currentBiome = sahara;
-        return sahara;
-    }
-    else return currentBiome;
+//    if (distance == 0) {
+//        currentBiome = INITIAL_BIOME;
+//        return INITIAL_BIOME;
+//    }
+//    if ((roundedDistance % (STADE_LENGTH * 3)) == 0) {
+//        currentBiome = savanna;
+//        return savanna;
+//    }
+//    if ((roundedDistance % (STADE_LENGTH * 2)) == 0) {
+//        currentBiome = jungle;
+//        return jungle;
+//    }
+//    if ((roundedDistance % STADE_LENGTH) == 0) {
+//        currentBiome = sahara;
+//        return sahara;
+//    }
+    currentBiome = sahara;
+    return currentBiome;
+    //else return currentBiome;
     
 }
 
@@ -166,14 +168,12 @@ const Biome INITIAL_BIOME = savanna;
     }
     previous_decoration_set = decorationSet;
         for (Decoration* deco in decorationSet) {
-            //if ((currentBiome == savanna) || (currentBiome == jungle)){
-                if (![unused_deco_pool containsObject:deco] && ![in_use_deco_pool containsObject:deco]) {
-                    [unused_deco_pool addObject:deco];
+            if ((currentBiome == savanna) || (currentBiome == jungle)){
+                if ([IDDictionary valueForKey:deco.uniqueID]) {
+                    continue;
                 }
-            //}
-//            else{
-//                [unused_deco_pool addObject:deco];
-//            }
+            }
+            [unused_deco_pool addObject:deco];
         }
         chunkLoading = false;
     //}
@@ -185,29 +185,13 @@ const Biome INITIAL_BIOME = savanna;
 
 -(void)loadNextDecoWithXOffset:(float)xOffset{
     if (unused_deco_pool.count > 0) {
-        //NSMutableArray* trash = [NSMutableArray array];
-        
-        //for (Decoration* decoToLoad in unused_deco_pool) {
+    
         Decoration* decoToLoad = [unused_deco_pool firstObject];
-//            NSString* toLoadID = decoToLoad.uniqueID;
-//            BOOL skip = NO;
-//            if ((currentBiome == savanna) || (currentBiome == jungle)) {
-//                if ([IDDictionary valueForKey:toLoadID]) {
-//                    skip = YES;
-//
-//                }
-//            }
-//            if (skip) {
-//                [unused_deco_pool removeObject:decoToLoad];
-//                [self loadNextDecoWithXOffset:xOffset];
-//                return;
-//            }
-            [in_use_deco_pool addObject:decoToLoad];
-            [unused_deco_pool removeObject:decoToLoad];
-            //decoToLoad.size = CGSizeMake(decoToLoad.size.width * constants.SCALE_COEFFICIENT.dy, decoToLoad.size.height * constants.SCALE_COEFFICIENT.dy);
-            //decoToLoad.position = CGPointMake((decoToLoad.position.x * constants.SCALE_COEFFICIENT.dy), decoToLoad.position.y * constants.SCALE_COEFFICIENT.dy);
-            decoToLoad.position = [_decorations convertPoint:decoToLoad.rawPosition fromNode:_world];
-            decoToLoad.position = CGPointMake(decoToLoad.position.x + xOffset, decoToLoad.position.y);
+
+        [in_use_deco_pool addObject:decoToLoad];
+        [unused_deco_pool removeObject:decoToLoad];
+        decoToLoad.position = [_decorations convertPoint:decoToLoad.rawPosition fromNode:_world];
+        decoToLoad.position = CGPointMake(decoToLoad.position.x + xOffset, decoToLoad.position.y);
         [decoToLoad removeFromParent];
         [_decorations addChild:decoToLoad];
             [IDDictionary setValue:@"lol" forKey:decoToLoad.uniqueID];
