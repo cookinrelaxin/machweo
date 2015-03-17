@@ -189,7 +189,7 @@ const Biome INITIAL_BIOME = savanna;
             }
             [in_use_deco_pool addObject:decoToLoad];
             [unused_deco_pool removeObject:decoToLoad];
-            decoToLoad.size = CGSizeMake(decoToLoad.size.width * constants.SCALE_COEFFICIENT.dy, decoToLoad.size.height * constants.SCALE_COEFFICIENT.dy);
+            //decoToLoad.size = CGSizeMake(decoToLoad.size.width * constants.SCALE_COEFFICIENT.dy, decoToLoad.size.height * constants.SCALE_COEFFICIENT.dy);
             decoToLoad.position = CGPointMake((decoToLoad.position.x * constants.SCALE_COEFFICIENT.dy), decoToLoad.position.y * constants.SCALE_COEFFICIENT.dy);
             decoToLoad.position = [_decorations convertPoint:decoToLoad.position fromNode:_world];
             decoToLoad.position = CGPointMake(decoToLoad.position.x + xOffset, decoToLoad.position.y);

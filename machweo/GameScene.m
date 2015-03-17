@@ -333,8 +333,12 @@ int LUNAR_PERIOD = 70; //seconds
 
 -(void)organizeTheHeavens{
     {
-        sunNode = [SKSpriteNode spriteNodeWithImageNamed:@"sun_decoration"];
-        sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
+        SKTexture *spriteTexture = [_constants.TEXTURE_DICT objectForKey:@"sun_decoration"];
+        if (spriteTexture) {
+            sunNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
+        }
+
+        //sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
 
 
         sunPanel = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(self.size.width, self.size.height)];
@@ -363,9 +367,12 @@ int LUNAR_PERIOD = 70; //seconds
     }
     
     {
-        moonNode = [SKSpriteNode spriteNodeWithImageNamed:@"moon_decoration"];
+        SKTexture *spriteTexture = [_constants.TEXTURE_DICT objectForKey:@"moon_decoration"];
+        if (spriteTexture) {
+            moonNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
+        }
         [self addChild:moonNode];
-        moonNode.size = CGSizeMake(moonNode.size.width * _constants.SCALE_COEFFICIENT.dy, moonNode.size.height * _constants.SCALE_COEFFICIENT.dy);
+        //moonNode.size = CGSizeMake(moonNode.size.width * _constants.SCALE_COEFFICIENT.dy, moonNode.size.height * _constants.SCALE_COEFFICIENT.dy);
         moonNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
         UIBezierPath *moonPath = [UIBezierPath bezierPath];
         float moonOrbitRadius = self.size.height * .6;

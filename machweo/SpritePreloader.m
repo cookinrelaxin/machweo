@@ -15,8 +15,8 @@ const int NUM_SPRITES_PER_TYPE= 12;
 @implementation SpritePreloader{
     NSMutableDictionary* obstaclePool;
     NSMutableDictionary* skyPool;
-
     NSMutableDictionary* textureDict;
+    //NSMutableArray* tex
     Constants* constants;
 
 }
@@ -36,7 +36,9 @@ const int NUM_SPRITES_PER_TYPE= 12;
                 continue;
             }
             if ([name hasSuffix:@"decoration"]) {
-                SKTexture *tex = [SKTexture textureWithImageNamed:name];
+                UIImage* img = [UIImage imageNamed:name];
+                img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy)];
+                SKTexture *tex = [SKTexture textureWithImage:img];
                 [textureDict setValue:tex forKey:name];
                 //[texArray addObject:tex];
                 continue;
@@ -56,10 +58,12 @@ const int NUM_SPRITES_PER_TYPE= 12;
 
 -(void)preprocessSkyImage:(NSString*)skyName{
     //NSLog(@"skyName: %@", skyName);
-    SKTexture* skyTex = [SKTexture textureWithImageNamed:skyName];
+    UIImage* img = [UIImage imageNamed:skyName];
+    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy)];
+    SKTexture* skyTex = [SKTexture textureWithImage:img];
     SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];
     sky.zPosition = constants.BACKGROUND_Z_POSITION;
-    sky.size = CGSizeMake(sky.size.width, sky.size.height * constants.SCALE_COEFFICIENT.dy);
+    //sky.size = CGSizeMake(sky.size.width, sky.size.height * constants.SCALE_COEFFICIENT.dy);
     sky.name = skyName;
     [skyPool setValue:sky forKey:sky.name];
 
@@ -90,11 +94,14 @@ const int NUM_SPRITES_PER_TYPE= 12;
 }
 
 -(Obstacle*)obstaclePrototypeWithName:(NSString*)obsName{
-    SKTexture *spriteTexture = [SKTexture textureWithImageNamed:obsName];
-
+    
+    UIImage* img = [UIImage imageNamed:obsName];
+    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy)];
+    SKTexture* spriteTexture = [SKTexture textureWithImage:img];
+    
     Obstacle* obstacle = [Obstacle obstacleWithTexture:spriteTexture];
     obstacle.name = obsName;
-    obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
+    //obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
     obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:obstacle.size];
     obstacle.physicsBody.categoryBitMask = constants.OBSTACLE_HIT_CATEGORY;
     obstacle.physicsBody.contactTestBitMask = constants.PLAYER_HIT_CATEGORY;
@@ -116,6 +123,18 @@ const int NUM_SPRITES_PER_TYPE= 12;
     
     return onlyXMLS;
     
+}
+
+-(UIImage *)imageResize :(UIImage*)img andResizeTo:(CGSize)newSize
+{
+    CGFloat scale = [[UIScreen mainScreen]scale];
+    /*You can remove the below comment if you dont want to scale the image in retina   device .Dont forget to comment UIGraphicsBeginImageContextWithOptions*/
+    //UIGraphicsBeginImageContext(newSize);
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
+    [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 @end
