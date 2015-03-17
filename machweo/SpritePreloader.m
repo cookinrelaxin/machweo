@@ -16,7 +16,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
     NSMutableDictionary* obstaclePool;
     NSMutableDictionary* skyPool;
     NSMutableDictionary* textureDict;
-    NSMutableArray* texArray;
+   // NSMutableArray* texArray;
     Constants* constants;
 
 }
@@ -25,7 +25,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
         constants = [Constants sharedInstance];
         obstaclePool = [NSMutableDictionary dictionary];
         skyPool = [NSMutableDictionary dictionary];
-        texArray = [NSMutableArray array];
+       // texArray = [NSMutableArray array];
         textureDict = constants.TEXTURE_DICT;
         
         NSArray* urls = [self findPNGURLs];
@@ -38,10 +38,11 @@ const int NUM_SPRITES_PER_TYPE= 12;
             }
             if ([name hasSuffix:@"decoration"]) {
                 UIImage* img = [UIImage imageNamed:name];
-                img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy)];
+                img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
                 SKTexture *tex = [SKTexture textureWithImage:img];
+                img = nil;
                 [textureDict setValue:tex forKey:name];
-                [texArray addObject:tex];
+                //[texArray addObject:tex];
                 continue;
             }
             if ([name hasPrefix:@"tenggriPS"]) {
@@ -51,9 +52,9 @@ const int NUM_SPRITES_PER_TYPE= 12;
             
         
         }
-        [SKTexture preloadTextures:texArray withCompletionHandler:^{
-            NSLog(@"textures preloaded");
-        }];
+//        [SKTexture preloadTextures:texArray withCompletionHandler:^{
+//            NSLog(@"textures preloaded");
+//        }];
     }
     
     return self;
@@ -62,10 +63,11 @@ const int NUM_SPRITES_PER_TYPE= 12;
 -(void)preprocessSkyImage:(NSString*)skyName{
     //NSLog(@"skyName: %@", skyName);
     UIImage* img = [UIImage imageNamed:skyName];
-    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width, img.size.height * constants.SCALE_COEFFICIENT.dy)];
+    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:NO];
     SKTexture* skyTex = [SKTexture textureWithImage:img];
-    [texArray addObject:skyTex];
+    //[texArray addObject:skyTex];
     SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];
+    img = nil;
     sky.zPosition = constants.BACKGROUND_Z_POSITION;
     //sky.size = CGSizeMake(sky.size.width, sky.size.height * constants.SCALE_COEFFICIENT.dy);
     sky.name = skyName;
@@ -100,11 +102,13 @@ const int NUM_SPRITES_PER_TYPE= 12;
 -(Obstacle*)obstaclePrototypeWithName:(NSString*)obsName{
     
     UIImage* img = [UIImage imageNamed:obsName];
-    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy)];
+    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
     SKTexture* spriteTexture = [SKTexture textureWithImage:img];
-    [texArray addObject:spriteTexture];
+    //[texArray addObject:spriteTexture];
     
     Obstacle* obstacle = [Obstacle obstacleWithTexture:spriteTexture];
+    img = nil;
+
     obstacle.name = obsName;
     //obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
     obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:obstacle.size];
@@ -130,12 +134,17 @@ const int NUM_SPRITES_PER_TYPE= 12;
     
 }
 
--(UIImage *)imageResize :(UIImage*)img andResizeTo:(CGSize)newSize
+-(UIImage *)imageResize :(UIImage*)img andResizeTo:(CGSize)newSize shouldUseHighRes:(BOOL)highRes
 {
     CGFloat scale = [[UIScreen mainScreen]scale];
     /*You can remove the below comment if you dont want to scale the image in retina   device .Dont forget to comment UIGraphicsBeginImageContextWithOptions*/
     //UIGraphicsBeginImageContext(newSize);
-    UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
+    if (highRes) {
+        UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
+    }
+    else{
+        UIGraphicsBeginImageContext(newSize);
+    }
     [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
