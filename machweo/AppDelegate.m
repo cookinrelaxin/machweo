@@ -17,9 +17,9 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    LevelParser* parser = [[LevelParser alloc] init];
     SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
-    
+    LevelParser* parser = [[LevelParser alloc] init];
+
     [AnimationComponent sharedInstance];
     [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
     [Constants sharedInstance].BIOMES = parser.biomes;

@@ -7,6 +7,7 @@
 //
 
 #import "LevelParser.h"
+#import "ChunkLoader.h"
 //#import "GameDataManager.h"
 
 
@@ -49,38 +50,40 @@
         [_obstacleSets setValue:difficultyArray forKey:difficulty];
     }
     
-    [difficultyArray addObject:obstacleSetName];
+    NSMutableArray* obstacleSet = [self obstacleSetForName:obstacleSetName];
+    [difficultyArray addObject:obstacleSet];
     return;
     
 }
+
+-(NSMutableArray*)obstacleSetForName:(NSString*)name{
+    ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:name];
+    return obstacleSetParser.obstacleArray;
+}
+
+
 
 -(void)processDecorationSet:(NSString*)decorationSetName{
     NSArray* componentArray = [decorationSetName componentsSeparatedByString:@"_"];
     //NSLog(@"componentArray: %@", componentArray);
     NSString* biome = ((NSString*)[componentArray objectAtIndex:1]);
-    NSMutableDictionary* biomeDict = [_biomes objectForKey:biome];
-    if (!biomeDict) {
-        biomeDict = [NSMutableDictionary dictionary];
-        [_biomes setValue:biomeDict forKey:biome];
+    NSMutableArray* biomeArray = [_biomes objectForKey:biome];
+    if (!biomeArray) {
+        biomeArray = [NSMutableArray array];
+        [_biomes setValue:biomeArray forKey:biome];
     }
-    
-    NSString* timeOfDay = ((NSString*)[componentArray objectAtIndex:2]);
-    if ([timeOfDay isEqualToString:@"day"] || [timeOfDay isEqualToString:@"night"]) {
-        //NSLog(@"timeOfDay: %@", timeOfDay);
-        NSMutableArray* timeArray = [biomeDict valueForKey:timeOfDay];
-        if (!timeArray) {
-            //NSLog(@"timeOfDay: %@", timeOfDay);
-            timeArray = [NSMutableArray array];
-            [biomeDict setValue:timeArray forKey:timeOfDay];
-        }
-        [timeArray addObject:decorationSetName];
-    }
-    else{
-        NSLog(@"error: time of day must be either day or night");
-    }
+     //NSLog(@"decoration set name: %@", decorationSetName);
+    NSMutableArray* decoSet = [self decorationSetForName:decorationSetName];
+   // NSLog(@"decoration set: %@", schema);
+    [biomeArray addObject:decoSet];
     
     return;
     
+}
+
+-(NSMutableArray*)decorationSetForName:(NSString*)name{
+    ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:name];
+    return decorationSetParser.decorationArray;
 }
 
 -(NSArray*)findXMLURLs{

@@ -7,7 +7,6 @@
 //
 
 #import "WorldStreamer.h"
-#import "ChunkLoader.h"
 #import "Obstacle.h"
 #import "Decoration.h"
 
@@ -137,9 +136,10 @@ const Biome INITIAL_BIOME = savanna;
             }
             //});
             //dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
-            NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
-            ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
-            [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
+            NSMutableArray* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
+            [unused_deco_pool addObjectsFromArray:decorationSet];
+            //ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
+            //[decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
             chunkLoading = false;
         });
     }
@@ -157,9 +157,10 @@ const Biome INITIAL_BIOME = savanna;
         }
         //});
         //dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
-        NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
-        ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
-        [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
+        NSMutableArray* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
+        [unused_deco_pool addObjectsFromArray:decorationSet];
+        //ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
+        //[decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
         chunkLoading = false;
     }
     
@@ -190,10 +191,12 @@ const Biome INITIAL_BIOME = savanna;
             [in_use_deco_pool addObject:decoToLoad];
             [unused_deco_pool removeObject:decoToLoad];
             //decoToLoad.size = CGSizeMake(decoToLoad.size.width * constants.SCALE_COEFFICIENT.dy, decoToLoad.size.height * constants.SCALE_COEFFICIENT.dy);
-            decoToLoad.position = CGPointMake((decoToLoad.position.x * constants.SCALE_COEFFICIENT.dy), decoToLoad.position.y * constants.SCALE_COEFFICIENT.dy);
+            //decoToLoad.position = CGPointMake((decoToLoad.position.x * constants.SCALE_COEFFICIENT.dy), decoToLoad.position.y * constants.SCALE_COEFFICIENT.dy);
             decoToLoad.position = [_decorations convertPoint:decoToLoad.position fromNode:_world];
             decoToLoad.position = CGPointMake(decoToLoad.position.x + xOffset, decoToLoad.position.y);
+        if (!decoToLoad.parent) {
             [_decorations addChild:decoToLoad];
+        }
             [IDDictionary setValue:@"lol" forKey:decoToLoad.uniqueID];
         }
 
@@ -313,20 +316,18 @@ const Biome INITIAL_BIOME = savanna;
 
 
 
--(NSString*)calcuateObstacleSetForDifficulty:(NSUInteger)difficulty{
+-(NSMutableArray*)calcuateObstacleSetForDifficulty:(NSUInteger)difficulty{
     NSMutableArray* difficultyArray = [constants.OBSTACLE_SETS valueForKey:[NSString stringWithFormat:@"%lu", (unsigned long)difficulty]];
     NSUInteger chance = arc4random_uniform((uint)difficultyArray.count);
-    NSString* obstacleSet = [difficultyArray objectAtIndex:chance];
+    NSMutableArray* obstacleSet = [difficultyArray objectAtIndex:chance];
     return obstacleSet;
 }
 
--(NSString*)calculateDecorationSetForTimeOfDay:(TimeOfDay)timeOfDay andBiome:(Biome)biome{
-    NSMutableDictionary* biomeDict = [constants.BIOMES valueForKey:[self biomeToString:biome]];
+-(NSMutableArray*)calculateDecorationSetForTimeOfDay:(TimeOfDay)timeOfDay andBiome:(Biome)biome{
+    NSMutableArray* biomeArray = [constants.BIOMES valueForKey:[self biomeToString:biome]];
     //NSLog(@"biomeDict: %@", biomeDict);
-    NSMutableArray* timeOfDayArray = [biomeDict valueForKey:[self timeOfDayToString:timeOfDay :NO]];
-    //NSLog(@"timeOfDayArray: %@", timeOfDayArray);
-    NSUInteger chance = arc4random_uniform((uint)timeOfDayArray.count);
-    NSString* decorationSet = [timeOfDayArray objectAtIndex:chance];
+    NSUInteger chance = arc4random_uniform((uint)biomeArray.count);
+    NSMutableArray* decorationSet = [biomeArray objectAtIndex:chance];
     //NSLog(@"decorationSet: %@", decorationSet);
 
     return decorationSet;
@@ -352,18 +353,26 @@ const Biome INITIAL_BIOME = savanna;
     chunkLoading = true;
     NSUInteger difficulty = [self calculateDifficultyFromDistance:distance];
     //NSLog(@"difficulty: %lu", (unsigned long)difficulty);
-    NSString* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
+    NSMutableArray* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
     //NSLog(@"obstacleSet: %@", obstacleSet);
-    
+    for (Obstacle *obstacle in obstacleSet) {
+        //obstacle.position = CGPointMake((obstacle.position.x * constants.SCALE_COEFFICIENT.dy), obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
+        obstacle.position = [_obstacles convertPoint:obstacle.position fromNode:_world];
+        obstacle.position = CGPointMake(obstacle.position.x + xOffset, obstacle.position.y);
+        if (!obstacle.parent) {
+            [_obstacles addChild:obstacle];
+        }
+    }
+
     
     //NSLog(@"xOffset: %f", xOffset);
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [obstacleSetParser loadObstaclesInWorld:_world withObstacles:_obstacles withinView:_view andTerrainPool:_terrainPool withXOffset:xOffset];
+    //dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+        //ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
+     //   dispatch_sync(dispatch_get_main_queue(), ^{
+            //[obstacleSetParser loadObstaclesInWorld:_world withObstacles:_obstacles withinView:_view andTerrainPool:_terrainPool withXOffset:xOffset];
             chunkLoading = false;
-        });
-    });
+       // });
+   // });
     
 }
 

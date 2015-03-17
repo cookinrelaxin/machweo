@@ -36,11 +36,6 @@ typedef enum NodeTypes
 } Node;
 
 @implementation ChunkLoader{
-    // as simple as possible for now. assume all nodes are obstacles
-    NSMutableArray* obstacleArray;
-    NSMutableArray* decorationArray;
-    NSMutableArray* terrainPoolArray;
-
 
     SKNode *currentNode;
     Element currentElement;
@@ -53,6 +48,7 @@ typedef enum NodeTypes
     NSMutableDictionary* textureDict;
     
 }
+
 
 -(instancetype)initWithFile:(NSString*)fileName{
     constants = [Constants sharedInstance];
@@ -68,9 +64,9 @@ typedef enum NodeTypes
 
     textureDict = constants.TEXTURE_DICT;
     
-    obstacleArray = [NSMutableArray array];
-    decorationArray = [NSMutableArray array];
-    terrainPoolArray = [NSMutableArray array];
+    _obstacleArray = [NSMutableArray array];
+    _decorationArray = [NSMutableArray array];
+    _terrainPoolArray = [NSMutableArray array];
 
     NSXMLParser* chunkParser;
     
@@ -154,10 +150,10 @@ typedef enum NodeTypes
         if (currentNode != nil) {
             switch (currentNodeType) {
                 case obstacle:
-                    [obstacleArray addObject:currentNode];
+                    [_obstacleArray addObject:currentNode];
                     break;
                 case decoration:
-                    [decorationArray addObject:currentNode];
+                    [_decorationArray addObject:currentNode];
                     break;
             }
             return;
@@ -199,11 +195,14 @@ typedef enum NodeTypes
         if (currentElement == xPosition) {
             //NSLog(@"xPosition: %@", string);
             currentNode.position = CGPointMake([string floatValue], currentNode.position.y);
+            currentNode.position = CGPointMake(currentNode.position.x * constants.SCALE_COEFFICIENT.dy, currentNode.position.y);
             return;
         }
         if (currentElement == yPosition) {
             //NSLog(@"yPosition: %@", string);
             currentNode.position = CGPointMake(currentNode.position.x, [string floatValue]);
+            currentNode.position = CGPointMake(currentNode.position.x, currentNode.position.y * constants.SCALE_COEFFICIENT.dy);
+
             return;
         }
         if (currentElement == zPosition) {
@@ -244,7 +243,7 @@ typedef enum NodeTypes
             //NSLog(@"add terrainPoolMember");
             SKTexture *spriteTexture = [textureDict objectForKey:string];
             if (spriteTexture) {
-                [terrainPoolArray addObject:spriteTexture];
+                [_terrainPoolArray addObject:spriteTexture];
             }
             //NSLog(@"spriteTexture :%@", spriteTexture);
         }
@@ -261,36 +260,36 @@ typedef enum NodeTypes
         }
     }
 }
-
--(void)loadObstaclesInWorld:(SKNode *)world withObstacles:(SKNode *)obstacles withinView:(SKView *)view andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
-
-    for (Obstacle *obstacle in obstacleArray) {
-        obstacle.position = CGPointMake((obstacle.position.x * constants.SCALE_COEFFICIENT.dy), obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
-        obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
-        obstacle.position = CGPointMake(obstacle.position.x + xOffset, obstacle.position.y);
-        if (!obstacle.parent) {
-            [obstacles addChild:obstacle];
-        }
-    }
-
-}
-
-//-(void)pourObstaclesIntoBucket:(NSMutableArray *)bucket{
-//    [bucket addObjectsFromArray:obstacleArray];
+//
+//-(void)loadObstaclesInWorld:(SKNode *)world withObstacles:(SKNode *)obstacles withinView:(SKView *)view andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
+//
+//    for (Obstacle *obstacle in _obstacleArray) {
+//        obstacle.position = CGPointMake((obstacle.position.x * constants.SCALE_COEFFICIENT.dy), obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
+//        obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
+//        obstacle.position = CGPointMake(obstacle.position.x + xOffset, obstacle.position.y);
+//        if (!obstacle.parent) {
+//            [obstacles addChild:obstacle];
+//        }
+//    }
+//
 //}
-
-
--(void)pourDecorationsIntoBucket:(NSMutableArray *)bucket andTerrainPool:(NSMutableArray *)terrainPool{
-    [bucket addObjectsFromArray:decorationArray];
-    //terrainPool = terrainPoolArray;
-    //NSLog(@"2. _terrainPool: %@", terrainPool);
-    for (SKTexture* tex in terrainPoolArray) {
-        if (![terrainPool containsObject:tex]) {
-            [terrainPool addObject:tex];
-        }
-    }
-   // [terrainPool addObjectsFromArray:terrainPoolArray];
-
-}
+//
+////-(void)pourObstaclesIntoBucket:(NSMutableArray *)bucket{
+////    [bucket addObjectsFromArray:obstacleArray];
+////}
+//
+//
+//-(void)pourDecorationsIntoBucket:(NSMutableArray *)bucket andTerrainPool:(NSMutableArray *)terrainPool{
+//    [bucket addObjectsFromArray:_decorationArray];
+//    //terrainPool = terrainPoolArray;
+//    //NSLog(@"2. _terrainPool: %@", terrainPool);
+//    for (SKTexture* tex in _terrainPoolArray) {
+//        if (![terrainPool containsObject:tex]) {
+//            [terrainPool addObject:tex];
+//        }
+//    }
+//   // [terrainPool addObjectsFromArray:terrainPoolArray];
+//
+//}
 
 @end

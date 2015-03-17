@@ -11,10 +11,13 @@
 
 @interface ChunkLoader : NSObject <NSXMLParserDelegate>
 
--(void)loadObstaclesInWorld:(SKNode*)world withObstacles:(SKNode*)obstacles withinView:(SKView*)view andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset;
+@property (nonatomic, strong) NSMutableArray* obstacleArray;
+@property (nonatomic, strong) NSMutableArray* decorationArray;
+@property (nonatomic, strong) NSMutableArray* terrainPoolArray;
 
+//-(void)loadObstaclesInWorld:(SKNode*)world withObstacles:(SKNode*)obstacles withinView:(SKView*)view andTerrainPool:(NSMutableArray*)terrainPool withXOffset:(float)xOffset;
 //-(void)pourObstaclesIntoBucket:(NSMutableArray*)bucket;
--(void)pourDecorationsIntoBucket:(NSMutableArray*)bucket andTerrainPool:(NSMutableArray*)terrainPool;
+//-(void)pourDecorationsIntoBucket:(NSMutableArray*)bucket andTerrainPool:(NSMutableArray*)terrainPool;
 
 -(instancetype)initWithFile:(NSString*)fileName;
 @end
