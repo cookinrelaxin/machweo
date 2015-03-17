@@ -16,7 +16,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
     NSMutableDictionary* obstaclePool;
     NSMutableDictionary* skyPool;
     NSMutableDictionary* textureDict;
-    NSMutableArray* texArray;
+   // NSMutableArray* texArray;
     Constants* constants;
 
 }
@@ -25,7 +25,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
         constants = [Constants sharedInstance];
         obstaclePool = [NSMutableDictionary dictionary];
         skyPool = [NSMutableDictionary dictionary];
-        texArray = [NSMutableArray array];
+        //texArray = [NSMutableArray array];
         textureDict = constants.TEXTURE_DICT;
         
         NSArray* urls = [self findPNGURLs];
@@ -40,8 +40,9 @@ const int NUM_SPRITES_PER_TYPE= 12;
                 UIImage* img = [UIImage imageNamed:name];
                 img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy)];
                 SKTexture *tex = [SKTexture textureWithImage:img];
+                img = nil;
                 [textureDict setValue:tex forKey:name];
-                [texArray addObject:tex];
+                //[texArray addObject:tex];
                 continue;
             }
             if ([name hasPrefix:@"tenggriPS"]) {
@@ -51,9 +52,9 @@ const int NUM_SPRITES_PER_TYPE= 12;
             
         
         }
-        [SKTexture preloadTextures:texArray withCompletionHandler:^{
-            NSLog(@"textures preloaded");
-        }];
+        //[SKTexture preloadTextures:texArray withCompletionHandler:^{
+        //    NSLog(@"textures preloaded");
+        //}];
     }
     
     return self;
@@ -64,7 +65,8 @@ const int NUM_SPRITES_PER_TYPE= 12;
     UIImage* img = [UIImage imageNamed:skyName];
     img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width, img.size.height * constants.SCALE_COEFFICIENT.dy)];
     SKTexture* skyTex = [SKTexture textureWithImage:img];
-    [texArray addObject:skyTex];
+    img = nil;
+    //[texArray addObject:skyTex];
     SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];
     sky.zPosition = constants.BACKGROUND_Z_POSITION;
     //sky.size = CGSizeMake(sky.size.width, sky.size.height * constants.SCALE_COEFFICIENT.dy);
@@ -102,7 +104,8 @@ const int NUM_SPRITES_PER_TYPE= 12;
     UIImage* img = [UIImage imageNamed:obsName];
     img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy)];
     SKTexture* spriteTexture = [SKTexture textureWithImage:img];
-    [texArray addObject:spriteTexture];
+    img = nil;
+    //[texArray addObject:spriteTexture];
     
     Obstacle* obstacle = [Obstacle obstacleWithTexture:spriteTexture];
     obstacle.name = obsName;
