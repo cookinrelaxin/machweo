@@ -29,7 +29,7 @@ int midpoint(int n1, int n2)
     //float scaleFactor = [[UIScreen mainScreen] scale];
     float scaleFactor = [[UIScreen mainScreen] nativeScale];
 //    NSLog(@"screenSize: %f, %f", screenSize.width, screenSize.height);
-//    NSLog(@"scaleFactor: %f", scaleFactor);
+    NSLog(@"scaleFactor: %f", scaleFactor);
     
     //_IDEAL_SCREEN_SIZE = CGSizeMake(1366, 768);
     _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 1024);

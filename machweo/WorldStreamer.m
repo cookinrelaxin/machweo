@@ -20,7 +20,7 @@ const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 // get it as high as possible
 const int MAX_DIFFICULTY = 5;
 
-const int STADE_LENGTH = 250;
+const int STADE_LENGTH = 100;
 
 
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
@@ -122,28 +122,28 @@ const Biome INITIAL_BIOME = savanna;
 
 -(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay andDistance:(NSUInteger)distance asynchronous:(BOOL)async{
     Biome biome = [self calculateNextBiomeWithDistance:distance];
-    if (async) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-            if (previousBiome != currentBiome) {
-                NSLog(@"clear old biome");
-                [unused_deco_pool removeAllObjects];
-                [_terrainPool removeAllObjects];
-                for (Decoration* deco in in_use_deco_pool) {
-                    if ((deco.position.x - deco.size.width) > _view.bounds.size.width) {
-                        [deco removeFromParent];
-                        //NSLog(@"((deco.position.x - deco.size.width) > _view.bounds.size.width)");
-                    }
-                }
-            }
-            //});
-            //dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
-            NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
-            ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
-            [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
-            chunkLoading = false;
-        });
-    }
-    else{
+//    if (async) {
+//        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+//            if (previousBiome != currentBiome) {
+//                NSLog(@"clear old biome");
+//                [unused_deco_pool removeAllObjects];
+//                [_terrainPool removeAllObjects];
+//                for (Decoration* deco in in_use_deco_pool) {
+//                    if ((deco.position.x - deco.size.width) > _view.bounds.size.width) {
+//                        [deco removeFromParent];
+//                        //NSLog(@"((deco.position.x - deco.size.width) > _view.bounds.size.width)");
+//                    }
+//                }
+//            }
+//            //});
+//            //dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+//            NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
+//            ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
+//            [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
+//            chunkLoading = false;
+//        });
+//    }
+    //else{
         if (previousBiome != currentBiome) {
             NSLog(@"clear old biome");
             [unused_deco_pool removeAllObjects];
@@ -155,13 +155,11 @@ const Biome INITIAL_BIOME = savanna;
                 }
             }
         }
-        //});
-        //dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
         NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
         ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
         [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
         chunkLoading = false;
-    }
+    //}
     
     
 
@@ -201,7 +199,7 @@ const Biome INITIAL_BIOME = savanna;
 
 -(void)cleanUpOldDecos{
     if (!cleaningUpOldDecos) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+        //dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
             cleaningUpOldDecos = true;
             NSMutableArray* trash = [NSMutableArray array];
             
@@ -221,7 +219,7 @@ const Biome INITIAL_BIOME = savanna;
                 }
             }
 
-            dispatch_sync(dispatch_get_main_queue(), ^{
+           // dispatch_sync(dispatch_get_main_queue(), ^{
                 //numberOfDecosToLoad = 0;
                 for (Decoration* deco in trash) {
                     //numberOfDecosToLoad ++;
@@ -231,8 +229,8 @@ const Biome INITIAL_BIOME = savanna;
                 }
                 cleaningUpOldDecos = false;
                 //trash = nil;
-            });
-        });
+            //});
+       // });
     }
     
     
@@ -291,8 +289,8 @@ const Biome INITIAL_BIOME = savanna;
 //        });
     }
 
-    [self checkForOldObstacles];
-    [self checkForLastObstacleWithDistance:playerDistance];
+    //[self checkForOldObstacles];
+    //[self checkForLastObstacleWithDistance:playerDistance];
     
     float xOffset = _view.bounds.size.width;
     if (!chunkLoading) {
@@ -357,13 +355,13 @@ const Biome INITIAL_BIOME = savanna;
     
     
     //NSLog(@"xOffset: %f", xOffset);
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+//    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
-        dispatch_sync(dispatch_get_main_queue(), ^{
+   //     dispatch_sync(dispatch_get_main_queue(), ^{
             [obstacleSetParser loadObstaclesInWorld:_world withObstacles:_obstacles withinView:_view andTerrainPool:_terrainPool withXOffset:xOffset];
             chunkLoading = false;
-        });
-    });
+       // });
+   // });
     
 }
 

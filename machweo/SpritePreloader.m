@@ -16,7 +16,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
     NSMutableDictionary* obstaclePool;
     NSMutableDictionary* skyPool;
     NSMutableDictionary* textureDict;
-   // NSMutableArray* texArray;
+    NSMutableArray* texArray;
     Constants* constants;
 
 }
@@ -25,51 +25,58 @@ const int NUM_SPRITES_PER_TYPE= 12;
         constants = [Constants sharedInstance];
         obstaclePool = [NSMutableDictionary dictionary];
         skyPool = [NSMutableDictionary dictionary];
-       // texArray = [NSMutableArray array];
+        texArray = [NSMutableArray array];
         textureDict = constants.TEXTURE_DICT;
         
         NSArray* urls = [self findPNGURLs];
-        for (NSURL* url in urls) {
-            NSString* name = [[url lastPathComponent] stringByDeletingPathExtension];
-            //NSLog(@"name: %@", name);
-            if ([name hasSuffix:@"obstacle"]) {
-                [self populateObstacleSpritePoolWithName:name];
-                continue;
-            }
-            if ([name hasSuffix:@"decoration"]) {
-                UIImage* img = [UIImage imageNamed:name];
-                img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
-                SKTexture *tex = [SKTexture textureWithImage:img];
-                img = nil;
-                [textureDict setValue:tex forKey:name];
-                //[texArray addObject:tex];
-                continue;
-            }
-            if ([name hasPrefix:@"tenggriPS"]) {
-                [self preprocessSkyImage:name];
-                continue;
-            }
+            for (NSURL* url in urls) {
+                NSString* name = [[url lastPathComponent] stringByDeletingPathExtension];
+                //NSLog(@"name: %@", name);
+                if ([name hasSuffix:@"obstacle"]) {
+                    @autoreleasepool {
+                        [self populateObstacleSpritePoolWithName:name andPath:[url path]];
+                    }
+                    continue;
+                }
+                if ([name hasSuffix:@"decoration"]) {
+                    //UIImage* img = [UIImage imageNamed:name];
+                    @autoreleasepool {
+                        UIImage* img = [UIImage imageWithContentsOfFile:[url path]];
+                        img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
+                        SKTexture *tex = [SKTexture textureWithImage:img];
+                        img = nil;
+                        [textureDict setValue:tex forKey:name];
+                        [texArray addObject:tex];
+                    }
+                    continue;
+                }
+                if ([name hasPrefix:@"tenggriPS"]) {
+                    @autoreleasepool {
+                        [self preprocessSkyImage:name withPath:[url path]];
+                    }
+                    continue;
+                }
+                
             
-        
+            }
         }
-//        [SKTexture preloadTextures:texArray withCompletionHandler:^{
-//            NSLog(@"textures preloaded");
-//        }];
-    }
+        [SKTexture preloadTextures:texArray withCompletionHandler:^{
+            NSLog(@"textures preloaded");
+        }];
     
     return self;
 }
 
--(void)preprocessSkyImage:(NSString*)skyName{
+-(void)preprocessSkyImage:(NSString*)skyName withPath:(NSString*)path{
     //NSLog(@"skyName: %@", skyName);
-    UIImage* img = [UIImage imageNamed:skyName];
+    //UIImage* img = [UIImage imageNamed:skyName];
+    UIImage* img = [UIImage imageWithContentsOfFile:path];
     img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:NO];
     SKTexture* skyTex = [SKTexture textureWithImage:img];
-    //[texArray addObject:skyTex];
-    SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];
+    [texArray addObject:skyTex];
     img = nil;
+    SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];
     sky.zPosition = constants.BACKGROUND_Z_POSITION;
-    //sky.size = CGSizeMake(sky.size.width, sky.size.height * constants.SCALE_COEFFICIENT.dy);
     sky.name = skyName;
     [skyPool setValue:sky forKey:sky.name];
 
@@ -83,10 +90,10 @@ const int NUM_SPRITES_PER_TYPE= 12;
     return skyPool;
 }
 
--(void)populateObstacleSpritePoolWithName:(NSString*)spriteName{
+-(void)populateObstacleSpritePoolWithName:(NSString*)spriteName andPath:(NSString*)path{
     //NSLog(@"spriteName: %@", spriteName);
     
-    Obstacle* prototype = [self obstaclePrototypeWithName:spriteName];
+    Obstacle* prototype = [self obstaclePrototypeWithName:spriteName andPath:path];
     
     NSMutableArray* typeArray = [NSMutableArray array];
     for (int i = 0; i < NUM_SPRITES_PER_TYPE; i ++) {
@@ -99,12 +106,13 @@ const int NUM_SPRITES_PER_TYPE= 12;
  
 }
 
--(Obstacle*)obstaclePrototypeWithName:(NSString*)obsName{
+-(Obstacle*)obstaclePrototypeWithName:(NSString*)obsName andPath:(NSString*)path{
     
-    UIImage* img = [UIImage imageNamed:obsName];
+    //UIImage* img = [UIImage imageNamed:obsName];
+    UIImage* img = [UIImage imageWithContentsOfFile:path];
     img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
     SKTexture* spriteTexture = [SKTexture textureWithImage:img];
-    //[texArray addObject:spriteTexture];
+    [texArray addObject:spriteTexture];
     
     Obstacle* obstacle = [Obstacle obstacleWithTexture:spriteTexture];
     img = nil;
