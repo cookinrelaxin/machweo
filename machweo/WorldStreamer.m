@@ -289,8 +289,10 @@ const Biome INITIAL_BIOME = savanna;
 //        });
     }
 
-    //[self checkForOldObstacles];
-    //[self checkForLastObstacleWithDistance:playerDistance];
+    [self checkForOldObstacles];
+    if (!chunkLoading) {
+        [self checkForLastObstacleWithDistance:playerDistance];
+    }
     
     float xOffset = _view.bounds.size.width;
     if (!chunkLoading) {
@@ -366,32 +368,30 @@ const Biome INITIAL_BIOME = savanna;
 }
 
 -(void)checkForLastObstacleWithDistance:(NSUInteger)distance{
-    if (!chunkLoading) {
+    
+    Obstacle* lastObstacle = [_obstacles.children lastObject];
+    if (!lastObstacle) {
+        //NSLog(@"load first obstacle chunk");
+        [self loadObstacleChunkWithXOffset:_view.bounds.size.width andDistance:0];
         
-        Obstacle* lastObstacle = [_obstacles.children lastObject];
-        if (!lastObstacle) {
-            //NSLog(@"load first obstacle chunk");
-            [self loadObstacleChunkWithXOffset:_view.bounds.size.width andDistance:0];
-            
-            return;
-        }
-        CGPoint lastObstaclePosInSelf = [_world convertPoint:lastObstacle.position fromNode:_obstacles];
+        return;
+    }
+    CGPoint lastObstaclePosInSelf = [_world convertPoint:lastObstacle.position fromNode:_obstacles];
+    
+    CGPoint lastObstaclePosInView = [_view convertPoint:lastObstaclePosInSelf fromScene:_world];
+    if (lastObstaclePosInView.x < _view.bounds.size.width) {
+        //NSLog(@"load next chunk");
         
-        CGPoint lastObstaclePosInView = [_view convertPoint:lastObstaclePosInSelf fromScene:_world];
-        if (lastObstaclePosInView.x < _view.bounds.size.width) {
-            //NSLog(@"load next chunk");
-            
-            [self loadObstacleChunkWithXOffset:(lastObstaclePosInSelf.x + (lastObstacle.size.width / 2) + _view.bounds.size.width) andDistance:distance];
-            
-            
-            //[self winGame];
-        }
-        else{
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"stopScrolling" object:nil];
-            
-        }
+        [self loadObstacleChunkWithXOffset:(lastObstaclePosInSelf.x + (lastObstacle.size.width / 2) + _view.bounds.size.width) andDistance:distance];
+        
+        
+        //[self winGame];
+    }
+    else{
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"stopScrolling" object:nil];
         
     }
+        
 }
 
 

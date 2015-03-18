@@ -64,7 +64,7 @@ int LUNAR_PERIOD = 70; //seconds
     BOOL found_first_obstacle;
     BOOL passed_first_obstacle;
     BOOL popup_engaged;
-    //BOOL chunkLoading;
+    BOOL chunkLoading;
     
     TimeOfDay currentTimeOfDay;
     NSUInteger distance_traveled;
@@ -185,6 +185,16 @@ int LUNAR_PERIOD = 70; //seconds
         
         CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
         player = [Player playerAtPoint:pointToInitAt];
+        
+//        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
+//        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+//        // CIColor *filterColor = [CIColor color]
+//        CIFilter* pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
+//        [pixellateFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+//        [pixellateFilter setValue:@(4.00) forKey:@"inputScale"];
+//
+//        self.filter = pixellateFilter;
+//        self.shouldEnableEffects = true;
     
     }
     return self;
@@ -753,7 +763,14 @@ int LUNAR_PERIOD = 70; //seconds
     }
     if (player_created && !gameOver) {
         [self updateDistance];
-        [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
+        //if (!chunkLoading) {
+         //   chunkLoading = true;
+          //  dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+                [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
+            //    chunkLoading = false;
+            //});
+       // }
+        
         [self centerCameraOnPlayer];
         [self checkForNewAnimationState];
         [player resetMinsAndMaxs];

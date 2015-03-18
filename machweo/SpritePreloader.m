@@ -42,7 +42,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
                     //UIImage* img = [UIImage imageNamed:name];
                     @autoreleasepool {
                         UIImage* img = [UIImage imageWithContentsOfFile:[url path]];
-                        img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
+                        img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:NO];
                         SKTexture *tex = [SKTexture textureWithImage:img];
                         img = nil;
                         [textureDict setValue:tex forKey:name];
@@ -110,7 +110,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
     
     //UIImage* img = [UIImage imageNamed:obsName];
     UIImage* img = [UIImage imageWithContentsOfFile:path];
-    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
+    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:NO];
     SKTexture* spriteTexture = [SKTexture textureWithImage:img];
     [texArray addObject:spriteTexture];
     
@@ -148,11 +148,13 @@ const int NUM_SPRITES_PER_TYPE= 12;
     /*You can remove the below comment if you dont want to scale the image in retina   device .Dont forget to comment UIGraphicsBeginImageContextWithOptions*/
     //UIGraphicsBeginImageContext(newSize);
     if (highRes) {
-        UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
+        UIGraphicsBeginImageContextWithOptions(newSize, YES, scale);
     }
     else{
         UIGraphicsBeginImageContext(newSize);
     }
+    CGContextRef cgr = UIGraphicsGetCurrentContext();
+    CGContextSetInterpolationQuality(cgr, kCGInterpolationHigh);
     [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
