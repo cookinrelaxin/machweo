@@ -318,16 +318,6 @@
 }
 
 
-//-(void)viewWillLayoutSubviews{
-//    [super viewWillLayoutSubviews];
-//    
-//    if (!gameLoaded) {
-//        gameLoaded = true;
-//        [self initGame];
-//    }
-//    
-//}
-
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     

@@ -54,6 +54,21 @@ const Biome INITIAL_BIOME = savanna;
    
 }
 
+-(void)dealloc{
+    NSLog(@"dealloc worldstreamer");
+    
+}
+
+-(void)restoreObstaclesToPool{
+    for (Obstacle *obs in _obstacles.children) {
+        //NSLog(@"obs.name: %@", obs.name);
+        [obs removeFromParent];
+        NSMutableArray* obstacleTypeArray = [obstacle_pool valueForKey:obs.name];
+        [obstacleTypeArray addObject:obs];
+    }
+    
+}
+
 -(instancetype)initWithWorld:(SKScene *)world withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines withXOffset:(float)xOffset andTimeOfDay:(TimeOfDay)timeOfDay{
     if (self = [super init]) {
         constants = [Constants sharedInstance];
@@ -71,7 +86,6 @@ const Biome INITIAL_BIOME = savanna;
         IDDictionary = [NSMutableDictionary dictionary];
         
         currentBiome = savanna;
-        //[self calculateNextBiomeWithDistance:0];
         
         // for double the fun
         [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
@@ -80,9 +94,6 @@ const Biome INITIAL_BIOME = savanna;
         for (int i = 0; i < unused_deco_pool.count; i ++) {
             [self loadNextDecoWithXOffset:0];
         }
-        //numberOfDecosToLoad = unused_deco_pool.count;
-        //numberOfDecosToLoad = MAX_IN_USE_DECO_POOL_COUNT;
-        
         
         
     }
@@ -145,7 +156,7 @@ const Biome INITIAL_BIOME = savanna;
 //    }
     //else{
         if (previousBiome != currentBiome) {
-            NSLog(@"clear old biome");
+            //NSLog(@"clear old biome");
             [unused_deco_pool removeAllObjects];
             [_terrainPool removeAllObjects];
             for (Decoration* deco in in_use_deco_pool) {
@@ -279,14 +290,8 @@ const Biome INITIAL_BIOME = savanna;
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay{
     if(!chunkLoading && [self shouldParseNewDecorationSet]){
-//        //NSLog(@"[self preloadDecorationChunkWithTimeOfDay:timeOfDay]");
         chunkLoading = true;
-//        dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
-            [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:playerDistance asynchronous:YES];
-//            //dispatch_sync(dispatch_get_main_queue(), ^{
-//            chunkLoading = false;
-//            //});
-//        });
+        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:playerDistance asynchronous:YES];
     }
 
     [self checkForOldObstacles];
@@ -298,13 +303,6 @@ const Biome INITIAL_BIOME = savanna;
     if (!chunkLoading) {
         [self cleanUpOldDecos];
     }
-    //NSUInteger desiredNumDecosToLoad = MAX_NUM_DECOS_TO_LOAD;
-   // numberOfDecosToLoad = desiredNumDecosToLoad;
-    if (!chunkLoading) {
-        //NSLog(@"unused_deco_pool.count: %lu", unused_deco_pool.count);
-        //NSLog(@"in_use_deco_pool.count: %lu", in_use_deco_pool.count);
-    }
-
     if (!chunkLoading) {
         [self loadNextDecoWithXOffset:xOffset];
     }

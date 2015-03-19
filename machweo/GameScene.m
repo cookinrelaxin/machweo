@@ -91,18 +91,14 @@ int LUNAR_PERIOD = 70; //seconds
 
 -(void)dealloc{
     backgroundMusicPlayer = nil;
+//    [worldStreamer restoreObstaclesToPool];
     NSLog(@"dealloc game scene");
 }
 
 -(instancetype)initWithSize:(CGSize)size withinView:(SKView*)view{
     if (self = [super initWithSize:size]){
-        //playerScore = [[Score alloc] init];
         _constants = [Constants sharedInstance];
-        //skyWidth = RAW_SKY_WIDTH * _constants.SCALE_COEFFICIENT.dy;
         skyWidth = RAW_SKY_WIDTH;
-        //NSLog(@"skyWidth: %f", skyWidth);
-        //sky_displacement_per_frame = SKY_WIDTH / (60 * DIURNAL_PERIOD);
-        //NSLog(@"sky_displacement_per_frame: %d", sky_displacement_per_frame);
 
         _obstacles = [SKNode node];
         _terrain = [SKNode node];
@@ -159,10 +155,6 @@ int LUNAR_PERIOD = 70; //seconds
 //                }];
 //            }];
 //        }];
-
-        //ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
-        //[cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
-        
         
         skyDict = _constants.SKY_DICT;
         skyPool = [NSMutableArray array];
@@ -185,16 +177,6 @@ int LUNAR_PERIOD = 70; //seconds
         
         CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
         player = [Player playerAtPoint:pointToInitAt];
-        
-//        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
-//        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-//        // CIColor *filterColor = [CIColor color]
-//        CIFilter* pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
-//        [pixellateFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-//        [pixellateFilter setValue:@(4.00) forKey:@"inputScale"];
-//
-//        self.filter = pixellateFilter;
-//        self.shouldEnableEffects = true;
     
     }
     return self;
@@ -763,14 +745,7 @@ int LUNAR_PERIOD = 70; //seconds
     }
     if (player_created && !gameOver) {
         [self updateDistance];
-        //if (!chunkLoading) {
-         //   chunkLoading = true;
-          //  dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
-                [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
-            //    chunkLoading = false;
-            //});
-       // }
-        
+        [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
         [self centerCameraOnPlayer];
         [self checkForNewAnimationState];
         [player resetMinsAndMaxs];
@@ -844,23 +819,12 @@ int LUNAR_PERIOD = 70; //seconds
 -(void)loseGame{
     gameOver = true;
     //[self performSunset];
+    [worldStreamer restoreObstaclesToPool];
+    worldStreamer = nil;
+
     [self fadeVolumeOut];
 
 }
-
--(void)winGame{
-    gameOver = true;
-    //[self performSunset];
-    [self fadeVolumeOut];
-    //_constants.CURRENT_INDEX_IN_LEVEL_ARRAY = 0;
-
-//    if (!restartGameNotificationSent) {
-//        restartGameNotificationSent = true;
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
-//    }
-}
-
-
 
 -(void)tellObstaclesToMove{
     for (Obstacle* obs in _obstacles.children) {

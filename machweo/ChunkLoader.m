@@ -172,12 +172,15 @@ typedef enum NodeTypes
 
             if (currentNodeType == obstacle) {
                 NSMutableArray* obstacleTypeArray = [constants.OBSTACLE_POOL valueForKey:string];
+                NSLog(@"obstacleTypeArray.count: %lu", obstacleTypeArray.count);
+
                 Obstacle* firstObstacle = obstacleTypeArray.firstObject;
                 if (firstObstacle) {
                     currentNode = firstObstacle;
                     [obstacleTypeArray removeObject:obstacleTypeArray.firstObject];
                     //NSLog(@"remove %@ from obstacle pool", string);
                 }
+
                 //NSLog(@"obstacleTypeArray: %@", obstacleTypeArray);
                 return;
 
