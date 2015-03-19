@@ -3,22 +3,22 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>obstacle2_obstacle</name>
-        <uniqueID>784208</uniqueID>
+        <uniqueID>215155</uniqueID>
         <xPosition>42.500000</xPosition>
-        <yPosition>392.708923</yPosition>
+        <yPosition>422.708923</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>1</motionType>
-        <speedType>5</speedType>
+        <speedType>1</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
         <name>obstacle2_obstacle</name>
-        <uniqueID>430909</uniqueID>
+        <uniqueID>975659</uniqueID>
         <xPosition>42.500000</xPosition>
-        <yPosition>913.797546</yPosition>
+        <yPosition>783.797546</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>1</motionType>
-        <speedType>3</speedType>
+        <speedType>2</speedType>
     </node>
     <terrainPool></terrainPool>
 </worldnodes>
