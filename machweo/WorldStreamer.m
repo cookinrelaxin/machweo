@@ -20,12 +20,13 @@ const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 // get it as high as possible
 const int MAX_DIFFICULTY = 5;
 
-const int STADE_LENGTH = 100;
+const int OBSTACLE_STADE_LENGTH = 100;
+const int DECORATION_STADE_LENGTH = 300;
 
 
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
-const Biome INITIAL_BIOME = savanna;
+//const Biome INITIAL_BIOME = savanna;
 
 
 
@@ -39,6 +40,10 @@ const Biome INITIAL_BIOME = savanna;
     NSMutableArray* _terrainPool;
     Biome currentBiome;
     Biome previousBiome;
+    
+    Biome one_times_stade_biome;
+    Biome two_times_stade_biome;
+    Biome three_times_stade_biome;
 
     Constants* constants;
     BOOL chunkLoading;
@@ -88,16 +93,14 @@ const Biome INITIAL_BIOME = savanna;
         currentBiome = savanna;
         
         // for double the fun
+        [self calculateInitialBiome];
         [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
         [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
 
         for (int i = 0; i < unused_deco_pool.count; i ++) {
             [self loadNextDecoWithXOffset:0];
         }
-        
-        
     }
-    
     return  self;
     
 }
@@ -109,26 +112,43 @@ const Biome INITIAL_BIOME = savanna;
 
 -(Biome)calculateNextBiomeWithDistance:(NSUInteger)distance{
     previousBiome = currentBiome;
-    NSUInteger roundedDistance = RoundDownTo(distance, STADE_LENGTH);
+    NSUInteger roundedDistance = RoundDownTo(distance, DECORATION_STADE_LENGTH);
     //NSLog(@"roundedDistance: %lu", (unsigned long)roundedDistance);
-    if (distance == 0) {
-        currentBiome = INITIAL_BIOME;
-        return INITIAL_BIOME;
+//    if (distance == 0) {
+//        currentBiome = [self calculateInitialBiome];
+//    }
+    if ((roundedDistance % (DECORATION_STADE_LENGTH * 3)) == 0) {
+        currentBiome = three_times_stade_biome;
     }
-    if ((roundedDistance % (STADE_LENGTH * 3)) == 0) {
-        currentBiome = savanna;
-        return savanna;
+    else if ((roundedDistance % (DECORATION_STADE_LENGTH * 2)) == 0) {
+        currentBiome = two_times_stade_biome;
     }
-    if ((roundedDistance % (STADE_LENGTH * 2)) == 0) {
-        currentBiome = jungle;
-        return jungle;
+    else if ((roundedDistance % DECORATION_STADE_LENGTH) == 0) {
+        currentBiome = one_times_stade_biome;
     }
-    if ((roundedDistance % STADE_LENGTH) == 0) {
-        currentBiome = sahara;
-        return sahara;
-    }
-    else return currentBiome;
+    return currentBiome;
     
+}
+
+-(Biome)calculateInitialBiome{
+    one_times_stade_biome = arc4random_uniform(numBiomes);
+    if (one_times_stade_biome == 0) {
+        two_times_stade_biome = 1;
+        three_times_stade_biome = 2;
+    }
+    else if (one_times_stade_biome == 1) {
+        two_times_stade_biome = 2;
+        three_times_stade_biome = 0;
+    }
+    else if (one_times_stade_biome == 2) {
+        two_times_stade_biome = 0;
+        three_times_stade_biome = 1;
+    }
+    //NSLog(@"one_times_stade_biome: %@", [self biomeToString:one_times_stade_biome]);
+   // NSLog(@"two_times_stade_biome: %@", [self biomeToString:two_times_stade_biome]);
+   // NSLog(@"three_times_stade_biome: %@", [self biomeToString:three_times_stade_biome]);
+
+    return one_times_stade_biome;
 }
 
 -(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay andDistance:(NSUInteger)distance asynchronous:(BOOL)async{
@@ -333,9 +353,9 @@ const Biome INITIAL_BIOME = savanna;
 
 -(NSUInteger)calculateDifficultyFromDistance:(NSUInteger)distance{
     
-    NSUInteger roundedDistance = RoundDownTo(distance, STADE_LENGTH);
+    NSUInteger roundedDistance = RoundDownTo(distance, OBSTACLE_STADE_LENGTH);
     
-    NSUInteger difficulty = (roundedDistance / STADE_LENGTH) + 1;
+    NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
     if (difficulty > MAX_DIFFICULTY) {
         difficulty = MAX_DIFFICULTY;
     }
