@@ -46,7 +46,7 @@ int LUNAR_PERIOD = 70; //seconds
     NSMutableDictionary* skyDict;
     
     BOOL gameWon;
-    BOOL restartGameNotificationSent;
+    BOOL endGameNotificationSent;
     BOOL gameOver;
     BOOL in_game;
     BOOL player_created;
@@ -90,9 +90,10 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)dealloc{
-    backgroundMusicPlayer = nil;
-//    [worldStreamer restoreObstaclesToPool];
+    //backgroundMusicPlayer = nil;
     NSLog(@"dealloc game scene");
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
+
 }
 
 -(instancetype)initWithSize:(CGSize)size withinView:(SKView*)view{
@@ -407,10 +408,8 @@ int LUNAR_PERIOD = 70; //seconds
     if (gameOver && (backgroundMusicPlayer.volume > 0)) {
         //NSLog(@"fade out");
         if ((backgroundMusicPlayer.volume - 0.05) < 0) {
-            if (!restartGameNotificationSent) {
-                //restartGameNotificationSent = true;
-                //[[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
-                [self restartGame];
+            if (!endGameNotificationSent) {
+                [self endGame];
             }
             //NSLog(@"nullify the background music");
             backgroundMusicPlayer = nil;
@@ -819,7 +818,7 @@ int LUNAR_PERIOD = 70; //seconds
 -(void)loseGame{
     gameOver = true;
     //[self performSunset];
-    [worldStreamer restoreObstaclesToPool];
+    [worldStreamer restoreObstaclesToPoolAndFreezeComputation];
     worldStreamer = nil;
 
     [self fadeVolumeOut];
@@ -834,11 +833,10 @@ int LUNAR_PERIOD = 70; //seconds
 
 
 
--(void)restartGame{
+-(void)endGame{
     //self.view.paused = false;
-    restartGameNotificationSent = true;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
-
+    endGameNotificationSent = true;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"end game" object:nil];
 }
 
 -(void)generateDecorations{

@@ -199,7 +199,7 @@
         
      }];
     
-    [center addObserverForName:@"restart game"
+    [center addObserverForName:@"end game"
                         object:nil
                          queue:nil
                     usingBlock:^(NSNotification *notification)
@@ -208,11 +208,8 @@
          [CATransaction begin]; {
          [CATransaction setCompletionBlock:^{
              [_gameSceneView presentScene:nil];
-             
-             [self lightUp];
-             //[self setupLogo];
-             //[self drawPath];
              [self initGame];
+             [self lightUp];
 
          }];
 

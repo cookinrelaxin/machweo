@@ -16,7 +16,7 @@
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay;
 -(NSMutableArray*)getTerrainPool;
--(void)restoreObstaclesToPool;
+-(void)restoreObstaclesToPoolAndFreezeComputation;
 
 
 

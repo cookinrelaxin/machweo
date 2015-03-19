@@ -48,6 +48,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     Constants* constants;
     BOOL chunkLoading;
     BOOL cleaningUpOldDecos;
+    BOOL allowComputation;
     
     NSMutableDictionary* obstacle_pool;
     NSMutableArray* unused_deco_pool;
@@ -64,18 +65,10 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     
 }
 
--(void)restoreObstaclesToPool{
-    for (Obstacle *obs in _obstacles.children) {
-        //NSLog(@"obs.name: %@", obs.name);
-        [obs removeFromParent];
-        NSMutableArray* obstacleTypeArray = [obstacle_pool valueForKey:obs.name];
-        [obstacleTypeArray addObject:obs];
-    }
-    
-}
-
 -(instancetype)initWithWorld:(SKScene *)world withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines withXOffset:(float)xOffset andTimeOfDay:(TimeOfDay)timeOfDay{
     if (self = [super init]) {
+        allowComputation = true;
+        
         constants = [Constants sharedInstance];
 
         _world = world;
@@ -102,6 +95,17 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         }
     }
     return  self;
+    
+}
+
+-(void)restoreObstaclesToPoolAndFreezeComputation{
+    for (Obstacle *obs in _obstacles.children) {
+        //NSLog(@"obs.name: %@", obs.name);
+        [obs removeFromParent];
+        NSMutableArray* obstacleTypeArray = [obstacle_pool valueForKey:obs.name];
+        [obstacleTypeArray addObject:obs];
+    }
+    allowComputation = false;
     
 }
 
@@ -309,22 +313,24 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 }
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay{
-    if(!chunkLoading && [self shouldParseNewDecorationSet]){
-        chunkLoading = true;
-        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:playerDistance asynchronous:YES];
-    }
+    if (allowComputation) {
+        if(!chunkLoading && [self shouldParseNewDecorationSet]){
+            chunkLoading = true;
+            [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:playerDistance asynchronous:YES];
+        }
 
-    [self checkForOldObstacles];
-    if (!chunkLoading) {
-        [self checkForLastObstacleWithDistance:playerDistance];
-    }
-    
-    float xOffset = _view.bounds.size.width;
-    if (!chunkLoading) {
-        [self cleanUpOldDecos];
-    }
-    if (!chunkLoading) {
-        [self loadNextDecoWithXOffset:xOffset];
+        [self checkForOldObstacles];
+        if (!chunkLoading) {
+            [self checkForLastObstacleWithDistance:playerDistance];
+        }
+        
+        float xOffset = _view.bounds.size.width;
+        if (!chunkLoading) {
+            [self cleanUpOldDecos];
+        }
+        if (!chunkLoading) {
+            [self loadNextDecoWithXOffset:xOffset];
+        }
     }
 
 }
@@ -353,17 +359,16 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 -(NSUInteger)calculateDifficultyFromDistance:(NSUInteger)distance{
     
-    NSUInteger roundedDistance = RoundDownTo(distance, OBSTACLE_STADE_LENGTH);
-    
-    NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
-    if (difficulty > MAX_DIFFICULTY) {
-        difficulty = MAX_DIFFICULTY;
-    }
-    //NSLog(@"difficulty: %lu", difficulty);
-    
-    return difficulty;
-    
-    //return 4;
+//    NSUInteger roundedDistance = RoundDownTo(distance, OBSTACLE_STADE_LENGTH);
+//    
+//    NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
+//    if (difficulty > MAX_DIFFICULTY) {
+//        difficulty = MAX_DIFFICULTY;
+//    }
+//    NSLog(@"difficulty: %lu", difficulty);
+//    
+//    return difficulty;
+    return 6;
 }
 
 -(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{

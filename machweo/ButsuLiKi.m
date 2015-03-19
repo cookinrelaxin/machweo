@@ -355,6 +355,10 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 
 -(void)calculatePlayerRotation:(Player*)player{
     //if (!shangoBrokeHisBack) {
+    if (player.onGround) {
+        [pastSlopes removeAllObjects];
+        player.zRotation = 0;
+    }
         
         if (player.roughlyOnLine) {
             float averageSlope = [self averageSlope];
