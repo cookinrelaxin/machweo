@@ -29,7 +29,7 @@
     CABasicAnimation *lightUp = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
     lightUp.fromValue = (id)[[UIColor blackColor] CGColor];
     lightUp.toValue = (id)[[UIColor clearColor] CGColor];
-    lightUp.duration = 10.0f;
+    lightUp.duration = 3.0f;
     [_effectsView.layer addAnimation:lightUp forKey:@"backgroundColor"];
 
 }
@@ -41,8 +41,10 @@
         NSLog(@"gameLoaded = true");
         gameLoaded = true;
         _gameSceneView.frame = self.view.bounds;
+        [self.view sendSubviewToBack:_gameSceneView];
         _gameSceneView.ignoresSiblingOrder = YES;
         _gameSceneView.showsFPS = YES;
+        _effectsView.layer.opacity = 1;
         [self setUpObservers];
         [self initGame];
         [self lightUp];
