@@ -40,11 +40,12 @@
     if (!gameLoaded) {
         NSLog(@"gameLoaded = true");
         gameLoaded = true;
-        _gameSceneView.frame = self.view.bounds;
-        [self.view sendSubviewToBack:_gameSceneView];
+        //_effectsView.frame = _gameSceneView.frame = self.view.bounds;
+        //[self.view sendSubviewToBack:_gameSceneView];
         _gameSceneView.ignoresSiblingOrder = YES;
         _gameSceneView.showsFPS = YES;
         _effectsView.layer.opacity = 1;
+        _effectsView.userInteractionEnabled = NO;
         [self setUpObservers];
         [self initGame];
         [self lightUp];
