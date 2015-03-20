@@ -161,7 +161,7 @@ int LUNAR_PERIOD = 70; //seconds
         skyPool = [NSMutableArray array];
         currentTimeOfDay = AM_8;
         worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0 andTimeOfDay:currentTimeOfDay];
-        [self generateBackgrounds :false];
+        //[self generateBackgrounds :false];
 
         [self organizeTheHeavens];
         [self startMusic];
@@ -178,7 +178,19 @@ int LUNAR_PERIOD = 70; //seconds
         
         CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
         player = [Player playerAtPoint:pointToInitAt];
-    
+                
+//        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
+//        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+//         CIColor *filterColor = [CIColor color]
+//        CIFilter* blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+//        [blurFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+//        [blurFilter setValue:@(10.00) forKey:@"inputRadius"];
+//        
+//        self.filter = blurFilter;
+//        self.shouldEnableEffects = true;
+//        
+//        
+//    
     }
     return self;
 }
@@ -754,7 +766,7 @@ int LUNAR_PERIOD = 70; //seconds
         }
         
     }
-    [self setDecoFilter];
+    //[self setDecoFilter];
     [self generateBackgrounds :false];
     //[self checkForOldLines];
     //[self deallocOldLines];

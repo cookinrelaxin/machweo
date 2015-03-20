@@ -10,5 +10,6 @@
 #import <SpriteKit/SpriteKit.h>
 
 @interface MainMenuControllerViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UIView *effectsView;
 @property (weak, nonatomic) IBOutlet SKView *gameSceneView;
 @end

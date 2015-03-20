@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YbM-qg-g2k">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--start menu-->
@@ -16,20 +17,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KHf-Iy-yYE">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uc1-73-f2O" userLabel="game scene view" customClass="SKView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="KHf-Iy-yYE" secondAttribute="trailing" constant="-16" id="2ra-zM-F3J"/>
+                            <constraint firstItem="KHf-Iy-yYE" firstAttribute="leading" secondItem="hCZ-X8-SON" secondAttribute="leadingMargin" constant="-16" id="39b-a9-h4L"/>
                             <constraint firstItem="uc1-73-f2O" firstAttribute="top" secondItem="hCZ-X8-SON" secondAttribute="top" id="Hdc-zc-6jk"/>
                             <constraint firstItem="uc1-73-f2O" firstAttribute="leading" secondItem="hCZ-X8-SON" secondAttribute="leading" id="Irt-He-bTQ"/>
                             <constraint firstAttribute="trailing" secondItem="uc1-73-f2O" secondAttribute="trailing" id="LER-jo-ibI"/>
                             <constraint firstItem="SbZ-OQ-2fh" firstAttribute="top" secondItem="uc1-73-f2O" secondAttribute="bottom" id="Tar-Oh-Us9"/>
+                            <constraint firstItem="KHf-Iy-yYE" firstAttribute="top" secondItem="hCZ-X8-SON" secondAttribute="topMargin" id="mvw-Rk-wrx"/>
+                            <constraint firstItem="SbZ-OQ-2fh" firstAttribute="top" secondItem="KHf-Iy-yYE" secondAttribute="bottom" id="nxz-BK-6oo"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Q9Q-Vm-dWY"/>
                     <connections>
+                        <outlet property="effectsView" destination="KHf-Iy-yYE" id="o0K-xA-M4u"/>
                         <outlet property="gameSceneView" destination="uc1-73-f2O" id="kjc-ub-aXJ"/>
                     </connections>
                 </viewController>

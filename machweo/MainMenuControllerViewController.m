@@ -25,12 +25,12 @@
 
 
 - (void) lightUp{
-    _gameSceneView.layer.backgroundColor = [[UIColor clearColor] CGColor];
+    _effectsView.layer.backgroundColor = [[UIColor clearColor] CGColor];
     CABasicAnimation *lightUp = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
     lightUp.fromValue = (id)[[UIColor blackColor] CGColor];
     lightUp.toValue = (id)[[UIColor clearColor] CGColor];
-    lightUp.duration = 2.0f;
-    [_gameSceneView.layer addAnimation:lightUp forKey:@"backgroundColor"];
+    lightUp.duration = 10.0f;
+    [_effectsView.layer addAnimation:lightUp forKey:@"backgroundColor"];
 
 }
 
@@ -40,12 +40,13 @@
     if (!gameLoaded) {
         NSLog(@"gameLoaded = true");
         gameLoaded = true;
-        [self lightUp];
         _gameSceneView.frame = self.view.bounds;
         _gameSceneView.ignoresSiblingOrder = YES;
         _gameSceneView.showsFPS = YES;
         [self setUpObservers];
         [self initGame];
+        [self lightUp];
+
 
     }
     
@@ -65,17 +66,17 @@
          
          [CATransaction begin]; {
          [CATransaction setCompletionBlock:^{
-             //[self initGame];
+             [self initGame];
              [self lightUp];
 
          }];
-             _gameSceneView.layer.opacity = 1;
-             _gameSceneView.layer.backgroundColor = [[UIColor blackColor] CGColor];
+             _effectsView.layer.opacity = 1;
+             _effectsView.layer.backgroundColor = [[UIColor blackColor] CGColor];
              CABasicAnimation *darken = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
              darken.fromValue = (id)[[UIColor clearColor] CGColor];
              darken.toValue = (id)[[UIColor blackColor] CGColor];
              darken.duration = 1.0f;
-             [_gameSceneView.layer addAnimation:darken forKey:@"backgroundColor"];
+             [_effectsView.layer addAnimation:darken forKey:@"backgroundColor"];
              
              
          } [CATransaction commit];
