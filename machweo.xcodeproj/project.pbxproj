@@ -138,8 +138,6 @@
 		7876981A1ABC97F600A2FF81 /* obstacleSet_7_g.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787698101ABC97F600A2FF81 /* obstacleSet_7_g.xml */; };
 		7876981B1ABC97F600A2FF81 /* obstacleSet_7_h.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787698111ABC97F600A2FF81 /* obstacleSet_7_h.xml */; };
 		7876981C1ABC97F600A2FF81 /* obstacleSet_8_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787698121ABC97F600A2FF81 /* obstacleSet_8_a.xml */; };
-		7876981D1ABC97F600A2FF81 /* obstacleSet_8_b.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787698131ABC97F600A2FF81 /* obstacleSet_8_b.xml */; };
-		7876981F1ABC980900A2FF81 /* rotate_huge_obstacle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876981E1ABC980900A2FF81 /* rotate_huge_obstacle.png */; };
 		7877DCBB1AB131DE0050F132 /* AnimationComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7877DCBA1AB131DE0050F132 /* AnimationComponent.m */; };
 		7877DCD81AB13AB00050F132 /* runningDude.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7877DCD71AB13AB00050F132 /* runningDude.atlas */; };
 		7877DCDA1AB13E4C0050F132 /* jumpingDude.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7877DCD91AB13E4C0050F132 /* jumpingDude.atlas */; };
@@ -425,8 +423,6 @@
 		787698101ABC97F600A2FF81 /* obstacleSet_7_g.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_g.xml; sourceTree = "<group>"; };
 		787698111ABC97F600A2FF81 /* obstacleSet_7_h.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_h.xml; sourceTree = "<group>"; };
 		787698121ABC97F600A2FF81 /* obstacleSet_8_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_8_a.xml; sourceTree = "<group>"; };
-		787698131ABC97F600A2FF81 /* obstacleSet_8_b.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_8_b.xml; sourceTree = "<group>"; };
-		7876981E1ABC980900A2FF81 /* rotate_huge_obstacle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotate_huge_obstacle.png; sourceTree = "<group>"; };
 		7877DCB91AB131DE0050F132 /* AnimationComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationComponent.h; sourceTree = "<group>"; };
 		7877DCBA1AB131DE0050F132 /* AnimationComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationComponent.m; sourceTree = "<group>"; };
 		7877DCD71AB13AB00050F132 /* runningDude.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = runningDude.atlas; sourceTree = "<group>"; };
@@ -740,7 +736,6 @@
 				782AE71D1A74B89900FF4225 /* obstacle3_obstacle.png */,
 				782AE71F1A74B89900FF4225 /* obstacle4_obstacle.png */,
 				782AE7211A74B89900FF4225 /* rotate_obstacle.png */,
-				7876981E1ABC980900A2FF81 /* rotate_huge_obstacle.png */,
 				782AE7231A74B89900FF4225 /* square_obstacle.png */,
 				782AE7261A74B89900FF4225 /* totem2_obstacle.png */,
 				782AE7271A74B89900FF4225 /* totem_obstacle.png */,
@@ -920,7 +915,6 @@
 				787698101ABC97F600A2FF81 /* obstacleSet_7_g.xml */,
 				787698111ABC97F600A2FF81 /* obstacleSet_7_h.xml */,
 				787698121ABC97F600A2FF81 /* obstacleSet_8_a.xml */,
-				787698131ABC97F600A2FF81 /* obstacleSet_8_b.xml */,
 			);
 			path = obstacleSets;
 			sourceTree = "<group>";
@@ -1229,7 +1223,6 @@
 				782AE7961A74B89900FF4225 /* grass.png in Resources */,
 				7883AE3F1A8EEC24006A94A4 /* menulogohalfx.png in Resources */,
 				6509D2E91A5E290300F1BBA6 /* brush7.png in Resources */,
-				7876981D1ABC97F600A2FF81 /* obstacleSet_8_b.xml in Resources */,
 				782AE7A01A74B89900FF4225 /* mountain3_decoration.png in Resources */,
 				787AEDAD1ABB57FA000429DE /* obstacleSet_6_g.xml in Resources */,
 				782E52311AA7F9A3004FE1F7 /* decorationSet_jungle_day_e.xml in Resources */,
@@ -1422,7 +1415,6 @@
 				787AEDA71ABB57FA000429DE /* obstacleSet_6_a.xml in Resources */,
 				78D724741AAD3F2A008C559E /* tenggriPS_11.png in Resources */,
 				782AE7B51A74B89900FF4225 /* totem_obstacle.png in Resources */,
-				7876981F1ABC980900A2FF81 /* rotate_huge_obstacle.png in Resources */,
 				78FFBC841A8EAC9500996198 /* settings_button_clicked.png in Resources */,
 				782AE7A11A74B89900FF4225 /* mountain_decoration.png in Resources */,
 				78FFBC861A8EAC9500996198 /* unlockables_button_clicked.png in Resources */,

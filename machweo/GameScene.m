@@ -91,9 +91,8 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)dealloc{
-    //backgroundMusicPlayer = nil;
     NSLog(@"dealloc game scene");
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 
 }
 
@@ -414,6 +413,7 @@ int LUNAR_PERIOD = 70; //seconds
             }
             //NSLog(@"nullify the background music");
             backgroundMusicPlayer = nil;
+            return;
             
         }
         backgroundMusicPlayer.volume = backgroundMusicPlayer.volume - 0.05;
@@ -583,42 +583,42 @@ int LUNAR_PERIOD = 70; //seconds
         [ter generateDecorationAtVertex:newPoint fromTerrainPool:[worldStreamer getTerrainPool] inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
         
     }
-    [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
+    //[self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
     
 }
 
--(void)removeLineIntersectionsBetween:(CGPoint)a and:(CGPoint)b{
-    NSMutableArray* nodesToDeleteFromNodeArray = [NSMutableArray array];
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
-        Line* previousLine = [arrayOfLines objectAtIndex:i];
-   // for (Line *previousLine in arrayOfLines) {
-        if ((previousLine == arrayOfLines.lastObject) || previousLine.allowIntersections) {
-            return;
-        }
-        
-        NSMutableArray *previousPointArray = previousLine.nodeArray;
-        BOOL killTheRest = false;
-        for (NSValue* node in previousPointArray) {
-            CGPoint nodePosInScene = node.CGPointValue;
-
-            //yes, 50 is a magic number. but it is a necessary cushion.
-            if (killTheRest || (nodePosInScene.x >= a.x)) {
-                if (killTheRest || ((nodePosInScene.y <= a.y) && (nodePosInScene.y >= b.y)) || ((nodePosInScene.y >= a.y) && (nodePosInScene.y <= b.y))) {
-                    [nodesToDeleteFromNodeArray addObject:node];
-                    killTheRest = true;
-                }
-            }
-        }
-        for (NSValue* node in nodesToDeleteFromNodeArray) {
-            [previousPointArray removeObject:node];
-        }
-        });
-        
-   // }
-    
-}
+//-(void)removeLineIntersectionsBetween:(CGPoint)a and:(CGPoint)b{
+//    NSMutableArray* nodesToDeleteFromNodeArray = [NSMutableArray array];
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
+//        Line* previousLine = [arrayOfLines objectAtIndex:i];
+//   // for (Line *previousLine in arrayOfLines) {
+//        if ((previousLine == arrayOfLines.lastObject) || previousLine.allowIntersections) {
+//            return;
+//        }
+//        
+//        NSMutableArray *previousPointArray = previousLine.nodeArray;
+//        BOOL killTheRest = false;
+//        for (NSValue* node in previousPointArray) {
+//            CGPoint nodePosInScene = node.CGPointValue;
+//
+//            //yes, 50 is a magic number. but it is a necessary cushion.
+//            if (killTheRest || (nodePosInScene.x >= a.x)) {
+//                if (killTheRest || ((nodePosInScene.y <= a.y) && (nodePosInScene.y >= b.y)) || ((nodePosInScene.y >= a.y) && (nodePosInScene.y <= b.y))) {
+//                    [nodesToDeleteFromNodeArray addObject:node];
+//                    killTheRest = true;
+//                }
+//            }
+//        }
+//        for (NSValue* node in nodesToDeleteFromNodeArray) {
+//            [previousPointArray removeObject:node];
+//        }
+//        });
+//        
+//   // }
+//    
+//}
 
 //-(void)calculateScoreAndExit{
 //    if (gameWon) {
@@ -844,7 +844,6 @@ int LUNAR_PERIOD = 70; //seconds
     //[self performSunset];
     [worldStreamer restoreObstaclesToPoolAndFreezeComputation];
     worldStreamer = nil;
-
     [self fadeVolumeOut];
 
 }

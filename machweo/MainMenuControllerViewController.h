@@ -11,10 +11,4 @@
 
 @interface MainMenuControllerViewController : UIViewController
 @property (weak, nonatomic) IBOutlet SKView *gameSceneView;
-@property (weak, nonatomic) IBOutlet UIView *logoView;
-
-@property (nonatomic, strong) CALayer *logoAnimationLayer;
-@property (nonatomic, strong) CAShapeLayer *pathLayer;
-@property (nonatomic, strong) CAShapeLayer *pathSubLayer;
-
 @end
