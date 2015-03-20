@@ -207,7 +207,7 @@
          
          [CATransaction begin]; {
          [CATransaction setCompletionBlock:^{
-             [_gameSceneView presentScene:nil];
+             //[_gameSceneView presentScene:nil];
              [self initGame];
              [self lightUp];
 

@@ -216,7 +216,7 @@ int LUNAR_PERIOD = 70; //seconds
         //NSLog(@"rightEdgeOfFirstBackground: %f", rightEdgeOfFirstBackground);
         if ((leftEdgeOfFirstBackground > self.size.width) || forceLoad) {
            // NSLog(@"(rightEdgeOfFirstBackground < 0)");
-            NSString* tenggriCountString = (currentIndexInTenggri < 10) ? [NSString stringWithFormat:@"0%lu", currentIndexInTenggri] : [NSString stringWithFormat:@"%lu", currentIndexInTenggri];
+            NSString* tenggriCountString = (currentIndexInTenggri < 10) ? [NSString stringWithFormat:@"0%lu", currentIndexInTenggri] : [NSString stringWithFormat:@"%lu", (unsigned long)currentIndexInTenggri];
             
             NSString* backgroundName = [NSString stringWithFormat:@"tenggriPS_%@", tenggriCountString];
             SKSpriteNode* background = [skyDict valueForKey:backgroundName];
