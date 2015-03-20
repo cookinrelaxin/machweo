@@ -8,6 +8,7 @@
 #import "GameScene.h"
 #import "ButsuLiKi.h"
 #import "Player.h"
+#import "Decoration.h"
 #import "Obstacle.h"
 #import "Line.h"
 #import "WorldStreamer.h"
@@ -439,6 +440,29 @@ int LUNAR_PERIOD = 70; //seconds
     if (player) {
         Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
         [arrayOfLines addObject:newLine];
+        NSLog(@"arrayOfLines.count: %lu", arrayOfLines.count);
+        if (arrayOfLines.count > 2) {
+            Line* firstLine = nil;
+            for (Line* line in arrayOfLines) {
+                if (!line.shouldDeallocNodeArray) {
+                    firstLine = line;
+                    break;
+                }
+            }
+            for (Terrain* ter in firstLine.terrainArray) {
+                for (Decoration *deco in ter.decos) {
+                    [deco runAction:[SKAction fadeOutWithDuration:1]];
+                }
+                firstLine.shouldDeallocNodeArray = true;
+
+                [ter runAction:[SKAction fadeOutWithDuration:1] completion:^{
+                    [ter removeFromParent];
+                    [arrayOfLines removeObject:firstLine];
+            
+                }];
+
+            }
+        }
         
         if (tutorial_mode_on && popup_engaged && _allowDismissPopup) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"remove popup" object:nil];
@@ -606,42 +630,42 @@ int LUNAR_PERIOD = 70; //seconds
 //    
 //}
 
--(void)deallocOldLines{
-    
-    NSMutableArray* oldLines = [NSMutableArray array];
-    
-    for (Line *thisLine in arrayOfLines) {
-        if (thisLine.shouldDeallocNodeArray) {
-            [oldLines addObject:thisLine];
-        }
-    }
-    
-    for (Line* oldLine in oldLines) {
-        [arrayOfLines removeObject:oldLine];
-        for (Terrain* ter in oldLine.terrainArray) {
-            [ter removeFromParent];
-        }
-    }
-}
+//-(void)deallocOldLines{
+//    
+//    NSMutableArray* oldLines = [NSMutableArray array];
+//    
+//    for (Line *thisLine in arrayOfLines) {
+//        if (thisLine.shouldDeallocNodeArray) {
+//            [oldLines addObject:thisLine];
+//        }
+//    }
+//    
+//    for (Line* oldLine in oldLines) {
+//        [arrayOfLines removeObject:oldLine];
+//        for (Terrain* ter in oldLine.terrainArray) {
+//            [ter removeFromParent];
+//        }
+//    }
+//}
 
--(void)checkForOldLines{
-    for (Line *thisLine in arrayOfLines) {
-        if (thisLine == arrayOfLines.lastObject) {
-            continue;
-        }
-        if (thisLine.shouldDeallocNodeArray) {
-            continue;
-        }
-        if (thisLine.complete) {
-            NSMutableArray* nodeArray = thisLine.nodeArray;
-            NSValue* lastNode = nodeArray.lastObject;
-            CGPoint lastNodePositionInView = [self convertPointToView: lastNode.CGPointValue];
-            if (lastNodePositionInView.x < 0 - (self.size.width / 2)) {
-                thisLine.shouldDeallocNodeArray = true;
-            }
-        }
-    }
-}
+//-(void)checkForOldLines{
+//    for (Line *thisLine in arrayOfLines) {
+//        if (thisLine == arrayOfLines.lastObject) {
+//            continue;
+//        }
+//        if (thisLine.shouldDeallocNodeArray) {
+//            continue;
+//        }
+//        if (thisLine.complete) {
+//            NSMutableArray* nodeArray = thisLine.nodeArray;
+//            NSValue* lastNode = nodeArray.lastObject;
+//            CGPoint lastNodePositionInView = [self convertPointToView: lastNode.CGPointValue];
+//            if (lastNodePositionInView.x < 0 - (self.size.width / 2)) {
+//                thisLine.shouldDeallocNodeArray = true;
+//            }
+//        }
+//    }
+//}
 
 -(void)drawLines{
    // dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
@@ -732,8 +756,8 @@ int LUNAR_PERIOD = 70; //seconds
     }
     [self setDecoFilter];
     [self generateBackgrounds :false];
-    [self checkForOldLines];
-    [self deallocOldLines];
+    //[self checkForOldLines];
+    //[self deallocOldLines];
     if (!player.touchesEnded) {
         [self createLineNode];
     }

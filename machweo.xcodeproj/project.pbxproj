@@ -129,6 +129,17 @@
 		785A53E31A9597A400ED2E37 /* rock1_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DD1A9597A400ED2E37 /* rock1_decoration.png */; };
 		785A53E51A9597A400ED2E37 /* rock2_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DF1A9597A400ED2E37 /* rock2_decoration.png */; };
 		785A53E71A9597A400ED2E37 /* rock3_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53E11A9597A400ED2E37 /* rock3_decoration.png */; };
+		787698141ABC97F600A2FF81 /* obstacleSet_7_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7876980A1ABC97F600A2FF81 /* obstacleSet_7_a.xml */; };
+		787698151ABC97F600A2FF81 /* obstacleSet_7_b.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7876980B1ABC97F600A2FF81 /* obstacleSet_7_b.xml */; };
+		787698161ABC97F600A2FF81 /* obstacleSet_7_c.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7876980C1ABC97F600A2FF81 /* obstacleSet_7_c.xml */; };
+		787698171ABC97F600A2FF81 /* obstacleSet_7_d.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7876980D1ABC97F600A2FF81 /* obstacleSet_7_d.xml */; };
+		787698181ABC97F600A2FF81 /* obstacleSet_7_e.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7876980E1ABC97F600A2FF81 /* obstacleSet_7_e.xml */; };
+		787698191ABC97F600A2FF81 /* obstacleSet_7_f.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7876980F1ABC97F600A2FF81 /* obstacleSet_7_f.xml */; };
+		7876981A1ABC97F600A2FF81 /* obstacleSet_7_g.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787698101ABC97F600A2FF81 /* obstacleSet_7_g.xml */; };
+		7876981B1ABC97F600A2FF81 /* obstacleSet_7_h.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787698111ABC97F600A2FF81 /* obstacleSet_7_h.xml */; };
+		7876981C1ABC97F600A2FF81 /* obstacleSet_8_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787698121ABC97F600A2FF81 /* obstacleSet_8_a.xml */; };
+		7876981D1ABC97F600A2FF81 /* obstacleSet_8_b.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787698131ABC97F600A2FF81 /* obstacleSet_8_b.xml */; };
+		7876981F1ABC980900A2FF81 /* rotate_huge_obstacle.png in Resources */ = {isa = PBXBuildFile; fileRef = 7876981E1ABC980900A2FF81 /* rotate_huge_obstacle.png */; };
 		7877DCBB1AB131DE0050F132 /* AnimationComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7877DCBA1AB131DE0050F132 /* AnimationComponent.m */; };
 		7877DCD81AB13AB00050F132 /* runningDude.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7877DCD71AB13AB00050F132 /* runningDude.atlas */; };
 		7877DCDA1AB13E4C0050F132 /* jumpingDude.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7877DCD91AB13E4C0050F132 /* jumpingDude.atlas */; };
@@ -405,6 +416,17 @@
 		785A53DD1A9597A400ED2E37 /* rock1_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock1_decoration.png; sourceTree = "<group>"; };
 		785A53DF1A9597A400ED2E37 /* rock2_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock2_decoration.png; sourceTree = "<group>"; };
 		785A53E11A9597A400ED2E37 /* rock3_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock3_decoration.png; sourceTree = "<group>"; };
+		7876980A1ABC97F600A2FF81 /* obstacleSet_7_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_a.xml; sourceTree = "<group>"; };
+		7876980B1ABC97F600A2FF81 /* obstacleSet_7_b.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_b.xml; sourceTree = "<group>"; };
+		7876980C1ABC97F600A2FF81 /* obstacleSet_7_c.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_c.xml; sourceTree = "<group>"; };
+		7876980D1ABC97F600A2FF81 /* obstacleSet_7_d.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_d.xml; sourceTree = "<group>"; };
+		7876980E1ABC97F600A2FF81 /* obstacleSet_7_e.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_e.xml; sourceTree = "<group>"; };
+		7876980F1ABC97F600A2FF81 /* obstacleSet_7_f.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_f.xml; sourceTree = "<group>"; };
+		787698101ABC97F600A2FF81 /* obstacleSet_7_g.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_g.xml; sourceTree = "<group>"; };
+		787698111ABC97F600A2FF81 /* obstacleSet_7_h.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_h.xml; sourceTree = "<group>"; };
+		787698121ABC97F600A2FF81 /* obstacleSet_8_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_8_a.xml; sourceTree = "<group>"; };
+		787698131ABC97F600A2FF81 /* obstacleSet_8_b.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_8_b.xml; sourceTree = "<group>"; };
+		7876981E1ABC980900A2FF81 /* rotate_huge_obstacle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rotate_huge_obstacle.png; sourceTree = "<group>"; };
 		7877DCB91AB131DE0050F132 /* AnimationComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationComponent.h; sourceTree = "<group>"; };
 		7877DCBA1AB131DE0050F132 /* AnimationComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationComponent.m; sourceTree = "<group>"; };
 		7877DCD71AB13AB00050F132 /* runningDude.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = runningDude.atlas; sourceTree = "<group>"; };
@@ -718,6 +740,7 @@
 				782AE71D1A74B89900FF4225 /* obstacle3_obstacle.png */,
 				782AE71F1A74B89900FF4225 /* obstacle4_obstacle.png */,
 				782AE7211A74B89900FF4225 /* rotate_obstacle.png */,
+				7876981E1ABC980900A2FF81 /* rotate_huge_obstacle.png */,
 				782AE7231A74B89900FF4225 /* square_obstacle.png */,
 				782AE7261A74B89900FF4225 /* totem2_obstacle.png */,
 				782AE7271A74B89900FF4225 /* totem_obstacle.png */,
@@ -888,6 +911,16 @@
 				787AED9C1ABB57FA000429DE /* obstacleSet_6_f.xml */,
 				787AED9D1ABB57FA000429DE /* obstacleSet_6_g.xml */,
 				787AED9E1ABB57FA000429DE /* obstacleSet_6_h.xml */,
+				7876980A1ABC97F600A2FF81 /* obstacleSet_7_a.xml */,
+				7876980B1ABC97F600A2FF81 /* obstacleSet_7_b.xml */,
+				7876980C1ABC97F600A2FF81 /* obstacleSet_7_c.xml */,
+				7876980D1ABC97F600A2FF81 /* obstacleSet_7_d.xml */,
+				7876980E1ABC97F600A2FF81 /* obstacleSet_7_e.xml */,
+				7876980F1ABC97F600A2FF81 /* obstacleSet_7_f.xml */,
+				787698101ABC97F600A2FF81 /* obstacleSet_7_g.xml */,
+				787698111ABC97F600A2FF81 /* obstacleSet_7_h.xml */,
+				787698121ABC97F600A2FF81 /* obstacleSet_8_a.xml */,
+				787698131ABC97F600A2FF81 /* obstacleSet_8_b.xml */,
 			);
 			path = obstacleSets;
 			sourceTree = "<group>";
@@ -1196,6 +1229,7 @@
 				782AE7961A74B89900FF4225 /* grass.png in Resources */,
 				7883AE3F1A8EEC24006A94A4 /* menulogohalfx.png in Resources */,
 				6509D2E91A5E290300F1BBA6 /* brush7.png in Resources */,
+				7876981D1ABC97F600A2FF81 /* obstacleSet_8_b.xml in Resources */,
 				782AE7A01A74B89900FF4225 /* mountain3_decoration.png in Resources */,
 				787AEDAD1ABB57FA000429DE /* obstacleSet_6_g.xml in Resources */,
 				782E52311AA7F9A3004FE1F7 /* decorationSet_jungle_day_e.xml in Resources */,
@@ -1231,10 +1265,12 @@
 				782312751AB76B8E00E173CE /* obstacleSet_3_b.xml in Resources */,
 				78E959161AAE81E700FA51EE /* jungleplant1_decoration.png in Resources */,
 				78D7246B1AAD3F2A008C559E /* tenggriPS_02.png in Resources */,
+				7876981C1ABC97F600A2FF81 /* obstacleSet_8_a.xml in Resources */,
 				78337A4D1AA3F727008756CB /* shrub1_decoration.png in Resources */,
 				787AED641ABB5350000429DE /* obstacleSet_4_f.xml in Resources */,
 				78E959041AAE81E700FA51EE /* junglebush1_decoration.png in Resources */,
 				659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */,
+				7876981B1ABC97F600A2FF81 /* obstacleSet_7_h.xml in Resources */,
 				782AE7861A74B89900FF4225 /* cloudopaque3_decoration.png in Resources */,
 				78FFBC7A1A8EAC9500996198 /* chapters_button_not_clicked.png in Resources */,
 				78D724791AAD3F2A008C559E /* tenggriPS_16.png in Resources */,
@@ -1300,6 +1336,7 @@
 				78E959111AAE81E700FA51EE /* jungleplant11_decoration.png in Resources */,
 				78E9591D1AAE81E700FA51EE /* jungleplant8_decoration.png in Resources */,
 				782AE7A71A74B89900FF4225 /* obstacle1_obstacle.png in Resources */,
+				787698181ABC97F600A2FF81 /* obstacleSet_7_e.xml in Resources */,
 				78337A4B1AA3F727008756CB /* dune9_decoration.png in Resources */,
 				78337A2E1AA3F727008756CB /* dune15_decoration.png in Resources */,
 				782AE7DD1A74B89900FF4225 /* redtree3_decoration.png in Resources */,
@@ -1314,6 +1351,7 @@
 				782312191AB7660A00E173CE /* obstacleSet_2_e.xml in Resources */,
 				782312161AB7660A00E173CE /* obstacleSet_2_b.xml in Resources */,
 				78FFBC831A8EAC9500996198 /* purpleglassblur.png in Resources */,
+				787698141ABC97F600A2FF81 /* obstacleSet_7_a.xml in Resources */,
 				78E959201AAE81E700FA51EE /* jungletree10_decoration.png in Resources */,
 				7823127A1AB76B8E00E173CE /* obstacleSet_3_g.xml in Resources */,
 				782312171AB7660A00E173CE /* obstacleSet_2_c.xml in Resources */,
@@ -1342,6 +1380,7 @@
 				78337A471AA3F727008756CB /* dune7_decoration.png in Resources */,
 				78E959131AAE81E700FA51EE /* jungleplant13_decoration.png in Resources */,
 				78337A5E1AA404A3008756CB /* decorationSet_sahara_day_e.xml in Resources */,
+				787698191ABC97F600A2FF81 /* obstacleSet_7_f.xml in Resources */,
 				787AED631ABB5350000429DE /* obstacleSet_4_e.xml in Resources */,
 				787AEDAA1ABB57FA000429DE /* obstacleSet_6_d.xml in Resources */,
 				7877DCD81AB13AB00050F132 /* runningDude.atlas in Resources */,
@@ -1353,7 +1392,9 @@
 				787AEDA21ABB57FA000429DE /* obstacleSet_5_d.xml in Resources */,
 				782AE7941A74B89900FF4225 /* blackgrass_decoration.png in Resources */,
 				782AE7781A74B89900FF4225 /* cloud2opaque_decoration.png in Resources */,
+				787698171ABC97F600A2FF81 /* obstacleSet_7_d.xml in Resources */,
 				782E52301AA7F9A3004FE1F7 /* decorationSet_jungle_day_d.xml in Resources */,
+				7876981A1ABC97F600A2FF81 /* obstacleSet_7_g.xml in Resources */,
 				78D724731AAD3F2A008C559E /* tenggriPS_10.png in Resources */,
 				787AEDA81ABB57FA000429DE /* obstacleSet_6_b.xml in Resources */,
 				78FFBC7D1A8EAC9500996198 /* leaderboard_button_clicked.png in Resources */,
@@ -1381,10 +1422,12 @@
 				787AEDA71ABB57FA000429DE /* obstacleSet_6_a.xml in Resources */,
 				78D724741AAD3F2A008C559E /* tenggriPS_11.png in Resources */,
 				782AE7B51A74B89900FF4225 /* totem_obstacle.png in Resources */,
+				7876981F1ABC980900A2FF81 /* rotate_huge_obstacle.png in Resources */,
 				78FFBC841A8EAC9500996198 /* settings_button_clicked.png in Resources */,
 				782AE7A11A74B89900FF4225 /* mountain_decoration.png in Resources */,
 				78FFBC861A8EAC9500996198 /* unlockables_button_clicked.png in Resources */,
 				78E9592A1AAE81E700FA51EE /* jungletree6_decoration.png in Resources */,
+				787698161ABC97F600A2FF81 /* obstacleSet_7_c.xml in Resources */,
 				78FFBC7B1A8EAC9500996198 /* highscores_button_clicked.png in Resources */,
 				78337A411AA3F727008756CB /* dune4_decoration.png in Resources */,
 				78344E451A97E39C00F9A5DF /* purpletree2_decoration.png in Resources */,
@@ -1403,6 +1446,7 @@
 				78337A261AA3F727008756CB /* dune11_decoration.png in Resources */,
 				785A53E31A9597A400ED2E37 /* rock1_decoration.png in Resources */,
 				782312141AB7660A00E173CE /* obstacleSet_1_c.xml in Resources */,
+				787698151ABC97F600A2FF81 /* obstacleSet_7_b.xml in Resources */,
 				787AED621ABB5350000429DE /* obstacleSet_4_d.xml in Resources */,
 				782E522E1AA7F9A3004FE1F7 /* decorationSet_jungle_day_b.xml in Resources */,
 				782AE7A31A74B89900FF4225 /* circlemask_obstacle.png in Resources */,

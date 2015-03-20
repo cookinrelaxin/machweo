@@ -359,16 +359,16 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 -(NSUInteger)calculateDifficultyFromDistance:(NSUInteger)distance{
     
-    NSUInteger roundedDistance = RoundDownTo(distance, OBSTACLE_STADE_LENGTH);
-    
-    NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
-    if (difficulty > MAX_DIFFICULTY) {
-        difficulty = MAX_DIFFICULTY;
-    }
-    NSLog(@"difficulty: %lu", difficulty);
-    
-    return difficulty;
-   // return 6;
+//    NSUInteger roundedDistance = RoundDownTo(distance, OBSTACLE_STADE_LENGTH);
+//    
+//    NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
+//    if (difficulty > MAX_DIFFICULTY) {
+//        difficulty = MAX_DIFFICULTY;
+//    }
+//    NSLog(@"difficulty: %lu", difficulty);
+//    
+//    return difficulty;
+    return 1;
 }
 
 -(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{
