@@ -10,7 +10,7 @@
 #import "Constants.h"
 
 @interface GameScene : SKScene
-@property (nonatomic, strong) SKEffectNode* world;
+@property (nonatomic, strong) SKNode* world;
 @property (nonatomic, strong) SKNode* obstacles;
 @property (nonatomic, strong) SKNode* terrain;
 @property (nonatomic, strong) SKNode* decorations;

@@ -50,6 +50,7 @@
         //[self.view sendSubviewToBack:_gameSceneView];
         _gameSceneView.ignoresSiblingOrder = YES;
         _gameSceneView.showsFPS = YES;
+        _gameSceneView.shouldCullNonVisibleNodes = false;
         //_effectsView.layer.opacity = 1;
        // _effectsView.userInteractionEnabled = NO;
         [self setUpObservers];
