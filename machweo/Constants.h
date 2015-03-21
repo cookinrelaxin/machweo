@@ -101,10 +101,7 @@ typedef enum Biomes
 @property (readonly, nonatomic) UIColor* LOADING_LABEL_FONT_COLOR;
 @property (readonly, nonatomic) NSString* LOADING_LABEL_FONT_NAME;
 
-@property (readonly, nonatomic) float RESTART_LABEL_FONT_SIZE;
-@property (readonly, nonatomic) UIColor* RESTART_LABEL_FONT_COLOR;
-@property (readonly, nonatomic) NSString* RESTART_LABEL_FONT_NAME;
-
+@property (readonly, nonatomic) float MENU_LABEL_FONT_SIZE;
 
 @property (readonly, nonatomic) float LOGO_LABEL_FONT_SIZE;
 @property (readonly, nonatomic) UIColor* LOGO_LABEL_FONT_COLOR;

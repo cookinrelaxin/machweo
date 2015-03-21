@@ -68,9 +68,7 @@ int midpoint(int n1, int n2)
     _LOADING_LABEL_FONT_COLOR = [UIColor whiteColor];
     _LOADING_LABEL_FONT_NAME = @"DamascusBold";
     
-    _RESTART_LABEL_FONT_SIZE = 40;
-    _RESTART_LABEL_FONT_COLOR = [UIColor whiteColor];
-    _RESTART_LABEL_FONT_NAME = @"DamascusBold";
+    _MENU_LABEL_FONT_SIZE = 30;
     
     _LOGO_LABEL_FONT_SIZE = 120;
     _LOGO_LABEL_FONT_COLOR = [UIColor colorWithRed:243 green:126 blue:61 alpha:1];

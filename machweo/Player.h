@@ -26,7 +26,7 @@
 @property (nonatomic) BOOL onGround;
 @property (nonatomic) float currentRotationSpeed;
 
-+(instancetype)playerAtPoint:(CGPoint)point;
++(instancetype)player;
 //-(void)initAtPoint:(CGPoint)point;
 -(void)updateEdges;
 -(void)resetMinsAndMaxs;

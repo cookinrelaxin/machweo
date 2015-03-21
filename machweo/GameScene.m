@@ -116,6 +116,8 @@ int LUNAR_PERIOD = 70; //seconds
         _world = [[SKNode alloc] init];
         self.shouldEnableEffects = true;
         [self addChild:_world];
+        _hud = [SKNode node];
+        [self addChild:_hud];
         _obstacles = [SKNode node];
         _terrain = [SKNode node];
         _decorations = [[SKNode alloc] init];
@@ -147,11 +149,13 @@ int LUNAR_PERIOD = 70; //seconds
         distanceLabel.zPosition = _constants.HUD_Z_POSITION;
         distanceLabel.text = @"0";
         distanceLabel.hidden = true;
-        [self addChild:distanceLabel];
+        [_hud addChild:distanceLabel];
+        player = [Player player];
+        //[self createPlayer];
         
-        CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
-        player = [Player playerAtPoint:pointToInitAt];
         [self createLogoLabel];
+        [self createMuteButton];
+        [self createGotoMenuButton];
 
     }
     return self;
@@ -401,8 +405,8 @@ int LUNAR_PERIOD = 70; //seconds
     //NSLog(@"_world: %@", _world);
     //NSLog(@"_decorations.zPosition: %f", _decorations.zPosition);
 
-    if (!player_created && !gameOver && !logoLabel) {
-        [self createPlayer];
+    if (!in_game && !gameOver && !logoLabel) {
+        //[self createPlayer];
         [worldStreamer enableObstacles];
         distanceLabel.hidden = false;
         //[[NSNotificationCenter defaultCenter] postNotificationName:@"dismiss logo" object:nil];
@@ -481,7 +485,10 @@ int LUNAR_PERIOD = 70; //seconds
 -(void)createPlayer{
     player_created = true;
     [self addChild:player];
-    currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + (self.view.bounds.size.width / 8) * _constants.SCALE_COEFFICIENT.dy, [self convertPointToView:player.position].y);
+    player.onGround = true;
+    
+    //currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + (self.view.bounds.size.width / 8) * _constants.SCALE_COEFFICIENT.dy, [self convertPointToView:player.position].y);
+    currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + player.size.width / 2, [self convertPointToView:player.position].y);
 }
 
 -(void)createLineNode{
@@ -662,6 +669,9 @@ int LUNAR_PERIOD = 70; //seconds
         [self createLineNode];
     }
     [self tellObstaclesToMove];
+    if (!player_created) {
+        [self createPlayer];
+    }
     if (player_created && !gameOver) {
         [self checkForWonGame];
         [self checkForLostGame];
@@ -741,13 +751,13 @@ int LUNAR_PERIOD = 70; //seconds
     gameOver = true;
     //[self performSunset];
     [self fadeVolumeOut];
-    [self reset];
+    //[self reset];
 
 }
 
 -(void)tellObstaclesToMove{
     for (Obstacle* obs in _obstacles.children) {
-        [obs move];
+        [obs moveWithScene:self];
     }
 }
 
@@ -806,10 +816,11 @@ int LUNAR_PERIOD = 70; //seconds
     if (!_stopScrolling) {
         currentDesiredPlayerPositionInView = CGPointMake(currentDesiredPlayerPositionInView.x, [self convertPointToView:player.position].y);
         
-        CGPoint playerPreviousPosition = CGPointMake(player.xCoordinateOfLeftSide + player.size.width / 2, player.yCoordinateOfBottomSide + player.size.height / 2);
-        CGPoint playerCurrentPosition = player.position;
+        //CGPoint playerPreviousPosition = CGPointMake(player.xCoordinateOfLeftSide + player.size.width / 2, player.yCoordinateOfBottomSide + player.size.height / 2);
+        //CGPoint playerCurrentPosition = player.position;
         player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
-        CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
+       // CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
+        CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(player.velocity.dx, 0);
         for (Line* line in arrayOfLines) {
             for (int i = 0; i < line.nodeArray.count; i ++) {
                 NSValue* pointNode = [line.nodeArray objectAtIndex:i];
@@ -843,12 +854,12 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)reset{
-    {
-        [player removeFromParent];
-        player = nil;
-        CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
-        player = [Player playerAtPoint:pointToInitAt];
-    }
+//    {
+//        [player removeFromParent];
+//        player = nil;
+//        CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
+//        player = [Player playerAtPoint:pointToInitAt];
+//    }
     
     previousPoint = currentPoint = CGPointZero;
     [physicsComponent reset];
@@ -856,7 +867,7 @@ int LUNAR_PERIOD = 70; //seconds
     endGameNotificationSent = false;
     gameOver = false;
     in_game = false;
-    player_created = false;
+    //player_created = false;
     [self startMusic];
     tutorial_mode_on = false;
     found_first_obstacle = false;
@@ -888,7 +899,7 @@ int LUNAR_PERIOD = 70; //seconds
         logoLabel.zPosition = _constants.HUD_Z_POSITION;
         logoLabel.text = @"MACHWEO";
         //logoLabel.text = levelName;
-        [self addChild:logoLabel];
+        [_hud addChild:logoLabel];
         logoLabel.alpha = 0.0f;
         SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
         [logoLabel runAction:logoFadeIn completion:^{
@@ -923,11 +934,24 @@ int LUNAR_PERIOD = 70; //seconds
 
 -(void)createMuteButton{
     muteLabelButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-    logoLabel.fontSize = 10;
-    logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
-    logoLabel.zPosition = _constants.HUD_Z_POSITION;
-    logoLabel.text = @"mute";
-    logoLabel.position = CGPointMake(CGRectGetMaxX(self.frame) - logoLabel.frame.size.width, CGRectGetMaxY(self.frame) - logoLabel.frame.size.height);
+    muteLabelButton.fontSize = _constants.MENU_LABEL_FONT_SIZE;
+    muteLabelButton.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
+    muteLabelButton.zPosition = _constants.HUD_Z_POSITION;
+    muteLabelButton.text = @"mute";
+    CGPoint posInScene = CGPointMake(CGRectGetMaxX(self.frame) - (muteLabelButton.frame.size.width / 2), CGRectGetMaxY(self.frame) - muteLabelButton.frame.size.height);
+    muteLabelButton.position = [_hud convertPoint:posInScene fromNode:self];
+    [_hud addChild:muteLabelButton];
+}
+
+-(void)createGotoMenuButton{
+    menuLabelButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+    menuLabelButton.fontSize = _constants.MENU_LABEL_FONT_SIZE;
+    menuLabelButton.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
+    menuLabelButton.zPosition = _constants.HUD_Z_POSITION;
+    menuLabelButton.text = @"menu";
+    CGPoint posInScene = CGPointMake(menuLabelButton.frame.size.width / 2, CGRectGetMaxY(self.frame) - menuLabelButton.frame.size.height);
+    menuLabelButton.position = [_hud convertPoint:posInScene fromNode:self];
+    [_hud addChild:menuLabelButton];
 }
 
 @end

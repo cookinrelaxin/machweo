@@ -19,7 +19,7 @@
     return obstacle;
 }
 
--(void)move{
+-(void)moveWithScene:(SKScene *)scene{
     float speed;
     
     switch (_currentSpeedType) {
@@ -55,7 +55,7 @@
             break;
         case motionTypeUpAndDown:
             [self resetZRotation];
-            [self moveUpAndDownAtSpeed:speed];
+            [self moveUpAndDownAtSpeed:speed andScene:scene];
             break;
         case motionTypeRotatesClockwise:
             [self rotateClockwiseAtSpeed:speed];
@@ -93,8 +93,7 @@
     
 }
 
--(void)moveUpAndDownAtSpeed:(float)speed{
-    SKScene* scene = (SKScene*)self.parent.parent;
+-(void)moveUpAndDownAtSpeed:(float)speed andScene:(SKScene*)scene{
     for (Obstacle* node in self.parent.children) {
         if (node == self) {
             continue;

@@ -15,24 +15,13 @@
 //    self.minYPosition = -9999;
 //}
 
-+(instancetype)playerAtPoint:(CGPoint)point{
++(instancetype)player{
     Constants* constants = [Constants sharedInstance];
     Player *player = [Player spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(constants.PLAYER_SIZE * constants.SCALE_COEFFICIENT.dy * .8259, constants.PLAYER_SIZE * constants.SCALE_COEFFICIENT.dy)];
-    //Player *player = [Player spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(constants.PLAYER_SIZE, constants.PLAYER_SIZE * 2)];
     player.zPosition = constants.PLAYER_Z_POSITION;
-    player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, constants.MAX_PLAYER_VELOCITY_DY);
-    player.position = point;
-    
     player.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(player.size.width * 1/6, player.size.height * 1/6)];
     player.physicsBody.categoryBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
     player.physicsBody.contactTestBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
-    //player.physicsBody.collisionBitMask = 3;
-
-   // NSLog(@"player.physicsBody.categoryBitMask: %d", player.physicsBody.categoryBitMask);
-    //NSLog(@"player.physicsBody.contactTestBitMask: %d", player.physicsBody.contactTestBitMask);
-
-    
-    //player.physicsBody.dynamic = false;
     player.physicsBody.affectedByGravity = false;
     player.physicsBody.allowsRotation = false;
 

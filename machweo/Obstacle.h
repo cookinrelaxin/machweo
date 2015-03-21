@@ -40,6 +40,6 @@ typedef enum SpeedType
 
 -(NSString*)stringValueOfCurrentMotionType;
 -(NSString*)stringValueOfCurrentSpeedType;
--(void)move;
+-(void)moveWithScene:(SKScene*)scene;
 
 @end
