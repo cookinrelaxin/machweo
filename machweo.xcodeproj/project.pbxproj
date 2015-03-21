@@ -151,7 +151,6 @@
 		7877DCBB1AB131DE0050F132 /* AnimationComponent.m in Sources */ = {isa = PBXBuildFile; fileRef = 7877DCBA1AB131DE0050F132 /* AnimationComponent.m */; };
 		7877DCD81AB13AB00050F132 /* runningDude.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7877DCD71AB13AB00050F132 /* runningDude.atlas */; };
 		7877DCDA1AB13E4C0050F132 /* jumpingDude.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7877DCD91AB13E4C0050F132 /* jumpingDude.atlas */; };
-		787853071ABDF3D000C983D6 /* jungleplant14_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 787853061ABDF3D000C983D6 /* jungleplant14_decoration.png */; };
 		787BB5431A9D656400DF2D7C /* Amatic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 787BB5411A9D61F000DF2D7C /* Amatic-Bold.ttf */; };
 		787BB5441A9D656400DF2D7C /* AmaticSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 787BB5421A9D61F000DF2D7C /* AmaticSC-Regular.ttf */; };
 		7883AE3D1A8EEB60006A94A4 /* menulogo1x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */; };
@@ -427,7 +426,6 @@
 		7877DCBA1AB131DE0050F132 /* AnimationComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationComponent.m; sourceTree = "<group>"; };
 		7877DCD71AB13AB00050F132 /* runningDude.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = runningDude.atlas; sourceTree = "<group>"; };
 		7877DCD91AB13E4C0050F132 /* jumpingDude.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = jumpingDude.atlas; sourceTree = "<group>"; };
-		787853061ABDF3D000C983D6 /* jungleplant14_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jungleplant14_decoration.png; sourceTree = "<group>"; };
 		787BB5411A9D61F000DF2D7C /* Amatic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Amatic-Bold.ttf"; sourceTree = "<group>"; };
 		787BB5421A9D61F000DF2D7C /* AmaticSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmaticSC-Regular.ttf"; sourceTree = "<group>"; };
 		7883AE3C1A8EEB60006A94A4 /* menulogo1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menulogo1x.png; sourceTree = "<group>"; };
@@ -1047,7 +1045,6 @@
 				78E958E21AAE81E700FA51EE /* jungleplant11_decoration.png */,
 				78E958E31AAE81E700FA51EE /* jungleplant12_decoration.png */,
 				78E958E41AAE81E700FA51EE /* jungleplant13_decoration.png */,
-				787853061ABDF3D000C983D6 /* jungleplant14_decoration.png */,
 				78E958E61AAE81E700FA51EE /* jungleplant15_decoration.png */,
 				78E958E71AAE81E700FA51EE /* jungleplant1_decoration.png */,
 				78E958E81AAE81E700FA51EE /* jungleplant2_decoration.png */,
@@ -1394,7 +1391,6 @@
 				78D724741AAD3F2A008C559E /* tenggriPS_11.png in Resources */,
 				782AE7B51A74B89900FF4225 /* totem_obstacle.png in Resources */,
 				78FFBC841A8EAC9500996198 /* settings_button_clicked.png in Resources */,
-				787853071ABDF3D000C983D6 /* jungleplant14_decoration.png in Resources */,
 				782AE7A11A74B89900FF4225 /* mountain_decoration.png in Resources */,
 				78FFBC861A8EAC9500996198 /* unlockables_button_clicked.png in Resources */,
 				78E9592A1AAE81E700FA51EE /* jungletree6_decoration.png in Resources */,
