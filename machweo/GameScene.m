@@ -50,8 +50,19 @@ int LUNAR_PERIOD = 70; //seconds
     BOOL in_game;
     BOOL player_created;
     
-    SKLabelNode* logoLabel;
-    SKLabelNode* muteLabel;
+    //UI
+        SKLabelNode* logoLabel;
+        SKLabelNode* muteLabelButton;
+        SKLabelNode* menuLabelButton;
+        SKNode* menuNode;
+        SKLabelNode* scoreLabel;
+        SKLabelNode* highscoreLabel;
+        SKLabelNode* shareLabelButton;
+        SKLabelNode* leaderboardLabelButton;
+        SKLabelNode* retryLabelButton;
+    
+    //
+    
     
     SKSpriteNode* sunNode;
     SKSpriteNode* moonNode;
@@ -96,17 +107,20 @@ int LUNAR_PERIOD = 70; //seconds
     if (self = [super initWithSize:size]){
         _constants = [Constants sharedInstance];
         skyWidth = RAW_SKY_WIDTH;
-
+        _world = [[SKEffectNode alloc] init];
+        _world.shouldEnableEffects = true;
+        //_world.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidX(self.frame));
+        [self addChild:_world];
         _obstacles = [SKNode node];
         _terrain = [SKNode node];
         _decorations = [SKNode node];
         _skies = [SKNode node];
-        [self addChild:_obstacles];
-        [self addChild:_terrain];
-        [self addChild:_decorations];
-        [self addChild:_skies];
+        [_world addChild:_obstacles];
+        [_world addChild:_terrain];
+        [_world addChild:_decorations];
+        [_world addChild:_skies];
 
-        physicsComponent = [[ButsuLiKi alloc] init];
+        physicsComponent = [[ButsuLiKi alloc] initWithSceneSize:self.size];
         animationComponent = [AnimationComponent sharedInstance];
         arrayOfLines = [NSMutableArray array];
         
@@ -114,7 +128,7 @@ int LUNAR_PERIOD = 70; //seconds
         
         skyDict = _constants.SKY_DICT;
         skyPool = [NSMutableArray array];
-        worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0];
+        worldStreamer = [[WorldStreamer alloc] initWithScene:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0];
         [self generateBackgrounds :false];
 
         [self organizeTheHeavens];
@@ -307,7 +321,7 @@ int LUNAR_PERIOD = 70; //seconds
         sunPanel.zRotation =  [self calculateInitialSolarRotation];
         sunPanel.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
 
-        [self addChild:sunPanel];
+        [_world addChild:sunPanel];
         
         
         //sunNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
@@ -331,7 +345,7 @@ int LUNAR_PERIOD = 70; //seconds
         if (spriteTexture) {
             moonNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
         }
-        [self addChild:moonNode];
+        [_world addChild:moonNode];
         //moonNode.size = CGSizeMake(moonNode.size.width * _constants.SCALE_COEFFICIENT.dy, moonNode.size.height * _constants.SCALE_COEFFICIENT.dy);
         moonNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
         UIBezierPath *moonPath = [UIBezierPath bezierPath];
@@ -391,6 +405,7 @@ int LUNAR_PERIOD = 70; //seconds
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    NSLog(@"_world: %@", _world);
     if (!player_created && !gameOver && !logoLabel) {
         [self createPlayer];
         [worldStreamer enableObstacles];
@@ -594,39 +609,39 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)setDecoFilter{
-    float maxY = centerOfSolarOrbit.y + radiusOfSolarOrbit;
-    float minY = centerOfSolarOrbit.y - radiusOfSolarOrbit;
-    float sunY = [self convertPoint:sunNode.position fromNode:sunNode.parent].y;
-    
-    float minBrightnessMultiplier = 1.0 / 5.0;
-    float maxBrightnessMultiplier = 1.0;
-    
-    float brightness = sunY / maxY;
-    float maxDistanceFromApex = maxY - minY;
-    float distanceFromApex = maxY - sunY;
-    float brightnessMultiplier = (distanceFromApex / maxDistanceFromApex) / 2.0;
-    brightnessMultiplier = (brightnessMultiplier > maxBrightnessMultiplier) ? maxBrightnessMultiplier : brightnessMultiplier;
-    brightnessMultiplier = (brightnessMultiplier < minBrightnessMultiplier) ? minBrightnessMultiplier : brightnessMultiplier;
-
-    //NSLog(@"brightnessMultiplier: %f", brightnessMultiplier);
-    brightness *= brightnessMultiplier;
-    float minB = -.20;
-    float maxB = .15;
-    brightness = (brightness < minB) ? minB : brightness;
-    brightness = (brightness > maxB) ? maxB : brightness;
-    
-    //NSLog(@"rawBrightness: %f", rawBrightness);
-    //NSLog(@"brightness: %f", brightness);
-    
-    CGColorRef filterColor = [UIColor colorWithHue:1 saturation:0 brightness:0 alpha:1].CGColor;
-    CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-   // CIColor *filterColor = [CIColor color]
-    CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
-    [lighten setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-    [lighten setValue:@(brightness) forKey:@"inputBrightness"];
-    
-    self.filter = lighten;
-    self.shouldEnableEffects = true;
+//    float maxY = centerOfSolarOrbit.y + radiusOfSolarOrbit;
+//    float minY = centerOfSolarOrbit.y - radiusOfSolarOrbit;
+//    float sunY = [self convertPoint:sunNode.position fromNode:sunNode.parent].y;
+//    
+//    float minBrightnessMultiplier = 1.0 / 5.0;
+//    float maxBrightnessMultiplier = 1.0;
+//    
+//    float brightness = sunY / maxY;
+//    float maxDistanceFromApex = maxY - minY;
+//    float distanceFromApex = maxY - sunY;
+//    float brightnessMultiplier = (distanceFromApex / maxDistanceFromApex) / 2.0;
+//    brightnessMultiplier = (brightnessMultiplier > maxBrightnessMultiplier) ? maxBrightnessMultiplier : brightnessMultiplier;
+//    brightnessMultiplier = (brightnessMultiplier < minBrightnessMultiplier) ? minBrightnessMultiplier : brightnessMultiplier;
+//
+//    //NSLog(@"brightnessMultiplier: %f", brightnessMultiplier);
+//    brightness *= brightnessMultiplier;
+//    float minB = -.20;
+//    float maxB = .15;
+//    brightness = (brightness < minB) ? minB : brightness;
+//    brightness = (brightness > maxB) ? maxB : brightness;
+//    
+//    //NSLog(@"rawBrightness: %f", rawBrightness);
+//    //NSLog(@"brightness: %f", brightness);
+//    
+//    CGColorRef filterColor = [UIColor colorWithHue:1 saturation:0 brightness:0 alpha:1].CGColor;
+//    CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+//   // CIColor *filterColor = [CIColor color]
+//    CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
+//    [lighten setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+//    [lighten setValue:@(brightness) forKey:@"inputBrightness"];
+//    
+//    _world.filter = lighten;
+//    //_world.shouldEnableEffects = true;
 }
 
 
@@ -642,7 +657,7 @@ int LUNAR_PERIOD = 70; //seconds
         }
         
     }
-    [self setDecoFilter];
+    //[self setDecoFilter];
     [self generateBackgrounds :false];
     if (!player.touchesEnded) {
         [self createLineNode];
@@ -906,6 +921,17 @@ int LUNAR_PERIOD = 70; //seconds
 //                        }];
             }];
         }];
+}
+
+-(void)createMuteButton{
+    muteLabelButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+    logoLabel.fontSize = 10;
+    logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
+    logoLabel.zPosition = _constants.HUD_Z_POSITION;
+    logoLabel.text = @"mute";
+    logoLabel.position = CGPointMake(CGRectGetMaxX(self.frame) - logoLabel.frame.size.width, CGRectGetMaxY(self.frame) - logoLabel.frame.size.height);
+    
+
 }
 
 

@@ -10,11 +10,14 @@
 #import "Constants.h"
 
 @interface GameScene : SKScene
-//@property (nonatomic, strong) SKNode* lines;
+@property (nonatomic, strong) SKEffectNode* world;
 @property (nonatomic, strong) SKNode* obstacles;
 @property (nonatomic, strong) SKNode* terrain;
 @property (nonatomic, strong) SKNode* decorations;
 @property (nonatomic, strong) SKNode* skies;
+
+@property (nonatomic, strong) SKNode* hud;
+
 
 @property (nonatomic, strong) Constants *constants;
 @property (nonatomic) BOOL shangoBrokeHisBack;

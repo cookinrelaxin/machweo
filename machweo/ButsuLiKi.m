@@ -17,8 +17,14 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     float previousSlope;
     NSMutableArray *pastSlopes;
     BOOL shangoBrokeHisBack;
+    CGSize sceneSize;
 }
-
+-(instancetype)initWithSceneSize:(CGSize)size{
+    if (self = [super init]) {
+        sceneSize = size;
+    }
+    return self;
+}
 -(void)resolveCollisions:(Player*)player withLineArray:(NSMutableArray*)LineArray{
     
    __block float yMin = player.position.y;
@@ -330,7 +336,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 
 -(void)verticalLoopPlayer:(Player*)player{
     if (player.velocity.dy > 0) {
-        if ((player.position.y - player.size.height) > player.parent.frame.size.height) {
+        if ((player.position.y - player.size.height) > sceneSize.height) {
             player.position = CGPointMake(player.position.x, 0 - player.size.height);
         }
         return;
@@ -338,7 +344,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     if (player.velocity.dy < 0) {
      //   NSLog(@"player.position.y: %f", player.position.y);
         if ((player.position.y + player.size.height) < 0) {
-            player.position = CGPointMake(player.position.x, player.size.height + player.parent.frame.size.height);
+            player.position = CGPointMake(player.position.x, player.size.height + sceneSize.height);
         }
         return;
     }

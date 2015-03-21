@@ -32,7 +32,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 
 @implementation WorldStreamer{
-    SKScene* _world;
+    SKScene* _scene;
     SKNode* _obstacles;
     SKNode* _decorations;
     SKView* _view;
@@ -65,11 +65,11 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     
 }
 
--(instancetype)initWithWorld:(SKScene *)world withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines withXOffset:(float)xOffset{
+-(instancetype)initWithScene:(SKScene *)scene withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines withXOffset:(float)xOffset{
     if (self = [super init]) {
         constants = [Constants sharedInstance];
 
-        _world = world;
+        _scene = scene;
         _obstacles = obstacles;
         _decorations = decorations;
         _view = view;
@@ -225,7 +225,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
             [unused_deco_pool removeObject:decoToLoad];
             //decoToLoad.size = CGSizeMake(decoToLoad.size.width * constants.SCALE_COEFFICIENT.dy, decoToLoad.size.height * constants.SCALE_COEFFICIENT.dy);
             decoToLoad.position = CGPointMake((decoToLoad.position.x * constants.SCALE_COEFFICIENT.dy), decoToLoad.position.y * constants.SCALE_COEFFICIENT.dy);
-            decoToLoad.position = [_decorations convertPoint:decoToLoad.position fromNode:_world];
+            decoToLoad.position = [_decorations convertPoint:decoToLoad.position fromNode:_scene];
             decoToLoad.position = CGPointMake(decoToLoad.position.x + xOffset, decoToLoad.position.y);
             [_decorations addChild:decoToLoad];
             [IDDictionary setValue:@"lol" forKey:decoToLoad.uniqueID];
@@ -246,8 +246,8 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
                     continue;
                 }
             
-                CGPoint decoPositionInWorld = [_world convertPoint:deco.position fromNode:_decorations];
-                CGPoint decoPositionInView = [_view convertPoint:decoPositionInWorld fromScene:_world];
+                CGPoint decoPositionInWorld = [_scene convertPoint:deco.position fromNode:_decorations];
+                CGPoint decoPositionInView = [_view convertPoint:decoPositionInWorld fromScene:_scene];
                 
                 if (decoPositionInView.x < (0 - (deco.size.width / 2))){
                     //NSLog(@"[trash addObject:deco];");
@@ -278,8 +278,8 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     NSMutableArray* phoenices = [NSMutableArray array];
 
     for (Obstacle* obs in _obstacles.children) {
-        CGPoint obsPositionInWorld = [_world convertPoint:obs.position fromNode:_obstacles];
-        CGPoint obsPositionInView = [_view convertPoint:obsPositionInWorld fromScene:_world];
+        CGPoint obsPositionInWorld = [_scene convertPoint:obs.position fromNode:_obstacles];
+        CGPoint obsPositionInView = [_view convertPoint:obsPositionInWorld fromScene:_scene];
         
         if (obsPositionInView.x < (0 - (obs.size.width / 2))){
             [phoenices addObject:obs];
@@ -384,7 +384,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 //    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
    //     dispatch_sync(dispatch_get_main_queue(), ^{
-            [obstacleSetParser loadObstaclesInWorld:_world withObstacles:_obstacles withinView:_view andTerrainPool:_terrainPool withXOffset:xOffset];
+            [obstacleSetParser loadObstaclesInWorld:_scene withObstacles:_obstacles withinView:_view andTerrainPool:_terrainPool withXOffset:xOffset];
             chunkLoading = false;
        // });
    // });
@@ -400,9 +400,9 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         
         return;
     }
-    CGPoint lastObstaclePosInSelf = [_world convertPoint:lastObstacle.position fromNode:_obstacles];
+    CGPoint lastObstaclePosInSelf = [_scene convertPoint:lastObstacle.position fromNode:_obstacles];
     
-    CGPoint lastObstaclePosInView = [_view convertPoint:lastObstaclePosInSelf fromScene:_world];
+    CGPoint lastObstaclePosInView = [_view convertPoint:lastObstaclePosInSelf fromScene:_scene];
     if (lastObstaclePosInView.x < _view.bounds.size.width) {
         //NSLog(@"load next chunk");
         

@@ -23,6 +23,7 @@ int CLIFF_VERTEX_COUNT = 15;
     BOOL beforeCliffAddedToVertices;
     float terrainAlpha;
     float previousSunY;
+    CGSize sceneSize;
     
     //UIImage* textureSource;
     
@@ -30,7 +31,7 @@ int CLIFF_VERTEX_COUNT = 15;
 
 -(instancetype)initWithImage:(UIImage*)image forSceneSize:(CGSize)size{
     if (self = [super init]) {
-        //sceneSize = size;
+        sceneSize = size;
         //textureSource = image;
         //[self generateTiledFillTexture:CGSizeMake(100, 100) andSceneSize:size :image];
         _decos = [NSMutableArray array];
@@ -307,7 +308,7 @@ int CLIFF_VERTEX_COUNT = 15;
             //    NSLog(@"castedDie2: %i", castedDie2);
             SKTexture* tex = [terrainPool objectAtIndex:castedDie2];
             Decoration* sprite = [Decoration spriteNodeWithTexture:tex];
-            if (sprite.size.width > (((SKScene*)node.parent).size.height / 2)) {
+            if (sprite.size.width > (sceneSize.height / 2)) {
                 sprite.size = CGSizeMake(sprite.size.width / 2, sprite.size.height / 2);
             }
             if (zPos == 0) {
