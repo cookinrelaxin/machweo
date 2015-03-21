@@ -47,8 +47,8 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
     Constants* constants;
     BOOL chunkLoading;
+    BOOL shouldLoadObstacles;
     BOOL cleaningUpOldDecos;
-    BOOL allowComputation;
     
     NSMutableDictionary* obstacle_pool;
     NSMutableArray* unused_deco_pool;
@@ -65,10 +65,8 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     
 }
 
--(instancetype)initWithWorld:(SKScene *)world withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines withXOffset:(float)xOffset andTimeOfDay:(TimeOfDay)timeOfDay{
+-(instancetype)initWithWorld:(SKScene *)world withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines withXOffset:(float)xOffset{
     if (self = [super init]) {
-        allowComputation = true;
-        
         constants = [Constants sharedInstance];
 
         _world = world;
@@ -87,8 +85,8 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         
 //        // for double the fun
         [self calculateInitialBiome];
-        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
-        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
+        [self preloadDecorationChunkWithDistance:0 asynchronous:NO];
+        [self preloadDecorationChunkWithDistance:0 asynchronous:NO];
 
         for (int i = 0; i < unused_deco_pool.count; i ++) {
             [self loadNextDecoWithXOffset:0];
@@ -97,17 +95,20 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     return  self;
     
 }
+-(void)enableObstacles{
+    shouldLoadObstacles = true;
+}
 
--(void)restoreObstaclesToPoolAndFreezeComputation{
+-(void)reset{
     for (Obstacle *obs in _obstacles.children) {
         //NSLog(@"obs.name: %@", obs.name);
         [obs removeFromParent];
         NSMutableArray* obstacleTypeArray = [obstacle_pool valueForKey:obs.name];
         [obstacleTypeArray addObject:obs];
     }
-    allowComputation = false;
-    
+    shouldLoadObstacles = false;
 }
+
 
 -(NSMutableArray*)getTerrainPool{
     return _terrainPool;
@@ -155,7 +156,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     return one_times_stade_biome;
 }
 
--(void)preloadDecorationChunkWithTimeOfDay:(TimeOfDay)timeOfDay andDistance:(NSUInteger)distance asynchronous:(BOOL)async{
+-(void)preloadDecorationChunkWithDistance:(NSUInteger)distance asynchronous:(BOOL)async{
     Biome biome = [self calculateNextBiomeWithDistance:distance];
 //    if (async) {
 //        dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
@@ -190,7 +191,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
                 }
             }
         }
-        NSString* decorationSet = [self calculateDecorationSetForTimeOfDay:timeOfDay andBiome:biome];
+        NSString* decorationSet = [self calculateDecorationSetForBiome:biome];
         ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
         [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool andTerrainPool:_terrainPool];
         chunkLoading = false;
@@ -312,25 +313,24 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     return false;
 }
 
--(void)updateWithPlayerDistance:(NSUInteger)playerDistance andTimeOfDay:(TimeOfDay)timeOfDay{
-    if (allowComputation) {
-        if(!chunkLoading && [self shouldParseNewDecorationSet]){
-            chunkLoading = true;
-            [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:playerDistance asynchronous:YES];
-        }
-
+-(void)updateWithPlayerDistance:(NSUInteger)playerDistance{
+    if(!chunkLoading && [self shouldParseNewDecorationSet]){
+        chunkLoading = true;
+        [self preloadDecorationChunkWithDistance:playerDistance asynchronous:YES];
+    }
+    if (shouldLoadObstacles) {
         [self checkForOldObstacles];
         if (!chunkLoading) {
             [self checkForLastObstacleWithDistance:playerDistance];
         }
-        
-        float xOffset = _view.bounds.size.width;
-        if (!chunkLoading) {
-            [self cleanUpOldDecos];
-        }
-        if (!chunkLoading) {
-            [self loadNextDecoWithXOffset:xOffset];
-        }
+    }
+    
+    float xOffset = _view.bounds.size.width;
+    if (!chunkLoading) {
+        [self cleanUpOldDecos];
+    }
+    if (!chunkLoading) {
+        [self loadNextDecoWithXOffset:xOffset];
     }
 
 }
@@ -344,10 +344,10 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     return obstacleSet;
 }
 
--(NSString*)calculateDecorationSetForTimeOfDay:(TimeOfDay)timeOfDay andBiome:(Biome)biome{
+-(NSString*)calculateDecorationSetForBiome:(Biome)biome{
     NSMutableDictionary* biomeDict = [constants.BIOMES valueForKey:[self biomeToString:biome]];
     //NSLog(@"biomeDict: %@", biomeDict);
-    NSMutableArray* timeOfDayArray = [biomeDict valueForKey:[self timeOfDayToString:timeOfDay :NO]];
+    NSMutableArray* timeOfDayArray = [biomeDict valueForKey:@"day"];
     //NSLog(@"timeOfDayArray: %@", timeOfDayArray);
     NSUInteger chance = arc4random_uniform((uint)timeOfDayArray.count);
     NSString* decorationSet = [timeOfDayArray objectAtIndex:chance];
@@ -359,16 +359,16 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 -(NSUInteger)calculateDifficultyFromDistance:(NSUInteger)distance{
     
-//    NSUInteger roundedDistance = RoundDownTo(distance, OBSTACLE_STADE_LENGTH);
-//    
-//    NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
-//    if (difficulty > MAX_DIFFICULTY) {
-//        difficulty = MAX_DIFFICULTY;
-//    }
-//    NSLog(@"difficulty: %lu", difficulty);
-//    
-//    return difficulty;
-    return 1;
+    NSUInteger roundedDistance = RoundDownTo(distance, OBSTACLE_STADE_LENGTH);
+    
+    NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
+    if (difficulty > MAX_DIFFICULTY) {
+        difficulty = MAX_DIFFICULTY;
+    }
+    NSLog(@"difficulty: %lu", difficulty);
+    
+    return difficulty;
+    //return 1;
 }
 
 -(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{

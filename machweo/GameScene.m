@@ -42,11 +42,9 @@ int LUNAR_PERIOD = 70; //seconds
     //Score* playerScore;
     //Obstacle* nextObstacle;
     
-    NSMutableArray* previousChunks;
     NSMutableArray* skyPool;
     NSMutableDictionary* skyDict;
     
-    BOOL gameWon;
     BOOL endGameNotificationSent;
     BOOL gameOver;
     BOOL in_game;
@@ -59,15 +57,11 @@ int LUNAR_PERIOD = 70; //seconds
     
     AVAudioPlayer* backgroundMusicPlayer;
     
-    CGPoint initialTouchPoint;
-    
     BOOL tutorial_mode_on;
     BOOL found_first_obstacle;
     BOOL passed_first_obstacle;
     BOOL popup_engaged;
-    BOOL chunkLoading;
     
-    TimeOfDay currentTimeOfDay;
     NSUInteger distance_traveled;
     
     float previousPlayerXPosition_hypothetical;
@@ -117,50 +111,9 @@ int LUNAR_PERIOD = 70; //seconds
         self.physicsWorld.gravity = CGVectorMake(0, 0);
         //init hud
         
-//        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-//        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
-//        //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
-//        logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
-//        //logoLabel.fontColor = [UIColor redColor];
-//        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-//        logoLabel.zPosition = _constants.HUD_Z_POSITION;
-//        logoLabel.text = @"MACHWEO";
-//        //logoLabel.text = levelName;
-//        [self addChild:logoLabel];
-//        logoLabel.alpha = 0.0f;
-//        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
-//        [logoLabel runAction:logoFadeIn completion:^{
-//            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
-//            [logoLabel runAction:logoFadeOut completion:^{
-//                //NSLog(@"fade in again");
-//                logoLabel.text = levelName;
-//                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
-//                [logoLabel runAction:logoFadeInAgain completion:^{
-//                    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
-//                    [logoLabel runAction:logoFadeOut completion:^{
-//                        [logoLabel removeFromParent];
-//                        logoLabel = nil;
-//
-//                        if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
-//                            tutorial_mode_on = true;
-//                            
-//                            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-//                            [popupDict setValue:@"Draw a path for Maasai, and don't let him touch the ground!" forKey:@"popup text"];
-//                            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-//                            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
-//                            
-//                            popup_engaged = true;
-//                        }
-//
-//                    }];
-//                }];
-//            }];
-//        }];
-        
         skyDict = _constants.SKY_DICT;
         skyPool = [NSMutableArray array];
-        currentTimeOfDay = AM_8;
-        worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0 andTimeOfDay:currentTimeOfDay];
+        worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0];
         [self generateBackgrounds :false];
 
         [self organizeTheHeavens];
@@ -175,9 +128,6 @@ int LUNAR_PERIOD = 70; //seconds
         distanceLabel.text = @"0";
         distanceLabel.hidden = true;
         [self addChild:distanceLabel];
-        
-        CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
-        player = [Player playerAtPoint:pointToInitAt];
                 
 //        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
 //        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
@@ -438,6 +388,7 @@ int LUNAR_PERIOD = 70; //seconds
 {
     if (!player_created && !gameOver && !logoLabel) {
         [self createPlayer];
+        [worldStreamer enableObstacles];
         distanceLabel.hidden = false;
         //[[NSNotificationCenter defaultCenter] postNotificationName:@"dismiss logo" object:nil];
         in_game = true;
@@ -447,12 +398,12 @@ int LUNAR_PERIOD = 70; //seconds
     player.touchesEnded = false;
     UITouch* touch = [touches anyObject];
     CGPoint positionInSelf = [touch locationInNode:self];
-    previousPoint = currentPoint = initialTouchPoint = positionInSelf;
+    previousPoint = currentPoint = positionInSelf;
     
     if (player) {
         Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
         [arrayOfLines addObject:newLine];
-        NSLog(@"arrayOfLines.count: %lu", arrayOfLines.count);
+        //NSLog(@"arrayOfLines.count: %lu", arrayOfLines.count);
         if (arrayOfLines.count > 2) {
             Line* firstLine = nil;
             for (Line* line in arrayOfLines) {
@@ -515,6 +466,8 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)createPlayer{
+    CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
+    player = [Player playerAtPoint:pointToInitAt];
     player_created = true;
     [self addChild:player];
     currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + (self.view.bounds.size.width / 8) * _constants.SCALE_COEFFICIENT.dy, [self convertPointToView:player.position].y);
@@ -761,9 +714,9 @@ int LUNAR_PERIOD = 70; //seconds
     }
     if (player_created && !gameOver) {
         [self updateDistance];
-        [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
+        [worldStreamer updateWithPlayerDistance:distance_traveled];
         [self centerCameraOnPlayer];
-        //[self checkForNewAnimationState];
+        [self checkForNewAnimationState];
         [player resetMinsAndMaxs];
         [player updateEdges];
         [physicsComponent calculatePlayerPosition:player withLineArray:arrayOfLines];
@@ -835,9 +788,8 @@ int LUNAR_PERIOD = 70; //seconds
 -(void)loseGame{
     gameOver = true;
     //[self performSunset];
-    [worldStreamer restoreObstaclesToPoolAndFreezeComputation];
-    worldStreamer = nil;
     [self fadeVolumeOut];
+    [self reset];
 
 }
 
@@ -936,6 +888,80 @@ int LUNAR_PERIOD = 70; //seconds
 
     
     
+}
+
+-(void)reset{
+    [player removeFromParent];
+    player = nil;
+    previousPoint = currentPoint = CGPointZero;
+    [physicsComponent reset];
+    [self resetLines];
+    endGameNotificationSent = false;
+    gameOver = false;
+    in_game = false;
+    player_created = false;
+    [self startMusic];
+    tutorial_mode_on = false;
+    found_first_obstacle = false;
+    passed_first_obstacle = false;
+    popup_engaged = false;
+    distance_traveled = 0;
+    previousPlayerXPosition_hypothetical = currentPlayerXPosition_hypothetical = 0;
+    distanceLabel.text = @"0";
+    [worldStreamer reset];
+    [self createLogoLabel];
+
+}
+
+-(void)resetLines{
+    for (Line* line in arrayOfLines) {
+        for (Terrain* ter in line.terrainArray) {
+            [ter removeFromParent];
+        }
+    }
+    [arrayOfLines removeAllObjects];
+}
+
+-(void)createLogoLabel{
+    //        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+    //        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
+    //        //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
+    //        logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
+    //        //logoLabel.fontColor = [UIColor redColor];
+    //        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    //        logoLabel.zPosition = _constants.HUD_Z_POSITION;
+    //        logoLabel.text = @"MACHWEO";
+    //        //logoLabel.text = levelName;
+    //        [self addChild:logoLabel];
+    //        logoLabel.alpha = 0.0f;
+    //        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
+    //        [logoLabel runAction:logoFadeIn completion:^{
+    //            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
+    //            [logoLabel runAction:logoFadeOut completion:^{
+    //                //NSLog(@"fade in again");
+    //                logoLabel.text = levelName;
+    //                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
+    //                [logoLabel runAction:logoFadeInAgain completion:^{
+    //                    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
+    //                    [logoLabel runAction:logoFadeOut completion:^{
+    //                        [logoLabel removeFromParent];
+    //                        logoLabel = nil;
+    //
+    //                        if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
+    //                            tutorial_mode_on = true;
+    //
+    //                            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+    //                            [popupDict setValue:@"Draw a path for Maasai, and don't let him touch the ground!" forKey:@"popup text"];
+    //                            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
+    //                            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+    //
+    //                            popup_engaged = true;
+    //                        }
+    //
+    //                    }];
+    //                }];
+    //            }];
+    //        }];
 }
 
 

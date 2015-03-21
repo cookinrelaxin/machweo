@@ -18,5 +18,6 @@
 
 -(void)calculatePlayerPosition:(Player *)player withLineArray:(NSMutableArray*)pointArrayArray;
 //-(BOOL)resolveCollisionsAgainstObstacles:(Player*)player withObstacleArray:(NSArray*)obstacleArray;
+-(void)reset;
 
 @end

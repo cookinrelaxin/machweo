@@ -387,8 +387,12 @@ const float OFFLINE_ROTATION_SPEED = .02f;
         }
     //}
 
-    
-    
+}
+
+-(void)reset{
+    previousSlope = 0;
+    [pastSlopes removeAllObjects];
+    shangoBrokeHisBack = false;
 }
 
 @end
