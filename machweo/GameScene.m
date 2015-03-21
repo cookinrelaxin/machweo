@@ -628,19 +628,11 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)updateDistanceLabelWithDistance:(NSUInteger)distance{
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
-        NSString* distanceString = [NSString stringWithFormat:@"%lu m", (unsigned long)distance];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            distanceLabel.text = distanceString;
-        });
-
-    });
+    NSString* distanceString = [NSString stringWithFormat:@"%lu m", (unsigned long)distance];
+    distanceLabel.text = distanceString;
 }
 
 -(void)updateDistance{
-//    if (previousTime == 0) {
-//        previousTime = currentTime;
-//    }
     currentPlayerXPosition_hypothetical += player.velocity.dx;
     
     double difference = currentPlayerXPosition_hypothetical - previousPlayerXPosition_hypothetical;
