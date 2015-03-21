@@ -10,25 +10,21 @@
 #import "Constants.h"
 #import "GameDataManager.h"
 #import "LevelParser.h"
+#import "SpritePreloader.h"
+#import "AnimationComponent.h"
+
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
     LevelParser* parser = [[LevelParser alloc] init];
+    SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
     
-//    NSMutableDictionary* biome = [parser.biomes valueForKey:@"savanna"];
-//    NSMutableArray* timeOfDay = [biome valueForKey:@"day"];
-//    NSLog(@"[timeOfDay objectAtIndex:1]: %@", [timeOfDay objectAtIndex:1]);
-//    
-//    NSMutableDictionary* obstacleSets = parser.obstacleSets;
-//    NSMutableArray* difficulty = [obstacleSets valueForKey:@"1"];
-//    NSLog(@"[difficulty objectAtIndex:2]: %@", [difficulty objectAtIndex:2]);
-
+    [AnimationComponent sharedInstance];
     [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
     [Constants sharedInstance].BIOMES = parser.biomes;
-
-    //NSLog(@"[Constants sharedInstance].LEVEL_ARRAY: %@", [Constants sharedInstance].LEVEL_ARRAY);
+    [Constants sharedInstance].OBSTACLE_POOL = spritePreloader.getObstaclePool;
+    [Constants sharedInstance].SKY_DICT = spritePreloader.getSkyPool;
     
     //[[GameDataManager sharedInstance] loadGameData];
     return YES;

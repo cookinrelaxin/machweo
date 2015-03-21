@@ -117,6 +117,15 @@ typedef enum Biomes
 @property(nonatomic) NSMutableDictionary* BIOMES;
 
 @property(nonatomic) NSMutableDictionary* TEXTURE_DICT;
+@property(nonatomic) NSMutableDictionary* SKY_DICT;
+@property(nonatomic) NSMutableDictionary* OBSTACLE_POOL;
+
+@property(nonatomic) BOOL jungle_textures_loaded;
+@property(nonatomic) BOOL savanna_textures_loaded;
+@property(nonatomic) BOOL sahara_textures_loaded;
+
+
+
 
 @property(nonatomic) int NUMBER_OF_BACKGROUND_SIMUL;
 

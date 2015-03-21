@@ -249,6 +249,10 @@ const float OFFLINE_ROTATION_SPEED = .02f;
             player.velocity = CGVectorMake(player.velocity.dx, -2);
         }
     }
+    else if (player.onGround) {
+        player.velocity = CGVectorMake(player.velocity.dx + constants.AMBIENT_X_FORCE, player.velocity.dy);
+        player.velocity = CGVectorMake(player.velocity.dx * constants.FRICTION_COEFFICIENT, 0);
+    }
    else{
         player.velocity = CGVectorMake(player.velocity.dx, player.velocity.dy - constants.GRAVITY);
     }
@@ -311,6 +315,13 @@ const float OFFLINE_ROTATION_SPEED = .02f;
             player.position = CGPointMake(player.position.x, player.minYPosition);
         }
     }
+    if ((player.position.y - (player.size.height / 2)) < 0){
+        player.onGround = true;
+        player.position = CGPointMake(player.position.x, player.size.height / 2);
+    }
+    else{
+        player.onGround = false;
+    }
    // [self verticalLoopPlayer:player];
    
     
@@ -344,6 +355,10 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 
 -(void)calculatePlayerRotation:(Player*)player{
     //if (!shangoBrokeHisBack) {
+    if (player.onGround) {
+        [pastSlopes removeAllObjects];
+        player.zRotation = 0;
+    }
         
         if (player.roughlyOnLine) {
             float averageSlope = [self averageSlope];

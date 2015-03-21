@@ -14,7 +14,7 @@
     
 }
 
-+(instancetype)obstacleWithTextureAndPhysicsBody:(SKTexture *)texture{
++(instancetype)obstacleWithTexture:(SKTexture *)texture{
     Obstacle* obstacle = [Obstacle spriteNodeWithTexture:texture];
     return obstacle;
 }

@@ -8,6 +8,7 @@
 #import "GameScene.h"
 #import "ButsuLiKi.h"
 #import "Player.h"
+#import "Decoration.h"
 #import "Obstacle.h"
 #import "Line.h"
 #import "WorldStreamer.h"
@@ -42,13 +43,14 @@ int LUNAR_PERIOD = 70; //seconds
     //Obstacle* nextObstacle;
     
     NSMutableArray* previousChunks;
-    NSMutableDictionary* skyDict;
     NSMutableArray* skyPool;
+    NSMutableDictionary* skyDict;
     
     BOOL gameWon;
-    BOOL restartGameNotificationSent;
+    BOOL endGameNotificationSent;
     BOOL gameOver;
     BOOL in_game;
+    BOOL player_created;
     
     SKLabelNode* logoLabel;
     SKSpriteNode* sunNode;
@@ -63,7 +65,7 @@ int LUNAR_PERIOD = 70; //seconds
     BOOL found_first_obstacle;
     BOOL passed_first_obstacle;
     BOOL popup_engaged;
-    //BOOL chunkLoading;
+    BOOL chunkLoading;
     
     TimeOfDay currentTimeOfDay;
     NSUInteger distance_traveled;
@@ -89,19 +91,15 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)dealloc{
-    backgroundMusicPlayer = nil;
     NSLog(@"dealloc game scene");
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
 }
 
 -(instancetype)initWithSize:(CGSize)size withinView:(SKView*)view{
     if (self = [super initWithSize:size]){
-        //playerScore = [[Score alloc] init];
         _constants = [Constants sharedInstance];
-        //skyWidth = RAW_SKY_WIDTH * _constants.SCALE_COEFFICIENT.dy;
         skyWidth = RAW_SKY_WIDTH;
-        //NSLog(@"skyWidth: %f", skyWidth);
-        //sky_displacement_per_frame = SKY_WIDTH / (60 * DIURNAL_PERIOD);
-        //NSLog(@"sky_displacement_per_frame: %d", sky_displacement_per_frame);
 
         _obstacles = [SKNode node];
         _terrain = [SKNode node];
@@ -113,7 +111,7 @@ int LUNAR_PERIOD = 70; //seconds
         [self addChild:_skies];
 
         physicsComponent = [[ButsuLiKi alloc] init];
-        animationComponent = [[AnimationComponent alloc] initAnimationDictionary];
+        animationComponent = [AnimationComponent sharedInstance];
         arrayOfLines = [NSMutableArray array];
         
         self.physicsWorld.gravity = CGVectorMake(0, 0);
@@ -158,16 +156,12 @@ int LUNAR_PERIOD = 70; //seconds
 //                }];
 //            }];
 //        }];
-
-        //ChunkLoader *cl = [[ChunkLoader alloc] initWithFile:levelName];
-        //[cl loadWorld:self withObstacles:_obstacles andDecorations:_decorations andBucket:previousChunks withinView:view andLines:arrayOfLines andTerrainPool:terrainPool withXOffset:0];
         
-        
-        skyDict = [NSMutableDictionary dictionary];
+        skyDict = _constants.SKY_DICT;
         skyPool = [NSMutableArray array];
         currentTimeOfDay = AM_8;
         worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0 andTimeOfDay:currentTimeOfDay];
-        [self generateBackgrounds :false];
+        //[self generateBackgrounds :false];
 
         [self organizeTheHeavens];
         [self startMusic];
@@ -182,47 +176,21 @@ int LUNAR_PERIOD = 70; //seconds
         distanceLabel.hidden = true;
         [self addChild:distanceLabel];
         
+        CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
+        player = [Player playerAtPoint:pointToInitAt];
+                
 //        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
 //        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-//        // CIColor *filterColor = [CIColor color]
-//        CIFilter* bloomFilter = [CIFilter filterWithName:@"CIBloom"];
-//        [bloomFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-//        [bloomFilter setValue:@(50.0) forKey:@"inputRadius"];
-//        [bloomFilter setValue:@(2.0) forKey:@"inputIntensity"];
-//
-//       // SKEffectNode* bloomEffect = [SKEffectNode node];
-//       // bloomEffect.filter = bloomFilter;
-//        //bloomEffect.shouldEnableEffects = true;
-//
-//        self.filter = bloomFilter;
+//         CIColor *filterColor = [CIColor color]
+//        CIFilter* blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+//        [blurFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+//        [blurFilter setValue:@(10.00) forKey:@"inputRadius"];
+//        
+//        self.filter = blurFilter;
 //        self.shouldEnableEffects = true;
-        
-//        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
-//        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-//        // CIColor *filterColor = [CIColor color]
-//        CIFilter* pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
-//        [pixellateFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-//        [pixellateFilter setValue:@(20.00) forKey:@"inputScale"];
-//
-//        self.filter = pixellateFilter;
-//        self.shouldEnableEffects = true;
-        
-        //CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
-        //CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-        // CIColor *filterColor = [CIColor color]
-        //CIFilter* blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
-        //[blurFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-        //[blurFilter setValue:@(10.00) forKey:@"inputRadius"];
-
-        //self.filter = blurFilter;
-        //self.shouldEnableEffects = true;
-        
-        
-
-        
-        
-        
-        
+//        
+//        
+//    
     }
     return self;
 }
@@ -260,30 +228,25 @@ int LUNAR_PERIOD = 70; //seconds
         //NSLog(@"rightEdgeOfFirstBackground: %f", rightEdgeOfFirstBackground);
         if ((leftEdgeOfFirstBackground > self.size.width) || forceLoad) {
            // NSLog(@"(rightEdgeOfFirstBackground < 0)");
-            NSString* tenggriCountString = (currentIndexInTenggri < 10) ? [NSString stringWithFormat:@"0%lu", currentIndexInTenggri] : [NSString stringWithFormat:@"%lu", currentIndexInTenggri];
+            NSString* tenggriCountString = (currentIndexInTenggri < 10) ? [NSString stringWithFormat:@"0%lu", currentIndexInTenggri] : [NSString stringWithFormat:@"%lu", (unsigned long)currentIndexInTenggri];
             
             NSString* backgroundName = [NSString stringWithFormat:@"tenggriPS_%@", tenggriCountString];
             SKSpriteNode* background = [skyDict valueForKey:backgroundName];
-            if (!background) {
-                background = [SKSpriteNode spriteNodeWithTexture:[SKTexture textureWithImageNamed:backgroundName]];
-                [skyDict setValue:background forKey:backgroundName];
-            }
             
             SKSpriteNode* lastBackground = [skyPool lastObject];
 
             
 
-            background.zPosition = _constants.BACKGROUND_Z_POSITION;
-            background.size = CGSizeMake(background.size.width, background.size.height * _constants.SCALE_COEFFICIENT.dy);
             if (!lastBackground) {
                 background.position = CGPointMake(self.size.width - (background.size.width / 2), self.size.height / 2);
             }
             else{
                 background.position = CGPointMake((lastBackground.position.x - lastBackground.size.width / 2) - (background.size.width / 2), self.size.height / 2);
             }
-            if (!background.parent) {
+            //if (!background.parent) {
+                [background removeFromParent];
                 [_skies addChild:background];
-            }
+            //}
             if (!forceLoad) {
                 [skyPool removeObject:firstBackground];
             }
@@ -375,8 +338,12 @@ int LUNAR_PERIOD = 70; //seconds
 
 -(void)organizeTheHeavens{
     {
-        sunNode = [SKSpriteNode spriteNodeWithImageNamed:@"sun_decoration"];
-        sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
+        SKTexture *spriteTexture = [_constants.TEXTURE_DICT objectForKey:@"sun_decoration"];
+        if (spriteTexture) {
+            sunNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
+        }
+
+        //sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
 
 
         sunPanel = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(self.size.width, self.size.height)];
@@ -405,9 +372,12 @@ int LUNAR_PERIOD = 70; //seconds
     }
     
     {
-        moonNode = [SKSpriteNode spriteNodeWithImageNamed:@"moon_decoration"];
+        SKTexture *spriteTexture = [_constants.TEXTURE_DICT objectForKey:@"moon_decoration"];
+        if (spriteTexture) {
+            moonNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
+        }
         [self addChild:moonNode];
-        moonNode.size = CGSizeMake(moonNode.size.width * _constants.SCALE_COEFFICIENT.dy, moonNode.size.height * _constants.SCALE_COEFFICIENT.dy);
+        //moonNode.size = CGSizeMake(moonNode.size.width * _constants.SCALE_COEFFICIENT.dy, moonNode.size.height * _constants.SCALE_COEFFICIENT.dy);
         moonNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
         UIBezierPath *moonPath = [UIBezierPath bezierPath];
         float moonOrbitRadius = self.size.height * .6;
@@ -450,13 +420,12 @@ int LUNAR_PERIOD = 70; //seconds
     if (gameOver && (backgroundMusicPlayer.volume > 0)) {
         //NSLog(@"fade out");
         if ((backgroundMusicPlayer.volume - 0.05) < 0) {
-            if (!restartGameNotificationSent) {
-                //restartGameNotificationSent = true;
-                //[[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
-                [self restartGame];
+            if (!endGameNotificationSent) {
+                [self endGame];
             }
             //NSLog(@"nullify the background music");
             backgroundMusicPlayer = nil;
+            return;
             
         }
         backgroundMusicPlayer.volume = backgroundMusicPlayer.volume - 0.05;
@@ -467,7 +436,7 @@ int LUNAR_PERIOD = 70; //seconds
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    if (!player && !gameOver && !logoLabel) {
+    if (!player_created && !gameOver && !logoLabel) {
         [self createPlayer];
         distanceLabel.hidden = false;
         //[[NSNotificationCenter defaultCenter] postNotificationName:@"dismiss logo" object:nil];
@@ -483,6 +452,29 @@ int LUNAR_PERIOD = 70; //seconds
     if (player) {
         Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
         [arrayOfLines addObject:newLine];
+        NSLog(@"arrayOfLines.count: %lu", arrayOfLines.count);
+        if (arrayOfLines.count > 2) {
+            Line* firstLine = nil;
+            for (Line* line in arrayOfLines) {
+                if (!line.shouldDeallocNodeArray) {
+                    firstLine = line;
+                    break;
+                }
+            }
+            for (Terrain* ter in firstLine.terrainArray) {
+                for (Decoration *deco in ter.decos) {
+                    [deco runAction:[SKAction fadeOutWithDuration:1]];
+                }
+                firstLine.shouldDeallocNodeArray = true;
+
+                [ter runAction:[SKAction fadeOutWithDuration:1] completion:^{
+                    [ter removeFromParent];
+                    [arrayOfLines removeObject:firstLine];
+            
+                }];
+
+            }
+        }
         
         if (tutorial_mode_on && popup_engaged && _allowDismissPopup) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"remove popup" object:nil];
@@ -542,21 +534,9 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)createPlayer{
-    CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
-    player = [Player playerAtPoint:pointToInitAt];
+    player_created = true;
     [self addChild:player];
     currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + (self.view.bounds.size.width / 8) * _constants.SCALE_COEFFICIENT.dy, [self convertPointToView:player.position].y);
-//    
-//    [player runAction:[SKAction repeatActionForever:
-//                      [SKAction animateWithTextures:animationComponent.runningFrames
-//                                       timePerFrame:0.05f
-//                                             resize:NO
-//                                            restore:YES]] withKey:@"runningMaasai"];
-//    
-////    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
-////    [logoLabel runAction:logoFadeOut completion:^{[logoLabel removeFromParent];}];
-//    
-
 }
 
 -(void)createLineNode{
@@ -612,46 +592,45 @@ int LUNAR_PERIOD = 70; //seconds
         if (!ter.permitDecorations){
             [ter changeDecorationPermissions:newPoint];
         }
-       // int backgroundYOffset = (_constants.FOREGROUND_Z_POSITION - ter.zPosition) / 2;
         [ter generateDecorationAtVertex:newPoint fromTerrainPool:[worldStreamer getTerrainPool] inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
         
     }
-    [self removeLineIntersectionsBetween:previousPoint and:currentPoint];
+    //[self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
     
 }
 
--(void)removeLineIntersectionsBetween:(CGPoint)a and:(CGPoint)b{
-    NSMutableArray* nodesToDeleteFromNodeArray = [NSMutableArray array];
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
-        Line* previousLine = [arrayOfLines objectAtIndex:i];
-   // for (Line *previousLine in arrayOfLines) {
-        if ((previousLine == arrayOfLines.lastObject) || previousLine.allowIntersections) {
-            return;
-        }
-        
-        NSMutableArray *previousPointArray = previousLine.nodeArray;
-        BOOL killTheRest = false;
-        for (NSValue* node in previousPointArray) {
-            CGPoint nodePosInScene = node.CGPointValue;
-
-            //yes, 50 is a magic number. but it is a necessary cushion.
-            if (killTheRest || (nodePosInScene.x >= a.x)) {
-                if (killTheRest || ((nodePosInScene.y <= a.y) && (nodePosInScene.y >= b.y)) || ((nodePosInScene.y >= a.y) && (nodePosInScene.y <= b.y))) {
-                    [nodesToDeleteFromNodeArray addObject:node];
-                    killTheRest = true;
-                }
-            }
-        }
-        for (NSValue* node in nodesToDeleteFromNodeArray) {
-            [previousPointArray removeObject:node];
-        }
-        });
-        
-   // }
-    
-}
+//-(void)removeLineIntersectionsBetween:(CGPoint)a and:(CGPoint)b{
+//    NSMutableArray* nodesToDeleteFromNodeArray = [NSMutableArray array];
+//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
+//        Line* previousLine = [arrayOfLines objectAtIndex:i];
+//   // for (Line *previousLine in arrayOfLines) {
+//        if ((previousLine == arrayOfLines.lastObject) || previousLine.allowIntersections) {
+//            return;
+//        }
+//        
+//        NSMutableArray *previousPointArray = previousLine.nodeArray;
+//        BOOL killTheRest = false;
+//        for (NSValue* node in previousPointArray) {
+//            CGPoint nodePosInScene = node.CGPointValue;
+//
+//            //yes, 50 is a magic number. but it is a necessary cushion.
+//            if (killTheRest || (nodePosInScene.x >= a.x)) {
+//                if (killTheRest || ((nodePosInScene.y <= a.y) && (nodePosInScene.y >= b.y)) || ((nodePosInScene.y >= a.y) && (nodePosInScene.y <= b.y))) {
+//                    [nodesToDeleteFromNodeArray addObject:node];
+//                    killTheRest = true;
+//                }
+//            }
+//        }
+//        for (NSValue* node in nodesToDeleteFromNodeArray) {
+//            [previousPointArray removeObject:node];
+//        }
+//        });
+//        
+//   // }
+//    
+//}
 
 //-(void)calculateScoreAndExit{
 //    if (gameWon) {
@@ -663,42 +642,42 @@ int LUNAR_PERIOD = 70; //seconds
 //    
 //}
 
--(void)deallocOldLines{
-    
-    NSMutableArray* oldLines = [NSMutableArray array];
-    
-    for (Line *thisLine in arrayOfLines) {
-        if (thisLine.shouldDeallocNodeArray) {
-            [oldLines addObject:thisLine];
-        }
-    }
-    
-    for (Line* oldLine in oldLines) {
-        [arrayOfLines removeObject:oldLine];
-        for (Terrain* ter in oldLine.terrainArray) {
-            [ter removeFromParent];
-        }
-    }
-}
+//-(void)deallocOldLines{
+//    
+//    NSMutableArray* oldLines = [NSMutableArray array];
+//    
+//    for (Line *thisLine in arrayOfLines) {
+//        if (thisLine.shouldDeallocNodeArray) {
+//            [oldLines addObject:thisLine];
+//        }
+//    }
+//    
+//    for (Line* oldLine in oldLines) {
+//        [arrayOfLines removeObject:oldLine];
+//        for (Terrain* ter in oldLine.terrainArray) {
+//            [ter removeFromParent];
+//        }
+//    }
+//}
 
--(void)checkForOldLines{
-    for (Line *thisLine in arrayOfLines) {
-        if (thisLine == arrayOfLines.lastObject) {
-            continue;
-        }
-        if (thisLine.shouldDeallocNodeArray) {
-            continue;
-        }
-        if (thisLine.complete) {
-            NSMutableArray* nodeArray = thisLine.nodeArray;
-            NSValue* lastNode = nodeArray.lastObject;
-            CGPoint lastNodePositionInView = [self convertPointToView: lastNode.CGPointValue];
-            if (lastNodePositionInView.x < 0 - (self.size.width / 2)) {
-                thisLine.shouldDeallocNodeArray = true;
-            }
-        }
-    }
-}
+//-(void)checkForOldLines{
+//    for (Line *thisLine in arrayOfLines) {
+//        if (thisLine == arrayOfLines.lastObject) {
+//            continue;
+//        }
+//        if (thisLine.shouldDeallocNodeArray) {
+//            continue;
+//        }
+//        if (thisLine.complete) {
+//            NSMutableArray* nodeArray = thisLine.nodeArray;
+//            NSValue* lastNode = nodeArray.lastObject;
+//            CGPoint lastNodePositionInView = [self convertPointToView: lastNode.CGPointValue];
+//            if (lastNodePositionInView.x < 0 - (self.size.width / 2)) {
+//                thisLine.shouldDeallocNodeArray = true;
+//            }
+//        }
+//    }
+//}
 
 -(void)drawLines{
    // dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
@@ -787,12 +766,10 @@ int LUNAR_PERIOD = 70; //seconds
         }
         
     }
-    [self setDecoFilter];
-    [self updateDistance];
-    [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
+    //[self setDecoFilter];
     [self generateBackgrounds :false];
-    [self checkForOldLines];
-    [self deallocOldLines];
+    //[self checkForOldLines];
+    //[self deallocOldLines];
     if (!player.touchesEnded) {
         [self createLineNode];
     }
@@ -801,14 +778,17 @@ int LUNAR_PERIOD = 70; //seconds
         [self checkForWonGame];
         [self checkForLostGame];
     }
-    if (player && !gameOver) {
+    if (player_created && !gameOver) {
+        [self updateDistance];
+        [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
         [self centerCameraOnPlayer];
         [self checkForNewAnimationState];
         [player resetMinsAndMaxs];
         [player updateEdges];
         [physicsComponent calculatePlayerPosition:player withLineArray:arrayOfLines];
+        [self drawLines];
+
     }
-    [self drawLines];
     [self fadeMoon];
     
     float dX = sqrtf(powf(sunNode.position.x - previousSunPos.x, 2) + powf(sunNode.position.y - previousSunPos.y, 2));
@@ -819,7 +799,7 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)checkForNewAnimationState{
-    if (player.roughlyOnLine && ![player actionForKey:@"runningMaasai"]) {
+    if ((player.roughlyOnLine || player.onGround) && ![player actionForKey:@"runningMaasai"]) {
         [player removeAllActions];
         [player runAction:[SKAction repeatActionForever:
                            [SKAction animateWithTextures:animationComponent.runningFrames
@@ -852,13 +832,13 @@ int LUNAR_PERIOD = 70; //seconds
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
 
     }
-    if (player.position.y < 0 - (player.size.height / 2)) {
-        [self loseGame];
-//        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-//        [popupDict setValue:@"Oops! You fell off the path. That's ok, have another try." forKey:@"popup text"];
-//        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
-    }
+//    if (player.position.y < 0 - (player.size.height / 2)) {
+//        [self loseGame];
+////        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+////        [popupDict setValue:@"Oops! You fell off the path. That's ok, have another try." forKey:@"popup text"];
+////        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
+////        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+//    }
     
     if (_shangoBrokeHisBack) {
         [self loseGame];
@@ -874,23 +854,11 @@ int LUNAR_PERIOD = 70; //seconds
 -(void)loseGame{
     gameOver = true;
     //[self performSunset];
+    [worldStreamer restoreObstaclesToPoolAndFreezeComputation];
+    worldStreamer = nil;
     [self fadeVolumeOut];
 
 }
-
--(void)winGame{
-    gameOver = true;
-    //[self performSunset];
-    [self fadeVolumeOut];
-    //_constants.CURRENT_INDEX_IN_LEVEL_ARRAY = 0;
-
-//    if (!restartGameNotificationSent) {
-//        restartGameNotificationSent = true;
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
-//    }
-}
-
-
 
 -(void)tellObstaclesToMove{
     for (Obstacle* obs in _obstacles.children) {
@@ -900,11 +868,10 @@ int LUNAR_PERIOD = 70; //seconds
 
 
 
--(void)restartGame{
+-(void)endGame{
     //self.view.paused = false;
-    restartGameNotificationSent = true;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"restart game" object:nil];
-
+    endGameNotificationSent = true;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"end game" object:nil];
 }
 
 -(void)generateDecorations{

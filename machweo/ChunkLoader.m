@@ -46,8 +46,9 @@ typedef enum NodeTypes
     Element currentElement;
     Node currentNodeType;
     BOOL charactersFound;
-    
     Constants* constants;
+    
+    Biome currentBiome;
     
     NSMutableDictionary* textureDict;
     
@@ -55,7 +56,16 @@ typedef enum NodeTypes
 
 -(instancetype)initWithFile:(NSString*)fileName{
     constants = [Constants sharedInstance];
-    
+    if ([fileName containsString:@"jungle"]) {
+        currentBiome = jungle;
+    }
+    if ([fileName containsString:@"savanna"]) {
+        currentBiome = savanna;
+    }
+    if ([fileName containsString:@"sahara"]) {
+        currentBiome = sahara;
+    }
+
     textureDict = constants.TEXTURE_DICT;
     
     obstacleArray = [NSMutableArray array];
@@ -159,26 +169,28 @@ typedef enum NodeTypes
     if (!charactersFound) {
         charactersFound = true;
         if (currentElement == name) {
-            SKTexture *spriteTexture = [textureDict objectForKey:string];
-            if (spriteTexture == nil) {
-                spriteTexture = [SKTexture textureWithImageNamed:string];
-                [textureDict setValue:spriteTexture forKey:string];
-            }
-            
-            if (spriteTexture) {
-                if (currentNodeType == obstacle) {
-                    currentNode = [Obstacle obstacleWithTextureAndPhysicsBody:spriteTexture];
-                    Obstacle* obstacle = (Obstacle*)currentNode;
-                    obstacle.size = CGSizeMake(obstacle.size.width * constants.SCALE_COEFFICIENT.dy, obstacle.size.height * constants.SCALE_COEFFICIENT.dy);
-                    obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:obstacle.size];
-                    currentNode.physicsBody.categoryBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
-                    currentNode.physicsBody.contactTestBitMask = [Constants sharedInstance].PLAYER_HIT_CATEGORY;
-                    currentNode.physicsBody.dynamic = false;
 
+            if (currentNodeType == obstacle) {
+                NSMutableArray* obstacleTypeArray = [constants.OBSTACLE_POOL valueForKey:string];
+                //NSLog(@"obstacleTypeArray.count: %lu", obstacleTypeArray.count);
+
+                Obstacle* firstObstacle = obstacleTypeArray.firstObject;
+                if (firstObstacle) {
+                    currentNode = firstObstacle;
+                    [obstacleTypeArray removeObject:obstacleTypeArray.firstObject];
+                    //NSLog(@"remove %@ from obstacle pool", string);
                 }
-                else if (currentNodeType == decoration){
+
+                //NSLog(@"obstacleTypeArray: %@", obstacleTypeArray);
+                return;
+
+            }
+            else if (currentNodeType == decoration){
+                SKTexture *spriteTexture = [textureDict objectForKey:string];
+                if (spriteTexture) {
                     currentNode = [Decoration spriteNodeWithTexture:spriteTexture];
                 }
+                return;
             }
             else{
                 currentNode = nil;
@@ -200,6 +212,9 @@ typedef enum NodeTypes
         if (currentElement == zPosition) {
             //NSLog(@"zPosition: %@", string);
             float zFloat = [string floatValue];
+            if (zFloat >= constants.OBSTACLE_Z_POSITION) {
+                currentNode.alpha = .50;
+            }
             currentNode.zPosition = zFloat;
             return;
         }
@@ -231,13 +246,10 @@ typedef enum NodeTypes
         if (currentElement == terrainPoolMember) {
             //NSLog(@"add terrainPoolMember");
             SKTexture *spriteTexture = [textureDict objectForKey:string];
-            if (spriteTexture == nil) {
-                //NSLog(@"(spriteTexture == nil)");
-                spriteTexture = [SKTexture textureWithImageNamed:string];
-                [textureDict setValue:spriteTexture forKey:string];
+            if (spriteTexture) {
+                [terrainPoolArray addObject:spriteTexture];
             }
             //NSLog(@"spriteTexture :%@", spriteTexture);
-            [terrainPoolArray addObject:spriteTexture];
         }
         if (currentElement == uniqueID) {
             if ([currentNode isKindOfClass:[Decoration class]]) {
@@ -253,9 +265,24 @@ typedef enum NodeTypes
     }
 }
 
--(void)pourObstaclesIntoBucket:(NSMutableArray *)bucket{
-    [bucket addObjectsFromArray:obstacleArray];
+-(void)loadObstaclesInWorld:(SKNode *)world withObstacles:(SKNode *)obstacles withinView:(SKView *)view andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
+
+    for (Obstacle *obstacle in obstacleArray) {
+        obstacle.position = CGPointMake((obstacle.position.x * constants.SCALE_COEFFICIENT.dy), obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
+        obstacle.position = [obstacles convertPoint:obstacle.position fromNode:world];
+        obstacle.position = CGPointMake(obstacle.position.x + xOffset, obstacle.position.y);
+        if (!obstacle.parent) {
+            [obstacles addChild:obstacle];
+        }
+    }
+
 }
+
+//-(void)pourObstaclesIntoBucket:(NSMutableArray *)bucket{
+//    [bucket addObjectsFromArray:obstacleArray];
+//}
+
+
 -(void)pourDecorationsIntoBucket:(NSMutableArray *)bucket andTerrainPool:(NSMutableArray *)terrainPool{
     [bucket addObjectsFromArray:decorationArray];
     //terrainPool = terrainPoolArray;

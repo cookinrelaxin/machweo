@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldnodes>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle2_obstacle</name>
+        <uniqueID>248789</uniqueID>
+        <xPosition>42.500000</xPosition>
+        <yPosition>763.454468</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>1</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle2_obstacle</name>
+        <uniqueID>225333</uniqueID>
+        <xPosition>1917.433594</xPosition>
+        <yPosition>846.054443</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>1</motionType>
+        <speedType>2</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle2_obstacle</name>
+        <uniqueID>175096</uniqueID>
+        <xPosition>3392.317139</xPosition>
+        <yPosition>158.390381</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>1</motionType>
+        <speedType>3</speedType>
+    </node>
+    <terrainPool></terrainPool>
+</worldnodes>

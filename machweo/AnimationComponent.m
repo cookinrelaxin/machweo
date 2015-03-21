@@ -20,10 +20,12 @@
         SKTextureAtlas *runningAtlas = [SKTextureAtlas atlasNamed:@"runningDude"];
         NSUInteger numImages = runningAtlas.textureNames.count;
         for (int i=1; i <= numImages; i++) {
-            NSString *textureName = [NSString stringWithFormat:@"runthing%d", i];
+            NSString *textureName = [NSString stringWithFormat:@"cloakman%d", i];
             SKTexture *tex = [runningAtlas textureNamed:textureName];
+            tex.filteringMode = SKTextureFilteringNearest;
             [_runningFrames addObject:tex];
         }
+        [SKTexture preloadTextures:_runningFrames withCompletionHandler:^{}];
     }
     {
         _jumpingFrames = [[NSMutableArray alloc] init];
@@ -32,11 +34,24 @@
         for (int i=1; i <= numImages; i++) {
             NSString *textureName = [NSString stringWithFormat:@"cloakmanjump%d", i];
             SKTexture *tex = [runningAtlas textureNamed:textureName];
+            tex.filteringMode = SKTextureFilteringNearest;
             [_jumpingFrames addObject:tex];
         }
+        [SKTexture preloadTextures:_jumpingFrames withCompletionHandler:^{}];
+
     }
     
     return self;
+}
+
++ (instancetype)sharedInstance
+{
+    static dispatch_once_t onceToken;
+    static AnimationComponent* sharedSingleton = nil;
+    dispatch_once(&onceToken, ^{
+        sharedSingleton = [[AnimationComponent alloc] initAnimationDictionary];
+    });
+    return sharedSingleton;
 }
 
 @end
