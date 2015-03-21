@@ -161,7 +161,7 @@ int LUNAR_PERIOD = 70; //seconds
         skyPool = [NSMutableArray array];
         currentTimeOfDay = AM_8;
         worldStreamer = [[WorldStreamer alloc] initWithWorld:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0 andTimeOfDay:currentTimeOfDay];
-        //[self generateBackgrounds :false];
+        [self generateBackgrounds :false];
 
         [self organizeTheHeavens];
         [self startMusic];
@@ -492,25 +492,6 @@ int LUNAR_PERIOD = 70; //seconds
     UITouch* touch = [touches anyObject];
     CGPoint locInSelf = [touch locationInNode:self];
     
-//    if (!in_game) {
-//        float y_difference = locInSelf.y - initialTouchPoint.y;
-//        float absolute_x_difference = fabs(locInSelf.x - initialTouchPoint.x);
-//        
-//        if (!gameOver) {
-//            if (absolute_x_difference < ALLOWABLE_X_DIFFERENCE) {
-//                if (y_difference > Y_THRESHOLD_FOR_SWITCH_LEVEL) {
-//                    //gameOver = true;
-//                    [self loadNextLevel];
-//                }
-//                if (y_difference < -Y_THRESHOLD_FOR_SWITCH_LEVEL) {
-//                    //gameOver = true;
-//                    [self loadPreviousLevel];
-//                }
-//            }
-//        }
-//    }
-
-    
     currentPoint = locInSelf;
 
 }
@@ -766,7 +747,7 @@ int LUNAR_PERIOD = 70; //seconds
         }
         
     }
-    //[self setDecoFilter];
+    [self setDecoFilter];
     [self generateBackgrounds :false];
     //[self checkForOldLines];
     //[self deallocOldLines];
@@ -782,7 +763,7 @@ int LUNAR_PERIOD = 70; //seconds
         [self updateDistance];
         [worldStreamer updateWithPlayerDistance:distance_traveled andTimeOfDay:currentTimeOfDay];
         [self centerCameraOnPlayer];
-        [self checkForNewAnimationState];
+        //[self checkForNewAnimationState];
         [player resetMinsAndMaxs];
         [player updateEdges];
         [physicsComponent calculatePlayerPosition:player withLineArray:arrayOfLines];

@@ -86,13 +86,13 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
         currentBiome = savanna;
         
 //        // for double the fun
-//        [self calculateInitialBiome];
-//        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
-//        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
-//
-//        for (int i = 0; i < unused_deco_pool.count; i ++) {
-//            [self loadNextDecoWithXOffset:0];
-//        }
+        [self calculateInitialBiome];
+        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
+        [self preloadDecorationChunkWithTimeOfDay:timeOfDay andDistance:0 asynchronous:NO];
+
+        for (int i = 0; i < unused_deco_pool.count; i ++) {
+            [self loadNextDecoWithXOffset:0];
+        }
     }
     return  self;
     
@@ -324,13 +324,13 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
             [self checkForLastObstacleWithDistance:playerDistance];
         }
         
-//        float xOffset = _view.bounds.size.width;
-//        if (!chunkLoading) {
-//            [self cleanUpOldDecos];
-//        }
-//        if (!chunkLoading) {
-//            [self loadNextDecoWithXOffset:xOffset];
-//        }
+        float xOffset = _view.bounds.size.width;
+        if (!chunkLoading) {
+            [self cleanUpOldDecos];
+        }
+        if (!chunkLoading) {
+            [self loadNextDecoWithXOffset:xOffset];
+        }
     }
 
 }

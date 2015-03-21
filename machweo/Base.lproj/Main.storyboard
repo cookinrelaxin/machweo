@@ -18,47 +18,6 @@
                         <subviews>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uc1-73-f2O" userLabel="game scene view" customClass="SKView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KHf-Iy-yYE">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <accessibility key="accessibilityConfiguration">
-                                            <accessibilityTraits key="traits" none="YES" notEnabled="YES"/>
-                                        </accessibility>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="600" id="Ceu-uD-84P"/>
-                                            <constraint firstAttribute="width" constant="600" id="Uci-sS-TAX"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="Ceu-uD-84P"/>
-                                                <exclude reference="Uci-sS-TAX"/>
-                                            </mask>
-                                        </variation>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="KHf-Iy-yYE" firstAttribute="leading" secondItem="uc1-73-f2O" secondAttribute="leading" id="1Pa-QY-XFm"/>
-                                    <constraint firstAttribute="trailing" secondItem="KHf-Iy-yYE" secondAttribute="trailing" id="2zX-n8-tYL"/>
-                                    <constraint firstAttribute="bottom" secondItem="KHf-Iy-yYE" secondAttribute="bottom" id="H45-3i-AsT"/>
-                                    <constraint firstItem="KHf-Iy-yYE" firstAttribute="leading" secondItem="uc1-73-f2O" secondAttribute="leading" id="YfR-B4-DjQ"/>
-                                    <constraint firstItem="KHf-Iy-yYE" firstAttribute="top" secondItem="uc1-73-f2O" secondAttribute="top" id="ZbQ-AC-mKb"/>
-                                    <constraint firstItem="KHf-Iy-yYE" firstAttribute="top" secondItem="uc1-73-f2O" secondAttribute="top" id="bq9-xX-eDm"/>
-                                    <constraint firstItem="KHf-Iy-yYE" firstAttribute="top" secondItem="uc1-73-f2O" secondAttribute="top" id="dKQ-OO-VfR"/>
-                                    <constraint firstAttribute="trailing" secondItem="KHf-Iy-yYE" secondAttribute="trailing" id="eiA-r6-5TV"/>
-                                    <constraint firstAttribute="bottom" secondItem="KHf-Iy-yYE" secondAttribute="bottom" id="szj-my-R2f"/>
-                                    <constraint firstItem="KHf-Iy-yYE" firstAttribute="leading" secondItem="uc1-73-f2O" secondAttribute="leading" id="xKe-pS-oow"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="1Pa-QY-XFm"/>
-                                        <exclude reference="2zX-n8-tYL"/>
-                                        <exclude reference="H45-3i-AsT"/>
-                                        <exclude reference="YfR-B4-DjQ"/>
-                                        <exclude reference="ZbQ-AC-mKb"/>
-                                        <exclude reference="dKQ-OO-VfR"/>
-                                    </mask>
-                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -71,7 +30,6 @@
                     </view>
                     <navigationItem key="navigationItem" id="Q9Q-Vm-dWY"/>
                     <connections>
-                        <outlet property="effectsView" destination="KHf-Iy-yYE" id="o0K-xA-M4u"/>
                         <outlet property="gameSceneView" destination="uc1-73-f2O" id="kjc-ub-aXJ"/>
                     </connections>
                 </viewController>
