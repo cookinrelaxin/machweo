@@ -7,24 +7,18 @@
 //
 
 #import "AppDelegate.h"
-#import "Constants.h"
-#import "GameDataManager.h"
-#import "LevelParser.h"
-#import "SpritePreloader.h"
-#import "AnimationComponent.h"
-
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    LevelParser* parser = [[LevelParser alloc] init];
-    SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
-    
-    [AnimationComponent sharedInstance];
-    [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
-    [Constants sharedInstance].BIOMES = parser.biomes;
-    [Constants sharedInstance].OBSTACLE_POOL = spritePreloader.getObstaclePool;
-    [Constants sharedInstance].SKY_DICT = spritePreloader.getSkyPool;
+//    LevelParser* parser = [[LevelParser alloc] init];
+//    SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
+//    
+//    [AnimationComponent sharedInstance];
+//    [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
+//    [Constants sharedInstance].BIOMES = parser.biomes;
+//    [Constants sharedInstance].OBSTACLE_POOL = spritePreloader.getObstaclePool;
+//    [Constants sharedInstance].SKY_DICT = spritePreloader.getSkyPool;
     
     //[[GameDataManager sharedInstance] loadGameData];
     return YES;

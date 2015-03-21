@@ -27,8 +27,4 @@
     return self;
 }
 
--(void)update:(NSTimeInterval)currentTime{
-}
-
-
 @end

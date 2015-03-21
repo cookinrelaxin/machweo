@@ -341,6 +341,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     NSMutableArray* difficultyArray = [constants.OBSTACLE_SETS valueForKey:[NSString stringWithFormat:@"%lu", (unsigned long)difficulty]];
     NSUInteger chance = arc4random_uniform((uint)difficultyArray.count);
     NSString* obstacleSet = [difficultyArray objectAtIndex:chance];
+    NSLog(@"obstacleSet: %@", obstacleSet);
     return obstacleSet;
 }
 
@@ -365,7 +366,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     if (difficulty > MAX_DIFFICULTY) {
         difficulty = MAX_DIFFICULTY;
     }
-    NSLog(@"difficulty: %lu", difficulty);
+    //NSLog(@"difficulty: %lu", difficulty);
     
     return difficulty;
     //return 1;

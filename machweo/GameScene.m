@@ -51,6 +51,8 @@ int LUNAR_PERIOD = 70; //seconds
     BOOL player_created;
     
     SKLabelNode* logoLabel;
+    SKLabelNode* muteLabel;
+    
     SKSpriteNode* sunNode;
     SKSpriteNode* moonNode;
 
@@ -109,7 +111,6 @@ int LUNAR_PERIOD = 70; //seconds
         arrayOfLines = [NSMutableArray array];
         
         self.physicsWorld.gravity = CGVectorMake(0, 0);
-        //init hud
         
         skyDict = _constants.SKY_DICT;
         skyPool = [NSMutableArray array];
@@ -128,6 +129,10 @@ int LUNAR_PERIOD = 70; //seconds
         distanceLabel.text = @"0";
         distanceLabel.hidden = true;
         [self addChild:distanceLabel];
+        
+        CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
+        player = [Player playerAtPoint:pointToInitAt];
+        [self createLogoLabel];
                 
 //        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
 //        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
@@ -400,38 +405,36 @@ int LUNAR_PERIOD = 70; //seconds
     CGPoint positionInSelf = [touch locationInNode:self];
     previousPoint = currentPoint = positionInSelf;
     
-    if (player) {
-        Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
-        [arrayOfLines addObject:newLine];
-        //NSLog(@"arrayOfLines.count: %lu", arrayOfLines.count);
-        if (arrayOfLines.count > 2) {
-            Line* firstLine = nil;
-            for (Line* line in arrayOfLines) {
-                if (!line.shouldDeallocNodeArray) {
-                    firstLine = line;
-                    break;
-                }
-            }
-            for (Terrain* ter in firstLine.terrainArray) {
-                for (Decoration *deco in ter.decos) {
-                    [deco runAction:[SKAction fadeOutWithDuration:1]];
-                }
-                firstLine.shouldDeallocNodeArray = true;
-
-                [ter runAction:[SKAction fadeOutWithDuration:1] completion:^{
-                    [ter removeFromParent];
-                    [arrayOfLines removeObject:firstLine];
-            
-                }];
-
+    Line *newLine = [[Line alloc] initWithTerrainNode:_terrain :self.size];
+    [arrayOfLines addObject:newLine];
+    //NSLog(@"arrayOfLines.count: %lu", arrayOfLines.count);
+    if (arrayOfLines.count > 2) {
+        Line* firstLine = nil;
+        for (Line* line in arrayOfLines) {
+            if (!line.shouldDeallocNodeArray) {
+                firstLine = line;
+                break;
             }
         }
+        for (Terrain* ter in firstLine.terrainArray) {
+            for (Decoration *deco in ter.decos) {
+                [deco runAction:[SKAction fadeOutWithDuration:1]];
+            }
+            firstLine.shouldDeallocNodeArray = true;
+
+            [ter runAction:[SKAction fadeOutWithDuration:1] completion:^{
+                [ter removeFromParent];
+                [arrayOfLines removeObject:firstLine];
         
-        if (tutorial_mode_on && popup_engaged && _allowDismissPopup) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"remove popup" object:nil];
-            self.view.paused = false;
-            _allowDismissPopup = false;
+            }];
+
         }
+    }
+    
+    if (tutorial_mode_on && popup_engaged && _allowDismissPopup) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"remove popup" object:nil];
+        self.view.paused = false;
+        _allowDismissPopup = false;
     }
     
     
@@ -466,8 +469,6 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)createPlayer{
-    CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
-    player = [Player playerAtPoint:pointToInitAt];
     player_created = true;
     [self addChild:player];
     currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + (self.view.bounds.size.width / 8) * _constants.SCALE_COEFFICIENT.dy, [self convertPointToView:player.position].y);
@@ -566,64 +567,13 @@ int LUNAR_PERIOD = 70; //seconds
 //    
 //}
 
-//-(void)calculateScoreAndExit{
-//    if (gameWon) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"return to menu" object:nil userInfo:[NSDictionary dictionaryWithObject:playerScore forKey:@"playerScore"]];
-//    }
-//    else{
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"return to menu" object:nil userInfo:nil];
-//    }
-//    
-//}
-
-//-(void)deallocOldLines{
-//    
-//    NSMutableArray* oldLines = [NSMutableArray array];
-//    
-//    for (Line *thisLine in arrayOfLines) {
-//        if (thisLine.shouldDeallocNodeArray) {
-//            [oldLines addObject:thisLine];
-//        }
-//    }
-//    
-//    for (Line* oldLine in oldLines) {
-//        [arrayOfLines removeObject:oldLine];
-//        for (Terrain* ter in oldLine.terrainArray) {
-//            [ter removeFromParent];
-//        }
-//    }
-//}
-
-//-(void)checkForOldLines{
-//    for (Line *thisLine in arrayOfLines) {
-//        if (thisLine == arrayOfLines.lastObject) {
-//            continue;
-//        }
-//        if (thisLine.shouldDeallocNodeArray) {
-//            continue;
-//        }
-//        if (thisLine.complete) {
-//            NSMutableArray* nodeArray = thisLine.nodeArray;
-//            NSValue* lastNode = nodeArray.lastObject;
-//            CGPoint lastNodePositionInView = [self convertPointToView: lastNode.CGPointValue];
-//            if (lastNodePositionInView.x < 0 - (self.size.width / 2)) {
-//                thisLine.shouldDeallocNodeArray = true;
-//            }
-//        }
-//    }
-//}
-
 -(void)drawLines{
-   // dispatch_queue_t queue = dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0);
-   // dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
     for (Line* line in arrayOfLines) {
         if (line.shouldDraw) {
-            //line.terrain.lineVertices = line.nodeArray;
             for (Terrain* ter in line.terrainArray) {
                 [ter closeLoopAndFillTerrainInView:self.view withCurrentSunYPosition:[self convertPoint:sunNode.position fromNode:sunNode.parent].y minY:centerOfSolarOrbit.y - radiusOfSolarOrbit andMaxY:centerOfSolarOrbit.y + radiusOfSolarOrbit];
             }
         }
-   // });
     }
 }
 
@@ -694,17 +644,13 @@ int LUNAR_PERIOD = 70; //seconds
     }
     [self setDecoFilter];
     [self generateBackgrounds :false];
-    //[self checkForOldLines];
-    //[self deallocOldLines];
     if (!player.touchesEnded) {
         [self createLineNode];
     }
     [self tellObstaclesToMove];
-    if (!gameOver) {
+    if (player_created && !gameOver) {
         [self checkForWonGame];
         [self checkForLostGame];
-    }
-    if (player_created && !gameOver) {
         [self updateDistance];
         [worldStreamer updateWithPlayerDistance:distance_traveled];
         [self centerCameraOnPlayer];
@@ -883,8 +829,13 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)reset{
-    [player removeFromParent];
-    player = nil;
+    {
+        [player removeFromParent];
+        player = nil;
+        CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
+        player = [Player playerAtPoint:pointToInitAt];
+    }
+    
     previousPoint = currentPoint = CGPointZero;
     [physicsComponent reset];
     [self resetLines];
@@ -901,7 +852,7 @@ int LUNAR_PERIOD = 70; //seconds
     previousPlayerXPosition_hypothetical = currentPlayerXPosition_hypothetical = 0;
     distanceLabel.text = @"0";
     [worldStreamer reset];
-    [self createLogoLabel];
+    //[self createLogoLabel];
 
 }
 
@@ -915,45 +866,46 @@ int LUNAR_PERIOD = 70; //seconds
 }
 
 -(void)createLogoLabel{
-    //        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-    //        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
-    //        //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
-    //        logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
-    //        //logoLabel.fontColor = [UIColor redColor];
-    //        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-    //        logoLabel.zPosition = _constants.HUD_Z_POSITION;
-    //        logoLabel.text = @"MACHWEO";
-    //        //logoLabel.text = levelName;
-    //        [self addChild:logoLabel];
-    //        logoLabel.alpha = 0.0f;
-    //        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
-    //        [logoLabel runAction:logoFadeIn completion:^{
-    //            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
-    //            [logoLabel runAction:logoFadeOut completion:^{
-    //                //NSLog(@"fade in again");
-    //                logoLabel.text = levelName;
-    //                SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
-    //                [logoLabel runAction:logoFadeInAgain completion:^{
-    //                    SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
-    //                    [logoLabel runAction:logoFadeOut completion:^{
-    //                        [logoLabel removeFromParent];
-    //                        logoLabel = nil;
-    //
-    //                        if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
-    //                            tutorial_mode_on = true;
-    //
-    //                            NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-    //                            [popupDict setValue:@"Draw a path for Maasai, and don't let him touch the ground!" forKey:@"popup text"];
-    //                            [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-    //                            [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
-    //
-    //                            popup_engaged = true;
-    //                        }
-    //
-    //                    }];
-    //                }];
-    //            }];
-    //        }];
+        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
+        //logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
+        logoLabel.fontColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
+        //logoLabel.fontColor = [UIColor redColor];
+        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        logoLabel.zPosition = _constants.HUD_Z_POSITION;
+        logoLabel.text = @"MACHWEO";
+        //logoLabel.text = levelName;
+        [self addChild:logoLabel];
+        logoLabel.alpha = 0.0f;
+        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
+        [logoLabel runAction:logoFadeIn completion:^{
+            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
+            [logoLabel runAction:logoFadeOut completion:^{
+                [logoLabel removeFromParent];
+                logoLabel = nil;
+//                    //NSLog(@"fade in again");
+//                    logoLabel.text = levelName;
+//                    SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
+//                    [logoLabel runAction:logoFadeInAgain completion:^{
+//                        SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
+//                        [logoLabel runAction:logoFadeOut completion:^{
+//                            [logoLabel removeFromParent];
+//                            logoLabel = nil;
+//    
+//                            if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
+//                                tutorial_mode_on = true;
+//    
+//                                NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+//                                [popupDict setValue:@"Draw a path for Maasai, and don't let him touch the ground!" forKey:@"popup text"];
+//                                [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
+//                                [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+//    
+//                                popup_engaged = true;
+//                            }
+//    
+//                        }];
+            }];
+        }];
 }
 
 
