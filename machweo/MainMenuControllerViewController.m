@@ -26,6 +26,7 @@
     BOOL gameLoaded;
     BOOL observersLoaded;
     PopupView* currentPopup;
+    PopupView* menu;
     CGSize defaultPopupSize;
 }
 
@@ -68,30 +69,26 @@
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
-    [center addObserverForName:@"end game"
+    [center addObserverForName:@"lose game"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+        NSLog(@"lose game");
+        [self showMenuWithGameOver:YES];
+
+     }];
+    
+    [center addObserverForName:@"pause and go to menu"
                         object:nil
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
          
-         [CATransaction begin]; {
-         [CATransaction setCompletionBlock:^{
-             //[self initGame];
-             //[self lightUp];
-
-         }];
-             NSLog(@"end game");
-//             _effectsView.layer.opacity = 1;
-//             _effectsView.layer.backgroundColor = [[UIColor blackColor] CGColor];
-//             CABasicAnimation *darken = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
-//             darken.fromValue = (id)[[UIColor clearColor] CGColor];
-//             darken.toValue = (id)[[UIColor blackColor] CGColor];
-//             darken.duration = 1.0f;
-//             [_effectsView.layer addAnimation:darken forKey:@"backgroundColor"];
-             
-             
-         } [CATransaction commit];
+        NSLog(@"pause and go to menu");
      }];
+    
+    
     
     [center addObserverForName:@"add popup"
                         object:nil
@@ -100,42 +97,7 @@
      {
          NSString* text = [notification.userInfo objectForKey:@"popup text"];
          CGPoint position = ((NSValue*)[notification.userInfo objectForKey:@"popup position"]).CGPointValue;
-         //BOOL shouldAutomaticallyDismiss = ((NSNumber*)[notification.userInfo objectForKey:@"automatically dismiss"]).boolValue;
-         
-         //text.length
-         
-         //float popupViewWidth = 200;
-         //float popupViewHeight = 100;
-         CGSize popupSize = [self choosePopupSizeForString:text];
-         
-         currentPopup = [[PopupView alloc] initWithFrame:CGRectMake(position.x - (popupSize.width / 2), position.y, popupSize.width, popupSize.height)];
-         [UIView animateWithDuration:0.5
-              animations:^{
-                  //CGRect frame = v.frame;
-                  
-                  //frame.size.height += 90.0;
-                  //frame.size.width += 30.0;
-                  //v.frame = frame;
-                  currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height + 2);
-              }
-              completion:^(BOOL finished){
-                  
-                  currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height);
-                  currentPopup.textLabel.text = text;
-                  currentPopup.textLabel.numberOfLines = 3;
-                  //v.textLabel.font =
-                  currentPopup.textLabel.hidden = false;
-                  //if (shouldAutomaticallyDismiss) {
-                      //dispatch_after(2 * NSEC_PER_SEC, dispatch_get_main_queue(), ^{
-                          //[[NSNotificationCenter defaultCenter] postNotificationName:@"remove popup" object:nil];
-                      //});
-                      //return ;
-                //}
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"allow dismiss popup" object:nil];
-            }];
-         
-         
-         [self.view addSubview:currentPopup];
+         [self addPopupWithText:text andPosition:position];
      }];
     
     [center addObserverForName:@"remove popup"
@@ -143,19 +105,64 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
-         [UIView animateWithDuration:0.5
-              animations:^{
-                  [currentPopup.textLabel removeFromSuperview];
-                  currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.frame.size.width, 0);
-              }
-              completion:^(BOOL finished){
-                  [currentPopup removeFromSuperview];
-                 
-         }];
-
+         [self removeCurrentPopup];
      }];
     
 
+}
+
+-(void)addPopupWithText:(NSString*)text andPosition:(CGPoint)position{
+    CGSize popupSize = [self choosePopupSizeForString:text];
+    currentPopup = [[PopupView alloc] initWithFrame:CGRectMake(position.x - (popupSize.width / 2), position.y, popupSize.width, popupSize.height)];
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height + 2);
+                     }
+                     completion:^(BOOL finished){
+                         
+                         currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height);
+                         currentPopup.textLabel.text = text;
+                         currentPopup.textLabel.numberOfLines = 3;
+                         currentPopup.textLabel.hidden = false;
+                         [[NSNotificationCenter defaultCenter] postNotificationName:@"allow dismiss popup" object:nil];
+                     }];
+    [self.view addSubview:currentPopup];
+}
+
+-(void)removeCurrentPopup{
+    [UIView animateWithDuration:0.5
+         animations:^{
+             [currentPopup.textLabel removeFromSuperview];
+             currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.frame.size.width, 0);
+         }
+         completion:^(BOOL finished){
+             [currentPopup removeFromSuperview];
+             
+    }];
+}
+
+-(void)showMenuWithGameOver:(BOOL)gameover{
+    //CGSize popupSize = [self choosePopupSizeForString:text];
+    //CGSize popupSize = self.view.bounds.size;
+    CGRect menuRect = self.view.bounds;
+    menu = [[PopupView alloc] initWithFrame:menuRect];
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         menu.frame = CGRectMake(menu.frame.origin.x, menu.frame.origin.y, menu.desiredFrameSize.width, menu.desiredFrameSize.height + 2);
+                     }
+                     completion:^(BOOL finished){
+                         
+                         menu.frame = CGRectMake(menu.frame.origin.x, menu.frame.origin.y, menu.desiredFrameSize.width, menu.desiredFrameSize.height);
+//                         currentPopup.textLabel.text = text;
+//                         currentPopup.textLabel.numberOfLines = 3;
+//                         currentPopup.textLabel.hidden = false;
+//                         [[NSNotificationCenter defaultCenter] postNotificationName:@"allow dismiss popup" object:nil];
+                     }];
+    [self.view addSubview:menu];
+}
+
+-(void)closeMenu{
+    [menu removeFromSuperview];
 }
 
 -(CGSize)choosePopupSizeForString:(NSString*)string{
