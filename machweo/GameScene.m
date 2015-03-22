@@ -49,6 +49,7 @@ int LUNAR_PERIOD = 70; //seconds
     BOOL gameOver;
     BOOL in_game;
     BOOL player_created;
+    BOOL menuEngaged;
     
     //UI
         SKLabelNode* logoLabel;
@@ -453,6 +454,12 @@ int LUNAR_PERIOD = 70; //seconds
     
     
     
+}
+
+-(void)pauseAndGotoMenu{
+    menuEngaged = true;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"pause and go to menu" object:nil];
+
 }
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event

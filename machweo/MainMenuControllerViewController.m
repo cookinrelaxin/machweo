@@ -30,33 +30,18 @@
     CGSize defaultPopupSize;
 }
 
-
-//- (void) lightUp{
-//    _effectsView.layer.backgroundColor = [[UIColor clearColor] CGColor];
-//    CABasicAnimation *lightUp = [CABasicAnimation animationWithKeyPath:@"backgroundColor"];
-//    lightUp.fromValue = (id)[[UIColor blackColor] CGColor];
-//    lightUp.toValue = (id)[[UIColor clearColor] CGColor];
-//    lightUp.duration = 3.0f;
-//    [_effectsView.layer addAnimation:lightUp forKey:@"backgroundColor"];
-//
-//}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     if (!gameLoaded) {
         NSLog(@"gameLoaded = true");
         gameLoaded = true;
-        //_effectsView.frame = _gameSceneView.frame = self.view.bounds;
         //[self.view sendSubviewToBack:_gameSceneView];
         _gameSceneView.ignoresSiblingOrder = YES;
         _gameSceneView.showsFPS = YES;
         //_gameSceneView.shouldCullNonVisibleNodes = false;
-        //_effectsView.layer.opacity = 1;
-       // _effectsView.userInteractionEnabled = NO;
-        [self setUpObservers];
+        //[self setUpObservers];
         [self initGame];
-        //[self lightUp];
 
 
     }
@@ -95,6 +80,7 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
+         NSLog(@"add popup");
          NSString* text = [notification.userInfo objectForKey:@"popup text"];
          CGPoint position = ((NSValue*)[notification.userInfo objectForKey:@"popup position"]).CGPointValue;
          [self addPopupWithText:text andPosition:position];
@@ -105,6 +91,7 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
+         NSLog(@"remove popup");
          [self removeCurrentPopup];
      }];
     
@@ -206,7 +193,7 @@
         [Constants sharedInstance].OBSTACLE_POOL = spritePreloader.getObstaclePool;
         [Constants sharedInstance].SKY_DICT = spritePreloader.getSkyPool;
         GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
-
+//
         dispatch_sync(dispatch_get_main_queue(), ^(void){
 //            GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
             NSLog(@"present gameplay scene");
