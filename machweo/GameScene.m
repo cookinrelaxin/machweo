@@ -501,12 +501,27 @@ float MAX_AUDIO_VOLUME = .25f;
 
 -(void)pauseAndGotoMenu{
     menuEngaged = true;
+    SKAction *currentAnimation = [player actionForKey:@"runningMaasai"];
+    if (!currentAnimation) {
+        currentAnimation = [player actionForKey:@"jumpingMaasai"];
+    }
+    if (currentAnimation) {
+        currentAnimation.speed = 0;
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:@"pause and go to menu" object:nil];
 }
              
 -(void)unpauseAndReturnToGame{
     NSLog(@"unpauseandReturnToGame");
     menuEngaged = false;
+    
+    SKAction *currentAnimation = [player actionForKey:@"runningMaasai"];
+    if (!currentAnimation) {
+        currentAnimation = [player actionForKey:@"jumpingMaasai"];
+    }
+    if (currentAnimation) {
+        currentAnimation.speed = 1;
+    }
 }
 
              
@@ -709,6 +724,13 @@ float MAX_AUDIO_VOLUME = .25f;
 
 
 -(void)update:(CFTimeInterval)currentTime {
+    
+    [self setDecoFilter];
+    [self generateBackgrounds :false];
+    float dX = sqrtf(powf(sunNode.position.x - previousSunPos.x, 2) + powf(sunNode.position.y - previousSunPos.y, 2));
+    _skies.position = CGPointMake(_skies.position.x + (dX * sky_displacement_coefficient), _skies.position.y);
+    previousSunPos = sunNode.position;
+    
     if (!menuEngaged) {
         
         if (tutorial_mode_on) {
@@ -721,8 +743,7 @@ float MAX_AUDIO_VOLUME = .25f;
             }
             
         }
-        [self setDecoFilter];
-        [self generateBackgrounds :false];
+        
         if (!player.touchesEnded) {
             [self createLineNode];
         }
@@ -744,11 +765,6 @@ float MAX_AUDIO_VOLUME = .25f;
 
         }
         [self fadeMoon];
-        
-        float dX = sqrtf(powf(sunNode.position.x - previousSunPos.x, 2) + powf(sunNode.position.y - previousSunPos.y, 2));
-        _skies.position = CGPointMake(_skies.position.x + (dX * sky_displacement_coefficient), _skies.position.y);
-        previousSunPos = sunNode.position;
-        
         //NSLog(@"_decorations.children.count: %lu", _decorations.children.count);
     }
 }
@@ -958,9 +974,9 @@ float MAX_AUDIO_VOLUME = .25f;
         //logoLabel.text = levelName;
         [_hud addChild:logoLabel];
         logoLabel.alpha = 0.0f;
-        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1];
+        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1.5];
         [logoLabel runAction:logoFadeIn completion:^{
-            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:.5];
+            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:1];
             [logoLabel runAction:logoFadeOut completion:^{
                 [logoLabel removeFromParent];
                 logoLabel = nil;

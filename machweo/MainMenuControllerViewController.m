@@ -27,14 +27,15 @@
     BOOL observersLoaded;
     PopupView* currentPopup;
     CGSize defaultPopupSize;
-    
     BOOL menuSetUp;
+    Constants* constants;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     if (!gameLoaded) {
+        constants = [Constants sharedInstance];
         NSLog(@"gameLoaded = true");
         gameLoaded = true;
         _gameSceneView.ignoresSiblingOrder = YES;
@@ -48,6 +49,10 @@
 
 -(void)setUpMenu{
     _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - _menuView.frame.size.height, _menuView.frame.size.width, _menuView.frame.size.height);
+    UIColor *rawColor = constants.LOGO_LABEL_FONT_COLOR;
+    CGFloat r, g, b, a;
+    [rawColor getRed: &r green:&g blue:&b alpha:&a];
+    _menuView.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:.9];
 }
 
 
@@ -129,7 +134,7 @@
 
 -(void)showMenuWithGameOver:(BOOL)gameover{
     _menuView.hidden = false;
-    NSLog(@"_menuView: %@", _menuView);
+    //NSLog(@"_menuView: %@", _menuView);
     [UIView animateWithDuration:0.5
          animations:^{
              _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y + _menuView.frame.size.height + 10, _menuView.frame.size.width, _menuView.frame.size.height);
@@ -159,7 +164,6 @@
 }
 
 -(CGSize)choosePopupSizeForString:(NSString*)string{
-    Constants* constants = [Constants sharedInstance];
     NSUInteger length = string.length;
     float width = constants.DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO * length;
     float height = constants.DEFAULT_POPUP_HEIGHT_TO_CHAR_RATIO * length;
