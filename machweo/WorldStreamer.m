@@ -18,7 +18,7 @@ const int MAX_IN_USE_DECO_POOL_COUNT = 60;
 const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 
 // get it as high as possible
-const int MAX_DIFFICULTY = 5;
+const int MAX_DIFFICULTY = 7;
 
 const int OBSTACLE_STADE_LENGTH = 100;
 const int DECORATION_STADE_LENGTH = 300;

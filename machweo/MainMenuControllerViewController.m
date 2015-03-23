@@ -65,18 +65,20 @@
                     usingBlock:^(NSNotification *notification)
      {
         NSLog(@"lose game");
-        [self showMenuWithGameOver:YES];
+         NSUInteger score = ((NSNumber*)[[notification userInfo] valueForKey:@"distance"]).integerValue;
+        [self showMenuWithScore:score];
 
      }];
     
-    [center addObserverForName:@"pause and go to menu"
+    [center addObserverForName:@"pause"
                         object:nil
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
          
         NSLog(@"pause and go to menu");
-         [self showMenuWithGameOver:false];
+         //NSUInteger score = ((NSNumber*)[[notification userInfo] valueForKey:@"distance"]).integerValue;
+         [self showMenuWithScore:0];
      }];
 
     [center addObserverForName:@"add popup"
@@ -132,21 +134,20 @@
     }];
 }
 
--(void)showMenuWithGameOver:(BOOL)gameover{
-    _menuView.hidden = false;
-    //NSLog(@"_menuView: %@", _menuView);
-    [UIView animateWithDuration:0.5
-         animations:^{
-             _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y + _menuView.frame.size.height + 10, _menuView.frame.size.width, _menuView.frame.size.height);
-         }
-         completion:^(BOOL finished){
-             [UIView animateWithDuration:0.1
-                animations:^{
-                    _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - 10, _menuView.frame.size.width, _menuView.frame.size.height);
-                }];
-         }
-    ];
-    
+-(void)showMenuWithScore:(NSUInteger)score{
+        _menuView.hidden = false;
+        //NSLog(@"_menuView: %@", _menuView);
+        [UIView animateWithDuration:0.5
+                         animations:^{
+                             _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y + _menuView.frame.size.height + 10, _menuView.frame.size.width, _menuView.frame.size.height);
+                         }
+                         completion:^(BOOL finished){
+                             [UIView animateWithDuration:0.1
+                                              animations:^{
+                                                  _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - 10, _menuView.frame.size.width, _menuView.frame.size.height);
+                                              }];
+                         }
+         ];
 }
 
 -(void)closeMenu{

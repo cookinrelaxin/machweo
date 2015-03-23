@@ -51,13 +51,15 @@ float MAX_AUDIO_VOLUME = .25f;
     BOOL gameOver;
     BOOL in_game;
     BOOL player_created;
-    BOOL menuEngaged;
+    BOOL paused;
     
     //UI
         SKLabelNode* logoLabel;
         SKLabelNode* muteLabelButton;
-        SKLabelNode* menuLabelButton;
+        SKLabelNode* pauseButton;
         SKLabelNode* returnToGameLabelButton;
+    
+        SKLabelNode* pauseLabel;
 
         SKNode* menuNode;
         SKLabelNode* scoreLabel;
@@ -161,8 +163,9 @@ float MAX_AUDIO_VOLUME = .25f;
         [self createLogoLabel];
         [self createMuteButton];
         [self createGotoMenuButton];
+        [self createPauseLabel];
         
-        menuEngaged = false;
+        paused = false;
 
     }
     return self;
@@ -189,13 +192,13 @@ float MAX_AUDIO_VOLUME = .25f;
          weakSelf.stopScrolling = true;
      }];
     
-    [center addObserverForName:@"unpause"
-                        object:nil
-                         queue:nil
-                    usingBlock:^(NSNotification *notification)
-     {
-         [weakSelf unpauseAndReturnToGame];
-    }];
+//    [center addObserverForName:@"unpause"
+//                        object:nil
+//                         queue:nil
+//                    usingBlock:^(NSNotification *notification)
+//     {
+//         [weakSelf unpauseAndReturnToGame];
+//    }];
     
 }
 
@@ -398,10 +401,13 @@ float MAX_AUDIO_VOLUME = .25f;
 }
 
 -(void)fadeVolumeIn {
-    if (!gameOver && backgroundMusicPlayer && (backgroundMusicPlayer.volume < MAX_AUDIO_VOLUME)) {
+    if ((backgroundMusicPlayer.volume < MAX_AUDIO_VOLUME)) {
         //NSLog(@"fade in");
-        backgroundMusicPlayer.volume = backgroundMusicPlayer.volume + 0.005;
-        [self performSelector:@selector(fadeVolumeIn) withObject:nil afterDelay:0.1];
+        backgroundMusicPlayer.volume += 0.005;
+        //[self performSelector:@selector(fadeVolumeIn) withObject:nil afterDelay:0.1];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [self fadeVolumeIn];
+        });
     }
 }
 
@@ -432,15 +438,6 @@ float MAX_AUDIO_VOLUME = .25f;
     UITouch* touch = [touches anyObject];
     CGPoint positionInSelf = [touch locationInNode:self];
     
-    if (menuEngaged) {
-        return;
-    }
-    
-    if ([menuLabelButton containsPoint:positionInSelf]) {
-        [self pauseAndGotoMenu];
-        return;
-    }
-    
     if ([muteLabelButton containsPoint:positionInSelf]) {
         if (backgroundMusicPlayer.volume > 0) {
             [self muteSounds];
@@ -450,6 +447,19 @@ float MAX_AUDIO_VOLUME = .25f;
         }
         return;
     }
+    
+    if (paused) {
+        //paused = false;
+        [self unpauseAndReturnToGame];
+        return;
+    }
+    
+    if ([pauseButton containsPoint:positionInSelf]) {
+        [self pause];
+        return;
+    }
+    
+    
   
     
     if (!in_game && !gameOver && !logoLabel) {
@@ -499,8 +509,10 @@ float MAX_AUDIO_VOLUME = .25f;
     
 }
 
--(void)pauseAndGotoMenu{
-    menuEngaged = true;
+-(void)pause{
+    NSLog(@"pause");
+
+    paused = true;
     SKAction *currentAnimation = [player actionForKey:@"runningMaasai"];
     if (!currentAnimation) {
         currentAnimation = [player actionForKey:@"jumpingMaasai"];
@@ -508,20 +520,27 @@ float MAX_AUDIO_VOLUME = .25f;
     if (currentAnimation) {
         currentAnimation.speed = 0;
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"pause and go to menu" object:nil];
+    [pauseLabel runAction:[SKAction fadeAlphaTo:1 duration:.5]];
+    pauseButton.hidden = true;
+    
+    
+   // [[NSNotificationCenter defaultCenter] postNotificationName:@"pause" object:nil];
 }
              
 -(void)unpauseAndReturnToGame{
-    NSLog(@"unpauseandReturnToGame");
-    menuEngaged = false;
-    
-    SKAction *currentAnimation = [player actionForKey:@"runningMaasai"];
-    if (!currentAnimation) {
-        currentAnimation = [player actionForKey:@"jumpingMaasai"];
-    }
-    if (currentAnimation) {
-        currentAnimation.speed = 1;
-    }
+    NSLog(@"unpause");
+    [pauseLabel runAction:[SKAction fadeAlphaTo:0 duration:.5] completion:^{
+        paused = false;
+        pauseButton.hidden = false;
+        SKAction *currentAnimation = [player actionForKey:@"runningMaasai"];
+        if (!currentAnimation) {
+            currentAnimation = [player actionForKey:@"jumpingMaasai"];
+        }
+        if (currentAnimation) {
+            currentAnimation.speed = 1;
+        }
+    }];
+
 }
 
              
@@ -724,14 +743,14 @@ float MAX_AUDIO_VOLUME = .25f;
 
 
 -(void)update:(CFTimeInterval)currentTime {
-    
+//    [self fadeVolumeIn];
     [self setDecoFilter];
     [self generateBackgrounds :false];
     float dX = sqrtf(powf(sunNode.position.x - previousSunPos.x, 2) + powf(sunNode.position.y - previousSunPos.y, 2));
     _skies.position = CGPointMake(_skies.position.x + (dX * sky_displacement_coefficient), _skies.position.y);
     previousSunPos = sunNode.position;
     
-    if (!menuEngaged) {
+    if (!paused) {
         
         if (tutorial_mode_on) {
             
@@ -827,6 +846,7 @@ float MAX_AUDIO_VOLUME = .25f;
     //[self performSunset];
     [self fadeVolumeOut];
     //[self reset];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"lose game" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:distance_traveled] forKey:@"distance"]];
 
 }
 
@@ -1007,7 +1027,7 @@ float MAX_AUDIO_VOLUME = .25f;
 
 -(void)createMuteButton{
     muteLabelButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-    muteLabelButton.fontSize = _constants.MENU_LABEL_FONT_SIZE;
+    muteLabelButton.fontSize = _constants.MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
     muteLabelButton.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
     muteLabelButton.zPosition = _constants.HUD_Z_POSITION;
     muteLabelButton.text = @"mute";
@@ -1017,14 +1037,26 @@ float MAX_AUDIO_VOLUME = .25f;
 }
 
 -(void)createGotoMenuButton{
-    menuLabelButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-    menuLabelButton.fontSize = _constants.MENU_LABEL_FONT_SIZE;
-    menuLabelButton.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
-    menuLabelButton.zPosition = _constants.HUD_Z_POSITION;
-    menuLabelButton.text = @"menu";
-    CGPoint posInScene = CGPointMake(menuLabelButton.frame.size.width / 2, CGRectGetMaxY(self.frame) - menuLabelButton.frame.size.height);
-    menuLabelButton.position = [_hud convertPoint:posInScene fromNode:self];
-    [_hud addChild:menuLabelButton];
+    pauseButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+    pauseButton.fontSize = _constants.MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
+    pauseButton.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
+    pauseButton.zPosition = _constants.HUD_Z_POSITION;
+    pauseButton.text = @"pause";
+    CGPoint posInScene = CGPointMake(pauseButton.frame.size.width / 2, CGRectGetMaxY(self.frame) - pauseButton.frame.size.height);
+    pauseButton.position = [_hud convertPoint:posInScene fromNode:self];
+    [_hud addChild:pauseButton];
+}
+
+-(void)createPauseLabel{
+    pauseLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+    pauseLabel.fontSize = _constants.PAUSED_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
+    pauseLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
+    pauseLabel.zPosition = _constants.HUD_Z_POSITION;
+    pauseLabel.text = @"PAUSED";
+    pauseLabel.alpha = 0;
+    CGPoint posInScene = CGPointMake(self.size.width / 2, self.size.height * .6);
+    pauseLabel.position = [_hud convertPoint:posInScene fromNode:self];
+    [_hud addChild:pauseLabel];
 }
 
 @end
