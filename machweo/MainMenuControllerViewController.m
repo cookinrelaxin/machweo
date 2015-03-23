@@ -26,8 +26,9 @@
     BOOL gameLoaded;
     BOOL observersLoaded;
     PopupView* currentPopup;
-    PopupView* menu;
     CGSize defaultPopupSize;
+    
+    BOOL menuSetUp;
 }
 
 - (void)viewDidLoad
@@ -36,22 +37,21 @@
     if (!gameLoaded) {
         NSLog(@"gameLoaded = true");
         gameLoaded = true;
-        //[self.view sendSubviewToBack:_gameSceneView];
         _gameSceneView.ignoresSiblingOrder = YES;
         _gameSceneView.showsFPS = YES;
-        //_gameSceneView.shouldCullNonVisibleNodes = false;
-        //[self setUpObservers];
+        _menuView.hidden = true;
+        [self setUpObservers];
         [self initGame];
-
-
     }
-    
+}
+
+
+-(void)setUpMenu{
+    _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - _menuView.frame.size.height, _menuView.frame.size.width, _menuView.frame.size.height);
 }
 
 
 -(void)setUpObservers{
-    //__weak MainMenuControllerViewController *weakSelf = self;
-    
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     
     [center addObserverForName:@"lose game"
@@ -71,10 +71,9 @@
      {
          
         NSLog(@"pause and go to menu");
+         [self showMenuWithGameOver:false];
      }];
-    
-    
-    
+
     [center addObserverForName:@"add popup"
                         object:nil
                          queue:nil
@@ -100,19 +99,19 @@
 
 -(void)addPopupWithText:(NSString*)text andPosition:(CGPoint)position{
     CGSize popupSize = [self choosePopupSizeForString:text];
-    currentPopup = [[PopupView alloc] initWithFrame:CGRectMake(position.x - (popupSize.width / 2), position.y, popupSize.width, popupSize.height)];
+    currentPopup = [[PopupView alloc] initWithFrame:CGRectMake(position.x - (popupSize.width / 2), position.y, popupSize.width, popupSize.height) andIsMenu:NO];
     [UIView animateWithDuration:0.5
-                     animations:^{
-                         currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height + 2);
-                     }
-                     completion:^(BOOL finished){
-                         
-                         currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height);
-                         currentPopup.textLabel.text = text;
-                         currentPopup.textLabel.numberOfLines = 3;
-                         currentPopup.textLabel.hidden = false;
-                         [[NSNotificationCenter defaultCenter] postNotificationName:@"allow dismiss popup" object:nil];
-                     }];
+         animations:^{
+             currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height + 2);
+         }
+         completion:^(BOOL finished){
+             
+             currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height);
+             currentPopup.textLabel.text = text;
+             currentPopup.textLabel.numberOfLines = 3;
+             currentPopup.textLabel.hidden = false;
+             [[NSNotificationCenter defaultCenter] postNotificationName:@"allow dismiss popup" object:nil];
+         }];
     [self.view addSubview:currentPopup];
 }
 
@@ -129,27 +128,34 @@
 }
 
 -(void)showMenuWithGameOver:(BOOL)gameover{
-    //CGSize popupSize = [self choosePopupSizeForString:text];
-    //CGSize popupSize = self.view.bounds.size;
-    CGRect menuRect = self.view.bounds;
-    menu = [[PopupView alloc] initWithFrame:menuRect];
+    _menuView.hidden = false;
+    NSLog(@"_menuView: %@", _menuView);
     [UIView animateWithDuration:0.5
-                     animations:^{
-                         menu.frame = CGRectMake(menu.frame.origin.x, menu.frame.origin.y, menu.desiredFrameSize.width, menu.desiredFrameSize.height + 2);
-                     }
-                     completion:^(BOOL finished){
-                         
-                         menu.frame = CGRectMake(menu.frame.origin.x, menu.frame.origin.y, menu.desiredFrameSize.width, menu.desiredFrameSize.height);
-//                         currentPopup.textLabel.text = text;
-//                         currentPopup.textLabel.numberOfLines = 3;
-//                         currentPopup.textLabel.hidden = false;
-//                         [[NSNotificationCenter defaultCenter] postNotificationName:@"allow dismiss popup" object:nil];
-                     }];
-    [self.view addSubview:menu];
+         animations:^{
+             _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y + _menuView.frame.size.height + 10, _menuView.frame.size.width, _menuView.frame.size.height);
+         }
+         completion:^(BOOL finished){
+             [UIView animateWithDuration:0.1
+                animations:^{
+                    _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - 10, _menuView.frame.size.width, _menuView.frame.size.height);
+                }];
+         }
+    ];
+    
 }
 
 -(void)closeMenu{
-    [menu removeFromSuperview];
+    //[menu removeFromSuperview];
+    [UIView animateWithDuration:0.5
+         animations:^{
+             _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - _menuView.frame.size.height, _menuView.frame.size.width, _menuView.frame.size.height);
+         }
+              completion:^(BOOL finished){
+                _menuView.hidden = true;
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"unpause" object:nil];
+              }
+     ];
+    
 }
 
 -(CGSize)choosePopupSizeForString:(NSString*)string{
@@ -181,6 +187,18 @@
     [super viewWillDisappear:animated];
     
 }
+- (IBAction)closeMenuPressed:(id)sender {
+    NSLog(@"closeMenuPressed");
+    [self closeMenu];
+}
+- (IBAction)leaderboardsPressed:(id)sender {
+    NSLog(@"leaderboardsPressed");
+
+}
+- (IBAction)sharePressed:(id)sender {
+    NSLog(@"sharePressed");
+
+}
 
 -(void)initGame{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
@@ -197,6 +215,7 @@
         dispatch_sync(dispatch_get_main_queue(), ^(void){
 //            GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
             NSLog(@"present gameplay scene");
+            [self setUpMenu];
             [_gameSceneView presentScene: newScene transition:[SKTransition fadeWithDuration:1]];
         });
     });

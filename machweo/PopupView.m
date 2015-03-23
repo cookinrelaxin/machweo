@@ -8,16 +8,20 @@
 
 #import "PopupView.h"
 #import "Constants.h"
-float HEIGHTOFPOPUPTRIANGLE = 10;
-float WIDTHOFPOPUPTRIANGLE = 20;
-float borderRadius = 8;
-float strokeWidth = 3;
+float HEIGHTOFPOPUPTRIANGLE_DEFAULT = 10;
+float WIDTHOFPOPUPTRIANGLE_DEFAULT = 20;
+float borderRadius_DEFAULT = 8;
+float strokeWidth_DEFAULT = 3;
 
 
 
-@implementation PopupView
+@implementation PopupView{
+    UIColor *fillColor;
+    float height_of_popup_triangle;
+    float width_of_popup_triangle;
+}
 
--(instancetype)initWithFrame:(CGRect)frame{
+-(instancetype)initWithFrame:(CGRect)frame andIsMenu:(BOOL)isMenu{
     if (self = [super initWithFrame:frame]){
         Constants* constants = [Constants sharedInstance];
         
@@ -28,7 +32,7 @@ float strokeWidth = 3;
         self.backgroundColor = [UIColor clearColor];
         
         //UILabel *yourLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, 300, 20)];
-        _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + borderRadius + strokeWidth, self.bounds.origin.y + borderRadius + strokeWidth, self.desiredFrameSize.width - borderRadius - strokeWidth - (borderRadius * 2), self.desiredFrameSize.height - (borderRadius * 2))];
+        _textLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.bounds.origin.x + borderRadius_DEFAULT + strokeWidth_DEFAULT, self.bounds.origin.y + borderRadius_DEFAULT + strokeWidth_DEFAULT, self.desiredFrameSize.width - borderRadius_DEFAULT - strokeWidth_DEFAULT - (borderRadius_DEFAULT * 2), self.desiredFrameSize.height - (borderRadius_DEFAULT * 2))];
 
         [_textLabel setTextColor:[UIColor blackColor]];
         [_textLabel setBackgroundColor:[UIColor clearColor]];
@@ -41,6 +45,21 @@ float strokeWidth = 3;
 
         _textLabel.hidden = true;
         [self addSubview:_textLabel];
+        
+        if (isMenu) {
+            //fillColor = [UIColor blueColor];
+            fillColor = constants.LOGO_LABEL_FONT_COLOR;
+            
+            height_of_popup_triangle = 0;
+            width_of_popup_triangle = 0;
+        }
+        else{
+            //fillColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:.80];
+            fillColor = constants.LOGO_LABEL_FONT_COLOR;
+            
+            height_of_popup_triangle = HEIGHTOFPOPUPTRIANGLE_DEFAULT;
+            width_of_popup_triangle = WIDTHOFPOPUPTRIANGLE_DEFAULT;
+        }
         
 
         //NSLog(@"Frame: %@", NSStringFromCGRect(frame));
@@ -61,34 +80,32 @@ float strokeWidth = 3;
     CGRect currentFrame = self.bounds;
     
     CGContextSetLineJoin(context, kCGLineJoinRound);
-    CGContextSetLineWidth(context, strokeWidth);
+    CGContextSetLineWidth(context, strokeWidth_DEFAULT);
     UIColor* strokeColor = [UIColor darkGrayColor];
-    UIColor* fillColor = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:.80];
-    //UIColor* fillColor = [UIColor clearColor];
 
     CGContextSetStrokeColorWithColor(context, strokeColor.CGColor);
     CGContextSetFillColorWithColor(context, fillColor.CGColor);
     
     // Draw and fill the bubble
     CGContextBeginPath(context);
-    CGContextMoveToPoint(context, borderRadius + strokeWidth + 0.5f, strokeWidth + HEIGHTOFPOPUPTRIANGLE + 0.5f);
-    CGContextAddLineToPoint(context, round(currentFrame.size.width / 2.0f - WIDTHOFPOPUPTRIANGLE / 2.0f) + 0.5f, HEIGHTOFPOPUPTRIANGLE + strokeWidth + 0.5f);
-    CGContextAddLineToPoint(context, round(currentFrame.size.width / 2.0f) + 0.5f, strokeWidth + 0.5f);
-    CGContextAddLineToPoint(context, round(currentFrame.size.width / 2.0f + WIDTHOFPOPUPTRIANGLE / 2.0f) + 0.5f, HEIGHTOFPOPUPTRIANGLE + strokeWidth + 0.5f);
-    CGContextAddArcToPoint(context, currentFrame.size.width - strokeWidth - 0.5f, strokeWidth + HEIGHTOFPOPUPTRIANGLE + 0.5f, currentFrame.size.width - strokeWidth - 0.5f, currentFrame.size.height - strokeWidth - 0.5f, borderRadius - strokeWidth);
-    CGContextAddArcToPoint(context, currentFrame.size.width - strokeWidth - 0.5f, currentFrame.size.height - strokeWidth - 0.5f, round(currentFrame.size.width / 2.0f + WIDTHOFPOPUPTRIANGLE / 2.0f) - strokeWidth + 0.5f, currentFrame.size.height - strokeWidth - 0.5f, borderRadius - strokeWidth);
-    CGContextAddArcToPoint(context, strokeWidth + 0.5f, currentFrame.size.height - strokeWidth - 0.5f, strokeWidth + 0.5f, HEIGHTOFPOPUPTRIANGLE + strokeWidth + 0.5f, borderRadius - strokeWidth);
-    CGContextAddArcToPoint(context, strokeWidth + 0.5f, strokeWidth + HEIGHTOFPOPUPTRIANGLE + 0.5f, currentFrame.size.width - strokeWidth - 0.5f, HEIGHTOFPOPUPTRIANGLE + strokeWidth + 0.5f, borderRadius - strokeWidth);
+    CGContextMoveToPoint(context, borderRadius_DEFAULT + strokeWidth_DEFAULT + 0.5f, strokeWidth_DEFAULT + height_of_popup_triangle + 0.5f);
+    CGContextAddLineToPoint(context, round(currentFrame.size.width / 2.0f - width_of_popup_triangle / 2.0f) + 0.5f, height_of_popup_triangle + strokeWidth_DEFAULT + 0.5f);
+    CGContextAddLineToPoint(context, round(currentFrame.size.width / 2.0f) + 0.5f, strokeWidth_DEFAULT + 0.5f);
+    CGContextAddLineToPoint(context, round(currentFrame.size.width / 2.0f + width_of_popup_triangle / 2.0f) + 0.5f, height_of_popup_triangle + strokeWidth_DEFAULT + 0.5f);
+    CGContextAddArcToPoint(context, currentFrame.size.width - strokeWidth_DEFAULT - 0.5f, strokeWidth_DEFAULT + height_of_popup_triangle + 0.5f, currentFrame.size.width - strokeWidth_DEFAULT - 0.5f, currentFrame.size.height - strokeWidth_DEFAULT - 0.5f, borderRadius_DEFAULT - strokeWidth_DEFAULT);
+    CGContextAddArcToPoint(context, currentFrame.size.width - strokeWidth_DEFAULT - 0.5f, currentFrame.size.height - strokeWidth_DEFAULT - 0.5f, round(currentFrame.size.width / 2.0f + width_of_popup_triangle / 2.0f) - strokeWidth_DEFAULT + 0.5f, currentFrame.size.height - strokeWidth_DEFAULT - 0.5f, borderRadius_DEFAULT - strokeWidth_DEFAULT);
+    CGContextAddArcToPoint(context, strokeWidth_DEFAULT + 0.5f, currentFrame.size.height - strokeWidth_DEFAULT - 0.5f, strokeWidth_DEFAULT + 0.5f, height_of_popup_triangle + strokeWidth_DEFAULT + 0.5f, borderRadius_DEFAULT - strokeWidth_DEFAULT);
+    CGContextAddArcToPoint(context, strokeWidth_DEFAULT + 0.5f, strokeWidth_DEFAULT + height_of_popup_triangle + 0.5f, currentFrame.size.width - strokeWidth_DEFAULT - 0.5f, height_of_popup_triangle + strokeWidth_DEFAULT + 0.5f, borderRadius_DEFAULT - strokeWidth_DEFAULT);
     CGContextClosePath(context);
     CGContextDrawPath(context, kCGPathFillStroke);
     
     // Draw a clipping path for the fill
     CGContextBeginPath(context);
-    CGContextMoveToPoint(context, borderRadius + strokeWidth + 0.5f, round((currentFrame.size.height + HEIGHTOFPOPUPTRIANGLE) * 0.50f) + 0.5f);
-    CGContextAddArcToPoint(context, currentFrame.size.width - strokeWidth - 0.5f, round((currentFrame.size.height + HEIGHTOFPOPUPTRIANGLE) * 0.50f) + 0.5f, currentFrame.size.width - strokeWidth - 0.5f, currentFrame.size.height - strokeWidth - 0.5f, borderRadius - strokeWidth);
-    CGContextAddArcToPoint(context, currentFrame.size.width - strokeWidth - 0.5f, currentFrame.size.height - strokeWidth - 0.5f, round(currentFrame.size.width / 2.0f + WIDTHOFPOPUPTRIANGLE / 2.0f) - strokeWidth + 0.5f, currentFrame.size.height - strokeWidth - 0.5f, borderRadius - strokeWidth);
-    CGContextAddArcToPoint(context, strokeWidth + 0.5f, currentFrame.size.height - strokeWidth - 0.5f, strokeWidth + 0.5f, HEIGHTOFPOPUPTRIANGLE + strokeWidth + 0.5f, borderRadius - strokeWidth);
-    CGContextAddArcToPoint(context, strokeWidth + 0.5f, round((currentFrame.size.height + HEIGHTOFPOPUPTRIANGLE) * 0.50f) + 0.5f, currentFrame.size.width - strokeWidth - 0.5f, round((currentFrame.size.height + HEIGHTOFPOPUPTRIANGLE) * 0.50f) + 0.5f, borderRadius - strokeWidth);
+    CGContextMoveToPoint(context, borderRadius_DEFAULT + strokeWidth_DEFAULT + 0.5f, round((currentFrame.size.height + height_of_popup_triangle) * 0.50f) + 0.5f);
+    CGContextAddArcToPoint(context, currentFrame.size.width - strokeWidth_DEFAULT - 0.5f, round((currentFrame.size.height + height_of_popup_triangle) * 0.50f) + 0.5f, currentFrame.size.width - strokeWidth_DEFAULT - 0.5f, currentFrame.size.height - strokeWidth_DEFAULT - 0.5f, borderRadius_DEFAULT - strokeWidth_DEFAULT);
+    CGContextAddArcToPoint(context, currentFrame.size.width - strokeWidth_DEFAULT - 0.5f, currentFrame.size.height - strokeWidth_DEFAULT - 0.5f, round(currentFrame.size.width / 2.0f + width_of_popup_triangle / 2.0f) - strokeWidth_DEFAULT + 0.5f, currentFrame.size.height - strokeWidth_DEFAULT - 0.5f, borderRadius_DEFAULT - strokeWidth_DEFAULT);
+    CGContextAddArcToPoint(context, strokeWidth_DEFAULT + 0.5f, currentFrame.size.height - strokeWidth_DEFAULT - 0.5f, strokeWidth_DEFAULT + 0.5f, height_of_popup_triangle + strokeWidth_DEFAULT + 0.5f, borderRadius_DEFAULT - strokeWidth_DEFAULT);
+    CGContextAddArcToPoint(context, strokeWidth_DEFAULT + 0.5f, round((currentFrame.size.height + height_of_popup_triangle) * 0.50f) + 0.5f, currentFrame.size.width - strokeWidth_DEFAULT - 0.5f, round((currentFrame.size.height + height_of_popup_triangle) * 0.50f) + 0.5f, borderRadius_DEFAULT - strokeWidth_DEFAULT);
     CGContextClosePath(context);
     CGContextClip(context);
 

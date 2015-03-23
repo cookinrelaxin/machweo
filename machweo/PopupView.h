@@ -12,5 +12,6 @@
 @property (nonatomic, strong) UILabel *textLabel;
 @property (nonatomic) CGSize desiredFrameSize;
 
+-(instancetype)initWithFrame:(CGRect)frame andIsMenu:(BOOL)isMenu;
 
 @end

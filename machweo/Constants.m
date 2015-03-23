@@ -71,7 +71,7 @@ int midpoint(int n1, int n2)
     _MENU_LABEL_FONT_SIZE = 30;
     
     _LOGO_LABEL_FONT_SIZE = 120;
-    _LOGO_LABEL_FONT_COLOR = [UIColor colorWithRed:243 green:126 blue:61 alpha:1];
+    _LOGO_LABEL_FONT_COLOR = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
     _LOGO_LABEL_FONT_NAME = @"Skranji";
     
     

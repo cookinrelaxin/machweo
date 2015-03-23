@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="YbM-qg-g2k">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--start menu-->
@@ -19,18 +20,65 @@
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uc1-73-f2O" userLabel="game scene view" customClass="SKView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doT-lc-8P7" userLabel="menu view">
+                                <rect key="frame" x="16" y="20" width="568" height="560"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Kg-r0-YqD">
+                                        <rect key="frame" x="144" y="127" width="79" height="30"/>
+                                        <state key="normal" title="close menu">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="closeMenuPressed:" destination="YbM-qg-g2k" eventType="touchUpInside" id="QuX-4i-EUx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xan-Vr-gUO">
+                                        <rect key="frame" x="410" y="231" width="90" height="30"/>
+                                        <state key="normal" title="leaderboards">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="leaderboardsPressed:" destination="YbM-qg-g2k" eventType="touchUpInside" id="iJd-2f-adJ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gcX-Ha-QqG">
+                                        <rect key="frame" x="281" y="338" width="38" height="30"/>
+                                        <state key="normal" title="share">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="sharePressed:" destination="YbM-qg-g2k" eventType="touchUpInside" id="14k-og-UEB"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="uc1-73-f2O" firstAttribute="top" secondItem="hCZ-X8-SON" secondAttribute="top" id="Hdc-zc-6jk"/>
                             <constraint firstItem="uc1-73-f2O" firstAttribute="leading" secondItem="hCZ-X8-SON" secondAttribute="leading" id="Irt-He-bTQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="doT-lc-8P7" secondAttribute="trailing" id="L9p-YU-HZY"/>
                             <constraint firstAttribute="trailing" secondItem="uc1-73-f2O" secondAttribute="trailing" id="LER-jo-ibI"/>
                             <constraint firstItem="SbZ-OQ-2fh" firstAttribute="top" secondItem="uc1-73-f2O" secondAttribute="bottom" id="Tar-Oh-Us9"/>
+                            <constraint firstAttribute="centerY" secondItem="doT-lc-8P7" secondAttribute="centerY" id="Uwg-DZ-CE3"/>
+                            <constraint firstItem="doT-lc-8P7" firstAttribute="top" secondItem="9xO-s9-ZAT" secondAttribute="bottom" id="XiJ-fu-wjh"/>
+                            <constraint firstAttribute="centerX" secondItem="doT-lc-8P7" secondAttribute="centerX" id="Xl6-7K-h0p"/>
+                            <constraint firstItem="doT-lc-8P7" firstAttribute="leading" secondItem="hCZ-X8-SON" secondAttribute="leadingMargin" id="l0V-VL-gC5"/>
+                            <constraint firstItem="doT-lc-8P7" firstAttribute="top" secondItem="9xO-s9-ZAT" secondAttribute="bottom" id="sVd-g0-BZC"/>
+                            <constraint firstItem="SbZ-OQ-2fh" firstAttribute="top" secondItem="doT-lc-8P7" secondAttribute="bottom" id="wtT-e6-akY"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="XiJ-fu-wjh"/>
+                                <exclude reference="wtT-e6-akY"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="Q9Q-Vm-dWY"/>
                     <connections>
                         <outlet property="gameSceneView" destination="uc1-73-f2O" id="kjc-ub-aXJ"/>
+                        <outlet property="menuView" destination="doT-lc-8P7" id="bUi-Jj-cUk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSs-T0-TaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
