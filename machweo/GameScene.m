@@ -32,6 +32,8 @@ float MAX_AUDIO_VOLUME = .25f;
 
 
 
+
+
 @implementation GameScene{
     Player *player;
     CGPoint previousPoint;
@@ -61,7 +63,6 @@ float MAX_AUDIO_VOLUME = .25f;
     
         SKLabelNode* pauseLabel;
 
-        SKNode* menuNode;
         SKLabelNode* scoreLabel;
         SKLabelNode* highscoreLabel;
         SKLabelNode* shareLabelButton;
@@ -100,6 +101,9 @@ float MAX_AUDIO_VOLUME = .25f;
 
     CGPoint previousSunPos;
     SKSpriteNode* sunPanel;
+    
+    CGPoint finalPlayerPosition;
+
 
     
 }
@@ -192,13 +196,13 @@ float MAX_AUDIO_VOLUME = .25f;
          weakSelf.stopScrolling = true;
      }];
     
-//    [center addObserverForName:@"unpause"
-//                        object:nil
-//                         queue:nil
-//                    usingBlock:^(NSNotification *notification)
-//     {
-//         [weakSelf unpauseAndReturnToGame];
-//    }];
+    [center addObserverForName:@"restart"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         [weakSelf restart];
+    }];
     
 }
 
@@ -543,6 +547,11 @@ float MAX_AUDIO_VOLUME = .25f;
 
 }
 
+-(void)restart{
+    NSLog(@"restart");
+    [self reset];
+}
+
              
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
@@ -576,9 +585,8 @@ float MAX_AUDIO_VOLUME = .25f;
     player_created = true;
     [self addChild:player];
     player.onGround = true;
-    
-    //currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + (self.view.bounds.size.width / 8) * _constants.SCALE_COEFFICIENT.dy, [self convertPointToView:player.position].y);
-    currentDesiredPlayerPositionInView = CGPointMake(self.view.bounds.origin.x + player.size.width / 2, [self convertPointToView:player.position].y);
+    finalPlayerPosition = CGPointMake(self.view.bounds.origin.x + player.size.width / 2, [self convertPointToView:player.position].y);
+    currentDesiredPlayerPositionInView = CGPointMake(self.size.width + player.size.width / 2, player.size.height / 2);
 }
 
 -(void)createLineNode{
@@ -773,7 +781,9 @@ float MAX_AUDIO_VOLUME = .25f;
         if (player_created && !gameOver) {
             [self checkForWonGame];
             [self checkForLostGame];
-            [self updateDistance];
+            if (in_game) {
+                [self updateDistance];
+            }
             [worldStreamer updateWithPlayerDistance:distance_traveled];
             [self centerCameraOnPlayer];
             [self checkForNewAnimationState];
@@ -911,12 +921,14 @@ float MAX_AUDIO_VOLUME = .25f;
 
 - (void)centerCameraOnPlayer {
     if (!_stopScrolling) {
-        currentDesiredPlayerPositionInView = CGPointMake(currentDesiredPlayerPositionInView.x, [self convertPointToView:player.position].y);
+        if (currentDesiredPlayerPositionInView.x > finalPlayerPosition.x) {
+            currentDesiredPlayerPositionInView = CGPointMake(currentDesiredPlayerPositionInView.x - 2, [self convertPointToView:player.position].y);
+        }
+        else{
+            currentDesiredPlayerPositionInView = CGPointMake(currentDesiredPlayerPositionInView.x, [self convertPointToView:player.position].y);
+        }
         
-        //CGPoint playerPreviousPosition = CGPointMake(player.xCoordinateOfLeftSide + player.size.width / 2, player.yCoordinateOfBottomSide + player.size.height / 2);
-        //CGPoint playerCurrentPosition = player.position;
         player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
-       // CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(playerCurrentPosition.x - playerPreviousPosition.x, playerCurrentPosition.y - playerPreviousPosition.y);
         CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(player.velocity.dx, 0);
         for (Line* line in arrayOfLines) {
             for (int i = 0; i < line.nodeArray.count; i ++) {
@@ -951,12 +963,13 @@ float MAX_AUDIO_VOLUME = .25f;
 }
 
 -(void)reset{
-//    {
-//        [player removeFromParent];
-//        player = nil;
-//        CGPoint pointToInitAt = CGPointMake(0, self.frame.size.height / 2);
-//        player = [Player playerAtPoint:pointToInitAt];
-//    }
+    NSLog(@"reset");
+    {
+        [player removeFromParent];
+        player = [Player player];
+        player_created = false;
+
+    }
     
     previousPoint = currentPoint = CGPointZero;
     [physicsComponent reset];
@@ -974,7 +987,12 @@ float MAX_AUDIO_VOLUME = .25f;
     previousPlayerXPosition_hypothetical = currentPlayerXPosition_hypothetical = 0;
     distanceLabel.text = @"0";
     [worldStreamer reset];
-    //[self createLogoLabel];
+    [self reappearButtons];
+}
+
+-(void)reappearButtons{
+    pauseButton.hidden = false;
+    muteLabelButton.hidden = false;
 }
 
 -(void)resetLines{
@@ -987,21 +1005,23 @@ float MAX_AUDIO_VOLUME = .25f;
 }
 
 -(void)createLogoLabel{
-        logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-        logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
-        logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
-        logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
-        logoLabel.zPosition = _constants.HUD_Z_POSITION;
-        logoLabel.text = @"MACHWEO";
-        //logoLabel.text = levelName;
-        [_hud addChild:logoLabel];
-        logoLabel.alpha = 0.0f;
-        SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:1.5];
-        [logoLabel runAction:logoFadeIn completion:^{
-            SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:1];
-            [logoLabel runAction:logoFadeOut completion:^{
-                [logoLabel removeFromParent];
-                logoLabel = nil;
+    logoLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+    logoLabel.fontSize = _constants.LOGO_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
+    logoLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
+    logoLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    logoLabel.zPosition = _constants.HUD_Z_POSITION;
+    logoLabel.text = @"MACHWEO";
+    //logoLabel.text = levelName;
+    [_hud addChild:logoLabel];
+    logoLabel.alpha = 0.0f;
+    SKAction* greaten = [SKAction scaleBy:1.5 duration:3];
+    [logoLabel runAction:greaten];
+    SKAction* logoFadeIn = [SKAction fadeAlphaTo:1.0f duration:3];
+    [logoLabel runAction:logoFadeIn completion:^{
+        SKAction* logoFadeOut = [SKAction fadeAlphaTo:0.0f duration:2];
+        [logoLabel runAction:logoFadeOut completion:^{
+            [logoLabel removeFromParent];
+            logoLabel = nil;
 //                    //NSLog(@"fade in again");
 //                    logoLabel.text = levelName;
 //                    SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
@@ -1023,8 +1043,8 @@ float MAX_AUDIO_VOLUME = .25f;
 //                            }
 //    
 //                        }];
-            }];
         }];
+    }];
 }
 
 -(void)createMuteButton{

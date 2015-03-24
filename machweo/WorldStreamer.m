@@ -102,7 +102,9 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 -(void)reset{
     for (Obstacle *obs in _obstacles.children) {
         //NSLog(@"obs.name: %@", obs.name);
-        [obs removeFromParent];
+        [obs runAction:[SKAction fadeAlphaTo:0 duration:.5] completion:^(void){
+            [obs removeFromParent];
+        }];
         NSMutableArray* obstacleTypeArray = [obstacle_pool valueForKey:obs.name];
         [obstacleTypeArray addObject:obs];
     }
@@ -398,7 +400,7 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
     Obstacle* lastObstacle = [_obstacles.children lastObject];
     if (!lastObstacle) {
         //NSLog(@"load first obstacle chunk");
-        [self loadObstacleChunkWithXOffset:_view.bounds.size.width andDistance:0];
+        [self loadObstacleChunkWithXOffset:_view.bounds.size.width * 3 andDistance:0];
         
         return;
     }

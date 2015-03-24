@@ -329,6 +329,7 @@
                     <connections>
                         <outlet property="gameSceneView" destination="uc1-73-f2O" id="kjc-ub-aXJ"/>
                         <outlet property="menuView" destination="doT-lc-8P7" id="bUi-Jj-cUk"/>
+                        <outlet property="scoreLabel" destination="gcn-V4-xgn" id="O4A-YG-BAy"/>
                         <outletCollection property="buttons" destination="EZm-1o-77c" id="hBy-Ad-cFp"/>
                         <outletCollection property="buttons" destination="FB1-7A-f2Y" id="EK3-E3-sSP"/>
                         <outletCollection property="buttons" destination="X3j-pu-29F" id="gQl-rU-LHm"/>

@@ -57,6 +57,17 @@
 
 
 -(void)setUpMenu{
+    {
+//        _menuView.layer.shadowColor = [UIColor grayColor].CGColor;
+//        _menuView.layer.shadowRadius = 10.0f;
+//        _menuView.layer.shadowOpacity = 1;
+//        _menuView.layer.shadowOffset = CGSizeZero;
+//        _menuView.layer.masksToBounds = NO;
+        _menuView.layer.cornerRadius = 10;
+        _menuView.layer.borderColor = [UIColor darkGrayColor].CGColor;
+        _menuView.layer.borderWidth = 8.0f;
+    }
+    
     _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - _menuView.frame.size.height, _menuView.frame.size.width, _menuView.frame.size.height);
     UIColor *rawColor = constants.LOGO_LABEL_FONT_COLOR;
     CGFloat r, g, b, a;
@@ -144,7 +155,8 @@
 }
 
 -(void)showMenuWithScore:(NSUInteger)score{
-        _menuView.hidden = false;
+    _menuView.hidden = false;
+    _scoreLabel.text = [NSString stringWithFormat:@"%lu", score];
         //NSLog(@"_menuView: %@", _menuView);
         [UIView animateWithDuration:0.5
                          animations:^{
@@ -167,7 +179,7 @@
          }
               completion:^(BOOL finished){
                 _menuView.hidden = true;
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"unpause" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"restart" object:nil];
               }
      ];
     
