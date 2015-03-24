@@ -12,4 +12,7 @@
 @interface MainMenuControllerViewController : UIViewController
 @property (weak, nonatomic) IBOutlet SKView *gameSceneView;
 @property (weak, nonatomic) IBOutlet UIView *menuView;
+@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttons;
+
+
 @end

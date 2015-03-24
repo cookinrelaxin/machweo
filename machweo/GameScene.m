@@ -846,6 +846,8 @@ float MAX_AUDIO_VOLUME = .25f;
     //[self performSunset];
     [self fadeVolumeOut];
     //[self reset];
+    pauseButton.hidden = true;
+    muteLabelButton.hidden = true;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"lose game" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:distance_traveled] forKey:@"distance"]];
 
 }

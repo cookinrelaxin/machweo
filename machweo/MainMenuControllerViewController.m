@@ -46,6 +46,15 @@
     }
 }
 
+-(void)viewDidLayoutSubviews{
+    NSString* fontName = constants.LOGO_LABEL_FONT_NAME;
+    for (UIButton* button in _buttons) {
+        UIFont *currentFont = button.titleLabel.font;
+        button.titleLabel.font = [UIFont fontWithName:fontName size:currentFont.pointSize];
+        //NSLog(@"button.titleLabel.font: %@", button.titleLabel.font);
+    }
+}
+
 
 -(void)setUpMenu{
     _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - _menuView.frame.size.height, _menuView.frame.size.width, _menuView.frame.size.height);
@@ -220,7 +229,12 @@
         dispatch_sync(dispatch_get_main_queue(), ^(void){
 //            GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
             NSLog(@"present gameplay scene");
+            
+
+            
             [self setUpMenu];
+
+            
             [_gameSceneView presentScene: newScene transition:[SKTransition fadeWithDuration:1]];
         });
     });
