@@ -73,10 +73,10 @@
     }
     
     _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - _menuView.frame.size.height, _menuView.frame.size.width, _menuView.frame.size.height);
-    UIColor *rawColor = constants.LOGO_LABEL_FONT_COLOR;
-    CGFloat r, g, b, a;
-    [rawColor getRed: &r green:&g blue:&b alpha:&a];
-    _menuView.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:.9];
+//    UIColor *rawColor = constants.LOGO_LABEL_FONT_COLOR;
+//    CGFloat r, g, b, a;
+//    [rawColor getRed: &r green:&g blue:&b alpha:&a];
+//    _menuView.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:.9];
 }
 
 

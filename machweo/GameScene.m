@@ -166,8 +166,8 @@ float MAX_AUDIO_VOLUME = .25f;
         
         [self createLogoLabel];
         [self createMuteButton];
-        [self createGotoMenuButton];
-        [self createPauseLabel];
+        [self createPauseButton];
+        [self createPausedLabel];
         
         paused = false;
 
@@ -1053,23 +1053,23 @@ float MAX_AUDIO_VOLUME = .25f;
     muteLabelButton.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
     muteLabelButton.zPosition = _constants.HUD_Z_POSITION;
     muteLabelButton.text = @"mute";
-    CGPoint posInScene = CGPointMake(CGRectGetMaxX(self.frame) - (muteLabelButton.frame.size.width / 2), CGRectGetMaxY(self.frame) - muteLabelButton.frame.size.height);
+    CGPoint posInScene = CGPointMake(CGRectGetMaxX(self.frame) - (muteLabelButton.frame.size.width / 2) - (muteLabelButton.frame.size.width / 4), CGRectGetMaxY(self.frame) - muteLabelButton.frame.size.height);
     muteLabelButton.position = [_hud convertPoint:posInScene fromNode:self];
     [_hud addChild:muteLabelButton];
 }
 
--(void)createGotoMenuButton{
+-(void)createPauseButton{
     pauseButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
     pauseButton.fontSize = _constants.MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
     pauseButton.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
     pauseButton.zPosition = _constants.HUD_Z_POSITION;
     pauseButton.text = @"pause";
-    CGPoint posInScene = CGPointMake(pauseButton.frame.size.width / 2, CGRectGetMaxY(self.frame) - pauseButton.frame.size.height);
+    CGPoint posInScene = CGPointMake(pauseButton.frame.size.width / 2 + (pauseButton.frame.size.width / 4), CGRectGetMaxY(self.frame) - pauseButton.frame.size.height);
     pauseButton.position = [_hud convertPoint:posInScene fromNode:self];
     [_hud addChild:pauseButton];
 }
 
--(void)createPauseLabel{
+-(void)createPausedLabel{
     pauseLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
     pauseLabel.fontSize = _constants.PAUSED_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
     pauseLabel.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
