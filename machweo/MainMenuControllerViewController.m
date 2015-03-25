@@ -53,6 +53,10 @@
         button.titleLabel.font = [UIFont fontWithName:fontName size:currentFont.pointSize];
         //NSLog(@"button.titleLabel.font: %@", button.titleLabel.font);
     }
+    for (UILabel* label in _labels) {
+        label.font = [UIFont fontWithName:fontName size:label.font.pointSize];
+        //NSLog(@"label.font.pointsize: %f", label.font.pointSize);
+    }
 }
 
 

@@ -4,12 +4,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <mutableArray key="Skranji-Regular.ttf">
-            <string>Skranji</string>
-            <string>Skranji</string>
-        </mutableArray>
-    </customFonts>
     <scenes>
         <!--start menu-->
         <scene sceneID="Djo-bx-gar">
@@ -156,40 +150,40 @@
                                             <action selector="sharePressed:" destination="YbM-qg-g2k" eventType="touchUpInside" id="erv-Io-vVs"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1D-M2-KcL">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" ambiguous="YES" misplaced="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1D-M2-KcL">
                                         <rect key="frame" x="33" y="53" width="224" height="100"/>
                                         <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="60"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=compact">
-                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="80"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         </variation>
                                         <variation key="widthClass=regular">
-                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="100"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="100"/>
                                         </variation>
                                         <variation key="heightClass=compact-widthClass=compact">
-                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="60"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                         </variation>
                                         <variation key="heightClass=compact-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="80"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         </variation>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" ambiguous="YES" misplaced="YES" text="9999" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-V4-xgn">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" misplaced="YES" text="9999" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-V4-xgn">
                                         <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
                                         <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="60"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                         <variation key="heightClass=compact">
-                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="80"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         </variation>
                                         <variation key="widthClass=regular">
-                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="100"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="100"/>
                                         </variation>
                                         <variation key="heightClass=compact-widthClass=compact">
-                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="60"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="60"/>
                                         </variation>
                                         <variation key="heightClass=compact-widthClass=regular">
-                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="80"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         </variation>
                                     </label>
                                 </subviews>
@@ -298,19 +292,19 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="ZA9-sS-ySV"/>
-                                        <exclude reference="zgX-r5-UFt"/>
                                         <exclude reference="Csg-8Z-26Z"/>
                                         <exclude reference="c6T-ml-DGf"/>
                                         <exclude reference="lXa-tO-9ZL"/>
                                         <exclude reference="ysT-2c-TWs"/>
+                                        <exclude reference="ZA9-sS-ySV"/>
+                                        <exclude reference="zgX-r5-UFt"/>
                                         <exclude reference="BFz-Bv-ikO"/>
                                         <exclude reference="Nsd-eX-XCK"/>
+                                        <exclude reference="ibs-4H-Bov"/>
+                                        <exclude reference="zgc-rs-G7x"/>
                                         <exclude reference="G41-Yl-PhS"/>
                                         <exclude reference="W27-3l-BbR"/>
                                         <exclude reference="vDb-eq-FNI"/>
-                                        <exclude reference="ibs-4H-Bov"/>
-                                        <exclude reference="zgc-rs-G7x"/>
                                         <exclude reference="2Vk-tg-919"/>
                                         <exclude reference="HWy-Fo-NGj"/>
                                         <exclude reference="iNp-pM-HJ4"/>
@@ -318,19 +312,19 @@
                                 </variation>
                                 <variation key="heightClass=compact">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="BFz-Bv-ikO"/>
                                         <include reference="Nsd-eX-XCK"/>
+                                        <include reference="ibs-4H-Bov"/>
+                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
                                         <include reference="vDb-eq-FNI"/>
-                                        <include reference="ibs-4H-Bov"/>
-                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                         <include reference="iNp-pM-HJ4"/>
@@ -338,42 +332,39 @@
                                 </variation>
                                 <variation key="widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="BFz-Bv-ikO"/>
                                         <include reference="Nsd-eX-XCK"/>
+                                        <include reference="ibs-4H-Bov"/>
+                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
                                         <include reference="vDb-eq-FNI"/>
-                                        <include reference="ibs-4H-Bov"/>
-                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                         <include reference="iNp-pM-HJ4"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=compact">
-                                    <mask key="subviews">
-                                        <include reference="gcn-V4-xgn"/>
-                                    </mask>
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="BFz-Bv-ikO"/>
                                         <include reference="Nsd-eX-XCK"/>
+                                        <include reference="ibs-4H-Bov"/>
+                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
                                         <include reference="vDb-eq-FNI"/>
-                                        <include reference="ibs-4H-Bov"/>
-                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                         <include reference="iNp-pM-HJ4"/>
@@ -381,17 +372,17 @@
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="BFz-Bv-ikO"/>
                                         <include reference="Nsd-eX-XCK"/>
-                                        <include reference="G41-Yl-PhS"/>
-                                        <include reference="W27-3l-BbR"/>
                                         <include reference="ibs-4H-Bov"/>
                                         <include reference="zgc-rs-G7x"/>
+                                        <include reference="G41-Yl-PhS"/>
+                                        <include reference="W27-3l-BbR"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                     </mask>
@@ -420,6 +411,8 @@
                         <outletCollection property="buttons" destination="X3j-pu-29F" id="gQl-rU-LHm"/>
                         <outletCollection property="buttons" destination="ugf-dT-SaV" id="6XG-VM-HqH"/>
                         <outletCollection property="buttons" destination="kli-Os-4tw" id="Agr-Yj-lFu"/>
+                        <outletCollection property="labels" destination="gcn-V4-xgn" id="06B-BD-kyx"/>
+                        <outletCollection property="labels" destination="p1D-M2-KcL" id="tps-Od-KX8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aSs-T0-TaY" userLabel="First Responder" sceneMemberID="firstResponder"/>
