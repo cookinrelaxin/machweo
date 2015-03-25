@@ -28,9 +28,6 @@
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="-68" y="-93" width="43" height="24"/>
                                 </variation>
-                                <variation key="widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="-28" y="12" width="74" height="43"/>
-                                </variation>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doT-lc-8P7" userLabel="menu view">
                                 <rect key="frame" x="16" y="20" width="568" height="560"/>
@@ -48,8 +45,8 @@
                                         <variation key="widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="116" y="233" width="138" height="94"/>
                                         </variation>
-                                        <variation key="widthClass=regular" misplaced="YES">
-                                            <rect key="frame" x="316" y="233" width="138" height="94"/>
+                                        <variation key="widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" pointSize="100"/>
                                         </variation>
                                         <variation key="heightClass=compact-widthClass=compact">
                                             <fontDescription key="fontDescription" type="system" pointSize="60"/>
@@ -61,7 +58,7 @@
                                             <action selector="closeMenuPressed:" destination="YbM-qg-g2k" eventType="touchUpInside" id="bWe-TT-Ppg"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X3j-pu-29F">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X3j-pu-29F">
                                         <rect key="frame" x="232" y="455" width="120" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="remove ads">
@@ -74,8 +71,8 @@
                                         <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                             <rect key="frame" x="232" y="455" width="90" height="30"/>
                                         </variation>
-                                        <variation key="widthClass=regular" ambiguous="YES" misplaced="YES">
-                                            <rect key="frame" x="232" y="455" width="490" height="30"/>
+                                        <variation key="widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         </variation>
                                         <variation key="heightClass=compact-widthClass=compact">
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -84,7 +81,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         </variation>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZm-1o-77c">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZm-1o-77c">
                                         <rect key="frame" x="50" y="455" width="120" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <state key="normal" title="leaderboards">
@@ -97,6 +94,9 @@
                                         <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                             <rect key="frame" x="50" y="455" width="90" height="30"/>
                                         </variation>
+                                        <variation key="widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        </variation>
                                         <variation key="heightClass=compact-widthClass=compact">
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         </variation>
@@ -107,12 +107,6 @@
                                             <action selector="leaderboardsPressed:" destination="YbM-qg-g2k" eventType="touchUpInside" id="jmu-7i-ATr"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1D-M2-KcL">
-                                        <rect key="frame" x="33" y="53" width="224" height="100"/>
-                                        <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="60"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FB1-7A-f2Y">
                                         <rect key="frame" x="75" y="508" width="141" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -126,8 +120,8 @@
                                         <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                             <rect key="frame" x="75" y="508" width="41" height="30"/>
                                         </variation>
-                                        <variation key="widthClass=regular" ambiguous="YES" misplaced="YES">
-                                            <rect key="frame" x="75" y="508" width="241" height="30"/>
+                                        <variation key="widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         </variation>
                                         <variation key="heightClass=compact-widthClass=compact">
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -136,12 +130,6 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         </variation>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="9999" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-V4-xgn">
-                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="60"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugf-dT-SaV">
                                         <rect key="frame" x="352" y="508" width="141" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -155,8 +143,8 @@
                                         <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
                                             <rect key="frame" x="252" y="508" width="41" height="30"/>
                                         </variation>
-                                        <variation key="widthClass=regular" ambiguous="YES" misplaced="YES">
-                                            <rect key="frame" x="452" y="508" width="241" height="30"/>
+                                        <variation key="widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         </variation>
                                         <variation key="heightClass=compact-widthClass=compact">
                                             <fontDescription key="fontDescription" type="system" pointSize="25"/>
@@ -168,73 +156,142 @@
                                             <action selector="sharePressed:" destination="YbM-qg-g2k" eventType="touchUpInside" id="erv-Io-vVs"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1D-M2-KcL">
+                                        <rect key="frame" x="33" y="53" width="224" height="100"/>
+                                        <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="60"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=compact">
+                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="80"/>
+                                        </variation>
+                                        <variation key="widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="100"/>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=compact">
+                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="60"/>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="80"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="753" ambiguous="YES" misplaced="YES" text="9999" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcn-V4-xgn">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="60"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="heightClass=compact">
+                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="80"/>
+                                        </variation>
+                                        <variation key="widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="100"/>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=compact">
+                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="60"/>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=regular">
+                                            <fontDescription key="fontDescription" name="Skranji" family="Skranji" pointSize="80"/>
+                                        </variation>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="ugf-dT-SaV" secondAttribute="trailing" constant="76" id="2Vk-tg-919">
                                         <variation key="heightClass=compact" constant="101"/>
+                                        <variation key="widthClass=regular" constant="114"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="61"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="111"/>
                                     </constraint>
                                     <constraint firstAttribute="centerY" secondItem="kli-Os-4tw" secondAttribute="centerY" id="A44-h0-3br"/>
                                     <constraint firstItem="EZm-1o-77c" firstAttribute="top" secondItem="kli-Os-4tw" secondAttribute="bottom" constant="27" id="BFz-Bv-ikO">
                                         <variation key="heightClass=compact" constant="9"/>
+                                        <variation key="widthClass=regular" constant="22"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="9"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="-39"/>
                                     </constraint>
+                                    <constraint firstAttribute="trailing" secondItem="gcn-V4-xgn" secondAttribute="trailing" constant="20" id="Csg-8Z-26Z">
+                                        <variation key="heightClass=compact" constant="60"/>
+                                        <variation key="widthClass=regular" constant="75"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="20"/>
+                                        <variation key="heightClass=compact-widthClass=regular" constant="110"/>
+                                    </constraint>
                                     <constraint firstItem="FB1-7A-f2Y" firstAttribute="leading" secondItem="doT-lc-8P7" secondAttribute="leading" constant="76" id="G41-Yl-PhS">
                                         <variation key="heightClass=compact" constant="111"/>
+                                        <variation key="widthClass=regular" constant="151"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="76"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="132"/>
                                     </constraint>
                                     <constraint firstItem="ugf-dT-SaV" firstAttribute="top" secondItem="X3j-pu-29F" secondAttribute="bottom" constant="17" id="HWy-Fo-NGj">
                                         <variation key="heightClass=compact" constant="17"/>
+                                        <variation key="widthClass=regular" constant="25"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="22"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="23"/>
                                     </constraint>
                                     <constraint firstItem="EZm-1o-77c" firstAttribute="leading" secondItem="doT-lc-8P7" secondAttribute="leading" constant="27" id="Nsd-eX-XCK">
                                         <variation key="heightClass=compact" constant="50"/>
+                                        <variation key="widthClass=regular" constant="50"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="27"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="50"/>
                                     </constraint>
                                     <constraint firstItem="FB1-7A-f2Y" firstAttribute="top" secondItem="EZm-1o-77c" secondAttribute="bottom" constant="17" id="W27-3l-BbR">
                                         <variation key="heightClass=compact" constant="17"/>
+                                        <variation key="widthClass=regular" constant="26"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="22"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="23"/>
                                     </constraint>
                                     <constraint firstItem="p1D-M2-KcL" firstAttribute="leading" secondItem="doT-lc-8P7" secondAttribute="leading" id="ZA9-sS-ySV">
                                         <variation key="heightClass=compact" constant="45"/>
-                                        <variation key="heightClass=compact-widthClass=compact" constant="27"/>
-                                        <variation key="heightClass=compact-widthClass=regular" constant="146"/>
+                                        <variation key="widthClass=regular" constant="75"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="16"/>
+                                        <variation key="heightClass=compact-widthClass=regular" constant="85"/>
                                     </constraint>
                                     <constraint firstItem="gcn-V4-xgn" firstAttribute="centerY" secondItem="p1D-M2-KcL" secondAttribute="centerY" id="c6T-ml-DGf">
                                         <variation key="heightClass=compact" constant="0.0"/>
+                                        <variation key="widthClass=regular" constant="2"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="2.5"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="0.0"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="0.0"/>
+                                    </constraint>
+                                    <constraint firstAttribute="bottom" secondItem="ugf-dT-SaV" secondAttribute="bottom" constant="23" id="iNp-pM-HJ4">
+                                        <variation key="heightClass=compact" constant="23"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="23"/>
                                     </constraint>
                                     <constraint firstAttribute="trailing" secondItem="X3j-pu-29F" secondAttribute="trailing" constant="27" id="ibs-4H-Bov">
                                         <variation key="heightClass=compact" constant="60"/>
+                                        <variation key="widthClass=regular" constant="46"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="27"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="56"/>
                                     </constraint>
                                     <constraint firstItem="gcn-V4-xgn" firstAttribute="top" secondItem="doT-lc-8P7" secondAttribute="top" constant="20" symbolic="YES" id="lXa-tO-9ZL">
-                                        <variation key="heightClass=compact" constant="39"/>
+                                        <variation key="heightClass=compact" constant="12"/>
+                                        <variation key="widthClass=regular" constant="55"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="18"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="39"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="103"/>
+                                    </constraint>
+                                    <constraint firstAttribute="bottom" secondItem="FB1-7A-f2Y" secondAttribute="bottom" constant="23" id="vDb-eq-FNI">
+                                        <variation key="heightClass=compact" constant="23"/>
+                                        <variation key="widthClass=regular" constant="22"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="23"/>
                                     </constraint>
                                     <constraint firstItem="gcn-V4-xgn" firstAttribute="leading" secondItem="p1D-M2-KcL" secondAttribute="trailing" id="ysT-2c-TWs">
-                                        <variation key="heightClass=compact" constant="120"/>
-                                        <variation key="heightClass=compact-widthClass=compact" constant="37"/>
-                                        <variation key="heightClass=compact-widthClass=regular" constant="136"/>
+                                        <variation key="heightClass=compact" constant="33"/>
+                                        <variation key="widthClass=regular" constant="116"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="30"/>
+                                        <variation key="heightClass=compact-widthClass=regular" constant="162"/>
                                     </constraint>
-                                    <constraint firstAttribute="centerX" secondItem="kli-Os-4tw" secondAttribute="centerX" id="z2W-kE-cDO"/>
+                                    <constraint firstAttribute="centerX" secondItem="kli-Os-4tw" secondAttribute="centerX" id="z2W-kE-cDO">
+                                        <variation key="widthClass=regular" constant="-1"/>
+                                    </constraint>
                                     <constraint firstItem="p1D-M2-KcL" firstAttribute="top" secondItem="doT-lc-8P7" secondAttribute="top" id="zgX-r5-UFt">
-                                        <variation key="heightClass=compact" constant="45"/>
+                                        <variation key="heightClass=compact" constant="32"/>
+                                        <variation key="widthClass=regular" constant="53"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="27"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="39"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="103"/>
                                     </constraint>
                                     <constraint firstItem="X3j-pu-29F" firstAttribute="top" secondItem="kli-Os-4tw" secondAttribute="bottom" constant="27" id="zgc-rs-G7x">
                                         <variation key="heightClass=compact" constant="9"/>
+                                        <variation key="widthClass=regular" constant="22"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="9"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="-39"/>
                                     </constraint>
@@ -243,6 +300,7 @@
                                     <mask key="constraints">
                                         <exclude reference="ZA9-sS-ySV"/>
                                         <exclude reference="zgX-r5-UFt"/>
+                                        <exclude reference="Csg-8Z-26Z"/>
                                         <exclude reference="c6T-ml-DGf"/>
                                         <exclude reference="lXa-tO-9ZL"/>
                                         <exclude reference="ysT-2c-TWs"/>
@@ -250,16 +308,19 @@
                                         <exclude reference="Nsd-eX-XCK"/>
                                         <exclude reference="G41-Yl-PhS"/>
                                         <exclude reference="W27-3l-BbR"/>
+                                        <exclude reference="vDb-eq-FNI"/>
                                         <exclude reference="ibs-4H-Bov"/>
                                         <exclude reference="zgc-rs-G7x"/>
                                         <exclude reference="2Vk-tg-919"/>
                                         <exclude reference="HWy-Fo-NGj"/>
+                                        <exclude reference="iNp-pM-HJ4"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact">
                                     <mask key="constraints">
                                         <include reference="ZA9-sS-ySV"/>
                                         <include reference="zgX-r5-UFt"/>
+                                        <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
@@ -267,10 +328,32 @@
                                         <include reference="Nsd-eX-XCK"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
+                                        <include reference="vDb-eq-FNI"/>
                                         <include reference="ibs-4H-Bov"/>
                                         <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
+                                        <include reference="iNp-pM-HJ4"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
+                                        <include reference="Csg-8Z-26Z"/>
+                                        <include reference="c6T-ml-DGf"/>
+                                        <include reference="lXa-tO-9ZL"/>
+                                        <include reference="ysT-2c-TWs"/>
+                                        <include reference="BFz-Bv-ikO"/>
+                                        <include reference="Nsd-eX-XCK"/>
+                                        <include reference="G41-Yl-PhS"/>
+                                        <include reference="W27-3l-BbR"/>
+                                        <include reference="vDb-eq-FNI"/>
+                                        <include reference="ibs-4H-Bov"/>
+                                        <include reference="zgc-rs-G7x"/>
+                                        <include reference="2Vk-tg-919"/>
+                                        <include reference="HWy-Fo-NGj"/>
+                                        <include reference="iNp-pM-HJ4"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=compact">
@@ -280,6 +363,7 @@
                                     <mask key="constraints">
                                         <include reference="ZA9-sS-ySV"/>
                                         <include reference="zgX-r5-UFt"/>
+                                        <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
@@ -287,10 +371,12 @@
                                         <include reference="Nsd-eX-XCK"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
+                                        <include reference="vDb-eq-FNI"/>
                                         <include reference="ibs-4H-Bov"/>
                                         <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
+                                        <include reference="iNp-pM-HJ4"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=regular">
@@ -323,7 +409,6 @@
                             <constraint firstItem="doT-lc-8P7" firstAttribute="trailing" secondItem="hCZ-X8-SON" secondAttribute="trailingMargin" id="psC-XX-Oo0"/>
                             <constraint firstItem="doT-lc-8P7" firstAttribute="leading" secondItem="hCZ-X8-SON" secondAttribute="leadingMargin" id="vgi-mE-w76"/>
                         </constraints>
-                        <variation key="heightClass=compact-widthClass=compact"/>
                     </view>
                     <navigationItem key="navigationItem" id="Q9Q-Vm-dWY"/>
                     <connections>
