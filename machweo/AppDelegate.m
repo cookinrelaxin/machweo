@@ -7,20 +7,13 @@
 //
 
 #import "AppDelegate.h"
+//#import <GameKit/GameKit.h>
 
 @implementation AppDelegate
 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    LevelParser* parser = [[LevelParser alloc] init];
-//    SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
-//    
-//    [AnimationComponent sharedInstance];
-//    [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
-//    [Constants sharedInstance].BIOMES = parser.biomes;
-//    [Constants sharedInstance].OBSTACLE_POOL = spritePreloader.getObstaclePool;
-//    [Constants sharedInstance].SKY_DICT = spritePreloader.getSkyPool;
-    
-    //[[GameDataManager sharedInstance] loadGameData];
+//    [self authenticateLocalPlayer];
     return YES;
 }
 

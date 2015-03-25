@@ -186,9 +186,47 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         </variation>
                                     </label>
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blanket_widget_01.png" translatesAutoresizingMaskIntoConstraints="NO" id="25j-5z-pni">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="BVF-q3-Edb">
+                                                <variation key="widthClass=regular" constant="46"/>
+                                                <variation key="heightClass=compact-widthClass=regular" constant="40"/>
+                                            </constraint>
+                                            <constraint firstAttribute="width" constant="32" id="MxE-jt-I4z">
+                                                <variation key="widthClass=regular" constant="46"/>
+                                                <variation key="heightClass=compact-widthClass=regular" constant="40"/>
+                                            </constraint>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="BVF-q3-Edb"/>
+                                                <exclude reference="MxE-jt-I4z"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="widthClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="BVF-q3-Edb"/>
+                                                <include reference="MxE-jt-I4z"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="BVF-q3-Edb"/>
+                                                <include reference="MxE-jt-I4z"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="BVF-q3-Edb"/>
+                                                <include reference="MxE-jt-I4z"/>
+                                            </mask>
+                                        </variation>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="25j-5z-pni" firstAttribute="leading" secondItem="doT-lc-8P7" secondAttribute="leading" constant="8" id="01j-wf-DFJ"/>
                                     <constraint firstAttribute="trailing" secondItem="ugf-dT-SaV" secondAttribute="trailing" constant="76" id="2Vk-tg-919">
                                         <variation key="heightClass=compact" constant="101"/>
                                         <variation key="widthClass=regular" constant="114"/>
@@ -262,6 +300,7 @@
                                         <variation key="heightClass=compact-widthClass=regular" constant="39"/>
                                         <variation key="heightClass=regular-widthClass=regular" constant="103"/>
                                     </constraint>
+                                    <constraint firstAttribute="bottom" secondItem="25j-5z-pni" secondAttribute="bottom" constant="8" id="sXS-Yt-5Sw"/>
                                     <constraint firstAttribute="bottom" secondItem="FB1-7A-f2Y" secondAttribute="bottom" constant="23" id="vDb-eq-FNI">
                                         <variation key="heightClass=compact" constant="23"/>
                                         <variation key="widthClass=regular" constant="22"/>
@@ -300,11 +339,11 @@
                                         <exclude reference="c6T-ml-DGf"/>
                                         <exclude reference="lXa-tO-9ZL"/>
                                         <exclude reference="ysT-2c-TWs"/>
-                                        <exclude reference="ibs-4H-Bov"/>
-                                        <exclude reference="zgc-rs-G7x"/>
                                         <exclude reference="G41-Yl-PhS"/>
                                         <exclude reference="W27-3l-BbR"/>
                                         <exclude reference="vDb-eq-FNI"/>
+                                        <exclude reference="ibs-4H-Bov"/>
+                                        <exclude reference="zgc-rs-G7x"/>
                                         <exclude reference="2Vk-tg-919"/>
                                         <exclude reference="HWy-Fo-NGj"/>
                                         <exclude reference="iNp-pM-HJ4"/>
@@ -320,11 +359,11 @@
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
-                                        <include reference="ibs-4H-Bov"/>
-                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
                                         <include reference="vDb-eq-FNI"/>
+                                        <include reference="ibs-4H-Bov"/>
+                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                         <include reference="iNp-pM-HJ4"/>
@@ -340,11 +379,11 @@
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
-                                        <include reference="ibs-4H-Bov"/>
-                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
                                         <include reference="vDb-eq-FNI"/>
+                                        <include reference="ibs-4H-Bov"/>
+                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                         <include reference="iNp-pM-HJ4"/>
@@ -360,11 +399,11 @@
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
-                                        <include reference="ibs-4H-Bov"/>
-                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
                                         <include reference="vDb-eq-FNI"/>
+                                        <include reference="ibs-4H-Bov"/>
+                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                         <include reference="iNp-pM-HJ4"/>
@@ -379,10 +418,10 @@
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
-                                        <include reference="ibs-4H-Bov"/>
-                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
+                                        <include reference="ibs-4H-Bov"/>
+                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                     </mask>
@@ -420,4 +459,7 @@
             <point key="canvasLocation" x="30" y="369"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="blanket_widget_01.png" width="108" height="96"/>
+    </resources>
 </document>

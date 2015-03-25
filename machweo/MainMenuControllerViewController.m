@@ -8,7 +8,7 @@
 
 #import "MainMenuControllerViewController.h"
 #import <UIKit/UIKit.h>
-#import <CoreText/CoreText.h>
+#import <GameKit/GameKit.h>
 #import "GameScene.h"
 #import "LoadingScene.h"
 #import "PopupView.h"
@@ -67,16 +67,16 @@
 //        _menuView.layer.shadowOpacity = 1;
 //        _menuView.layer.shadowOffset = CGSizeZero;
 //        _menuView.layer.masksToBounds = NO;
-        _menuView.layer.cornerRadius = 10;
+        _menuView.layer.cornerRadius = 20;
         _menuView.layer.borderColor = [UIColor darkGrayColor].CGColor;
-        _menuView.layer.borderWidth = 8.0f;
+        _menuView.layer.borderWidth = 10.0f;
     }
     
     _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - _menuView.frame.size.height, _menuView.frame.size.width, _menuView.frame.size.height);
-//    UIColor *rawColor = constants.LOGO_LABEL_FONT_COLOR;
-//    CGFloat r, g, b, a;
-//    [rawColor getRed: &r green:&g blue:&b alpha:&a];
-//    _menuView.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:.9];
+    UIColor *rawColor = constants.LOGO_LABEL_FONT_COLOR;
+    CGFloat r, g, b, a;
+    [rawColor getRed: &r green:&g blue:&b alpha:&a];
+    _menuView.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:.9];
 }
 
 
@@ -245,7 +245,8 @@
         dispatch_sync(dispatch_get_main_queue(), ^(void){
 //            GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
             NSLog(@"present gameplay scene");
-            
+            [self authenticateLocalPlayer];
+
 
             
             [self setUpMenu];
@@ -260,5 +261,49 @@
         
    
 }
+
+-(void)authenticateLocalPlayer
+{
+    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    
+    //Block is called each time GameKit automatically authenticates
+    localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error)
+    {
+        NSLog(@"viewController: %@", viewController);
+        
+        //      [self setLastError:error];
+        if (viewController)
+        {
+            [self presentViewController:viewController animated:YES completion:nil];
+            //[viewController showViewController:viewController sender:self];
+            
+            //    self.authenticationViewController = viewController;
+            [self disableGameCenter];
+        }
+        else if (localPlayer.isAuthenticated)
+        {
+            [self authenticatedPlayer];
+        }
+        else
+        {
+            [self disableGameCenter];
+        }
+    };
+}
+
+-(void)authenticatedPlayer
+{
+    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    // [[NSNotificationCenter defaultCenter]postNotificationName:AUTHENTICATED_NOTIFICATION object:nil];
+    NSLog(@"Local player:%@ authenticated into game center",localPlayer.playerID);
+}
+
+-(void)disableGameCenter
+{
+    //A notification so that every observer responds appropriately to disable game center features
+    // [[NSNotificationCenter defaultCenter]postNotificationName:UNAUTHENTICATED_NOTIFICATION object:nil];
+    NSLog(@"Disabled game center");
+}
+
 
 @end
