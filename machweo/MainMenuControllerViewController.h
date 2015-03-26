@@ -8,13 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+#import <GameKit/GameKit.h>
 
-@interface MainMenuControllerViewController : UIViewController
+@interface MainMenuControllerViewController : UIViewController <GKGameCenterControllerDelegate>
 @property (weak, nonatomic) IBOutlet SKView *gameSceneView;
 @property (weak, nonatomic) IBOutlet UIView *menuView;
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttons;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labels;
+@property (weak, nonatomic) IBOutlet UILabel *scoreTitleLabel;
 
 
 @end

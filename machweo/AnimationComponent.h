@@ -14,7 +14,7 @@
 
 @property (nonatomic) NSMutableArray* runningFrames;
 @property (nonatomic) NSMutableArray* jumpingFrames;
-@property (nonatomic) NSMutableArray* landingFrames;
+@property (nonatomic) NSMutableArray* midairFrames;
 
 
 //@property (nonatomic) NSInteger currentIndexInAnimationArray;

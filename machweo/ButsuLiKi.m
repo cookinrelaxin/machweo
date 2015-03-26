@@ -16,7 +16,6 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 @implementation ButsuLiKi{
     float previousSlope;
     NSMutableArray *pastSlopes;
-    BOOL shangoBrokeHisBack;
     CGSize sceneSize;
 }
 -(instancetype)initWithSceneSize:(CGSize)size{
@@ -80,13 +79,13 @@ const float OFFLINE_ROTATION_SPEED = .02f;
                 player.currentSlope = slope;
                 player.roughlyOnLine = true;
                 [self addSlopeToSlopeArray:slope];
-                [self isShangoDead:player];
                 player.currentRotationSpeed = ONLINE_ROTATION_SPEED;
 
                 
                 CGPoint lastPoint = ((NSValue*)pointArray.lastObject).CGPointValue;
                 if (fabsf(lastPoint.x - rightNode.CGPointValue.x) < player.size.width) {
                     player.endOfLine = true;
+                    player.roughlyOnLine = false;
                     //NSLog(@"player.endOfLine = true");
                     player.currentRotationSpeed = OFFLINE_ROTATION_SPEED;
                 }
@@ -107,19 +106,6 @@ const float OFFLINE_ROTATION_SPEED = .02f;
   //  });
 
         player.minYPosition = yMin;
-}
-
--(void)isShangoDead:(Player*)player{
-  //  if ((player.currentRotationSpeed == OFFLINE_ROTATION_SPEED) && (player.velocity.dy < 0)) {
-      if (player.velocity.dy < 0) {
-
-      //  NSLog(@"player.zRotation: %f", player.zRotation);
-        if (player.zRotation > M_PI_4) {
-              //NSLog(@"player.currentSlope: %f", player.currentSlope);
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"shangoBrokeHisBack" object:nil];
-            shangoBrokeHisBack = true;
-        }
-    }
 }
 
 -(void)addSlopeToSlopeArray:(float)slope{
@@ -316,7 +302,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 
     
     [self resolveCollisions:player withLineArray:lineArray];
-    if (player.roughlyOnLine) {
+    if (player.roughlyOnLine || player.endOfLine) {
         if (player.position.y < player.minYPosition) {
             player.position = CGPointMake(player.position.x, player.minYPosition);
         }
@@ -360,7 +346,6 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 }
 
 -(void)calculatePlayerRotation:(Player*)player{
-    //if (!shangoBrokeHisBack) {
     if (player.onGround) {
         [pastSlopes removeAllObjects];
         player.zRotation = 0;
@@ -398,7 +383,6 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 -(void)reset{
     previousSlope = 0;
     [pastSlopes removeAllObjects];
-    shangoBrokeHisBack = false;
 }
 
 @end

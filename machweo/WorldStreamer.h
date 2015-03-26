@@ -16,7 +16,7 @@
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance;
 -(NSMutableArray*)getTerrainPool;
--(void)reset;
+-(void)resetWithFinalDistance:(NSUInteger)finalDistance;
 -(void)enableObstacles;
 
 @end

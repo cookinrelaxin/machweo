@@ -186,7 +186,7 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         </variation>
                                     </label>
-                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="blanket_widget_01.png" translatesAutoresizingMaskIntoConstraints="NO" id="25j-5z-pni">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="blanket_widget_01.png" translatesAutoresizingMaskIntoConstraints="NO" id="25j-5z-pni">
                                         <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="32" id="BVF-q3-Edb">
@@ -331,19 +331,19 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="ZA9-sS-ySV"/>
-                                        <exclude reference="zgX-r5-UFt"/>
-                                        <exclude reference="BFz-Bv-ikO"/>
-                                        <exclude reference="Nsd-eX-XCK"/>
                                         <exclude reference="Csg-8Z-26Z"/>
                                         <exclude reference="c6T-ml-DGf"/>
                                         <exclude reference="lXa-tO-9ZL"/>
                                         <exclude reference="ysT-2c-TWs"/>
+                                        <exclude reference="ZA9-sS-ySV"/>
+                                        <exclude reference="zgX-r5-UFt"/>
+                                        <exclude reference="BFz-Bv-ikO"/>
+                                        <exclude reference="Nsd-eX-XCK"/>
+                                        <exclude reference="ibs-4H-Bov"/>
+                                        <exclude reference="zgc-rs-G7x"/>
                                         <exclude reference="G41-Yl-PhS"/>
                                         <exclude reference="W27-3l-BbR"/>
                                         <exclude reference="vDb-eq-FNI"/>
-                                        <exclude reference="ibs-4H-Bov"/>
-                                        <exclude reference="zgc-rs-G7x"/>
                                         <exclude reference="2Vk-tg-919"/>
                                         <exclude reference="HWy-Fo-NGj"/>
                                         <exclude reference="iNp-pM-HJ4"/>
@@ -351,19 +351,19 @@
                                 </variation>
                                 <variation key="heightClass=compact">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
-                                        <include reference="BFz-Bv-ikO"/>
-                                        <include reference="Nsd-eX-XCK"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
+                                        <include reference="BFz-Bv-ikO"/>
+                                        <include reference="Nsd-eX-XCK"/>
+                                        <include reference="ibs-4H-Bov"/>
+                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
                                         <include reference="vDb-eq-FNI"/>
-                                        <include reference="ibs-4H-Bov"/>
-                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                         <include reference="iNp-pM-HJ4"/>
@@ -371,19 +371,19 @@
                                 </variation>
                                 <variation key="widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
-                                        <include reference="BFz-Bv-ikO"/>
-                                        <include reference="Nsd-eX-XCK"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
+                                        <include reference="BFz-Bv-ikO"/>
+                                        <include reference="Nsd-eX-XCK"/>
+                                        <include reference="ibs-4H-Bov"/>
+                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
                                         <include reference="vDb-eq-FNI"/>
-                                        <include reference="ibs-4H-Bov"/>
-                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                         <include reference="iNp-pM-HJ4"/>
@@ -391,19 +391,19 @@
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
-                                        <include reference="BFz-Bv-ikO"/>
-                                        <include reference="Nsd-eX-XCK"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
+                                        <include reference="BFz-Bv-ikO"/>
+                                        <include reference="Nsd-eX-XCK"/>
+                                        <include reference="ibs-4H-Bov"/>
+                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="G41-Yl-PhS"/>
                                         <include reference="W27-3l-BbR"/>
                                         <include reference="vDb-eq-FNI"/>
-                                        <include reference="ibs-4H-Bov"/>
-                                        <include reference="zgc-rs-G7x"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                         <include reference="iNp-pM-HJ4"/>
@@ -411,17 +411,17 @@
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=regular">
                                     <mask key="constraints">
+                                        <include reference="c6T-ml-DGf"/>
+                                        <include reference="lXa-tO-9ZL"/>
+                                        <include reference="ysT-2c-TWs"/>
                                         <include reference="ZA9-sS-ySV"/>
                                         <include reference="zgX-r5-UFt"/>
                                         <include reference="BFz-Bv-ikO"/>
                                         <include reference="Nsd-eX-XCK"/>
-                                        <include reference="c6T-ml-DGf"/>
-                                        <include reference="lXa-tO-9ZL"/>
-                                        <include reference="ysT-2c-TWs"/>
-                                        <include reference="G41-Yl-PhS"/>
-                                        <include reference="W27-3l-BbR"/>
                                         <include reference="ibs-4H-Bov"/>
                                         <include reference="zgc-rs-G7x"/>
+                                        <include reference="G41-Yl-PhS"/>
+                                        <include reference="W27-3l-BbR"/>
                                         <include reference="2Vk-tg-919"/>
                                         <include reference="HWy-Fo-NGj"/>
                                     </mask>
@@ -445,6 +445,7 @@
                         <outlet property="gameSceneView" destination="uc1-73-f2O" id="kjc-ub-aXJ"/>
                         <outlet property="menuView" destination="doT-lc-8P7" id="bUi-Jj-cUk"/>
                         <outlet property="scoreLabel" destination="gcn-V4-xgn" id="O4A-YG-BAy"/>
+                        <outlet property="scoreTitleLabel" destination="p1D-M2-KcL" id="wkD-c6-uBf"/>
                         <outletCollection property="buttons" destination="EZm-1o-77c" id="hBy-Ad-cFp"/>
                         <outletCollection property="buttons" destination="FB1-7A-f2Y" id="EK3-E3-sSP"/>
                         <outletCollection property="buttons" destination="X3j-pu-29F" id="gQl-rU-LHm"/>

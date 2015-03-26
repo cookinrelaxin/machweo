@@ -20,7 +20,6 @@
 
 
 @property (nonatomic, strong) Constants *constants;
-@property (nonatomic) BOOL shangoBrokeHisBack;
 @property (nonatomic) BOOL allowDismissPopup;
 @property (nonatomic) BOOL stopScrolling;
 

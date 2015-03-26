@@ -8,7 +8,7 @@
 
 #import "MainMenuControllerViewController.h"
 #import <UIKit/UIKit.h>
-#import <GameKit/GameKit.h>
+#import "GKHelper.h"
 #import "GameScene.h"
 #import "LoadingScene.h"
 #import "PopupView.h"
@@ -57,6 +57,8 @@
         label.font = [UIFont fontWithName:fontName size:label.font.pointSize];
         //NSLog(@"label.font.pointsize: %f", label.font.pointSize);
     }
+    //_scoreTitleLabel.text = @"New highscore:";
+    
 }
 
 
@@ -161,6 +163,7 @@
 -(void)showMenuWithScore:(NSUInteger)score{
     _menuView.hidden = false;
     _scoreLabel.text = [NSString stringWithFormat:@"%lu", score];
+    [[GKHelper sharedInstance] reportScore:score];
         //NSLog(@"_menuView: %@", _menuView);
         [UIView animateWithDuration:0.5
                          animations:^{
@@ -177,15 +180,23 @@
 
 -(void)closeMenu{
     //[menu removeFromSuperview];
-    [UIView animateWithDuration:0.5
-         animations:^{
-             _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - _menuView.frame.size.height, _menuView.frame.size.width, _menuView.frame.size.height);
-         }
-              completion:^(BOOL finished){
-                _menuView.hidden = true;
-                [[NSNotificationCenter defaultCenter] postNotificationName:@"restart" object:nil];
-              }
-     ];
+    [UIView animateWithDuration:0.1
+                     animations:^{
+                         _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y + 15, _menuView.frame.size.width, _menuView.frame.size.height);
+                     }
+                     completion:^(BOOL finished){
+
+                        [UIView animateWithDuration:0.5
+                             animations:^{
+                                 _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - _menuView.frame.size.height, _menuView.frame.size.width, _menuView.frame.size.height);
+                             }
+                                  completion:^(BOOL finished){
+                                    _menuView.hidden = true;
+                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"restart" object:nil];
+                                  }
+                         ];
+    }];
+
     
 }
 
@@ -223,6 +234,7 @@
 }
 - (IBAction)leaderboardsPressed:(id)sender {
     NSLog(@"leaderboardsPressed");
+    [[GKHelper sharedInstance] showGameCenter];
 
 }
 - (IBAction)sharePressed:(id)sender {
@@ -245,13 +257,11 @@
         dispatch_sync(dispatch_get_main_queue(), ^(void){
 //            GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
             NSLog(@"present gameplay scene");
-            [self authenticateLocalPlayer];
-
-
-            
+            GKHelper* gkhelper = [GKHelper sharedInstance];
+            [gkhelper authenticateLocalPlayer];
+            gkhelper.presentingVC = self;
             [self setUpMenu];
 
-            
             [_gameSceneView presentScene: newScene transition:[SKTransition fadeWithDuration:1]];
         });
     });
@@ -262,47 +272,10 @@
    
 }
 
--(void)authenticateLocalPlayer
-{
-    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
-    
-    //Block is called each time GameKit automatically authenticates
-    localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error)
-    {
-        NSLog(@"viewController: %@", viewController);
-        
-        //      [self setLastError:error];
-        if (viewController)
-        {
-            [self presentViewController:viewController animated:YES completion:nil];
-            //[viewController showViewController:viewController sender:self];
-            
-            //    self.authenticationViewController = viewController;
-            [self disableGameCenter];
-        }
-        else if (localPlayer.isAuthenticated)
-        {
-            [self authenticatedPlayer];
-        }
-        else
-        {
-            [self disableGameCenter];
-        }
-    };
-}
 
--(void)authenticatedPlayer
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
 {
-    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
-    // [[NSNotificationCenter defaultCenter]postNotificationName:AUTHENTICATED_NOTIFICATION object:nil];
-    NSLog(@"Local player:%@ authenticated into game center",localPlayer.playerID);
-}
-
--(void)disableGameCenter
-{
-    //A notification so that every observer responds appropriately to disable game center features
-    // [[NSNotificationCenter defaultCenter]postNotificationName:UNAUTHENTICATED_NOTIFICATION object:nil];
-    NSLog(@"Disabled game center");
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

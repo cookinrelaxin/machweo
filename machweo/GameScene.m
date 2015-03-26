@@ -54,6 +54,7 @@ float MAX_AUDIO_VOLUME = .25f;
     BOOL in_game;
     BOOL player_created;
     BOOL paused;
+    //BOOL obstacles
     
     //UI
         SKLabelNode* logoLabel;
@@ -587,6 +588,7 @@ float MAX_AUDIO_VOLUME = .25f;
     player.onGround = true;
     finalPlayerPosition = CGPointMake(self.view.bounds.origin.x + player.size.width / 2, [self convertPointToView:player.position].y);
     currentDesiredPlayerPositionInView = CGPointMake(self.size.width + player.size.width / 2, player.size.height / 2);
+    [self setInitialAnimation];
 }
 
 -(void)createLineNode{
@@ -779,10 +781,9 @@ float MAX_AUDIO_VOLUME = .25f;
             [self createPlayer];
         }
         if (player_created && !gameOver) {
-            [self checkForWonGame];
-            [self checkForLostGame];
             if (in_game) {
                 [self updateDistance];
+                [self checkForLostGame];
             }
             [worldStreamer updateWithPlayerDistance:distance_traveled];
             [self centerCameraOnPlayer];
@@ -799,7 +800,7 @@ float MAX_AUDIO_VOLUME = .25f;
 }
 
 -(void)checkForNewAnimationState{
-    if ((player.roughlyOnLine || player.onGround) && ![player actionForKey:@"runningMaasai"]) {
+    if ((player.roughlyOnLine || player.onGround) && [player actionForKey:@"midAirMaasai"]) {
         [player removeAllActions];
         [player runAction:[SKAction repeatActionForever:
                            [SKAction animateWithTextures:animationComponent.runningFrames
@@ -808,16 +809,44 @@ float MAX_AUDIO_VOLUME = .25f;
                                                  restore:YES]] withKey:@"runningMaasai"];
     }
     
-    if (player.endOfLine && ![player actionForKey:@"jumpingMaasai"]) {
+    else if (player.endOfLine && ![player actionForKey:@"jumpingMaasai"] && ![player actionForKey:@"midAirMaasai"]) {
         
         [player removeAllActions];
-        [player runAction:
-                           [SKAction animateWithTextures:animationComponent.jumpingFrames
-                                            timePerFrame:0.05f
-                                                  resize:NO
-                                                 restore:YES] withKey:@"jumpingMaasai"];
+        SKAction* jumpAction = [SKAction animateWithTextures:animationComponent.jumpingFrames
+                                                timePerFrame:0.1f
+                                                      resize:NO
+                                                     restore:YES];
+        //[player runAction:jumpAction withKey:@"jumpingMaasai"];
+        SKAction* midAirAction = [SKAction repeatActionForever:
+                                  [SKAction animateWithTextures:animationComponent.midairFrames
+                                                   timePerFrame:0.05f
+                                                         resize:NO
+                                                        restore:YES]];
+        
+        //[player runAction:midAirAction withKey:@"jumpingMaasai"];
+        [player runAction:[SKAction sequence:@[jumpAction, midAirAction]] withKey:@"jumpingMaasai"];
+        
+    }
+    else if([player actionForKey:@"jumpingMaasai"]){
+        [player removeAllActions];
+        SKAction* midAirAction = [SKAction repeatActionForever:
+        [SKAction animateWithTextures:animationComponent.midairFrames
+                        timePerFrame:0.05f
+                              resize:NO
+                             restore:YES]];
+
+        [player runAction:midAirAction withKey:@"midAirMaasai"];
+
     }
     
+}
+
+-(void)setInitialAnimation{
+    [player runAction:[SKAction repeatActionForever:
+                       [SKAction animateWithTextures:animationComponent.runningFrames
+                                        timePerFrame:0.04f
+                                              resize:NO
+                                             restore:YES]] withKey:@"runningMaasai"];
     
 }
 
@@ -832,26 +861,10 @@ float MAX_AUDIO_VOLUME = .25f;
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
 
     }
-//    if (player.position.y < 0 - (player.size.height / 2)) {
-//        [self loseGame];
-////        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-////        [popupDict setValue:@"Oops! You fell off the path. That's ok, have another try." forKey:@"popup text"];
-////        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-////        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
-//    }
-    
-    if (_shangoBrokeHisBack) {
-        [self loseGame];
-    }
 }
--(void)checkForWonGame{
-    if (player.position.x > self.size.width + player.size.width / 2) {
-        //[self loadNextLevel];
-    }
-}
-
 
 -(void)loseGame{
+    
     gameOver = true;
     //[self performSunset];
     [self fadeVolumeOut];
@@ -983,10 +996,10 @@ float MAX_AUDIO_VOLUME = .25f;
     found_first_obstacle = false;
     passed_first_obstacle = false;
     popup_engaged = false;
-    distance_traveled = 0;
     previousPlayerXPosition_hypothetical = currentPlayerXPosition_hypothetical = 0;
     distanceLabel.text = @"0";
-    [worldStreamer reset];
+    [worldStreamer resetWithFinalDistance:distance_traveled];
+    distance_traveled = 0;
     [self reappearButtons];
 }
 
