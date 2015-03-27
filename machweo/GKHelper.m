@@ -9,7 +9,9 @@
 #import "GKHelper.h"
 
 @implementation GKHelper{
-    NSArray* _leaderboards;
+    GKLeaderboard *leaderBoard;
+    NSArray* topTenGlobalScores;
+    NSArray* topTenFriendsScores;
     NSUInteger localHighScore;
 }
 
@@ -75,8 +77,8 @@
     if (score > localHighScore) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"congratulate player on new high score" object:nil];
     }
-    for (GKLeaderboard* lb in _leaderboards) {
-        GKScore *scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier: lb.identifier];
+    //for (GKLeaderboard* lb in _leaderboards) {
+        GKScore *scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier: leaderBoard.identifier];
         scoreReporter.value = score;
         scoreReporter.context = 0;
         NSArray *scores = @[scoreReporter];
@@ -85,18 +87,80 @@
             //Do something interesting here.
             //no, haha jk
         }];
-    }
+    //}
 }
 
 - (void) loadLeaderboardInfo
 {
     [GKLeaderboard loadLeaderboardsWithCompletionHandler:^(NSArray *leaderboards, NSError *error) {
-        _leaderboards = leaderboards;
-        GKLeaderboard* lb = _leaderboards.firstObject;
-        localHighScore = (NSUInteger)lb.localPlayerScore;
+        leaderBoard = leaderboards.firstObject;
+        localHighScore = (NSUInteger)leaderBoard.localPlayerScore;
         NSLog(@"localHighScore: %lu", localHighScore);
-       // NSLog(@"_leaderboards: %@", _leaderboards);
+        NSLog(@"leaderBoard: %@", leaderBoard);
+        [self loadTopTenFriendScores];
+        [self loadTopTenGlobalScores];
     }];
+}
+
+- (void) loadTopTenGlobalScores
+{
+    if (leaderBoard != nil)
+    {
+        leaderBoard.playerScope = GKLeaderboardPlayerScopeGlobal;
+        leaderBoard.timeScope = GKLeaderboardTimeScopeAllTime;
+        leaderBoard.range = NSMakeRange(1,10);
+        [leaderBoard loadScoresWithCompletionHandler: ^(NSArray *scores, NSError *error) {
+            if (error != nil)
+            {
+                // handle the error.
+            }
+            if (scores != nil)
+            {
+                // process the score information.
+            }
+            //return scores;
+        }];
+    }
+    //return leaderboardRequest.scores;
+
+    topTenGlobalScores = leaderBoard.scores;
+    NSLog(@"top10GlobalScores: %@", topTenGlobalScores);
+
+
+}
+
+- (void) loadTopTenFriendScores
+{
+    if (leaderBoard != nil)
+    {
+        leaderBoard.playerScope = GKLeaderboardPlayerScopeFriendsOnly;
+        leaderBoard.timeScope = GKLeaderboardTimeScopeAllTime;
+        leaderBoard.range = NSMakeRange(1,10);
+        [leaderBoard loadScoresWithCompletionHandler: ^(NSArray *scores, NSError *error) {
+            if (error != nil)
+            {
+                // handle the error.
+            }
+            if (scores != nil)
+            {
+                // process the score information.
+            }
+            //return scores;
+        }];
+    }
+    //return leaderboardRequest.scores;
+    topTenFriendsScores = leaderBoard.scores;
+    NSLog(@"topTenFriendsScores: %@", topTenFriendsScores);
+
+    
+}
+
+-(NSArray*) retrieveTopTenFriendScores{
+    return topTenFriendsScores;
+}
+
+-(NSArray*) retrieveTopTenGlobalScores{
+    return topTenGlobalScores;
 }
 
 + (instancetype)sharedInstance

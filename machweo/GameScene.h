@@ -13,6 +13,7 @@
 @property (nonatomic, strong) SKNode* world;
 @property (nonatomic, strong) SKNode* obstacles;
 @property (nonatomic, strong) SKNode* terrain;
+@property (nonatomic, strong) SKNode* cairns;
 @property (nonatomic, strong) SKNode* decorations;
 @property (nonatomic, strong) SKNode* skies;
 

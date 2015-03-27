@@ -18,10 +18,6 @@
 #import "SpritePreloader.h"
 #import "AnimationComponent.h"
 
-@interface MainMenuControllerViewController ()
-
-@end
-
 @implementation MainMenuControllerViewController{
     BOOL gameLoaded;
     BOOL observersLoaded;
@@ -39,7 +35,7 @@
         NSLog(@"gameLoaded = true");
         gameLoaded = true;
         _gameSceneView.ignoresSiblingOrder = YES;
-        _gameSceneView.showsFPS = YES;
+        //_gameSceneView.showsFPS = YES;
         _menuView.hidden = true;
         [self setUpObservers];
         [self initGame];
@@ -243,6 +239,7 @@
 }
 
 -(void)initGame{
+   __block LoadingScene* loadingScene;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         LevelParser* parser = [[LevelParser alloc] init];
         SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
@@ -254,19 +251,25 @@
         [Constants sharedInstance].SKY_DICT = spritePreloader.getSkyPool;
         GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
 //
+        //dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
         dispatch_sync(dispatch_get_main_queue(), ^(void){
+        //dispatch_after(time, dispatch_get_main_queue(), ^(void){
 //            GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
             NSLog(@"present gameplay scene");
             GKHelper* gkhelper = [GKHelper sharedInstance];
             [gkhelper authenticateLocalPlayer];
             gkhelper.presentingVC = self;
             [self setUpMenu];
-
-            [_gameSceneView presentScene: newScene transition:[SKTransition fadeWithDuration:1]];
+            dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC);
+            dispatch_after(time, dispatch_get_main_queue(), ^(void){
+                [loadingScene fadeOut];
+                [_gameSceneView presentScene: newScene transition:[SKTransition fadeWithDuration:1]];
+                loadingScene = nil;
+            });
         });
     });
     
-    LoadingScene* loadingScene = [[LoadingScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
+    loadingScene = [[LoadingScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
     [_gameSceneView presentScene:loadingScene];
         
    

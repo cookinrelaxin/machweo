@@ -15,6 +15,7 @@
 #import "Score.h"
 #import "AnimationComponent.h"
 #import <AVFoundation/AVFoundation.h>
+#import "GKHelper.h"
 
 int Y_THRESHOLD_FOR_SWITCH_LEVEL = 40;
 int ALLOWABLE_X_DIFFERENCE = 10;
@@ -134,10 +135,12 @@ float MAX_AUDIO_VOLUME = .25f;
         _terrain = [SKNode node];
         _decorations = [[SKNode alloc] init];
         _skies = [SKNode node];
+        _cairns = [SKNode node];
         [_world addChild:_obstacles];
         [_world addChild:_terrain];
         [_world addChild:_decorations];
         [_world addChild:_skies];
+        [_world addChild:_cairns];
 
         physicsComponent = [[ButsuLiKi alloc] initWithSceneSize:self.size];
         animationComponent = [AnimationComponent sharedInstance];
@@ -164,7 +167,6 @@ float MAX_AUDIO_VOLUME = .25f;
         [_hud addChild:distanceLabel];
         player = [Player player];
         //[self createPlayer];
-        
         [self createLogoLabel];
         [self createMuteButton];
         [self createPauseButton];
@@ -328,7 +330,7 @@ float MAX_AUDIO_VOLUME = .25f;
 
 -(void)organizeTheHeavens{
     {
-        SKTexture *spriteTexture = [_constants.TEXTURE_DICT objectForKey:@"sun_decoration"];
+        SKTexture *spriteTexture = [_constants.TEXTURE_DICT objectForKey:@"sun2_decoration"];
         if (spriteTexture) {
             sunNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
         }
@@ -959,7 +961,9 @@ float MAX_AUDIO_VOLUME = .25f;
         }
         
         _obstacles.position = CGPointMake(_obstacles.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _obstacles.position.y);
-        
+        if (in_game) {
+            _cairns.position = CGPointMake(_cairns.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _cairns.position.y);
+        }
         //NSLog(@"[_obstacles calculateAccumulatedFrame].origin.x: %f", [_obstacles calculateAccumulatedFrame].origin.x);
         //NSLog(@"self.size.width: %f", self.size.width);
         
@@ -987,6 +991,7 @@ float MAX_AUDIO_VOLUME = .25f;
     previousPoint = currentPoint = CGPointZero;
     [physicsComponent reset];
     [self resetLines];
+    [self resetCairns];
     endGameNotificationSent = false;
     gameOver = false;
     in_game = false;
@@ -1001,6 +1006,12 @@ float MAX_AUDIO_VOLUME = .25f;
     [worldStreamer resetWithFinalDistance:distance_traveled];
     distance_traveled = 0;
     [self reappearButtons];
+}
+
+-(void)resetCairns{
+    for (SKSpriteNode* cairn in _cairns.children) {
+        cairn.position = CGPointMake(cairn.position.x + distance_traveled, cairn.position.y);
+    }
 }
 
 -(void)reappearButtons{
@@ -1092,6 +1103,37 @@ float MAX_AUDIO_VOLUME = .25f;
     CGPoint posInScene = CGPointMake(self.size.width / 2, self.size.height * .6);
     pauseLabel.position = [_hud convertPoint:posInScene fromNode:self];
     [_hud addChild:pauseLabel];
+}
+
+-(void)setupCairns{
+    SKTexture *cairnTexture = [_constants.TEXTURE_DICT objectForKey:@"sun2_decoration"];
+    GKHelper* gkhelper = [GKHelper sharedInstance];
+    NSArray* top10GlobalScores = [gkhelper retrieveTopTenGlobalScores];
+//    NSLog(@"top10GlobalScores: %@", top10GlobalScores);
+    NSArray* top10FriendScores = [gkhelper retrieveTopTenFriendScores];
+    
+    for (GKScore* score in top10GlobalScores) {
+        NSLog(@"score.value: %lld", score.value);
+        SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
+        cairn.zPosition = _constants.OBSTACLE_Z_POSITION;
+        cairn.position = CGPointMake(score.value, cairn.size.height / 2);
+        [_world addChild:cairn];
+    }
+    for (GKScore* score in top10FriendScores) {
+        if ([top10GlobalScores containsObject:score]) {
+            NSLog(@"[top10GlobalScores containsObject:score]");
+            continue;
+        }
+        SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
+        cairn.zPosition = _constants.OBSTACLE_Z_POSITION;
+        cairn.position = CGPointMake(score.value, cairn.size.height / 2);
+        [_world addChild:cairn];
+    }
+
+}
+
+-(void)didMoveToView:(SKView *)view{
+    [self setupCairns];
 }
 
 @end

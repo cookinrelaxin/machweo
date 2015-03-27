@@ -212,9 +212,15 @@ typedef enum NodeTypes
         if (currentElement == zPosition) {
             //NSLog(@"zPosition: %@", string);
             float zFloat = [string floatValue];
-            if (zFloat >= constants.OBSTACLE_Z_POSITION) {
-                currentNode.alpha = .50;
+            if (currentNodeType == decoration) {
+                if (zFloat >= constants.OBSTACLE_Z_POSITION) {
+                    NSUInteger dice = arc4random_uniform(5) + 1;
+                    currentNode.zPosition = constants.OBSTACLE_Z_POSITION - dice;
+                    currentNode.alpha = .75;
+                    return;
+                }
             }
+            
             currentNode.zPosition = zFloat;
             return;
         }
@@ -278,11 +284,6 @@ typedef enum NodeTypes
 
 }
 
-//-(void)pourObstaclesIntoBucket:(NSMutableArray *)bucket{
-//    [bucket addObjectsFromArray:obstacleArray];
-//}
-
-
 -(void)pourDecorationsIntoBucket:(NSMutableArray *)bucket andTerrainPool:(NSMutableArray *)terrainPool{
     [bucket addObjectsFromArray:decorationArray];
     //terrainPool = terrainPoolArray;
@@ -292,7 +293,6 @@ typedef enum NodeTypes
             [terrainPool addObject:tex];
         }
     }
-   // [terrainPool addObjectsFromArray:terrainPoolArray];
 
 }
 

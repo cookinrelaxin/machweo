@@ -15,6 +15,9 @@
 - (void)authenticateLocalPlayer;
 - (void) reportScore: (int64_t) score;
 - (void) showGameCenter;
+- (NSArray*) retrieveTopTenGlobalScores;
+- (NSArray*) retrieveTopTenFriendScores;
+
 
 //- (void) loadLeaderboardInfo;
 
