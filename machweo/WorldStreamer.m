@@ -301,12 +301,12 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance{
     
-    if (shouldLoadObstacles) {
-        [self checkForOldObstacles];
-        if (!chunkLoading) {
-            [self checkForLastObstacleWithDistance:playerDistance];
-        }
-    }
+//    if (shouldLoadObstacles) {
+//        [self checkForOldObstacles];
+//        if (!chunkLoading) {
+//            [self checkForLastObstacleWithDistance:playerDistance];
+//        }
+//    }
     
     playerDistance += total_previous_distance;
     

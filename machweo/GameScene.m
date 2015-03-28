@@ -29,6 +29,8 @@ int LUNAR_PERIOD = 70; //seconds
 
 float MAX_AUDIO_VOLUME = .25f;
 
+int METERS_PER_PIXEL = 50;
+
 
 
 
@@ -85,7 +87,7 @@ float MAX_AUDIO_VOLUME = .25f;
     BOOL passed_first_obstacle;
     BOOL popup_engaged;
     
-    NSUInteger distance_traveled;
+    float distance_traveled;
     
     float previousPlayerXPosition_hypothetical;
     float currentPlayerXPosition_hypothetical;
@@ -705,8 +707,10 @@ float MAX_AUDIO_VOLUME = .25f;
     currentPlayerXPosition_hypothetical += player.velocity.dx;
     
     double difference = currentPlayerXPosition_hypothetical - previousPlayerXPosition_hypothetical;
-    if (difference > 50) {
-        distance_traveled += 1;
+    if (difference > METERS_PER_PIXEL) {
+       // NSLog(@"difference: %f", difference);
+        distance_traveled += (difference / METERS_PER_PIXEL);
+        //_cairns.position = CGPointMake(_cairns.position.x - METERS_PER_PIXEL, 0);
         [self updateDistanceLabelWithDistance:distance_traveled];
         currentPlayerXPosition_hypothetical = previousPlayerXPosition_hypothetical;
     }
@@ -963,9 +967,12 @@ float MAX_AUDIO_VOLUME = .25f;
         _obstacles.position = CGPointMake(_obstacles.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _obstacles.position.y);
         if (in_game) {
             _cairns.position = CGPointMake(_cairns.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _cairns.position.y);
+//            for (SKSpriteNode* cairn in _cairns.children) {
+//                CGPoint cairnPosInScene = [self convertPoint:cairn.position fromNode:_cairns];
+//                NSLog(@"cairnPosInScene: %f", cairnPosInScene.x);
+//                NSLog(@"distance_traveled: %lu", distance_traveled);
+//            }
         }
-        //NSLog(@"[_obstacles calculateAccumulatedFrame].origin.x: %f", [_obstacles calculateAccumulatedFrame].origin.x);
-        //NSLog(@"self.size.width: %f", self.size.width);
         
         for (SKSpriteNode* deco in _decorations.children) {
             float fractionalCoefficient = deco.zPosition / _constants.OBSTACLE_Z_POSITION;
@@ -1106,29 +1113,30 @@ float MAX_AUDIO_VOLUME = .25f;
 }
 
 -(void)setupCairns{
-    SKTexture *cairnTexture = [_constants.TEXTURE_DICT objectForKey:@"sun2_decoration"];
+    SKTexture *cairnTexture = [_constants.TEXTURE_DICT objectForKey:@"cairn_decoration"];
+    
     GKHelper* gkhelper = [GKHelper sharedInstance];
     NSArray* top10GlobalScores = [gkhelper retrieveTopTenGlobalScores];
 //    NSLog(@"top10GlobalScores: %@", top10GlobalScores);
     NSArray* top10FriendScores = [gkhelper retrieveTopTenFriendScores];
     
-    for (GKScore* score in top10GlobalScores) {
-        NSLog(@"score.value: %lld", score.value);
+   // for (GKScore* score in top10GlobalScores) {
+       // NSLog(@"score.value: %lld", score.value);
         SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
         cairn.zPosition = _constants.OBSTACLE_Z_POSITION;
-        cairn.position = CGPointMake(score.value, cairn.size.height / 2);
-        [_world addChild:cairn];
-    }
-    for (GKScore* score in top10FriendScores) {
-        if ([top10GlobalScores containsObject:score]) {
-            NSLog(@"[top10GlobalScores containsObject:score]");
-            continue;
-        }
-        SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
-        cairn.zPosition = _constants.OBSTACLE_Z_POSITION;
-        cairn.position = CGPointMake(score.value, cairn.size.height / 2);
-        [_world addChild:cairn];
-    }
+        cairn.position = CGPointMake((200 * METERS_PER_PIXEL) + (cairn.size.width / 2), cairn.size.height / 2);
+        [_cairns addChild:cairn];
+    //}
+//    for (GKScore* score in top10FriendScores) {
+//        if ([top10GlobalScores containsObject:score]) {
+//            //NSLog(@"[top10GlobalScores containsObject:score]");
+//            continue;
+//        }
+//        SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
+//        cairn.zPosition = _constants.OBSTACLE_Z_POSITION;
+//        cairn.position = CGPointMake(score.value * METERS_PER_PIXEL, cairn.size.height / 2);
+//        [_cairns addChild:cairn];
+//    }
 
 }
 

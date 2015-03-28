@@ -94,11 +94,11 @@
 {
     [GKLeaderboard loadLeaderboardsWithCompletionHandler:^(NSArray *leaderboards, NSError *error) {
         leaderBoard = leaderboards.firstObject;
-        localHighScore = (NSUInteger)leaderBoard.localPlayerScore;
-        NSLog(@"localHighScore: %lu", localHighScore);
-        NSLog(@"leaderBoard: %@", leaderBoard);
+        //NSLog(@"leaderBoard: %@", leaderBoard);
         [self loadTopTenFriendScores];
         [self loadTopTenGlobalScores];
+       
+
     }];
 }
 
@@ -119,12 +119,13 @@
                 // process the score information.
             }
             //return scores;
+            topTenGlobalScores = scores;
+            //NSLog(@"top10GlobalScores: %@", topTenGlobalScores);
+
         }];
     }
     //return leaderboardRequest.scores;
 
-    topTenGlobalScores = leaderBoard.scores;
-    NSLog(@"top10GlobalScores: %@", topTenGlobalScores);
 
 
 }
@@ -146,12 +147,13 @@
                 // process the score information.
             }
             //return scores;
+            topTenFriendsScores = scores;
+           // NSLog(@"topTenFriendsScores: %@", topTenFriendsScores);
+            localHighScore = (NSUInteger)leaderBoard.localPlayerScore.value;
+           // NSLog(@"localHighScore: %lu", localHighScore);
+
         }];
     }
-    //return leaderboardRequest.scores;
-    topTenFriendsScores = leaderBoard.scores;
-    NSLog(@"topTenFriendsScores: %@", topTenFriendsScores);
-
     
 }
 
