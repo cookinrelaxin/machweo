@@ -189,6 +189,7 @@ typedef enum NodeTypes
                 SKTexture *spriteTexture = [textureDict objectForKey:string];
                 if (spriteTexture) {
                     currentNode = [Decoration spriteNodeWithTexture:spriteTexture];
+                    //currentNode.physicsBody = nil;
                 }
                 return;
             }

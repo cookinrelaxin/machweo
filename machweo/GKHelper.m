@@ -54,6 +54,7 @@
     GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
     // [[NSNotificationCenter defaultCenter]postNotificationName:AUTHENTICATED_NOTIFICATION object:nil];
     NSLog(@"Local player:%@ authenticated into game center",localPlayer.playerID);
+    _gcEnabled = true;
 }
 
 -(void)disableGameCenter
@@ -61,6 +62,7 @@
     //A notification so that every observer responds appropriately to disable game center features
     // [[NSNotificationCenter defaultCenter]postNotificationName:UNAUTHENTICATED_NOTIFICATION object:nil];
     NSLog(@"Disabled game center");
+    _gcEnabled = false;
 }
 
 - (void) showGameCenter

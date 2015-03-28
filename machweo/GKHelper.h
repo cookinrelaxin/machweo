@@ -23,6 +23,8 @@
 
 
 @property (nonatomic, strong) MainMenuControllerViewController* presentingVC;
+@property (nonatomic) BOOL gcEnabled;
+
 //@property (nonatomic, strong) UIViewController* authenticationVC;
 //@property (nonatomic, strong) UIViewController* generalGKVC;
 

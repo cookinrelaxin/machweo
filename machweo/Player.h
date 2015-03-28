@@ -23,7 +23,6 @@
 @property (nonatomic) bool touchesEnded;
 @property (nonatomic) float minYPosition;
 @property (nonatomic) BOOL endOfLine;
-
 @property (nonatomic) BOOL onGround;
 @property (nonatomic) float currentRotationSpeed;
 

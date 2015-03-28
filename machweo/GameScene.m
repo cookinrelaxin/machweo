@@ -478,7 +478,13 @@ int METERS_PER_PIXEL = 50;
     }
     
     player.touchesEnded = false;
-    previousPoint = currentPoint = positionInSelf;
+    if (positionInSelf.y < 50) {
+        previousPoint = currentPoint = CGPointMake(positionInSelf.x, 0);
+    }
+    else{
+        previousPoint = currentPoint = positionInSelf;
+    }
+    
 
    
     
@@ -860,7 +866,8 @@ int METERS_PER_PIXEL = 50;
 -(void)checkForLostGame{
 
     if (player.physicsBody.allContactedBodies.count > 0) {
-        [self loseGame];
+       // NSLog(@"player.physicsBody.allContactedBodies: %@", player.physicsBody.allContactedBodies);
+       // [self loseGame];
 //        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
 //        [popupDict setValue:@"Uh oh, you hit an obstacle. Try again!" forKey:@"popup text"];
 //        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
@@ -1113,56 +1120,63 @@ int METERS_PER_PIXEL = 50;
 }
 
 -(void)setupCairns{
-    SKTexture *cairnTexture = [_constants.TEXTURE_DICT objectForKey:@"cairn_decoration"];
     
     GKHelper* gkhelper = [GKHelper sharedInstance];
-    NSArray* top10GlobalScores = [gkhelper retrieveTopTenGlobalScores];
-//    NSLog(@"top10GlobalScores: %@", top10GlobalScores);
-    NSArray* top10FriendScores = [gkhelper retrieveTopTenFriendScores];
-    
-    UIColor* labelColor = _constants.LOGO_LABEL_FONT_COLOR;
-    float cairnZ = _constants.OBSTACLE_Z_POSITION;
-    float labelSize = 60 * _constants.SCALE_COEFFICIENT.dx;
+    if (gkhelper.gcEnabled) {
+        SKTexture *cairnTexture = [_constants.TEXTURE_DICT objectForKey:@"cairn_decoration"];
 
-    
-    for (GKScore* score in top10GlobalScores) {
-       // NSLog(@"score.value: %lld", score.value);
-        SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
-        cairn.zPosition = cairnZ;
-        cairn.position = CGPointMake((score.value * METERS_PER_PIXEL) + (cairn.size.width / 2), cairn.size.height / 2);
-        [_cairns addChild:cairn];
         
-        SKLabelNode* playerNameLabel = [SKLabelNode labelNodeWithText:score.player.alias];
-        playerNameLabel.fontSize = labelSize;
-        playerNameLabel.fontName = _constants.LOADING_LABEL_FONT_NAME;
-        playerNameLabel.fontColor = labelColor;
-        playerNameLabel.position = CGPointMake(0, cairn.size.height / 2);
-        [cairn addChild:playerNameLabel];
-        return;
-    }
-    for (GKScore* score in top10FriendScores) {
-        if ([top10GlobalScores containsObject:score]) {
-            //NSLog(@"[top10GlobalScores containsObject:score]");
-            continue;
+        NSArray* top10GlobalScores = [gkhelper retrieveTopTenGlobalScores];
+    //    NSLog(@"top10GlobalScores: %@", top10GlobalScores);
+        NSArray* top10FriendScores = [gkhelper retrieveTopTenFriendScores];
+        
+        UIColor* labelColor = _constants.LOGO_LABEL_FONT_COLOR;
+        float cairnZ = _constants.OBSTACLE_Z_POSITION;
+        float labelSize = 60 * _constants.SCALE_COEFFICIENT.dx;
+
+        
+        for (GKScore* score in top10GlobalScores) {
+           // NSLog(@"score.value: %lld", score.value);
+            SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
+            cairn.zPosition = cairnZ;
+            cairn.position = CGPointMake((score.value * METERS_PER_PIXEL) + (cairn.size.width / 2), cairn.size.height / 2);
+            [_cairns addChild:cairn];
+            
+            SKLabelNode* playerNameLabel = [SKLabelNode labelNodeWithText:score.player.alias];
+            playerNameLabel.fontSize = labelSize;
+            playerNameLabel.fontName = _constants.LOADING_LABEL_FONT_NAME;
+            playerNameLabel.fontColor = labelColor;
+            playerNameLabel.position = CGPointMake(0, cairn.size.height / 2);
+            [cairn addChild:playerNameLabel];
         }
-        SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
-        cairn.zPosition = cairnZ;
-        cairn.position = CGPointMake((score.value * METERS_PER_PIXEL) + (cairn.size.width / 2), cairn.size.height / 2);
-        [_cairns addChild:cairn];
-        
-        SKLabelNode* playerNameLabel = [SKLabelNode labelNodeWithText:score.player.alias];
-        playerNameLabel.fontSize = labelSize;
-        playerNameLabel.fontName = _constants.LOADING_LABEL_FONT_NAME;
-        playerNameLabel.fontColor = labelColor;
-        playerNameLabel.position = CGPointMake(0, cairn.size.height / 2);
-        [cairn addChild:playerNameLabel];
+        for (GKScore* score in top10FriendScores) {
+            if ([top10GlobalScores containsObject:score]) {
+                //NSLog(@"[top10GlobalScores containsObject:score]");
+                continue;
+            }
+            SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
+            cairn.zPosition = cairnZ;
+            cairn.position = CGPointMake((score.value * METERS_PER_PIXEL) + (cairn.size.width / 2), cairn.size.height / 2);
+            [_cairns addChild:cairn];
+            
+            SKLabelNode* playerNameLabel = [SKLabelNode labelNodeWithText:score.player.alias];
+            playerNameLabel.fontSize = labelSize;
+            playerNameLabel.fontName = _constants.LOADING_LABEL_FONT_NAME;
+            playerNameLabel.fontColor = labelColor;
+            playerNameLabel.position = CGPointMake(0, cairn.size.height / 2);
+            [cairn addChild:playerNameLabel];
+        }
     }
 
 }
-
--(void)checkForSignificantScore{
-    
-}
+//
+//-(void)checkForSignificantScore{
+//   // NSMutableArray* shouldDelete = [NSMutableArray arrayWithCapacity:_cairns.children.count];
+//    for (SKSpriteNode* cairn in _cairns.children) {
+//        
+//        if (cairn)
+//    }
+//}
 
 -(void)didMoveToView:(SKView *)view{
     [self setupCairns];

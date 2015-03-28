@@ -148,13 +148,13 @@ const int NUM_SPRITES_PER_TYPE= 12;
     /*You can remove the below comment if you dont want to scale the image in retina   device .Dont forget to comment UIGraphicsBeginImageContextWithOptions*/
     //UIGraphicsBeginImageContext(newSize);
     if (highRes) {
-        UIGraphicsBeginImageContextWithOptions(newSize, YES, scale);
+        UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
     }
     else{
         UIGraphicsBeginImageContext(newSize);
     }
     CGContextRef cgr = UIGraphicsGetCurrentContext();
-    CGContextSetInterpolationQuality(cgr, kCGInterpolationHigh);
+    CGContextSetInterpolationQuality(cgr, kCGInterpolationLow);
     [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

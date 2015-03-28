@@ -17,10 +17,12 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     float previousSlope;
     NSMutableArray *pastSlopes;
     CGSize sceneSize;
+    Constants *constants;
 }
 -(instancetype)initWithSceneSize:(CGSize)size{
     if (self = [super init]) {
         sceneSize = size;
+        constants = [Constants sharedInstance];
     }
     return self;
 }
@@ -63,7 +65,9 @@ const float OFFLINE_ROTATION_SPEED = .02f;
                 if (!line.belowPlayer) {
                     if (!line.belowPlayer && ((leftPoint.y < player.yCoordinateOfBottomSide) && (rightPoint.y < player.yCoordinateOfBottomSide))) {
                         line.belowPlayer = true;
+                        
                     }
+                    
                     break;
                 }
                 
@@ -221,8 +225,6 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 }
 
 -(void)calculatePlayerVelocity:(Player *)player{
-    Constants *constants = [Constants sharedInstance];
-    
     if (player.roughlyOnLine || player.endOfLine) {
         player.velocity = CGVectorMake(player.velocity.dx + [self calculateXForceGivenSlope:player.currentSlope], player.velocity.dy + [self calculateYForceGivenSlope:player.currentSlope]);
         player.velocity = CGVectorMake(player.velocity.dx + constants.AMBIENT_X_FORCE, player.velocity.dy);
@@ -261,7 +263,6 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 }
 
 -(float)calculateXForceGivenSlope:(float)slope{
-    Constants *constants = [Constants sharedInstance];
     if (fabsf(slope - previousSlope) < .001f) {
         // NSLog(@"same slope. return 0");
         return 0;
@@ -280,16 +281,13 @@ const float OFFLINE_ROTATION_SPEED = .02f;
 }
 
 -(void)calculatePlayerPosition:(Player *)player withLineArray:(NSMutableArray*)lineArray{
-    Constants *constants = [Constants sharedInstance];
     
     [self calculatePlayerRotation:player];
     [self calculatePlayerVelocity:player];
     player.position = CGPointMake(player.position.x + player.velocity.dx * constants.PHYSICS_SCALAR_MULTIPLIER, player.position.y + player.velocity.dy * constants.PHYSICS_SCALAR_MULTIPLIER);
     //player.position = CGPointMake(player.position.x + player.velocity.dx, player.position.y + player.velocity.dy);
   //  NSLog(@"player.position.y: %f", player.position.y);
-   // NSLog(@"player.position.y scaled: %f", player.position.y * constants.PHYSICS_SCALAR_MULTIPLIER);
-    player.roughlyOnLine = false;
-
+   // NSLog(@"player.position.y scaled: %f", player.position.y * constants.PHYSICS_SCALAR_MULTIPLIER)
     
     [self resolveCollisions:player withLineArray:lineArray];
     if (player.roughlyOnLine || player.endOfLine) {
@@ -299,7 +297,7 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     }
     if ((player.position.y - (player.size.height / 2)) < 0){
         player.onGround = true;
-        player.position = CGPointMake(player.position.x, player.size.height / 2 - (player.size.height / 6));
+        player.position = CGPointMake(player.position.x, (player.size.height / 2) - (player.size.height / 6));
     }
     else{
         player.onGround = false;
@@ -315,7 +313,8 @@ const float OFFLINE_ROTATION_SPEED = .02f;
         float slope = [num floatValue];
         sum += slope;
     }
-    return sum / pastSlopes.count;
+    //to avoid div by zero
+    return sum / (pastSlopes.count + 1);
 }
 
 -(void)calculatePlayerRotation:(Player*)player{

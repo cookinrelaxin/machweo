@@ -41,6 +41,7 @@ int CLIFF_VERTEX_COUNT = 15;
         beforeCliff = [NSMutableArray array];
         [self generateCliff:endCliff :YES];
         [self generateCliff:beforeCliff :NO];
+        //self.physicsBody = nil;
         
     }
     return self;
@@ -221,7 +222,7 @@ int CLIFF_VERTEX_COUNT = 15;
     //node.fillTexture = _terrainTexture;
     node.antialiased = false;
     node.strokeColor = nil;
-    node.physicsBody = nil;
+    //node.physicsBody = nil;
     CGMutablePathRef pathToDraw = CGPathCreateMutable();
     
     if (!beforeCliffAddedToVertices) {
@@ -308,6 +309,7 @@ int CLIFF_VERTEX_COUNT = 15;
             //    NSLog(@"castedDie2: %i", castedDie2);
             SKTexture* tex = [terrainPool objectAtIndex:castedDie2];
             Decoration* sprite = [Decoration spriteNodeWithTexture:tex];
+            //sprite.physicsBody = nil;
             if (sprite.size.width > (sceneSize.height / 2)) {
                 sprite.size = CGSizeMake(sprite.size.width / 2, sprite.size.height / 2);
             }

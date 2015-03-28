@@ -158,8 +158,11 @@
 
 -(void)showMenuWithScore:(NSUInteger)score{
     _menuView.hidden = false;
-    _scoreLabel.text = [NSString stringWithFormat:@"%lu", score];
-    [[GKHelper sharedInstance] reportScore:score];
+    _scoreLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)score];
+    GKHelper *gkhelper = [GKHelper sharedInstance];
+    if (gkhelper.gcEnabled) {
+        [gkhelper reportScore:score];
+    }
         //NSLog(@"_menuView: %@", _menuView);
         [UIView animateWithDuration:0.5
                          animations:^{
