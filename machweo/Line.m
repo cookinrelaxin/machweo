@@ -85,7 +85,7 @@
         //intersectingLinesNode.fillTexture = secondTerrain.terrainTexture;
        // intersectingLinesNode.fillColor = [UIColor greenColor];
         intersectingLinesNode.antialiased = false;
-        //intersectingLinesNode.physicsBody = nil;
+        intersectingLinesNode.physicsBody = nil;
         CGMutablePathRef pathToDraw = CGPathCreateMutable();
         intersectingLinesNode.lineWidth = 1;
         

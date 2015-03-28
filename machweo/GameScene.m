@@ -132,12 +132,17 @@ int METERS_PER_PIXEL = 50;
         self.shouldEnableEffects = true;
         [self addChild:_world];
         _hud = [SKNode node];
+        _hud.physicsBody = nil;
         [self addChild:_hud];
         _obstacles = [SKNode node];
         _terrain = [SKNode node];
+        _terrain.physicsBody = nil;
         _decorations = [[SKNode alloc] init];
+        _decorations.physicsBody = nil;
         _skies = [SKNode node];
+        _skies.physicsBody = nil;
         _cairns = [SKNode node];
+        _cairns.physicsBody = nil;
         [_world addChild:_obstacles];
         [_world addChild:_terrain];
         [_world addChild:_decorations];
@@ -335,12 +340,14 @@ int METERS_PER_PIXEL = 50;
         SKTexture *spriteTexture = [_constants.TEXTURE_DICT objectForKey:@"sun2_decoration"];
         if (spriteTexture) {
             sunNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
+            sunNode.physicsBody = nil;
         }
 
         //sunNode.size = CGSizeMake(sunNode.size.width * _constants.SCALE_COEFFICIENT.dy, sunNode.size.height * _constants.SCALE_COEFFICIENT.dy);
 
 
         sunPanel = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(self.size.width, self.size.height)];
+        sunPanel.physicsBody = nil;
         centerOfSolarOrbit = CGPointMake(self.size.width / 2, (sunNode.size.height / 2));
         sunPanel.position = centerOfSolarOrbit;
         sunPanel.zRotation =  [self calculateInitialSolarRotation];
@@ -369,6 +376,7 @@ int METERS_PER_PIXEL = 50;
         SKTexture *spriteTexture = [_constants.TEXTURE_DICT objectForKey:@"moon_decoration"];
         if (spriteTexture) {
             moonNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
+            moonNode.physicsBody = nil;
         }
         [_world addChild:moonNode];
         //moonNode.size = CGSizeMake(moonNode.size.width * _constants.SCALE_COEFFICIENT.dy, moonNode.size.height * _constants.SCALE_COEFFICIENT.dy);
@@ -1130,14 +1138,15 @@ int METERS_PER_PIXEL = 50;
     //    NSLog(@"top10GlobalScores: %@", top10GlobalScores);
         NSArray* top10FriendScores = [gkhelper retrieveTopTenFriendScores];
         
-        UIColor* labelColor = _constants.LOGO_LABEL_FONT_COLOR;
+        UIColor* labelColor = [UIColor blackColor];
         float cairnZ = _constants.OBSTACLE_Z_POSITION;
-        float labelSize = 60 * _constants.SCALE_COEFFICIENT.dx;
+        float labelSize = 45 * _constants.SCALE_COEFFICIENT.dx;
 
         
         for (GKScore* score in top10GlobalScores) {
            // NSLog(@"score.value: %lld", score.value);
             SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
+            cairn.physicsBody = nil;
             cairn.zPosition = cairnZ;
             cairn.position = CGPointMake((score.value * METERS_PER_PIXEL) + (cairn.size.width / 2), cairn.size.height / 2);
             [_cairns addChild:cairn];
@@ -1155,6 +1164,7 @@ int METERS_PER_PIXEL = 50;
                 continue;
             }
             SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
+            cairn.physicsBody = nil;
             cairn.zPosition = cairnZ;
             cairn.position = CGPointMake((score.value * METERS_PER_PIXEL) + (cairn.size.width / 2), cairn.size.height / 2);
             [_cairns addChild:cairn];

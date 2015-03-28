@@ -76,6 +76,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
     [texArray addObject:skyTex];
     img = nil;
     SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];
+    sky.physicsBody = nil;
     sky.zPosition = constants.BACKGROUND_Z_POSITION;
     sky.name = skyName;
     [skyPool setValue:sky forKey:sky.name];
@@ -154,7 +155,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
         UIGraphicsBeginImageContext(newSize);
     }
     CGContextRef cgr = UIGraphicsGetCurrentContext();
-    CGContextSetInterpolationQuality(cgr, kCGInterpolationLow);
+    CGContextSetInterpolationQuality(cgr, kCGInterpolationHigh);
     [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();

@@ -122,22 +122,23 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 
 
 -(Biome)calculateNextBiomeWithDistance:(NSUInteger)distance{
-    previousBiome = currentBiome;
-    NSUInteger roundedDistance = RoundDownTo(distance, DECORATION_STADE_LENGTH);
-    //NSLog(@"roundedDistance: %lu", (unsigned long)roundedDistance);
-//    if (distance == 0) {
-//        currentBiome = [self calculateInitialBiome];
+//    previousBiome = currentBiome;
+//    NSUInteger roundedDistance = RoundDownTo(distance, DECORATION_STADE_LENGTH);
+//    //NSLog(@"roundedDistance: %lu", (unsigned long)roundedDistance);
+////    if (distance == 0) {
+////        currentBiome = [self calculateInitialBiome];
+////    }
+//    if ((roundedDistance % (DECORATION_STADE_LENGTH * 3)) == 0) {
+//        currentBiome = three_times_stade_biome;
 //    }
-    if ((roundedDistance % (DECORATION_STADE_LENGTH * 3)) == 0) {
-        currentBiome = three_times_stade_biome;
-    }
-    else if ((roundedDistance % (DECORATION_STADE_LENGTH * 2)) == 0) {
-        currentBiome = two_times_stade_biome;
-    }
-    else if ((roundedDistance % DECORATION_STADE_LENGTH) == 0) {
-        currentBiome = one_times_stade_biome;
-    }
-    return currentBiome;
+//    else if ((roundedDistance % (DECORATION_STADE_LENGTH * 2)) == 0) {
+//        currentBiome = two_times_stade_biome;
+//    }
+//    else if ((roundedDistance % DECORATION_STADE_LENGTH) == 0) {
+//        currentBiome = one_times_stade_biome;
+//    }
+//    return currentBiome;
+    return jungle;
     
 }
 
