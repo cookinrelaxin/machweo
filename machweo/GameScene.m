@@ -1120,24 +1120,48 @@ int METERS_PER_PIXEL = 50;
 //    NSLog(@"top10GlobalScores: %@", top10GlobalScores);
     NSArray* top10FriendScores = [gkhelper retrieveTopTenFriendScores];
     
-   // for (GKScore* score in top10GlobalScores) {
+    UIColor* labelColor = _constants.LOGO_LABEL_FONT_COLOR;
+    float cairnZ = _constants.OBSTACLE_Z_POSITION;
+    float labelSize = 60 * _constants.SCALE_COEFFICIENT.dx;
+
+    
+    for (GKScore* score in top10GlobalScores) {
        // NSLog(@"score.value: %lld", score.value);
         SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
-        cairn.zPosition = _constants.OBSTACLE_Z_POSITION;
-        cairn.position = CGPointMake((200 * METERS_PER_PIXEL) + (cairn.size.width / 2), cairn.size.height / 2);
+        cairn.zPosition = cairnZ;
+        cairn.position = CGPointMake((score.value * METERS_PER_PIXEL) + (cairn.size.width / 2), cairn.size.height / 2);
         [_cairns addChild:cairn];
-    //}
-//    for (GKScore* score in top10FriendScores) {
-//        if ([top10GlobalScores containsObject:score]) {
-//            //NSLog(@"[top10GlobalScores containsObject:score]");
-//            continue;
-//        }
-//        SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
-//        cairn.zPosition = _constants.OBSTACLE_Z_POSITION;
-//        cairn.position = CGPointMake(score.value * METERS_PER_PIXEL, cairn.size.height / 2);
-//        [_cairns addChild:cairn];
-//    }
+        
+        SKLabelNode* playerNameLabel = [SKLabelNode labelNodeWithText:score.player.alias];
+        playerNameLabel.fontSize = labelSize;
+        playerNameLabel.fontName = _constants.LOADING_LABEL_FONT_NAME;
+        playerNameLabel.fontColor = labelColor;
+        playerNameLabel.position = CGPointMake(0, cairn.size.height / 2);
+        [cairn addChild:playerNameLabel];
+        return;
+    }
+    for (GKScore* score in top10FriendScores) {
+        if ([top10GlobalScores containsObject:score]) {
+            //NSLog(@"[top10GlobalScores containsObject:score]");
+            continue;
+        }
+        SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
+        cairn.zPosition = cairnZ;
+        cairn.position = CGPointMake((score.value * METERS_PER_PIXEL) + (cairn.size.width / 2), cairn.size.height / 2);
+        [_cairns addChild:cairn];
+        
+        SKLabelNode* playerNameLabel = [SKLabelNode labelNodeWithText:score.player.alias];
+        playerNameLabel.fontSize = labelSize;
+        playerNameLabel.fontName = _constants.LOADING_LABEL_FONT_NAME;
+        playerNameLabel.fontColor = labelColor;
+        playerNameLabel.position = CGPointMake(0, cairn.size.height / 2);
+        [cairn addChild:playerNameLabel];
+    }
 
+}
+
+-(void)checkForSignificantScore{
+    
 }
 
 -(void)didMoveToView:(SKView *)view{
