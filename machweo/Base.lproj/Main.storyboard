@@ -123,31 +123,8 @@
                                         <variation key="heightClass=compact-widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         </variation>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugf-dT-SaV">
-                                        <rect key="frame" x="352" y="508" width="141" height="30"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <state key="normal" title="share">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <variation key="heightClass=compact">
-                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                        </variation>
-                                        <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
-                                            <rect key="frame" x="252" y="508" width="41" height="30"/>
-                                        </variation>
-                                        <variation key="widthClass=regular">
-                                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
-                                        </variation>
-                                        <variation key="heightClass=compact-widthClass=compact">
-                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        </variation>
-                                        <variation key="heightClass=compact-widthClass=regular">
-                                            <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                        </variation>
                                         <connections>
-                                            <action selector="sharePressed:" destination="YbM-qg-g2k" eventType="touchUpInside" id="erv-Io-vVs"/>
+                                            <action selector="ratePressed:" destination="YbM-qg-g2k" eventType="touchUpInside" id="rDb-Sh-RX8"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" ambiguous="YES" misplaced="YES" text="Score:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1D-M2-KcL">
@@ -186,14 +163,40 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         </variation>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugf-dT-SaV">
+                                        <rect key="frame" x="352" y="508" width="141" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <state key="normal" title="facebook">
+                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="heightClass=compact">
+                                            <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        </variation>
+                                        <variation key="widthClass=compact" ambiguous="YES" misplaced="YES">
+                                            <rect key="frame" x="252" y="508" width="41" height="30"/>
+                                        </variation>
+                                        <variation key="widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=compact">
+                                            <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        </variation>
+                                        <variation key="heightClass=compact-widthClass=regular">
+                                            <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="sharePressed:" destination="YbM-qg-g2k" eventType="touchUpInside" id="erv-Io-vVs"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="ugf-dT-SaV" secondAttribute="trailing" constant="76" id="2Vk-tg-919">
-                                        <variation key="heightClass=compact" constant="101"/>
-                                        <variation key="widthClass=regular" constant="114"/>
-                                        <variation key="heightClass=compact-widthClass=compact" constant="61"/>
-                                        <variation key="heightClass=compact-widthClass=regular" constant="111"/>
+                                        <variation key="heightClass=compact" constant="75"/>
+                                        <variation key="widthClass=regular" constant="72"/>
+                                        <variation key="heightClass=compact-widthClass=compact" constant="40"/>
+                                        <variation key="heightClass=compact-widthClass=regular" constant="77"/>
                                     </constraint>
                                     <constraint firstAttribute="centerY" secondItem="kli-Os-4tw" secondAttribute="centerY" id="A44-h0-3br"/>
                                     <constraint firstItem="EZm-1o-77c" firstAttribute="top" secondItem="kli-Os-4tw" secondAttribute="bottom" constant="27" id="BFz-Bv-ikO">
@@ -216,9 +219,9 @@
                                     </constraint>
                                     <constraint firstItem="ugf-dT-SaV" firstAttribute="top" secondItem="X3j-pu-29F" secondAttribute="bottom" constant="17" id="HWy-Fo-NGj">
                                         <variation key="heightClass=compact" constant="17"/>
-                                        <variation key="widthClass=regular" constant="25"/>
+                                        <variation key="widthClass=regular" constant="26"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="22"/>
-                                        <variation key="heightClass=compact-widthClass=regular" constant="23"/>
+                                        <variation key="heightClass=compact-widthClass=regular" constant="24"/>
                                     </constraint>
                                     <constraint firstItem="EZm-1o-77c" firstAttribute="leading" secondItem="doT-lc-8P7" secondAttribute="leading" constant="27" id="Nsd-eX-XCK">
                                         <variation key="heightClass=compact" constant="50"/>
@@ -247,7 +250,9 @@
                                     </constraint>
                                     <constraint firstAttribute="bottom" secondItem="ugf-dT-SaV" secondAttribute="bottom" constant="23" id="iNp-pM-HJ4">
                                         <variation key="heightClass=compact" constant="23"/>
+                                        <variation key="widthClass=regular" constant="22"/>
                                         <variation key="heightClass=compact-widthClass=compact" constant="23"/>
+                                        <variation key="heightClass=compact-widthClass=regular" constant="22"/>
                                     </constraint>
                                     <constraint firstAttribute="trailing" secondItem="X3j-pu-29F" secondAttribute="trailing" constant="27" id="ibs-4H-Bov">
                                         <variation key="heightClass=compact" constant="60"/>

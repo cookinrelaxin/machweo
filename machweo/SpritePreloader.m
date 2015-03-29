@@ -61,7 +61,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
             }
         }
         [SKTexture preloadTextures:texArray withCompletionHandler:^{
-            NSLog(@"textures preloaded");
+        //    NSLog(@"textures preloaded");
         }];
     
     return self;

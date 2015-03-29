@@ -17,12 +17,15 @@
 #import "LevelParser.h"
 #import "SpritePreloader.h"
 #import "AnimationComponent.h"
+#import "PopupMessage.h"
 
 @implementation MainMenuControllerViewController{
     BOOL gameLoaded;
     BOOL observersLoaded;
-    PopupView* currentPopup;
+    PopupView* popupView;
     CGSize defaultPopupSize;
+    NSMutableArray* popupQueue;
+    BOOL messageBeingPresented;
     BOOL menuSetUp;
     Constants* constants;
 }
@@ -32,7 +35,8 @@
     [super viewDidLoad];
     if (!gameLoaded) {
         constants = [Constants sharedInstance];
-        NSLog(@"gameLoaded = true");
+        popupQueue = [NSMutableArray array];
+      //  NSLog(@"gameLoaded = true");
         gameLoaded = true;
         _gameSceneView.ignoresSiblingOrder = YES;
         //_gameSceneView.showsFPS = YES;
@@ -86,7 +90,7 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
-        NSLog(@"lose game");
+       // NSLog(@"lose game");
          NSUInteger score = ((NSNumber*)[[notification userInfo] valueForKey:@"distance"]).integerValue;
         [self showMenuWithScore:score];
 
@@ -98,7 +102,7 @@
                     usingBlock:^(NSNotification *notification)
      {
          
-        NSLog(@"pause and go to menu");
+       // NSLog(@"pause and go to menu");
          //NSUInteger score = ((NSNumber*)[[notification userInfo] valueForKey:@"distance"]).integerValue;
          [self showMenuWithScore:0];
      }];
@@ -108,50 +112,73 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
-         NSLog(@"add popup");
+       //  NSLog(@"add popup");
          NSString* text = [notification.userInfo objectForKey:@"popup text"];
          CGPoint position = ((NSValue*)[notification.userInfo objectForKey:@"popup position"]).CGPointValue;
-         [self addPopupWithText:text andPosition:position];
+         [self addPopupMessageWithText:text andPosition:position];
      }];
     
-    [center addObserverForName:@"remove popup"
+    [center addObserverForName:@"remove message"
                         object:nil
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
-         NSLog(@"remove popup");
-         [self removeCurrentPopup];
+      //   NSLog(@"remove message");
+         [self removeCurrentMessage];
      }];
-    
-
 }
 
--(void)addPopupWithText:(NSString*)text andPosition:(CGPoint)position{
-    CGSize popupSize = [self choosePopupSizeForString:text];
-    currentPopup = [[PopupView alloc] initWithFrame:CGRectMake(position.x - (popupSize.width / 2), position.y, popupSize.width, popupSize.height) andIsMenu:NO];
+-(void)addPopupMessageWithText:(NSString*)text andPosition:(CGPoint)position{
+    PopupMessage *pm = [[PopupMessage alloc] initWithText:text andPosition:position];
+    [popupQueue addObject:pm];
+    if (!messageBeingPresented) {
+        messageBeingPresented = true;
+        [self presentMessage];
+    }
+}
+
+-(void)presentMessage{
+    PopupMessage *thisMessage = [popupQueue firstObject];
+    NSLog(@"popupQueue: %@", popupQueue);
+    
+    CGSize popupSize = [self choosePopupSizeForString:thisMessage.text];
+    if (!popupView) {
+        popupView = [[PopupView alloc] initWithFrame:CGRectMake(thisMessage.position.x - (popupSize.width / 2), thisMessage.position.y, popupSize.width, popupSize.height) andIsMenu:NO];
+        [self.view addSubview:popupView];
+    }
     [UIView animateWithDuration:0.5
          animations:^{
-             currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height + 2);
+             popupView.frame = CGRectMake(popupView.frame.origin.x, popupView.frame.origin.y, popupView.desiredFrameSize.width, popupView.desiredFrameSize.height + 2);
          }
          completion:^(BOOL finished){
              
-             currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.desiredFrameSize.width, currentPopup.desiredFrameSize.height);
-             currentPopup.textLabel.text = text;
-             currentPopup.textLabel.numberOfLines = 3;
-             currentPopup.textLabel.hidden = false;
+             popupView.frame = CGRectMake(popupView.frame.origin.x, popupView.frame.origin.y, popupView.desiredFrameSize.width, popupView.desiredFrameSize.height);
+             popupView.textLabel.text = thisMessage.text;
+             popupView.textLabel.numberOfLines = 3;
+             popupView.textLabel.hidden = false;
              [[NSNotificationCenter defaultCenter] postNotificationName:@"allow dismiss popup" object:nil];
          }];
-    [self.view addSubview:currentPopup];
 }
 
--(void)removeCurrentPopup{
+-(void)removeCurrentMessage{
     [UIView animateWithDuration:0.5
          animations:^{
-             [currentPopup.textLabel removeFromSuperview];
-             currentPopup.frame = CGRectMake(currentPopup.frame.origin.x, currentPopup.frame.origin.y, currentPopup.frame.size.width, 0);
+             //[popupView.textLabel hi];
+             popupView.textLabel.hidden = true;
+             //[popupQueue removeObject:<#(id)#>]
+             popupView.frame = CGRectMake(popupView.frame.origin.x, popupView.frame.origin.y, popupView.frame.size.width, 0);
          }
          completion:^(BOOL finished){
-             [currentPopup removeFromSuperview];
+             [popupQueue removeObject:popupQueue.firstObject];
+             if (popupQueue.count >= 1) {
+                 [self presentMessage];
+             }
+             else{
+                 [popupView removeFromSuperview];
+                 popupView = nil;
+                 messageBeingPresented = false;
+                 [[NSNotificationCenter defaultCenter] postNotificationName:@"unpause" object:nil];
+             }
              
     }];
 }
@@ -178,7 +205,6 @@
 }
 
 -(void)closeMenu{
-    //[menu removeFromSuperview];
     [UIView animateWithDuration:0.1
                      animations:^{
                          _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y + 15, _menuView.frame.size.width, _menuView.frame.size.height);
@@ -191,6 +217,7 @@
                              }
                                   completion:^(BOOL finished){
                                     _menuView.hidden = true;
+                                      [self removeCurrentMessage];
                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"restart" object:nil];
                                   }
                          ];
@@ -228,18 +255,26 @@
     
 }
 - (IBAction)closeMenuPressed:(id)sender {
-    NSLog(@"closeMenuPressed");
+   // NSLog(@"closeMenuPressed");
     [self closeMenu];
 }
 - (IBAction)leaderboardsPressed:(id)sender {
-    NSLog(@"leaderboardsPressed");
+   // NSLog(@"leaderboardsPressed");
     [[GKHelper sharedInstance] showGameCenter];
 
 }
 - (IBAction)sharePressed:(id)sender {
-    NSLog(@"sharePressed");
-
+   // NSLog(@"facebookPressed");
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/machweogame"]];
 }
+- (IBAction)ratePressed:(id)sender {
+    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=<YOURAPPID>&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id956041188"]];
+}
+
+
+
+
 
 -(void)initGame{
    __block LoadingScene* loadingScene;
@@ -258,7 +293,7 @@
         dispatch_sync(dispatch_get_main_queue(), ^(void){
         //dispatch_after(time, dispatch_get_main_queue(), ^(void){
 //            GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
-            NSLog(@"present gameplay scene");
+       //     NSLog(@"present gameplay scene");
             GKHelper* gkhelper = [GKHelper sharedInstance];
             [gkhelper authenticateLocalPlayer];
             gkhelper.presentingVC = self;

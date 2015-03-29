@@ -31,12 +31,6 @@ float MAX_AUDIO_VOLUME = .25f;
 
 int METERS_PER_PIXEL = 50;
 
-
-
-
-
-
-
 @implementation GameScene{
     Player *player;
     CGPoint previousPoint;
@@ -53,10 +47,12 @@ int METERS_PER_PIXEL = 50;
     NSMutableDictionary* skyDict;
     
     BOOL endGameNotificationSent;
+    BOOL logoPresented;
     BOOL gameOver;
     BOOL in_game;
     BOOL player_created;
     BOOL paused;
+    
     //BOOL obstacles
     
     //UI
@@ -78,6 +74,7 @@ int METERS_PER_PIXEL = 50;
     
     SKSpriteNode* sunNode;
     SKSpriteNode* moonNode;
+    SKSpriteNode* localPlayerCairn;
 
     
     AVAudioPlayer* backgroundMusicPlayer;
@@ -113,7 +110,7 @@ int METERS_PER_PIXEL = 50;
 }
 
 -(void)dealloc{
-    NSLog(@"dealloc game scene");
+   // NSLog(@"dealloc game scene");
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 
 }
@@ -213,6 +210,14 @@ int METERS_PER_PIXEL = 50;
      {
          [weakSelf restart];
     }];
+    
+    [center addObserverForName:@"unpause"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         [weakSelf unpauseAndReturnToGame];
+     }];
     
 }
 
@@ -455,6 +460,12 @@ int METERS_PER_PIXEL = 50;
     UITouch* touch = [touches anyObject];
     CGPoint positionInSelf = [touch locationInNode:self];
     
+    
+    if (popup_engaged && _allowDismissPopup) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"remove message" object:nil];
+        _allowDismissPopup = false;
+    }
+    
     if ([muteLabelButton containsPoint:positionInSelf]) {
         if (backgroundMusicPlayer.volume > 0) {
             [self muteSounds];
@@ -466,18 +477,14 @@ int METERS_PER_PIXEL = 50;
     }
     
     if (paused) {
-        //paused = false;
         [self unpauseAndReturnToGame];
         return;
     }
     
     if ([pauseButton containsPoint:positionInSelf]) {
-        [self pause];
+        [self pauseWithVisibleLabel:YES];
         return;
     }
-    
-    
-  
     
     if (!in_game && !gameOver && !logoLabel) {
         [worldStreamer enableObstacles];
@@ -521,19 +528,14 @@ int METERS_PER_PIXEL = 50;
 
         }
     }
-    
-    if (tutorial_mode_on && popup_engaged && _allowDismissPopup) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"remove popup" object:nil];
-        self.view.paused = false;
-        _allowDismissPopup = false;
-    }
+
     
     
     
 }
 
--(void)pause{
-    NSLog(@"pause");
+-(void)pauseWithVisibleLabel:(BOOL)labelIsVisible{
+   // NSLog(@"pause");
 
     paused = true;
     SKAction *currentAnimation = [player actionForKey:@"runningMaasai"];
@@ -543,15 +545,14 @@ int METERS_PER_PIXEL = 50;
     if (currentAnimation) {
         currentAnimation.speed = 0;
     }
-    [pauseLabel runAction:[SKAction fadeAlphaTo:1 duration:.5]];
+    if (labelIsVisible) {
+        [pauseLabel runAction:[SKAction fadeAlphaTo:1 duration:.5]];
+    }
     pauseButton.hidden = true;
-    
-    
-   // [[NSNotificationCenter defaultCenter] postNotificationName:@"pause" object:nil];
 }
              
 -(void)unpauseAndReturnToGame{
-    NSLog(@"unpause");
+   // NSLog(@"unpause");
     [pauseLabel runAction:[SKAction fadeAlphaTo:0 duration:.5] completion:^{
         paused = false;
         pauseButton.hidden = false;
@@ -567,7 +568,7 @@ int METERS_PER_PIXEL = 50;
 }
 
 -(void)restart{
-    NSLog(@"restart");
+  //  NSLog(@"restart");
     [self reset];
 }
 
@@ -665,42 +666,9 @@ int METERS_PER_PIXEL = 50;
         [ter generateDecorationAtVertex:newPoint fromTerrainPool:[worldStreamer getTerrainPool] inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
         
     }
-    //[self removeLineIntersectionsBetween:previousPoint and:currentPoint];
     previousPoint = currentPoint;
     
 }
-
-//-(void)removeLineIntersectionsBetween:(CGPoint)a and:(CGPoint)b{
-//    NSMutableArray* nodesToDeleteFromNodeArray = [NSMutableArray array];
-//    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-//    dispatch_apply(arrayOfLines.count, queue, ^(size_t i) {
-//        Line* previousLine = [arrayOfLines objectAtIndex:i];
-//   // for (Line *previousLine in arrayOfLines) {
-//        if ((previousLine == arrayOfLines.lastObject) || previousLine.allowIntersections) {
-//            return;
-//        }
-//        
-//        NSMutableArray *previousPointArray = previousLine.nodeArray;
-//        BOOL killTheRest = false;
-//        for (NSValue* node in previousPointArray) {
-//            CGPoint nodePosInScene = node.CGPointValue;
-//
-//            //yes, 50 is a magic number. but it is a necessary cushion.
-//            if (killTheRest || (nodePosInScene.x >= a.x)) {
-//                if (killTheRest || ((nodePosInScene.y <= a.y) && (nodePosInScene.y >= b.y)) || ((nodePosInScene.y >= a.y) && (nodePosInScene.y <= b.y))) {
-//                    [nodesToDeleteFromNodeArray addObject:node];
-//                    killTheRest = true;
-//                }
-//            }
-//        }
-//        for (NSValue* node in nodesToDeleteFromNodeArray) {
-//            [previousPointArray removeObject:node];
-//        }
-//        });
-//        
-//   // }
-//    
-//}
 
 -(void)drawLines{
     for (Line* line in arrayOfLines) {
@@ -781,18 +749,15 @@ int METERS_PER_PIXEL = 50;
     previousSunPos = sunNode.position;
     
     if (!paused) {
-        
-        if (tutorial_mode_on) {
-            
-            if (!found_first_obstacle) {
+        if (logoPresented) {
+            if (tutorial_mode_on && !found_first_obstacle) {
                 [self tutorialCheckForFirstObstacle];
             }
-            if (!passed_first_obstacle) {
+            if (tutorial_mode_on && !passed_first_obstacle) {
                 [self tutorialCheckForFirstEvasion];
             }
-            
-        }
         
+        }
         if (!player.touchesEnded) {
             [self createLineNode];
         }
@@ -875,17 +840,27 @@ int METERS_PER_PIXEL = 50;
 
     if (player.physicsBody.allContactedBodies.count > 0) {
        // NSLog(@"player.physicsBody.allContactedBodies: %@", player.physicsBody.allContactedBodies);
-       // [self loseGame];
-//        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-//        [popupDict setValue:@"Uh oh, you hit an obstacle. Try again!" forKey:@"popup text"];
-//        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+        [self loseGame];
+    }
+}
 
+-(void)sendMessageNotificationWithText:(NSString*)text andPosition:(CGPoint)position andShouldPause:(BOOL)shouldPause{
+    NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
+    [popupDict setValue:text forKey:@"popup text"];
+    [popupDict setValue:[NSValue valueWithCGPoint:position] forKey:@"popup position"];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+    _allowDismissPopup = false;
+    popup_engaged = true;
+    if (shouldPause) {
+        [self pauseWithVisibleLabel:NO];
     }
 }
 
 -(void)loseGame{
-    
+    if (tutorial_mode_on) {
+        [self sendMessageNotificationWithText:@"Uh oh, you hit an obstacle. Try again!" andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:NO];
+    }
+
     gameOver = true;
     //[self performSunset];
     [self fadeVolumeOut];
@@ -893,7 +868,6 @@ int METERS_PER_PIXEL = 50;
     pauseButton.hidden = true;
     muteLabelButton.hidden = true;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"lose game" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:distance_traveled] forKey:@"distance"]];
-
 }
 
 -(void)tellObstaclesToMove{
@@ -905,7 +879,6 @@ int METERS_PER_PIXEL = 50;
 
 
 -(void)endGame{
-    //self.view.paused = false;
     endGameNotificationSent = true;
     [[NSNotificationCenter defaultCenter] postNotificationName:@"end game" object:nil];
 }
@@ -921,14 +894,9 @@ int METERS_PER_PIXEL = 50;
     Obstacle *obs = [_obstacles.children firstObject];
     CGPoint obsPositionInView = [self.view convertPoint:[self convertPoint:obs.position fromNode:_obstacles] fromScene:self];
 
-    if (obsPositionInView.x < (self.view.bounds.size.width * 3/4)) {
+    if ((obsPositionInView.x < (self.view.bounds.size.width * 3/4)) && (obsPositionInView.x > 0)) {
         found_first_obstacle = true;
-        popup_engaged = true;
-        self.view.paused = true;
-        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-        [popupDict setValue:@"Avoid the masks!" forKey:@"popup text"];
-        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(obsPositionInView.x, obsPositionInView.y + 50)] forKey:@"popup position"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+        [self sendMessageNotificationWithText:@"Avoid the obstacles!" andPosition:CGPointMake(obsPositionInView.x, self.view.bounds.size.height / 2) andShouldPause:YES];
     }
         
 }
@@ -936,17 +904,10 @@ int METERS_PER_PIXEL = 50;
 -(void)tutorialCheckForFirstEvasion{
     Obstacle *obs = [_obstacles.children firstObject];
     CGPoint obsPositionInView = [self.view convertPoint:[self convertPoint:obs.position fromNode:_obstacles] fromScene:self];
-
-    //CGPoint playerPositionInView = [self.view convertPoint:player.position fromScene:self];
-    
-    if (obsPositionInView.x < 0) {
+    if ((obsPositionInView.x <  player.position.x) && (obsPositionInView.x > 0)) {
         passed_first_obstacle = true;
-        popup_engaged = true;
-        self.view.paused = true;
-        NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-        [popupDict setValue:@"Great! That's about it. Now see how far you can run!" forKey:@"popup text"];
-        [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
+        [self sendMessageNotificationWithText:@"Great! That's about it. Now see how far you can run!" andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+
     }
     
 }
@@ -1002,7 +963,7 @@ int METERS_PER_PIXEL = 50;
 }
 
 -(void)reset{
-    NSLog(@"reset");
+   // NSLog(@"reset");
     {
         [player removeFromParent];
         player = [Player player];
@@ -1019,10 +980,10 @@ int METERS_PER_PIXEL = 50;
     in_game = false;
     //player_created = false;
     [self startMusic];
-    tutorial_mode_on = false;
-    found_first_obstacle = false;
-    passed_first_obstacle = false;
-    popup_engaged = false;
+    //tutorial_mode_on = false;
+   // found_first_obstacle = false;
+   // passed_first_obstacle = false;
+    //popup_engaged = false;
     previousPlayerXPosition_hypothetical = currentPlayerXPosition_hypothetical = 0;
     distanceLabel.text = @"0";
     [worldStreamer resetWithFinalDistance:distance_traveled];
@@ -1031,9 +992,15 @@ int METERS_PER_PIXEL = 50;
 }
 
 -(void)resetCairns{
-    for (SKSpriteNode* cairn in _cairns.children) {
-        cairn.position = CGPointMake(cairn.position.x + distance_traveled, cairn.position.y);
+    for (SKSpriteNode* cairn in _cairns.children){
+        if (cairn == localPlayerCairn) {
+            NSUInteger scoreDifference = distance_traveled - [GKHelper sharedInstance].localHighScore;
+            if (scoreDifference > 0) {
+                cairn.position = CGPointMake(cairn.position.x + (scoreDifference * METERS_PER_PIXEL), cairn.position.y);
+            }
+        }
     }
+    _cairns.position = CGPointMake(_cairns.position.x + (distance_traveled * METERS_PER_PIXEL), _cairns.position.y);
 }
 
 -(void)reappearButtons{
@@ -1068,27 +1035,31 @@ int METERS_PER_PIXEL = 50;
         [logoLabel runAction:logoFadeOut completion:^{
             [logoLabel removeFromParent];
             logoLabel = nil;
-//                    //NSLog(@"fade in again");
-//                    logoLabel.text = levelName;
-//                    SKAction* logoFadeInAgain = [SKAction fadeAlphaTo:1.0f duration:1];
-//                    [logoLabel runAction:logoFadeInAgain completion:^{
-//                        SKAction* logoFadeOut = [SKAction fadeOutWithDuration:1];
-//                        [logoLabel runAction:logoFadeOut completion:^{
-//                            [logoLabel removeFromParent];
-//                            logoLabel = nil;
-//    
-//                            if ([levelName isEqualToString:[_constants.LEVEL_ARRAY firstObject]]) {
-//                                tutorial_mode_on = true;
-//    
-//                                NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
-//                                [popupDict setValue:@"Draw a path for Maasai, and don't let him touch the ground!" forKey:@"popup text"];
-//                                [popupDict setValue:[NSValue valueWithCGPoint:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame))] forKey:@"popup position"];
-//                                [[NSNotificationCenter defaultCenter] postNotificationName:@"add popup" object:nil userInfo:popupDict];
-//    
-//                                popup_engaged = true;
-//                            }
-//    
-//                        }];
+            logoPresented = true;
+            GKHelper *gkhelper = [GKHelper sharedInstance];
+            NSString* nameString;
+            if (gkhelper.gcEnabled) {
+                nameString = gkhelper.playerName;
+            }
+            if (gkhelper.localHighScore == 0) {
+                tutorial_mode_on = true;
+                if (nameString) {
+                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@, welcome to Machweo!", nameString] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+                }
+                else{
+                    [self sendMessageNotificationWithText:@"Welcome to Machweo!" andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+                }
+                [self sendMessageNotificationWithText:@"Draw a path for Maasai, and don't let him touch the ground!" andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+            }
+            else{
+                if (nameString) {
+                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@, welcome back!", nameString] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"Can you beat your high score of %lu?", gkhelper.localHighScore] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+                }
+                else{
+                    [self sendMessageNotificationWithText:@"Welcome back!" andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+                }
+            }
         }];
     }];
 }
@@ -1173,8 +1144,13 @@ int METERS_PER_PIXEL = 50;
             playerNameLabel.fontSize = labelSize;
             playerNameLabel.fontName = _constants.LOADING_LABEL_FONT_NAME;
             playerNameLabel.fontColor = labelColor;
-            playerNameLabel.position = CGPointMake(0, cairn.size.height / 2);
+            playerNameLabel.position = CGPointMake(0, cairn
+                                                   .size.height / 2);
             [cairn addChild:playerNameLabel];
+            if ([score.player.alias isEqualToString:gkhelper.playerName]) {
+             //   NSLog(@"found local player");
+                localPlayerCairn = cairn;
+            }
         }
     }
 

@@ -96,11 +96,13 @@
 		78344E441A97E39C00F9A5DF /* purpletree_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E421A97E39C00F9A5DF /* purpletree_decoration.png */; };
 		78344E451A97E39C00F9A5DF /* purpletree2_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E431A97E39C00F9A5DF /* purpletree2_decoration.png */; };
 		78344E511A97E9F700F9A5DF /* kilimanjaro_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E501A97E9F700F9A5DF /* kilimanjaro_decoration.png */; };
+		784329421AC79D470099401C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 784329411AC79D470099401C /* StoreKit.framework */; };
 		7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7852BC6B1A71FF6D0038447B /* gameModel.xcdatamodeld */; };
 		785A53E31A9597A400ED2E37 /* rock1_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DD1A9597A400ED2E37 /* rock1_decoration.png */; };
 		785A53E51A9597A400ED2E37 /* rock2_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DF1A9597A400ED2E37 /* rock2_decoration.png */; };
 		785CEAC81AC4CF7F006CE76C /* sun2_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785CEAC71AC4CF7F006CE76C /* sun2_decoration.png */; };
 		785CEACF1AC4CFF5006CE76C /* cairn_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785CEACE1AC4CFF5006CE76C /* cairn_decoration.png */; };
+		786C05501AC76B6200EFA83E /* PopupMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 786C054F1AC76B6200EFA83E /* PopupMessage.m */; };
 		787698141ABC97F600A2FF81 /* obstacleSet_7_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7876980A1ABC97F600A2FF81 /* obstacleSet_7_a.xml */; };
 		787698151ABC97F600A2FF81 /* obstacleSet_7_b.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7876980B1ABC97F600A2FF81 /* obstacleSet_7_b.xml */; };
 		787698161ABC97F600A2FF81 /* obstacleSet_7_c.xml in Resources */ = {isa = PBXBuildFile; fileRef = 7876980C1ABC97F600A2FF81 /* obstacleSet_7_c.xml */; };
@@ -337,11 +339,14 @@
 		78344E421A97E39C00F9A5DF /* purpletree_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpletree_decoration.png; sourceTree = "<group>"; };
 		78344E431A97E39C00F9A5DF /* purpletree2_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpletree2_decoration.png; sourceTree = "<group>"; };
 		78344E501A97E9F700F9A5DF /* kilimanjaro_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilimanjaro_decoration.png; sourceTree = "<group>"; };
+		784329411AC79D470099401C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7852BC6C1A71FF6D0038447B /* gameModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = gameModel.xcdatamodel; sourceTree = "<group>"; };
 		785A53DD1A9597A400ED2E37 /* rock1_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock1_decoration.png; sourceTree = "<group>"; };
 		785A53DF1A9597A400ED2E37 /* rock2_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock2_decoration.png; sourceTree = "<group>"; };
 		785CEAC71AC4CF7F006CE76C /* sun2_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sun2_decoration.png; sourceTree = "<group>"; };
 		785CEACE1AC4CFF5006CE76C /* cairn_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cairn_decoration.png; sourceTree = "<group>"; };
+		786C054E1AC76B6200EFA83E /* PopupMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupMessage.h; sourceTree = "<group>"; };
+		786C054F1AC76B6200EFA83E /* PopupMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupMessage.m; sourceTree = "<group>"; };
 		7876980A1ABC97F600A2FF81 /* obstacleSet_7_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_a.xml; sourceTree = "<group>"; };
 		7876980B1ABC97F600A2FF81 /* obstacleSet_7_b.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_b.xml; sourceTree = "<group>"; };
 		7876980C1ABC97F600A2FF81 /* obstacleSet_7_c.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_c.xml; sourceTree = "<group>"; };
@@ -479,6 +484,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				789DA2CB1AC24BC200DBD7F3 /* GameKit.framework in Frameworks */,
+				784329421AC79D470099401C /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +501,7 @@
 		659B21C11A5E1C1300885C04 = {
 			isa = PBXGroup;
 			children = (
+				784329411AC79D470099401C /* StoreKit.framework */,
 				789DA2CA1AC24BC200DBD7F3 /* GameKit.framework */,
 				659B21CC1A5E1C1300885C04 /* machweo */,
 				659B21EB1A5E1C1400885C04 /* machweoTests */,
@@ -825,6 +832,8 @@
 				78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */,
 				7892A16E1A995E5A00CA64CE /* PopupView.h */,
 				7892A16F1A995E5A00CA64CE /* PopupView.m */,
+				786C054E1AC76B6200EFA83E /* PopupMessage.h */,
+				786C054F1AC76B6200EFA83E /* PopupMessage.m */,
 			);
 			name = "view controllers";
 			sourceTree = "<group>";
@@ -1052,6 +1061,9 @@
 						DevelopmentTeam = MN5SXS5EJ2;
 						SystemCapabilities = {
 							com.apple.GameCenter = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 						};
@@ -1301,6 +1313,7 @@
 				6509D2DD1A5E290300F1BBA6 /* LoadingScene.m in Sources */,
 				6509D2D01A5E290300F1BBA6 /* GameScene.m in Sources */,
 				78C77B241A9EBEAC000A5728 /* WorldStreamer.m in Sources */,
+				786C05501AC76B6200EFA83E /* PopupMessage.m in Sources */,
 				7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */,
 				6509D2D51A5E290300F1BBA6 /* Constants.m in Sources */,
 				6509D2D21A5E290300F1BBA6 /* Obstacle.m in Sources */,

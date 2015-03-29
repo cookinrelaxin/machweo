@@ -12,11 +12,13 @@
     GKLeaderboard *leaderBoard;
     NSArray* topTenGlobalScores;
     NSArray* topTenFriendsScores;
-    NSUInteger localHighScore;
 }
 
 -(instancetype)init{
     if (self = [super init]) {
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSUInteger theHighScore = [defaults integerForKey:@"Highscore"];
+       // NSLog(@"theHighScore: %lu", (unsigned long)theHighScore);
         
     }
     return self;
@@ -29,7 +31,7 @@
     //Block is called each time GameKit automatically authenticates
     localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error)
     {
-        NSLog(@"viewController: %@", viewController);
+       // NSLog(@"viewController: %@", viewController);
         
         //      [self setLastError:error];
         if (viewController)
@@ -53,15 +55,16 @@
 {
     GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
     // [[NSNotificationCenter defaultCenter]postNotificationName:AUTHENTICATED_NOTIFICATION object:nil];
-    NSLog(@"Local player:%@ authenticated into game center",localPlayer.playerID);
+    //NSLog(@"Local player:%@ authenticated into game center",localPlayer.playerID);
     _gcEnabled = true;
+    _playerName = localPlayer.alias;
 }
 
 -(void)disableGameCenter
 {
     //A notification so that every observer responds appropriately to disable game center features
     // [[NSNotificationCenter defaultCenter]postNotificationName:UNAUTHENTICATED_NOTIFICATION object:nil];
-    NSLog(@"Disabled game center");
+    //NSLog(@"Disabled game center");
     _gcEnabled = false;
 }
 
@@ -76,20 +79,18 @@
 }
 
 - (void) reportScore: (int64_t) score{
-    if (score > localHighScore) {
+    if (score > _localHighScore) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"congratulate player on new high score" object:nil];
-    }
-    //for (GKLeaderboard* lb in _leaderboards) {
         GKScore *scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier: leaderBoard.identifier];
         scoreReporter.value = score;
         scoreReporter.context = 0;
         NSArray *scores = @[scoreReporter];
         [GKScore reportScores:scores withCompletionHandler:^(NSError *error) {
-           // NSLog(@"score reported for %@", lb.identifier);
-            //Do something interesting here.
-            //no, haha jk
         }];
-    //}
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setInteger:score forKey:@"Highscore"];
+        [defaults synchronize];
+    }
 }
 
 - (void) loadLeaderboardInfo
@@ -151,7 +152,10 @@
             //return scores;
             topTenFriendsScores = scores;
            // NSLog(@"topTenFriendsScores: %@", topTenFriendsScores);
-            localHighScore = (NSUInteger)leaderBoard.localPlayerScore.value;
+            if ((NSUInteger)leaderBoard.localPlayerScore.value > _localHighScore) {
+                _localHighScore = (NSUInteger)leaderBoard.localPlayerScore.value;
+            }
+           // _localHighScore =
            // NSLog(@"localHighScore: %lu", localHighScore);
 
         }];

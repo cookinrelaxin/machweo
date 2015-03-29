@@ -14,6 +14,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    [self authenticateLocalPlayer];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSUInteger theHighScore = [defaults integerForKey:@"Highscore"];
+    if (theHighScore == 0) {
+        [defaults setInteger:1 forKey:@"Highscore"];
+        [defaults synchronize];
+    }
+   // NSLog(@"theHighScore: %lu", (unsigned long)theHighScore);
     return YES;
 }
 
