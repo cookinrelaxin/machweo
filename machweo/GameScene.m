@@ -24,7 +24,7 @@ int TENGGRI_COUNT = 16;
 int RAW_SKY_WIDTH = 8192; // pixels
 //int DIURNAL_PERIOD = 90; //seconds
 //int LUNAR_PERIOD = 40; //seconds
-int DIURNAL_PERIOD = 30; //seconds
+int DIURNAL_PERIOD = 120; //seconds
 int LUNAR_PERIOD = 70; //seconds
 
 float MAX_AUDIO_VOLUME = .25f;
@@ -131,6 +131,7 @@ int METERS_PER_PIXEL = 50;
 
 -(instancetype)initWithSize:(CGSize)size withinView:(SKView*)view{
     if (self = [super initWithSize:size]){
+
         _constants = [Constants sharedInstance];
         skyWidth = RAW_SKY_WIDTH;
         _world = [[SKNode alloc] init];
@@ -163,6 +164,8 @@ int METERS_PER_PIXEL = 50;
         skyDict = _constants.SKY_DICT;
         skyPool = [NSMutableArray array];
         worldStreamer = [[WorldStreamer alloc] initWithScene:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0];
+        soundManager = [[SoundManager alloc] initTracks];
+
         [self generateBackgrounds :false];
 
         [self organizeTheHeavens];
@@ -185,8 +188,7 @@ int METERS_PER_PIXEL = 50;
         [self createPausedLabel];
         paused = false;
         
-        soundManager = [[SoundManager alloc] initTracks];
-        [soundManager startNatureSounds];
+        //[soundManager startNatureSounds];
         
         
 
@@ -268,7 +270,16 @@ int METERS_PER_PIXEL = 50;
                 [skyPool removeObject:firstBackground];
             }
             [skyPool addObject:background];
-            
+            if (!forceLoad) {
+                if (currentIndexInTenggri == 7) {
+                   // NSLog(@"(currentIndexInTenggri == 7)");
+                    [soundManager fadeIntoDayForBiome:[worldStreamer getCurrentBiome]];
+                }
+                else if (currentIndexInTenggri == 12) {
+                   // NSLog(@"(currentIndexInTenggri == 14)");
+                    [soundManager fadeIntoNightForBiome:[worldStreamer getCurrentBiome]];
+                }
+            }
             currentIndexInTenggri --;
             if (currentIndexInTenggri < 1) {
                 currentIndexInTenggri = TENGGRI_COUNT;
@@ -317,16 +328,28 @@ int METERS_PER_PIXEL = 50;
     NSUInteger roundedTime = (6 * floor((time / 6.0) + 0.5));
     NSUInteger index = 1;
     if ((roundedTime == 24) || (roundedTime == 0)) {
+        [soundManager fadeIntoNightForBiome:[worldStreamer getCurrentBiome]];
         index = 11;
+       // NSLog(@"(currentIndexInTenggri == 11)");
+
     }
-    if (roundedTime == 6) {
+    else if (roundedTime == 6) {
+        [soundManager fadeIntoNightForBiome:[worldStreamer getCurrentBiome]];
         index = 8;
+        //NSLog(@"(currentIndexInTenggri == 8)");
+
     }
-    if (roundedTime == 12) {
+    else if (roundedTime == 12) {
+        [soundManager fadeIntoDayForBiome:[worldStreamer getCurrentBiome]];
         index = 2;
+       // NSLog(@"(currentIndexInTenggri == 2)");
+
     }
-    if (roundedTime == 18) {
+    else if (roundedTime == 18) {
+        [soundManager fadeIntoDayForBiome:[worldStreamer getCurrentBiome]];
         index = 14;
+       // NSLog(@"(currentIndexInTenggri == 14)");
+
     }
     
     
@@ -419,54 +442,6 @@ int METERS_PER_PIXEL = 50;
     [sunNode runAction:sunsetAction];
 }
 
-//-(void)startMusic{
-//    NSError *error;
-//    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"gametrack" withExtension:@"mp3"];
-//    backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
-//    backgroundMusicPlayer.numberOfLoops = -1;
-//    [backgroundMusicPlayer prepareToPlay];
-//    [backgroundMusicPlayer setVolume: 0.0];
-//    [self fadeVolumeIn];
-//    [backgroundMusicPlayer play];
-//}
-//
-//-(void)muteSounds{
-//    backgroundMusicPlayer.volume = 0;
-//}
-//
-//-(void)unmuteSounds{
-//    backgroundMusicPlayer.volume = MAX_AUDIO_VOLUME;
-//}
-//
-//-(void)fadeVolumeIn {
-//    if ((backgroundMusicPlayer.volume < MAX_AUDIO_VOLUME)) {
-//        //NSLog(@"fade in");
-//        backgroundMusicPlayer.volume += 0.005;
-//        //[self performSelector:@selector(fadeVolumeIn) withObject:nil afterDelay:0.1];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-//            [self fadeVolumeIn];
-//        });
-//    }
-//}
-//
-//-(void)fadeVolumeOut {
-//    //NSLog(@"backgroundMusicPlayer.volume: %f", backgroundMusicPlayer.volume);
-//    if (gameOver && (backgroundMusicPlayer.volume > 0)) {
-//        //NSLog(@"fade out");
-//        if ((backgroundMusicPlayer.volume - 0.05) < 0) {
-//            if (!endGameNotificationSent) {
-//                [self endGame];
-//            }
-//            //NSLog(@"nullify the background music");
-//            backgroundMusicPlayer = nil;
-//            return;
-//            
-//        }
-//        backgroundMusicPlayer.volume = backgroundMusicPlayer.volume - 0.05;
-//        [self performSelector:@selector(fadeVolumeOut) withObject:nil afterDelay:0.1];
-//    }
-//
-//}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -774,14 +749,15 @@ int METERS_PER_PIXEL = 50;
 
 
 -(void)update:(CFTimeInterval)currentTime {
-//    [self fadeVolumeIn];
-    [soundManager playMusicForBiome:[worldStreamer getCurrentBiome]];
+    [soundManager adjustNatureVolumeToBiome:[worldStreamer getCurrentBiome]];
     [self setDecoFilter];
-    //[soundManager calculateNatureTrackVolumesForTimeOfDay:[self calculateVirtualTimeOfDayFromSunPosition]];
     [self generateBackgrounds :false];
-    float dX = sqrtf(powf(sunNode.position.x - previousSunPos.x, 2) + powf(sunNode.position.y - previousSunPos.y, 2));
-    _skies.position = CGPointMake(_skies.position.x + (dX * sky_displacement_coefficient), _skies.position.y);
+    float dx = sunNode.position.x - previousSunPos.x;
+    float dy = sunNode.position.y - previousSunPos.y;
+    float r = sqrtf(powf(dx, 2) + powf(dy, 2));
+    _skies.position = CGPointMake(_skies.position.x + (r * sky_displacement_coefficient), _skies.position.y);
     previousSunPos = sunNode.position;
+    
     
     if (!paused) {
         if (logoPresented) {

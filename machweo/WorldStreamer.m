@@ -21,7 +21,7 @@ const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 const int MAX_DIFFICULTY = 7;
 
 const int OBSTACLE_STADE_LENGTH = 100;
-const int DECORATION_STADE_LENGTH = 200;
+const int DECORATION_STADE_LENGTH = 400;
 
 
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
@@ -93,9 +93,9 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 //        // for double the fun
         [self calculateInitialBiome];
         [self preloadDecorationChunkWithDistance:0 asynchronous:NO];
-        [self loadNextDecoWithXOffset:0];
+        [self loadNextDecoWithXOffset:-(_view.bounds.size.width / 2)];
         [self preloadDecorationChunkWithDistance:0 asynchronous:NO];
-        [self loadNextDecoWithXOffset:0];
+        [self loadNextDecoWithXOffset:-(_view.bounds.size.width / 2)];
     }
     return  self;
     

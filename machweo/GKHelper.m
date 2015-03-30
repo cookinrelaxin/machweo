@@ -18,6 +18,7 @@
     if (self = [super init]) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSUInteger theHighScore = [defaults integerForKey:@"Highscore"];
+        _localHighScore = theHighScore;
        // NSLog(@"theHighScore: %lu", (unsigned long)theHighScore);
         
     }

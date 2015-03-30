@@ -20,9 +20,14 @@
 @property(nonatomic, strong) AVAudioPlayer* saharaTrack;
 -(instancetype)initTracks;
 //defined over [0, 24] in hours;
--(void)calculateNatureTrackVolumesForTimeOfDay:(u_int32_t)timeOfDay;
--(void)startNatureSounds;
--(void)playMusicForBiome:(Biome)biome;
+//-(void)calculateNatureTrackVolumesForTimeOfDay:(u_int32_t)timeOfDay;
+//-(void)startNatureSounds;
+//-(void)playMusicForBiome:(Biome)biome;
+-(void)fadeIntoNightForBiome:(Biome)biome;
+-(void)fadeIntoDayForBiome:(Biome)biome;
+-(void)adjustNatureVolumeToBiome:(Biome)biome;
+
+
 
 
 

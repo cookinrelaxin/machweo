@@ -139,7 +139,7 @@
 
 -(void)presentMessage{
     PopupMessage *thisMessage = [popupQueue firstObject];
-    NSLog(@"popupQueue: %@", popupQueue);
+    //NSLog(@"popupQueue: %@", popupQueue);
     
     CGSize popupSize = [self choosePopupSizeForString:thisMessage.text];
     if (!popupView) {
