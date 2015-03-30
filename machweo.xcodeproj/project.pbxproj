@@ -161,7 +161,6 @@
 		78C77B241A9EBEAC000A5728 /* WorldStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C77B231A9EBEAC000A5728 /* WorldStreamer.m */; };
 		78C8F9391AB4B671002905CC /* jungleplant14_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78C8F9381AB4B671002905CC /* jungleplant14_decoration.png */; };
 		78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */; };
-		78D4142E1A957E9C00618227 /* gametrack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78D4142D1A957E9C00618227 /* gametrack.mp3 */; };
 		78D7246A1AAD3F2A008C559E /* tenggriPS_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D7245A1AAD3F29008C559E /* tenggriPS_01.png */; };
 		78D7246B1AAD3F2A008C559E /* tenggriPS_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D7245B1AAD3F29008C559E /* tenggriPS_02.png */; };
 		78D7246C1AAD3F2A008C559E /* tenggriPS_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 78D7245C1AAD3F29008C559E /* tenggriPS_03.png */; };
@@ -222,6 +221,12 @@
 		78E9592F1AAE81E700FA51EE /* junglelog3_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E959011AAE81E700FA51EE /* junglelog3_decoration.png */; };
 		78E959301AAE81E700FA51EE /* junglelog4.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E959021AAE81E700FA51EE /* junglelog4.png */; };
 		78E959311AAE81E700FA51EE /* junglelog_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78E959031AAE81E700FA51EE /* junglelog_decoration.png */; };
+		78F03B0E1AC8CADF00189EA4 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F03B0D1AC8CADF00189EA4 /* SoundManager.m */; };
+		78F03B171AC8CE4A00189EA4 /* Insects_Tropical_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 78F03B141AC8CE4A00189EA4 /* Insects_Tropical_2.wav */; };
+		78F03B181AC8CE4A00189EA4 /* Tropical_Birds_and_Insects_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 78F03B151AC8CE4A00189EA4 /* Tropical_Birds_and_Insects_1.wav */; };
+		78F03B1C1AC8EDDE00189EA4 /* desert.wav in Resources */ = {isa = PBXBuildFile; fileRef = 78F03B191AC8EDDE00189EA4 /* desert.wav */; };
+		78F03B1D1AC8EDDE00189EA4 /* jungle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 78F03B1A1AC8EDDE00189EA4 /* jungle.wav */; };
+		78F03B1E1AC8EDDE00189EA4 /* savannah.wav in Resources */ = {isa = PBXBuildFile; fileRef = 78F03B1B1AC8EDDE00189EA4 /* savannah.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -415,7 +420,6 @@
 		78C8F9381AB4B671002905CC /* jungleplant14_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = jungleplant14_decoration.png; sourceTree = "<group>"; };
 		78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuControllerViewController.h; sourceTree = "<group>"; };
 		78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuControllerViewController.m; sourceTree = "<group>"; };
-		78D4142D1A957E9C00618227 /* gametrack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = gametrack.mp3; sourceTree = "<group>"; };
 		78D7245A1AAD3F29008C559E /* tenggriPS_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tenggriPS_01.png; sourceTree = "<group>"; };
 		78D7245B1AAD3F29008C559E /* tenggriPS_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tenggriPS_02.png; sourceTree = "<group>"; };
 		78D7245C1AAD3F29008C559E /* tenggriPS_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tenggriPS_03.png; sourceTree = "<group>"; };
@@ -476,6 +480,13 @@
 		78E959011AAE81E700FA51EE /* junglelog3_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = junglelog3_decoration.png; sourceTree = "<group>"; };
 		78E959021AAE81E700FA51EE /* junglelog4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = junglelog4.png; sourceTree = "<group>"; };
 		78E959031AAE81E700FA51EE /* junglelog_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = junglelog_decoration.png; sourceTree = "<group>"; };
+		78F03B0C1AC8CADF00189EA4 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
+		78F03B0D1AC8CADF00189EA4 /* SoundManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundManager.m; sourceTree = "<group>"; };
+		78F03B141AC8CE4A00189EA4 /* Insects_Tropical_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Insects_Tropical_2.wav; sourceTree = "<group>"; };
+		78F03B151AC8CE4A00189EA4 /* Tropical_Birds_and_Insects_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Tropical_Birds_and_Insects_1.wav; sourceTree = "<group>"; };
+		78F03B191AC8EDDE00189EA4 /* desert.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = desert.wav; sourceTree = "<group>"; };
+		78F03B1A1AC8EDDE00189EA4 /* jungle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jungle.wav; sourceTree = "<group>"; };
+		78F03B1B1AC8EDDE00189EA4 /* savannah.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = savannah.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -568,8 +579,8 @@
 		782AE6C71A74B89900FF4225 /* formatted game assets (zack's folder) */ = {
 			isa = PBXGroup;
 			children = (
+				78F03B0F1AC8CE4A00189EA4 /* sounds */,
 				788563C21A96D95C00F49980 /* level files */,
-				78D4142C1A957E9C00618227 /* music */,
 				78C0F8A71A92D47500382159 /* fonts */,
 				782AE6D81A74B89900FF4225 /* sprites */,
 			);
@@ -853,6 +864,8 @@
 				7813F6921AB5F7910092435D /* SpritePreloader.m */,
 				78C77B221A9EBEAC000A5728 /* WorldStreamer.h */,
 				78C77B231A9EBEAC000A5728 /* WorldStreamer.m */,
+				78F03B0C1AC8CADF00189EA4 /* SoundManager.h */,
+				78F03B0D1AC8CADF00189EA4 /* SoundManager.m */,
 			);
 			name = "game streaming";
 			sourceTree = "<group>";
@@ -909,14 +922,6 @@
 				78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */,
 			);
 			path = fonts;
-			sourceTree = "<group>";
-		};
-		78D4142C1A957E9C00618227 /* music */ = {
-			isa = PBXGroup;
-			children = (
-				78D4142D1A957E9C00618227 /* gametrack.mp3 */,
-			);
-			path = music;
 			sourceTree = "<group>";
 		};
 		78D724591AAD3F29008C559E /* images */ = {
@@ -1000,6 +1005,42 @@
 				78E959031AAE81E700FA51EE /* junglelog_decoration.png */,
 			);
 			path = log;
+			sourceTree = "<group>";
+		};
+		78F03B0F1AC8CE4A00189EA4 /* sounds */ = {
+			isa = PBXGroup;
+			children = (
+				78F03B101AC8CE4A00189EA4 /* button sounds */,
+				78F03B111AC8CE4A00189EA4 /* music */,
+				78F03B131AC8CE4A00189EA4 /* nature sounds */,
+			);
+			path = sounds;
+			sourceTree = "<group>";
+		};
+		78F03B101AC8CE4A00189EA4 /* button sounds */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "button sounds";
+			sourceTree = "<group>";
+		};
+		78F03B111AC8CE4A00189EA4 /* music */ = {
+			isa = PBXGroup;
+			children = (
+				78F03B191AC8EDDE00189EA4 /* desert.wav */,
+				78F03B1A1AC8EDDE00189EA4 /* jungle.wav */,
+				78F03B1B1AC8EDDE00189EA4 /* savannah.wav */,
+			);
+			path = music;
+			sourceTree = "<group>";
+		};
+		78F03B131AC8CE4A00189EA4 /* nature sounds */ = {
+			isa = PBXGroup;
+			children = (
+				78F03B141AC8CE4A00189EA4 /* Insects_Tropical_2.wav */,
+				78F03B151AC8CE4A00189EA4 /* Tropical_Birds_and_Insects_1.wav */,
+			);
+			path = "nature sounds";
 			sourceTree = "<group>";
 		};
 		78FFBC691A8EAC9500996198 /* menus */ = {
@@ -1131,6 +1172,7 @@
 				782312751AB76B8E00E173CE /* obstacleSet_3_b.xml in Resources */,
 				78E959161AAE81E700FA51EE /* jungleplant1_decoration.png in Resources */,
 				78D7246B1AAD3F2A008C559E /* tenggriPS_02.png in Resources */,
+				78F03B171AC8CE4A00189EA4 /* Insects_Tropical_2.wav in Resources */,
 				7876981C1ABC97F600A2FF81 /* obstacleSet_8_a.xml in Resources */,
 				78337A4D1AA3F727008756CB /* shrub1_decoration.png in Resources */,
 				787AED641ABB5350000429DE /* obstacleSet_4_f.xml in Resources */,
@@ -1139,6 +1181,7 @@
 				7876981B1ABC97F600A2FF81 /* obstacleSet_7_h.xml in Resources */,
 				782AE7861A74B89900FF4225 /* cloudopaque3_decoration.png in Resources */,
 				78D724791AAD3F2A008C559E /* tenggriPS_16.png in Resources */,
+				78F03B181AC8CE4A00189EA4 /* Tropical_Birds_and_Insects_1.wav in Resources */,
 				78D724711AAD3F2A008C559E /* tenggriPS_08.png in Resources */,
 				78E9591E1AAE81E700FA51EE /* jungleplant9_decoration.png in Resources */,
 				782AE7CB1A74B89900FF4225 /* moon_decoration.png in Resources */,
@@ -1192,7 +1235,6 @@
 				78337A4B1AA3F727008756CB /* dune9_decoration.png in Resources */,
 				782AE7DD1A74B89900FF4225 /* redtree3_decoration.png in Resources */,
 				785A53E51A9597A400ED2E37 /* rock2_decoration.png in Resources */,
-				78D4142E1A957E9C00618227 /* gametrack.mp3 in Resources */,
 				78344E441A97E39C00F9A5DF /* purpletree_decoration.png in Resources */,
 				78E959301AAE81E700FA51EE /* junglelog4.png in Resources */,
 				787AEDA01ABB57FA000429DE /* obstacleSet_5_b.xml in Resources */,
@@ -1244,10 +1286,12 @@
 				782E522F1AA7F9A3004FE1F7 /* decorationSet_jungle_day_c.xml in Resources */,
 				785CEACF1AC4CFF5006CE76C /* cairn_decoration.png in Resources */,
 				78E959261AAE81E700FA51EE /* jungletree2_decoration.png in Resources */,
+				78F03B1C1AC8EDDE00189EA4 /* desert.wav in Resources */,
 				78E959071AAE81E700FA51EE /* junglebush4_decoration.png in Resources */,
 				787AEDAE1ABB57FA000429DE /* obstacleSet_6_h.xml in Resources */,
 				78344E511A97E9F700F9A5DF /* kilimanjaro_decoration.png in Resources */,
 				787AEDA41ABB57FA000429DE /* obstacleSet_5_f.xml in Resources */,
+				78F03B1E1AC8EDDE00189EA4 /* savannah.wav in Resources */,
 				78D724751AAD3F2A008C559E /* tenggriPS_12.png in Resources */,
 				78337A5F1AA404A3008756CB /* decorationSet_sahara_day_f.xml in Resources */,
 				787AED651ABB5350000429DE /* obstacleSet_4_g.xml in Resources */,
@@ -1257,6 +1301,7 @@
 				78337A371AA3F727008756CB /* dune1_decoration.png in Resources */,
 				78E959101AAE81E700FA51EE /* jungleplant10_decoration.png in Resources */,
 				787AEDA71ABB57FA000429DE /* obstacleSet_6_a.xml in Resources */,
+				78F03B1D1AC8EDDE00189EA4 /* jungle.wav in Resources */,
 				78D724741AAD3F2A008C559E /* tenggriPS_11.png in Resources */,
 				782AE7B51A74B89900FF4225 /* totem_obstacle.png in Resources */,
 				782AE7A11A74B89900FF4225 /* mountain_decoration.png in Resources */,
@@ -1311,6 +1356,7 @@
 				659B21D01A5E1C1300885C04 /* main.m in Sources */,
 				6509D2ED1A5E290300F1BBA6 /* Line.m in Sources */,
 				6509D2DD1A5E290300F1BBA6 /* LoadingScene.m in Sources */,
+				78F03B0E1AC8CADF00189EA4 /* SoundManager.m in Sources */,
 				6509D2D01A5E290300F1BBA6 /* GameScene.m in Sources */,
 				78C77B241A9EBEAC000A5728 /* WorldStreamer.m in Sources */,
 				786C05501AC76B6200EFA83E /* PopupMessage.m in Sources */,

@@ -124,8 +124,6 @@ typedef enum Biomes
 @property(nonatomic) BOOL sahara_textures_loaded;
 
 
-
-
 @property(nonatomic) int NUMBER_OF_BACKGROUND_SIMUL;
 
 @property(nonatomic) float DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO;
@@ -134,6 +132,19 @@ typedef enum Biomes
 @property(nonatomic) CGSize MAX_POPUP_SIZE;
 
 @property (nonatomic) NSString* POPUP_FONT_NAME;
+
+@property (nonatomic) NSURL *dayTrackURL;
+@property (nonatomic) NSURL *nightTrackURL;
+
+@property (nonatomic) NSURL *savannaTrackURL;
+@property (nonatomic) NSURL *saharaTrackURL;
+@property (nonatomic) NSURL *jungleTrackURL;
+
+
+
+// there will be many, of course. just use one for now
+@property (nonatomic) NSURL *musicTrackURL;
+
 
 
 

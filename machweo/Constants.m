@@ -104,6 +104,16 @@ int midpoint(int n1, int n2)
     
     _jungle_textures_loaded = _sahara_textures_loaded = _savanna_textures_loaded = false;
 
+    //    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"gametrack" withExtension:@"mp3"];
+    _dayTrackURL = [[NSBundle mainBundle] URLForResource:@"Tropical_Birds_and_Insects_1" withExtension:@"wav"];
+    _nightTrackURL = [[NSBundle mainBundle] URLForResource:@"Insects_Tropical_2" withExtension:@"wav"];
+    _savannaTrackURL = [[NSBundle mainBundle] URLForResource:@"savannah" withExtension:@"wav"];
+    _jungleTrackURL = [[NSBundle mainBundle] URLForResource:@"jungle" withExtension:@"wav"];
+    _saharaTrackURL = [[NSBundle mainBundle] URLForResource:@"desert" withExtension:@"wav"];
+
+    
+
+
 
 
     

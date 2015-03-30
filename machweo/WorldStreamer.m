@@ -21,7 +21,7 @@ const int MAX_UNUSED_DECO_POOL_COUNT = 60;
 const int MAX_DIFFICULTY = 7;
 
 const int OBSTACLE_STADE_LENGTH = 100;
-const int DECORATION_STADE_LENGTH = 300;
+const int DECORATION_STADE_LENGTH = 200;
 
 
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
@@ -66,6 +66,10 @@ const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 -(void)dealloc{
    // NSLog(@"dealloc worldstreamer");
     
+}
+
+-(Biome)getCurrentBiome{
+    return currentBiome;
 }
 
 -(instancetype)initWithScene:(SKScene *)scene withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines withXOffset:(float)xOffset{

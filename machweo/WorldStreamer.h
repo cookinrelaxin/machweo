@@ -18,5 +18,6 @@
 -(NSMutableArray*)getTerrainPool;
 -(void)resetWithFinalDistance:(NSUInteger)finalDistance;
 -(void)enableObstacles;
+-(Biome)getCurrentBiome;
 
 @end

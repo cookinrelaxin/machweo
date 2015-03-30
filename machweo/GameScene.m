@@ -14,8 +14,8 @@
 #import "WorldStreamer.h"
 #import "Score.h"
 #import "AnimationComponent.h"
-#import <AVFoundation/AVFoundation.h>
 #import "GKHelper.h"
+#import "SoundManager.h"
 
 int Y_THRESHOLD_FOR_SWITCH_LEVEL = 40;
 int ALLOWABLE_X_DIFFERENCE = 10;
@@ -24,7 +24,7 @@ int TENGGRI_COUNT = 16;
 int RAW_SKY_WIDTH = 8192; // pixels
 //int DIURNAL_PERIOD = 90; //seconds
 //int LUNAR_PERIOD = 40; //seconds
-int DIURNAL_PERIOD = 120; //seconds
+int DIURNAL_PERIOD = 30; //seconds
 int LUNAR_PERIOD = 70; //seconds
 
 float MAX_AUDIO_VOLUME = .25f;
@@ -77,7 +77,7 @@ int METERS_PER_PIXEL = 50;
     SKSpriteNode* localPlayerCairn;
 
     
-    AVAudioPlayer* backgroundMusicPlayer;
+    //AVAudioPlayer* backgroundMusicPlayer;
     
     BOOL tutorial_mode_on;
     BOOL found_first_obstacle;
@@ -97,13 +97,21 @@ int METERS_PER_PIXEL = 50;
     NSUInteger currentIndexInTenggri;
     float sky_displacement_coefficient;
     BOOL sunPathAdjusted;
-    CGPoint centerOfSolarOrbit;
-    float radiusOfSolarOrbit;
+   // CGPoint centerOfSolarOrbit;
+    //float radiusOfSolarOrbit;
+    
+    float sunMaxY;
+    float sunMinY;
+
 
     CGPoint previousSunPos;
     SKSpriteNode* sunPanel;
     
     CGPoint finalPlayerPosition;
+    
+    SoundManager * soundManager;
+    
+    
 
 
     
@@ -158,7 +166,7 @@ int METERS_PER_PIXEL = 50;
         [self generateBackgrounds :false];
 
         [self organizeTheHeavens];
-        [self startMusic];
+       // [self startMusic];
         [self setupObservers];
         
         distanceLabel = [SKLabelNode labelNodeWithFontNamed:_constants.DISTANCE_LABEL_FONT_NAME];
@@ -175,8 +183,13 @@ int METERS_PER_PIXEL = 50;
         [self createMuteButton];
         [self createPauseButton];
         [self createPausedLabel];
-        
         paused = false;
+        
+        soundManager = [[SoundManager alloc] initTracks];
+        [soundManager startNatureSounds];
+        
+        
+
 
     }
     return self;
@@ -232,7 +245,7 @@ int METERS_PER_PIXEL = 50;
         //NSLog(@"rightEdgeOfFirstBackground: %f", rightEdgeOfFirstBackground);
         if ((leftEdgeOfFirstBackground > self.size.width) || forceLoad) {
            // NSLog(@"(rightEdgeOfFirstBackground < 0)");
-            NSString* tenggriCountString = (currentIndexInTenggri < 10) ? [NSString stringWithFormat:@"0%lu", currentIndexInTenggri] : [NSString stringWithFormat:@"%lu", (unsigned long)currentIndexInTenggri];
+            NSString* tenggriCountString = (currentIndexInTenggri < 10) ? [NSString stringWithFormat:@"0%lu", (unsigned long)currentIndexInTenggri] : [NSString stringWithFormat:@"%lu", (unsigned long)currentIndexInTenggri];
             
             NSString* backgroundName = [NSString stringWithFormat:@"tenggriPS_%@", tenggriCountString];
             SKSpriteNode* background = [skyDict valueForKey:backgroundName];
@@ -300,7 +313,7 @@ int METERS_PER_PIXEL = 50;
 
 // this method is absolutely unacceptable right now
 -(NSUInteger)calculateInitialSkyImageIndex{
-    float time = [self getCurrentTime];
+    float time = [self getCurrentActualTime];
     NSUInteger roundedTime = (6 * floor((time / 6.0) + 0.5));
     NSUInteger index = 1;
     if ((roundedTime == 24) || (roundedTime == 0)) {
@@ -323,7 +336,7 @@ int METERS_PER_PIXEL = 50;
     return index;
 }
 
--(float)getCurrentTime{
+-(float)getCurrentActualTime{
     NSDateComponents *components = [[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian] components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:[NSDate date]];
     
     float time = (float)components.hour + (((float)components.minute) / 60.0);
@@ -333,11 +346,10 @@ int METERS_PER_PIXEL = 50;
 
 -(float)calculateInitialSolarRotation{
     
-    float time = [self getCurrentTime];
+    float time = [self getCurrentActualTime];
     float rotation = -((time * (M_PI / 12.0)) + M_PI_2);
     //NSLog(@"rotation: %f", rotation);
     return rotation;
-
 }
 
 -(void)organizeTheHeavens{
@@ -353,7 +365,7 @@ int METERS_PER_PIXEL = 50;
 
         sunPanel = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(self.size.width, self.size.height)];
         sunPanel.physicsBody = nil;
-        centerOfSolarOrbit = CGPointMake(self.size.width / 2, (sunNode.size.height / 2));
+        CGPoint centerOfSolarOrbit = CGPointMake(self.size.width / 2, (sunNode.size.height / 2));
         sunPanel.position = centerOfSolarOrbit;
         sunPanel.zRotation =  [self calculateInitialSolarRotation];
         sunPanel.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
@@ -362,7 +374,7 @@ int METERS_PER_PIXEL = 50;
         
         
         //sunNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
-        radiusOfSolarOrbit = self.size.height * .6;
+        float radiusOfSolarOrbit = self.size.height * .6;
         UIBezierPath *sunPath = [UIBezierPath bezierPathWithArcCenter:CGPointZero radius:radiusOfSolarOrbit startAngle:0 endAngle:2 * M_PI clockwise:NO];
         //UIBezierPath *sunPath = [UIBezierPath bezierPathWithArcCenter:centerOfSolarOrbit radius:radiusOfSolarOrbit startAngle:0 endAngle:2 * M_PI clockwise:NO];
         [sunPath closePath];
@@ -370,6 +382,10 @@ int METERS_PER_PIXEL = 50;
         [sunNode runAction:[SKAction repeatActionForever:sunriseAction] completion:^{
         }];
         [sunPanel addChild:sunNode];
+        
+        sunMaxY = centerOfSolarOrbit.y + radiusOfSolarOrbit;
+        sunMinY = centerOfSolarOrbit.y - radiusOfSolarOrbit;
+
  
 
         //sunPathAdjusted = true;
@@ -403,54 +419,54 @@ int METERS_PER_PIXEL = 50;
     [sunNode runAction:sunsetAction];
 }
 
--(void)startMusic{
-    NSError *error;
-    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"gametrack" withExtension:@"mp3"];
-    backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
-    backgroundMusicPlayer.numberOfLoops = -1;
-    [backgroundMusicPlayer prepareToPlay];
-    [backgroundMusicPlayer setVolume: 0.0];
-    [self fadeVolumeIn];
-    [backgroundMusicPlayer play];
-}
-
--(void)muteSounds{
-    backgroundMusicPlayer.volume = 0;
-}
-
--(void)unmuteSounds{
-    backgroundMusicPlayer.volume = MAX_AUDIO_VOLUME;
-}
-
--(void)fadeVolumeIn {
-    if ((backgroundMusicPlayer.volume < MAX_AUDIO_VOLUME)) {
-        //NSLog(@"fade in");
-        backgroundMusicPlayer.volume += 0.005;
-        //[self performSelector:@selector(fadeVolumeIn) withObject:nil afterDelay:0.1];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-            [self fadeVolumeIn];
-        });
-    }
-}
-
--(void)fadeVolumeOut {
-    //NSLog(@"backgroundMusicPlayer.volume: %f", backgroundMusicPlayer.volume);
-    if (gameOver && (backgroundMusicPlayer.volume > 0)) {
-        //NSLog(@"fade out");
-        if ((backgroundMusicPlayer.volume - 0.05) < 0) {
-            if (!endGameNotificationSent) {
-                [self endGame];
-            }
-            //NSLog(@"nullify the background music");
-            backgroundMusicPlayer = nil;
-            return;
-            
-        }
-        backgroundMusicPlayer.volume = backgroundMusicPlayer.volume - 0.05;
-        [self performSelector:@selector(fadeVolumeOut) withObject:nil afterDelay:0.1];
-    }
-
-}
+//-(void)startMusic{
+//    NSError *error;
+//    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"gametrack" withExtension:@"mp3"];
+//    backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+//    backgroundMusicPlayer.numberOfLoops = -1;
+//    [backgroundMusicPlayer prepareToPlay];
+//    [backgroundMusicPlayer setVolume: 0.0];
+//    [self fadeVolumeIn];
+//    [backgroundMusicPlayer play];
+//}
+//
+//-(void)muteSounds{
+//    backgroundMusicPlayer.volume = 0;
+//}
+//
+//-(void)unmuteSounds{
+//    backgroundMusicPlayer.volume = MAX_AUDIO_VOLUME;
+//}
+//
+//-(void)fadeVolumeIn {
+//    if ((backgroundMusicPlayer.volume < MAX_AUDIO_VOLUME)) {
+//        //NSLog(@"fade in");
+//        backgroundMusicPlayer.volume += 0.005;
+//        //[self performSelector:@selector(fadeVolumeIn) withObject:nil afterDelay:0.1];
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, .1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+//            [self fadeVolumeIn];
+//        });
+//    }
+//}
+//
+//-(void)fadeVolumeOut {
+//    //NSLog(@"backgroundMusicPlayer.volume: %f", backgroundMusicPlayer.volume);
+//    if (gameOver && (backgroundMusicPlayer.volume > 0)) {
+//        //NSLog(@"fade out");
+//        if ((backgroundMusicPlayer.volume - 0.05) < 0) {
+//            if (!endGameNotificationSent) {
+//                [self endGame];
+//            }
+//            //NSLog(@"nullify the background music");
+//            backgroundMusicPlayer = nil;
+//            return;
+//            
+//        }
+//        backgroundMusicPlayer.volume = backgroundMusicPlayer.volume - 0.05;
+//        [self performSelector:@selector(fadeVolumeOut) withObject:nil afterDelay:0.1];
+//    }
+//
+//}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -466,15 +482,15 @@ int METERS_PER_PIXEL = 50;
         _allowDismissPopup = false;
     }
     
-    if ([muteLabelButton containsPoint:positionInSelf]) {
-        if (backgroundMusicPlayer.volume > 0) {
-            [self muteSounds];
-        }
-        else{
-            [self unmuteSounds];
-        }
-        return;
-    }
+//    if ([muteLabelButton containsPoint:positionInSelf]) {
+//        if (backgroundMusicPlayer.volume > 0) {
+//            [self muteSounds];
+//        }
+//        else{
+//            [self unmuteSounds];
+//        }
+//        return;
+//    }
     
     if (paused) {
         [self unpauseAndReturnToGame];
@@ -674,7 +690,7 @@ int METERS_PER_PIXEL = 50;
     for (Line* line in arrayOfLines) {
         if (line.shouldDraw) {
             for (Terrain* ter in line.terrainArray) {
-                [ter closeLoopAndFillTerrainInView:self.view withCurrentSunYPosition:[self convertPoint:sunNode.position fromNode:sunNode.parent].y minY:centerOfSolarOrbit.y - radiusOfSolarOrbit andMaxY:centerOfSolarOrbit.y + radiusOfSolarOrbit];
+                [ter closeLoopAndFillTerrainInView:self.view withCurrentSunYPosition:[self convertPoint:sunNode.position fromNode:sunNode.parent].y minY:sunMinY andMaxY:sunMaxY];
             }
         }
     }
@@ -699,8 +715,8 @@ int METERS_PER_PIXEL = 50;
 }
 
 -(void)setDecoFilter{
-    float maxY = centerOfSolarOrbit.y + radiusOfSolarOrbit;
-    float minY = centerOfSolarOrbit.y - radiusOfSolarOrbit;
+    float maxY = sunMaxY;
+    float minY = sunMinY;
     float sunY = [self convertPoint:sunNode.position fromNode:sunNode.parent].y;
     
     float minBrightnessMultiplier = 1.0 / 5.0;
@@ -739,10 +755,29 @@ int METERS_PER_PIXEL = 50;
 //    }
 }
 
+//-(u_int32_t)calculateVirtualTimeOfDayFromSunPosition{
+//   // return 12 * cosf((M_PI / 12) * sunNode.position.y);
+//    float skyPosition = [self convertSkyPositionToClockMode:_skies.position.x];
+//    NSLog(@"skyPosition: %f", skyPosition);
+//    u_int32_t virtualTime = (24 * (skyPosition / skyWidth)) + 0;
+//    NSLog(@"virtualTime: %u", virtualTime);
+//    return virtualTime;
+//}
+//
+//-(float)convertSkyPositionToClockMode:(float)skyPosition{
+//    if (skyPosition > skyWidth) {
+//        return [self convertSkyPositionToClockMode:_skies.position.x - skyWidth];
+//    }
+//    //return skyPosition + (skyWidth / 2);
+//    return skyPosition;
+//}
+
 
 -(void)update:(CFTimeInterval)currentTime {
 //    [self fadeVolumeIn];
+    [soundManager playMusicForBiome:[worldStreamer getCurrentBiome]];
     [self setDecoFilter];
+    //[soundManager calculateNatureTrackVolumesForTimeOfDay:[self calculateVirtualTimeOfDayFromSunPosition]];
     [self generateBackgrounds :false];
     float dX = sqrtf(powf(sunNode.position.x - previousSunPos.x, 2) + powf(sunNode.position.y - previousSunPos.y, 2));
     _skies.position = CGPointMake(_skies.position.x + (dX * sky_displacement_coefficient), _skies.position.y);
@@ -863,7 +898,7 @@ int METERS_PER_PIXEL = 50;
 
     gameOver = true;
     //[self performSunset];
-    [self fadeVolumeOut];
+   // [self fadeVolumeOut];
     //[self reset];
     pauseButton.hidden = true;
     muteLabelButton.hidden = true;
@@ -979,7 +1014,7 @@ int METERS_PER_PIXEL = 50;
     gameOver = false;
     in_game = false;
     //player_created = false;
-    [self startMusic];
+   // [self startMusic];
     //tutorial_mode_on = false;
    // found_first_obstacle = false;
    // passed_first_obstacle = false;
@@ -1054,7 +1089,7 @@ int METERS_PER_PIXEL = 50;
             else{
                 if (nameString) {
                     [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@, welcome back!", nameString] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
-                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"Can you beat your high score of %lu?", gkhelper.localHighScore] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"Can you beat your high score of %lu?", (unsigned long)gkhelper.localHighScore] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
                 }
                 else{
                     [self sendMessageNotificationWithText:@"Welcome back!" andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
