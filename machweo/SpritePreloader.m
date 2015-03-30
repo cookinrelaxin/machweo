@@ -42,7 +42,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
                     //UIImage* img = [UIImage imageNamed:name];
                     @autoreleasepool {
                         UIImage* img = [UIImage imageWithContentsOfFile:[url path]];
-                        img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:NO];
+                        img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
                         SKTexture *tex = [SKTexture textureWithImage:img];
                         img = nil;
                         [textureDict setValue:tex forKey:name];
@@ -111,7 +111,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
     
     //UIImage* img = [UIImage imageNamed:obsName];
     UIImage* img = [UIImage imageWithContentsOfFile:path];
-    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:NO];
+    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
     SKTexture* spriteTexture = [SKTexture textureWithImage:img];
     [texArray addObject:spriteTexture];
     
