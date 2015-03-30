@@ -11,12 +11,19 @@
 //const u_int8_t maxVol_day = 1;
 //const u_int8_t maxVol_night = 1;
 
-float maxVol_day_savanna = .11;
+//float maxVol_day_savanna = .11;
+//float maxVol_day_sahara = .025;
+//float maxVol_day_jungle = .16;
+//float maxVol_night_savanna = .11;
+//float maxVol_night_sahara = .025;
+//float maxVol_night_jungle = .16;
+
+float maxVol_day_savanna = .05;
 float maxVol_day_sahara = .025;
-float maxVol_day_jungle = .16;
-float maxVol_night_savanna = .11;
+float maxVol_day_jungle = .08;
+float maxVol_night_savanna = .05;
 float maxVol_night_sahara = .025;
-float maxVol_night_jungle = .16;
+float maxVol_night_jungle = .08;
 
 float maxVol_music = .8;
 
@@ -36,21 +43,21 @@ float maxVol_music = .8;
         _dayTrack.numberOfLoops = -1;
         _dayTrack.volume = 0;
         [_dayTrack prepareToPlay];
-        [_dayTrack play];
+//        [_dayTrack play];
 
         NSError *error_night;
         _nightTrack = [[AVAudioPlayer alloc] initWithContentsOfURL:constants.nightTrackURL error:&error_night];
         _nightTrack.numberOfLoops = -1;
         _nightTrack.volume = 0;
         [_nightTrack prepareToPlay];
-        [_nightTrack play];
+       // [_nightTrack play];
 
         NSError *error_savanna;
         _savannaTrack = [[AVAudioPlayer alloc] initWithContentsOfURL:constants.savannaTrackURL error:&error_savanna];
         _savannaTrack.numberOfLoops = -1;
         _savannaTrack.volume = maxVol_music;
         [_savannaTrack prepareToPlay];
-        [_savannaTrack play];
+       // [_savannaTrack play];
 //        NSError *error_sahara;
 //        _saharaTrack = [[AVAudioPlayer alloc] initWithContentsOfURL:constants.saharaTrackURL error:&error_sahara];
 //        _saharaTrack.numberOfLoops = -1;
@@ -69,19 +76,19 @@ float maxVol_music = .8;
     }
     return self;
 }
-
-//-(void)startNatureSounds{
-////    [_dayTrack prepareToPlay];
-////    [_dayTrack play];
-////    [_nightTrack prepareToPlay];
-////    [_nightTrack play];
-//
-//}
+-(void)startSounds{
+   // [_dayTrack prepareToPlay];
+    [_dayTrack play];
+   // [_nightTrack prepareToPlay];
+    [_nightTrack play];
+   // [_savannaTrack prepareToPlay];
+    [_savannaTrack play];
+}
 
 -(void)fadeIntoNightForBiome:(Biome)biome{
     isDay = false;
     currentBiome = biome;
-    NSLog(@"fadeIntoNight");
+    //NSLog(@"fadeIntoNight");
         [self fadeVolumeOut:_dayTrack minVol:0];
     float maxVol;
     switch (biome) {
@@ -105,7 +112,7 @@ float maxVol_music = .8;
 -(void)fadeIntoDayForBiome:(Biome)biome{
     isDay = true;
     currentBiome = biome;
-    NSLog(@"fadeIntoDay");
+    //NSLog(@"fadeIntoDay");
         [self fadeVolumeOut:_nightTrack minVol:0];
     float maxVol;
     switch (biome) {

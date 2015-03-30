@@ -123,12 +123,6 @@ int METERS_PER_PIXEL = 50;
 
 }
 
-/*
- _world: <SKEffectNode> name:'(null)' shouldEnableEffects:'YES' filter:'nil' position:{0, 0} accumulatedFrame:{{-7063.177734375, -175.1185302734375}, {8192, 591.1185302734375}}
- 
- _world: <SKNode> name:'(null)' position:{0, 0} accumulatedFrame:{{-7052.7900390625, -172.73086547851562}, {8192, 588.7308349609375}}
- */
-
 -(instancetype)initWithSize:(CGSize)size withinView:(SKView*)view{
     if (self = [super initWithSize:size]){
 
@@ -718,16 +712,11 @@ int METERS_PER_PIXEL = 50;
         CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
         CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
         [lighten setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+        [lighten setValue:@(brightness) forKey:@"inputBrightness"];
         
         self.filter = lighten;
+        
     }
-//    {
-//        _world.zPosition = -1;
-//        CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"];
-//        [filter setDefaults];
-//        [filter setValue:@(10) forKey:@"inputRadius"]; // blur radius may change
-//        _world.filter = filter;
-//    }
 }
 
 //-(u_int32_t)calculateVirtualTimeOfDayFromSunPosition{
@@ -1166,17 +1155,10 @@ int METERS_PER_PIXEL = 50;
     }
 
 }
-//
-//-(void)checkForSignificantScore{
-//   // NSMutableArray* shouldDelete = [NSMutableArray arrayWithCapacity:_cairns.children.count];
-//    for (SKSpriteNode* cairn in _cairns.children) {
-//        
-//        if (cairn)
-//    }
-//}
 
 -(void)didMoveToView:(SKView *)view{
     [self setupCairns];
+    [soundManager startSounds];
 }
 
 @end
