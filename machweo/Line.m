@@ -57,7 +57,7 @@
     return self;
 }
 
--(void)generateConnectingLinesInTerrainNode:(SKNode*)node withTerrainPool:(NSMutableArray*)terrainPool andDecoNode:(SKNode*)decorations :(BOOL)generateDecorations{
+-(void)generateConnectingLinesInTerrainNode:(SKNode*)node andDecoNode:(SKNode*)decorations :(BOOL)generateDecorations{
    // NSLog(@"node.children.count: %lu", (unsigned long)node.children.count);
     //[node enumerateChildNodesWithName:@"intersectingLines" usingBlock:^(SKNode *kiddo, BOOL *stop) {
    //     [kiddo removeFromParent];
@@ -99,13 +99,13 @@
 
                 CGPoint v1_a = ((NSValue*)[vertices1 objectAtIndex:i]).CGPointValue;
                 CGPoint v1_b = ((NSValue*)[vertices1 objectAtIndex:i + 1]).CGPointValue;
-                if (generateDecorations) {
-                    if (i >= (vertices1.count - 3)) {
-                        float slope = (v1_a.y - v2_b.y) / (v1_a.x - v2_b.x);
+                //if (generateDecorations) {
+                   // if (i >= (vertices1.count - 3)) {
+                        //float slope = (v1_a.y - v2_b.y) / (v1_a.x - v2_b.x);
                         //NSLog(@"slope: %f", slope);
-                        [self findRandomPointAlongVertices :v1_b :CGPointMake(v2_b.x, v2_b.y) withZPosition1:firstTerrain.zPosition and2:secondTerrain.zPosition inTerrain:firstTerrain withTerrainPool:terrainPool inNode:decorations andSlope:slope];
-                    }
-                }
+                        //[self findRandomPointAlongVertices :v1_b :CGPointMake(v2_b.x, v2_b.y) withZPosition1:firstTerrain.zPosition and2:secondTerrain.zPosition inTerrain:firstTerrain withTerrainPool:terrainPool inNode:decorations andSlope:slope];
+                   // }
+                //}
                 
 
 

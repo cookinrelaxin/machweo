@@ -92,6 +92,7 @@ int midpoint(int n1, int n2)
     _GRAVITY = .30;
     
     _TEXTURE_DICT = [NSMutableDictionary dictionary];
+    _TERRAIN_ARRAY = [NSMutableArray array];
     _NUMBER_OF_BACKGROUND_SIMUL = 8;
     
     _DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO = 250 / 20;
@@ -106,9 +107,9 @@ int midpoint(int n1, int n2)
 
     _dayTrackURL = [[NSBundle mainBundle] URLForResource:@"Tropical_Birds_and_Insects" withExtension:@"mp3"];
     _nightTrackURL = [[NSBundle mainBundle] URLForResource:@"Insects_Tropical" withExtension:@"mp3"];
-    _savannaTrackURL = [[NSBundle mainBundle] URLForResource:@"savannah" withExtension:@"mp3"];
-    _jungleTrackURL = [[NSBundle mainBundle] URLForResource:@"jungle" withExtension:@"mp3"];
-    _saharaTrackURL = [[NSBundle mainBundle] URLForResource:@"desert" withExtension:@"mp3"];
+    _savannaTrackURL = [[NSBundle mainBundle] URLForResource:@"supertrack3" withExtension:@"mp3"];
+    //_jungleTrackURL = [[NSBundle mainBundle] URLForResource:@"jungle" withExtension:@"mp3"];
+    //_saharaTrackURL = [[NSBundle mainBundle] URLForResource:@"desert" withExtension:@"mp3"];
 
     
 

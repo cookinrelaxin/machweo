@@ -39,11 +39,22 @@ const int NUM_SPRITES_PER_TYPE= 12;
                     continue;
                 }
                 if ([name hasSuffix:@"decoration"]) {
-                    //UIImage* img = [UIImage imageNamed:name];
                     @autoreleasepool {
                         UIImage* img = [UIImage imageWithContentsOfFile:[url path]];
-                        img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
+                        img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:NO];
                         SKTexture *tex = [SKTexture textureWithImage:img];
+                        if ([name isEqualToString:@"tree_decoration"]) {
+                            [constants.TERRAIN_ARRAY addObject:tex];
+                        }
+                        if ([name isEqualToString:@"tree_decoration2"]) {
+                            [constants.TERRAIN_ARRAY addObject:tex];
+                        }
+                        if ([name isEqualToString:@"tree_decoration3"]) {
+                            [constants.TERRAIN_ARRAY addObject:tex];
+                        }
+                        if ([name isEqualToString:@"tree_decoration4"]) {
+                            [constants.TERRAIN_ARRAY addObject:tex];
+                        }
                         img = nil;
                         [textureDict setValue:tex forKey:name];
                         [texArray addObject:tex];
@@ -56,10 +67,9 @@ const int NUM_SPRITES_PER_TYPE= 12;
                     }
                     continue;
                 }
-                
-            
             }
         }
+    
         [SKTexture preloadTextures:texArray withCompletionHandler:^{
         //    NSLog(@"textures preloaded");
         }];
@@ -111,7 +121,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
     
     //UIImage* img = [UIImage imageNamed:obsName];
     UIImage* img = [UIImage imageWithContentsOfFile:path];
-    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
+    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:NO];
     SKTexture* spriteTexture = [SKTexture textureWithImage:img];
     [texArray addObject:spriteTexture];
     

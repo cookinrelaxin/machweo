@@ -57,7 +57,7 @@ float maxVol_music = .8;
         _savannaTrack.numberOfLoops = -1;
         _savannaTrack.volume = maxVol_music;
         [_savannaTrack prepareToPlay];
-       // [_savannaTrack play];
+        [_savannaTrack play];
 //        NSError *error_sahara;
 //        _saharaTrack = [[AVAudioPlayer alloc] initWithContentsOfURL:constants.saharaTrackURL error:&error_sahara];
 //        _saharaTrack.numberOfLoops = -1;

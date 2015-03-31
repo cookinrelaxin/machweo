@@ -252,10 +252,10 @@ typedef enum NodeTypes
         }
         if (currentElement == terrainPoolMember) {
             //NSLog(@"add terrainPoolMember");
-            SKTexture *spriteTexture = [textureDict objectForKey:string];
-            if (spriteTexture) {
-                [terrainPoolArray addObject:spriteTexture];
-            }
+//            SKTexture *spriteTexture = [textureDict objectForKey:string];
+//            if (spriteTexture) {
+//                [terrainPoolArray addObject:spriteTexture];
+//            }
             //NSLog(@"spriteTexture :%@", spriteTexture);
         }
         if (currentElement == uniqueID) {
@@ -272,7 +272,7 @@ typedef enum NodeTypes
     }
 }
 
--(void)loadObstaclesInWorld:(SKNode *)world withObstacles:(SKNode *)obstacles withinView:(SKView *)view andTerrainPool:(NSMutableArray *)terrainPool withXOffset:(float)xOffset{
+-(void)loadObstaclesInWorld:(SKNode *)world withObstacles:(SKNode *)obstacles withinView:(SKView *)view withXOffset:(float)xOffset{
 
     for (Obstacle *obstacle in obstacleArray) {
         obstacle.position = CGPointMake((obstacle.position.x * constants.SCALE_COEFFICIENT.dy), obstacle.position.y * constants.SCALE_COEFFICIENT.dy);
@@ -285,15 +285,15 @@ typedef enum NodeTypes
 
 }
 
--(void)pourDecorationsIntoBucket:(NSMutableArray *)bucket andTerrainPool:(NSMutableArray *)terrainPool{
+-(void)pourDecorationsIntoBucket:(NSMutableArray *)bucket{
     [bucket addObjectsFromArray:decorationArray];
     //terrainPool = terrainPoolArray;
     //NSLog(@"2. _terrainPool: %@", terrainPool);
-    for (SKTexture* tex in terrainPoolArray) {
-        if (![terrainPool containsObject:tex]) {
-            [terrainPool addObject:tex];
-        }
-    }
+//    for (SKTexture* tex in terrainPoolArray) {
+//        if (![terrainPool containsObject:tex]) {
+//            [terrainPool addObject:tex];
+//        }
+//    }
 
 }
 

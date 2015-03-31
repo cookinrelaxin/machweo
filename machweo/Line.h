@@ -20,5 +20,5 @@
 
 @property (nonatomic) CGPoint origin;
 -(instancetype)initWithTerrainNode:(SKNode*)node :(CGSize)sceneSize;
--(void)generateConnectingLinesInTerrainNode:(SKNode*)node withTerrainPool:(NSMutableArray*)terrainPool andDecoNode:(SKNode*)decorations :(BOOL)generateDecorations;
+-(void)generateConnectingLinesInTerrainNode:(SKNode*)node andDecoNode:(SKNode*)decorations :(BOOL)generateDecorations;
 @end

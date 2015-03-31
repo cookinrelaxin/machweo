@@ -39,7 +39,9 @@
       //  NSLog(@"gameLoaded = true");
         gameLoaded = true;
         _gameSceneView.ignoresSiblingOrder = YES;
-        //_gameSceneView.showsFPS = YES;
+        _gameSceneView.asynchronous = NO;
+        _gameSceneView.shouldCullNonVisibleNodes = NO;
+        _gameSceneView.showsFPS = YES;
         _menuView.hidden = true;
         [self setUpObservers];
         [self initGame];

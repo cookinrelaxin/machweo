@@ -111,6 +111,8 @@ int METERS_PER_PIXEL = 50;
     
     SoundManager * soundManager;
     
+    NSTimeInterval previousTime;
+    
     
 
 
@@ -648,7 +650,7 @@ int METERS_PER_PIXEL = 50;
         if (!ter.permitDecorations){
             [ter changeDecorationPermissions:newPoint];
         }
-        [ter generateDecorationAtVertex:newPoint fromTerrainPool:[worldStreamer getTerrainPool] inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x))];
+        [ter generateDecorationAtVertex:newPoint inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x)) andCurrentBiome:[worldStreamer getCurrentBiome]];
         
     }
     previousPoint = currentPoint;
@@ -738,6 +740,12 @@ int METERS_PER_PIXEL = 50;
 
 
 -(void)update:(CFTimeInterval)currentTime {
+    NSTimeInterval deltaTime = currentTime - previousTime;
+    if (deltaTime > 1) {
+        deltaTime = 1/60;
+    }
+    previousTime = currentTime;
+    
     [soundManager adjustNatureVolumeToBiome:[worldStreamer getCurrentBiome]];
     [self setDecoFilter];
     [self generateBackgrounds :false];
@@ -770,7 +778,7 @@ int METERS_PER_PIXEL = 50;
                 [self updateDistance];
                 [self checkForLostGame];
             }
-            [worldStreamer updateWithPlayerDistance:distance_traveled];
+            [worldStreamer updateWithPlayerDistance:distance_traveled andDeltaTime:deltaTime];
             [self centerCameraOnPlayer];
             [self checkForNewAnimationState];
             [player resetMinsAndMaxs];
@@ -886,7 +894,7 @@ int METERS_PER_PIXEL = 50;
 -(void)generateDecorations{
     for (Line* line in arrayOfLines) {
         // if (!player.touchesEnded) {
-        [line generateConnectingLinesInTerrainNode:_terrain withTerrainPool:[worldStreamer getTerrainPool] andDecoNode:_decorations :!player.touchesEnded];
+        [line generateConnectingLinesInTerrainNode:_terrain andDecoNode:_decorations :!player.touchesEnded];
     }
 }
 
@@ -924,7 +932,7 @@ int METERS_PER_PIXEL = 50;
         }
         
         player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
-        CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(player.velocity.dx, 0);
+        CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(player.velocity.dx * _constants.PHYSICS_SCALAR_MULTIPLIER, 0);
         for (Line* line in arrayOfLines) {
             for (int i = 0; i < line.nodeArray.count; i ++) {
                 NSValue* pointNode = [line.nodeArray objectAtIndex:i];

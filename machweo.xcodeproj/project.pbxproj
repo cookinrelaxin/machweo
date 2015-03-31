@@ -101,6 +101,7 @@
 		78344E441A97E39C00F9A5DF /* purpletree_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E421A97E39C00F9A5DF /* purpletree_decoration.png */; };
 		78344E451A97E39C00F9A5DF /* purpletree2_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E431A97E39C00F9A5DF /* purpletree2_decoration.png */; };
 		78344E511A97E9F700F9A5DF /* kilimanjaro_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E501A97E9F700F9A5DF /* kilimanjaro_decoration.png */; };
+		78395C901ACA416E00FB63D2 /* supertrack3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78395C8F1ACA416E00FB63D2 /* supertrack3.mp3 */; };
 		784329421AC79D470099401C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 784329411AC79D470099401C /* StoreKit.framework */; };
 		7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7852BC6B1A71FF6D0038447B /* gameModel.xcdatamodeld */; };
 		785A53E31A9597A400ED2E37 /* rock1_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DD1A9597A400ED2E37 /* rock1_decoration.png */; };
@@ -349,6 +350,7 @@
 		78344E421A97E39C00F9A5DF /* purpletree_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpletree_decoration.png; sourceTree = "<group>"; };
 		78344E431A97E39C00F9A5DF /* purpletree2_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpletree2_decoration.png; sourceTree = "<group>"; };
 		78344E501A97E9F700F9A5DF /* kilimanjaro_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilimanjaro_decoration.png; sourceTree = "<group>"; };
+		78395C8F1ACA416E00FB63D2 /* supertrack3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = supertrack3.mp3; sourceTree = "<group>"; };
 		784329411AC79D470099401C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		7852BC6C1A71FF6D0038447B /* gameModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = gameModel.xcdatamodel; sourceTree = "<group>"; };
 		785A53DD1A9597A400ED2E37 /* rock1_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock1_decoration.png; sourceTree = "<group>"; };
@@ -1027,6 +1029,7 @@
 		78F03B111AC8CE4A00189EA4 /* music */ = {
 			isa = PBXGroup;
 			children = (
+				78395C8F1ACA416E00FB63D2 /* supertrack3.mp3 */,
 				780EFEF11AC90D250041BFDC /* desert.mp3 */,
 				780EFEF21AC90D250041BFDC /* jungle.mp3 */,
 				780EFEF31AC90D250041BFDC /* savannah.mp3 */,
@@ -1203,6 +1206,7 @@
 				78E959231AAE81E700FA51EE /* jungletree13_decoration.png in Resources */,
 				78952A731AA2CB0000A065C2 /* decorationSet_savanna_day_e.xml in Resources */,
 				787AEDA91ABB57FA000429DE /* obstacleSet_6_c.xml in Resources */,
+				78395C901ACA416E00FB63D2 /* supertrack3.mp3 in Resources */,
 				78952A6F1AA2CB0000A065C2 /* decorationSet_savanna_day_a.xml in Resources */,
 				78D7246E1AAD3F2A008C559E /* tenggriPS_05.png in Resources */,
 				782AE7E71A74B89900FF4225 /* tree4_decoration.png in Resources */,

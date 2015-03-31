@@ -14,8 +14,7 @@
 
 -(instancetype)initWithScene:(SKScene*)scene withObstacles:(SKNode*)obstacles andDecorations:(SKNode*)decorations withinView:(SKView *)view andLines:(NSMutableArray*)lines withXOffset:(float)xOffset;
 
--(void)updateWithPlayerDistance:(NSUInteger)playerDistance;
--(NSMutableArray*)getTerrainPool;
+-(void)updateWithPlayerDistance:(NSUInteger)playerDistance andDeltaTime:(NSTimeInterval)deltaTime;
 -(void)resetWithFinalDistance:(NSUInteger)finalDistance;
 -(void)enableObstacles;
 -(Biome)getCurrentBiome;
