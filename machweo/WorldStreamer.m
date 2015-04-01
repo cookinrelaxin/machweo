@@ -121,10 +121,6 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 -(Biome)calculateNextBiomeWithDistance:(NSUInteger)distance{
     previousBiome = currentBiome;
     NSUInteger roundedDistance = RoundDownTo(distance, DECORATION_STADE_LENGTH);
-    //NSLog(@"roundedDistance: %lu", (unsigned long)roundedDistance);
-//    if (distance == 0) {
-//        currentBiome = [self calculateInitialBiome];
-//    }
     if ((roundedDistance % (DECORATION_STADE_LENGTH * 3)) == 0) {
         currentBiome = three_times_stade_biome;
     }
@@ -135,6 +131,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         currentBiome = one_times_stade_biome;
     }
     return currentBiome;
+    return savanna;
 }
 
 -(Biome)calculateInitialBiome{
@@ -151,10 +148,6 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         two_times_stade_biome = 0;
         three_times_stade_biome = 1;
     }
-    //NSLog(@"one_times_stade_biome: %@", [self biomeToString:one_times_stade_biome]);
-   // NSLog(@"two_times_stade_biome: %@", [self biomeToString:two_times_stade_biome]);
-   // NSLog(@"three_times_stade_biome: %@", [self biomeToString:three_times_stade_biome]);
-
     return one_times_stade_biome;
 }
 
@@ -372,10 +365,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 -(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{
     chunkLoading = true;
     NSUInteger difficulty = [self calculateDifficultyFromDistance:distance];
-    //NSLog(@"difficulty: %lu", (unsigned long)difficulty);
     NSString* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
-    //NSLog(@"obstacleSet: %@", obstacleSet);
-    
     
     //NSLog(@"xOffset: %f", xOffset);
     //dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
@@ -394,12 +384,11 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
     if (!lastObstacle) {
        // NSLog(@"load first obstacle chunk");
         [self loadObstacleChunkWithXOffset:_view.bounds.size.width * 3 andDistance:0];
-        
         return;
     }
     CGPoint lastObstaclePosInSelf = [_scene convertPoint:lastObstacle.position fromNode:_obstacles];
-    //NSLog(@"lastObstacle: %@", lastObstacle);
     CGPoint lastObstaclePosInView = [_view convertPoint:lastObstaclePosInSelf fromScene:_scene];
+    NSLog(@"lastObstaclePosInView.x: %f", lastObstaclePosInView.x);
     if (lastObstaclePosInView.x < _view.bounds.size.width) {
         //NSLog(@"load next chunk");
         

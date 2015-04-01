@@ -25,7 +25,7 @@ int RAW_SKY_WIDTH = 8192; // pixels
 //int DIURNAL_PERIOD = 90; //seconds
 //int LUNAR_PERIOD = 40; //seconds
 int DIURNAL_PERIOD = 120; //seconds
-int LUNAR_PERIOD = 70; //seconds
+int LUNAR_PERIOD = 50; //seconds
 
 float MAX_AUDIO_VOLUME = .25f;
 
@@ -113,6 +113,8 @@ int METERS_PER_PIXEL = 50;
     
     NSTimeInterval previousTime;
     
+    NSString* greeting;
+    
     
 
 
@@ -160,7 +162,8 @@ int METERS_PER_PIXEL = 50;
         skyDict = _constants.SKY_DICT;
         skyPool = [NSMutableArray array];
         worldStreamer = [[WorldStreamer alloc] initWithScene:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:arrayOfLines withXOffset:0];
-        soundManager = [[SoundManager alloc] initTracks];
+//        soundManager = [[SoundManager alloc] initTracks];
+        soundManager = [SoundManager sharedInstance];
 
         [self generateBackgrounds :false];
 
@@ -228,6 +231,14 @@ int METERS_PER_PIXEL = 50;
                     usingBlock:^(NSNotification *notification)
      {
          [weakSelf unpauseAndReturnToGame];
+     }];
+    
+    [center addObserverForName:@"pause"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         [weakSelf pauseWithVisibleLabel:YES];
      }];
     
 }
@@ -337,7 +348,7 @@ int METERS_PER_PIXEL = 50;
     }
     else if (roundedTime == 12) {
         [soundManager fadeIntoDayForBiome:[worldStreamer getCurrentBiome]];
-        index = 2;
+        index = 3;
        // NSLog(@"(currentIndexInTenggri == 2)");
 
     }
@@ -359,7 +370,21 @@ int METERS_PER_PIXEL = 50;
     NSDateComponents *components = [[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian] components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:[NSDate date]];
     
     float time = (float)components.hour + (((float)components.minute) / 60.0);
-    //NSLog(@"time: %f", time);
+    if (!greeting) {
+        if ((time > 6) && (time <= 12)) {
+            greeting = @"good morning";
+        }
+        if ((time > 12) && (time <= 18)) {
+            greeting = @"good afternoon";
+        }
+        if ((time > 18) && (time <= 24)) {
+            greeting = @"good evening";
+        }
+        else{
+            greeting = @"good night";
+        }
+        NSLog(@"greeting: %@", greeting);
+    }
     return time;
 }
 
@@ -453,15 +478,10 @@ int METERS_PER_PIXEL = 50;
         _allowDismissPopup = false;
     }
     
-//    if ([muteLabelButton containsPoint:positionInSelf]) {
-//        if (backgroundMusicPlayer.volume > 0) {
-//            [self muteSounds];
-//        }
-//        else{
-//            [self unmuteSounds];
-//        }
-//        return;
-//    }
+    if ([muteLabelButton containsPoint:positionInSelf]) {
+        [soundManager mute];
+        return;
+    }
     
     if (paused) {
         [self unpauseAndReturnToGame];
@@ -650,7 +670,7 @@ int METERS_PER_PIXEL = 50;
         if (!ter.permitDecorations){
             [ter changeDecorationPermissions:newPoint];
         }
-        [ter generateDecorationAtVertex:newPoint inNode:_decorations withZposition:0 andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x)) andCurrentBiome:[worldStreamer getCurrentBiome]];
+        [ter generateDecorationAtVertex:newPoint inNode:_decorations andSlope:((currentPoint.y - previousPoint.y) / (currentPoint.x - previousPoint.x)) andCurrentBiome:[worldStreamer getCurrentBiome]];
         
     }
     previousPoint = currentPoint;
@@ -875,6 +895,10 @@ int METERS_PER_PIXEL = 50;
     //[self reset];
     pauseButton.hidden = true;
     muteLabelButton.hidden = true;
+    GKHelper* gkhelper = [GKHelper sharedInstance];
+    [gkhelper setCurrentScore:distance_traveled];
+    [gkhelper reportScore];
+
     [[NSNotificationCenter defaultCenter] postNotificationName:@"lose game" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:distance_traveled] forKey:@"distance"]];
 }
 
@@ -1049,7 +1073,7 @@ int METERS_PER_PIXEL = 50;
             if (gkhelper.gcEnabled) {
                 nameString = gkhelper.playerName;
             }
-            if (gkhelper.localHighScore == 0) {
+            if (gkhelper.localHighScore == 1) {
                 tutorial_mode_on = true;
                 if (nameString) {
                     [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@, welcome to Machweo!", nameString] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
@@ -1061,12 +1085,13 @@ int METERS_PER_PIXEL = 50;
             }
             else{
                 if (nameString) {
-                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@, welcome back!", nameString] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
-                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"Can you beat your high score of %lu?", (unsigned long)gkhelper.localHighScore] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@, %@!", nameString, greeting] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
                 }
                 else{
-                    [self sendMessageNotificationWithText:@"Welcome back!" andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@!", greeting] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
                 }
+                [self sendMessageNotificationWithText:[NSString stringWithFormat:@"Can you beat your high score of %lu?", (unsigned long)gkhelper.localHighScore] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+
             }
         }];
     }];

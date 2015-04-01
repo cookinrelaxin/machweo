@@ -12,6 +12,7 @@
     GKLeaderboard *leaderBoard;
     NSArray* topTenGlobalScores;
     NSArray* topTenFriendsScores;
+    NSUInteger currentScore;
 }
 
 -(instancetype)init{
@@ -25,9 +26,13 @@
     return self;
 }
 
+-(void)setCurrentScore:(NSUInteger)score{
+    currentScore = score;
+}
+
 -(void)authenticateLocalPlayer
 {
-    GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
+    __weak GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
     
     //Block is called each time GameKit automatically authenticates
     localPlayer.authenticateHandler = ^(UIViewController *viewController, NSError *error)
@@ -55,17 +60,12 @@
 -(void)authenticatedPlayer
 {
     GKLocalPlayer *localPlayer = [GKLocalPlayer localPlayer];
-    // [[NSNotificationCenter defaultCenter]postNotificationName:AUTHENTICATED_NOTIFICATION object:nil];
-    //NSLog(@"Local player:%@ authenticated into game center",localPlayer.playerID);
     _gcEnabled = true;
     _playerName = localPlayer.alias;
 }
 
 -(void)disableGameCenter
 {
-    //A notification so that every observer responds appropriately to disable game center features
-    // [[NSNotificationCenter defaultCenter]postNotificationName:UNAUTHENTICATED_NOTIFICATION object:nil];
-    //NSLog(@"Disabled game center");
     _gcEnabled = false;
 }
 
@@ -79,17 +79,19 @@
     }
 }
 
-- (void) reportScore: (int64_t) score{
-    if (score > _localHighScore) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"congratulate player on new high score" object:nil];
-        GKScore *scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier: leaderBoard.identifier];
-        scoreReporter.value = score;
-        scoreReporter.context = 0;
-        NSArray *scores = @[scoreReporter];
-        [GKScore reportScores:scores withCompletionHandler:^(NSError *error) {
-        }];
+- (void) reportScore{
+    if (currentScore > _localHighScore) {
+        if (_gcEnabled) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"congratulate player on new high score" object:nil];
+            GKScore *scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier: leaderBoard.identifier];
+            scoreReporter.value = currentScore;
+            scoreReporter.context = 0;
+            NSArray *scores = @[scoreReporter];
+            [GKScore reportScores:scores withCompletionHandler:^(NSError *error) {
+            }];
+        }
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setInteger:score forKey:@"Highscore"];
+        [defaults setInteger:(u_int64_t)currentScore forKey:@"Highscore"];
         [defaults synchronize];
     }
 }
@@ -152,13 +154,9 @@
             }
             //return scores;
             topTenFriendsScores = scores;
-           // NSLog(@"topTenFriendsScores: %@", topTenFriendsScores);
             if ((NSUInteger)leaderBoard.localPlayerScore.value > _localHighScore) {
                 _localHighScore = (NSUInteger)leaderBoard.localPlayerScore.value;
             }
-           // _localHighScore =
-           // NSLog(@"localHighScore: %lu", localHighScore);
-
         }];
     }
     

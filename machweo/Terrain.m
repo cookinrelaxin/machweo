@@ -298,52 +298,26 @@ int CLIFF_VERTEX_COUNT = 15;
     }
 }
 
--(void)generateDecorationAtVertex:(CGPoint)v inNode:(SKNode*)node withZposition:(float)zPos andSlope:(float)slope andCurrentBiome:(Biome)biome{
-    //NSLog(@"terrainPool:%@", terrainPool);
+-(void)generateDecorationAtVertex:(CGPoint)v inNode:(SKNode*)node andSlope:(float)slope andCurrentBiome:(Biome)biome{
     if(_permitDecorations && (biome == savanna)){
-    
         int probability1 = constants.TERRAIN_VERTEX_DECORATION_CHANCE_DENOM;
         int castedDie1 = arc4random_uniform(probability1 + 1);
         if (castedDie1 == probability1){
-           // NSLog(@"(castedDie1 == probability1)");
             int castedDie2 = arc4random_uniform((int)terrainPool.count);
-            //    NSLog(@"castedDie2: %i", castedDie2);
             SKTexture* tex = [terrainPool objectAtIndex:castedDie2];
             Decoration* sprite = [Decoration spriteNodeWithTexture:tex];
             sprite.physicsBody = nil;
-            if (sprite.size.width > (sceneSize.height / 2)) {
-                sprite.size = CGSizeMake(sprite.size.width / 2, sprite.size.height / 2);
-            }
-            if (zPos == 0) {
-                int zPositionDie = arc4random_uniform(30);
-                sprite.zPosition = self.zPosition - 1 - zPositionDie;
-
-            }
-            else{
-                sprite.zPosition = zPos;
-            }
-            //sprite.zPosition = constants.FOREGROUND_Z_POSITION - 1;
-            //NSLog(@"zPos: %f", zPos);
-            float differenceInZs = (self.zPosition - sprite.zPosition) * .05f;
+            int zPositionDie = arc4random_uniform(30);
+            sprite.zPosition = self.zPosition - 1 - zPositionDie;
+            float differenceInZs = (self.zPosition - sprite.zPosition) * .1f;
             if (differenceInZs > 1){
-    //                NSLog(@"differenceInZs: %i", differenceInZs);
                 sprite.size = CGSizeMake(sprite.size.width * (1 / differenceInZs), sprite.size.height * (1 / differenceInZs));
-              //  NSLog(@"sprite.size: %f, %f", sprite.size.width, sprite.size.height);
             }
-         //   NSLog(@"differenceInZs: %f", differenceInZs);
-
-            
             sprite.position = [node convertPoint:v fromNode:self.parent.parent];
-            //float z_d = sprite.zPosition;
             float h_s = sprite.size.height;
-            //float z_t = self.zPosition;
-           // int height_die_d = arc4random_uniform((z_d * h_s) / (4 * z_t));
             int height_die_d = arc4random_uniform(h_s / 5);
             sprite.position = CGPointMake(sprite.position.x, sprite.position.y + height_die_d);
-            
             sprite.alpha = terrainAlpha;
-            
-            
             [node addChild:sprite];
             [_decos addObject:sprite];
             
@@ -351,8 +325,6 @@ int CLIFF_VERTEX_COUNT = 15;
                 [self correctSpriteZsBeforeVertex:v againstSlope:YES];
                 return;
             }
-
-            
         }
     }
     

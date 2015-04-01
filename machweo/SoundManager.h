@@ -16,16 +16,13 @@
 @property(nonatomic, strong) AVAudioPlayer* nightTrack;
 
 @property(nonatomic, strong) AVAudioPlayer* savannaTrack; //the og beats
-@property(nonatomic, strong) AVAudioPlayer* jungleTrack;
-@property(nonatomic, strong) AVAudioPlayer* saharaTrack;
--(instancetype)initTracks;
+
++ (instancetype)sharedInstance;
 -(void)startSounds;
 -(void)fadeIntoNightForBiome:(Biome)biome;
 -(void)fadeIntoDayForBiome:(Biome)biome;
 -(void)adjustNatureVolumeToBiome:(Biome)biome;
-
-
-
-
+-(void)mute;
+-(void)restoreSounds;
 
 @end

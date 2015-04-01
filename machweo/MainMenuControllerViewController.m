@@ -18,6 +18,7 @@
 #import "SpritePreloader.h"
 #import "AnimationComponent.h"
 #import "PopupMessage.h"
+#import "SoundManager.h"
 
 @implementation MainMenuControllerViewController{
     BOOL gameLoaded;
@@ -29,7 +30,11 @@
     BOOL menuSetUp;
     Constants* constants;
 }
+- (BOOL)prefersStatusBarHidden
+{
 
+    return YES;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -39,9 +44,9 @@
       //  NSLog(@"gameLoaded = true");
         gameLoaded = true;
         _gameSceneView.ignoresSiblingOrder = YES;
-        _gameSceneView.asynchronous = NO;
-        _gameSceneView.shouldCullNonVisibleNodes = NO;
-        _gameSceneView.showsFPS = YES;
+       // _gameSceneView.asynchronous = NO;
+       // _gameSceneView.shouldCullNonVisibleNodes = NO;
+       // _gameSceneView.showsFPS = YES;
         _menuView.hidden = true;
         [self setUpObservers];
         [self initGame];
@@ -98,16 +103,16 @@
 
      }];
     
-    [center addObserverForName:@"pause"
-                        object:nil
-                         queue:nil
-                    usingBlock:^(NSNotification *notification)
-     {
-         
-       // NSLog(@"pause and go to menu");
-         //NSUInteger score = ((NSNumber*)[[notification userInfo] valueForKey:@"distance"]).integerValue;
-         [self showMenuWithScore:0];
-     }];
+//    [center addObserverForName:@"pause"
+//                        object:nil
+//                         queue:nil
+//                    usingBlock:^(NSNotification *notification)
+//     {
+//         
+//       // NSLog(@"pause and go to menu");
+//         //NSUInteger score = ((NSNumber*)[[notification userInfo] valueForKey:@"distance"]).integerValue;
+//         [self showMenuWithScore:0];
+//     }];
 
     [center addObserverForName:@"add popup"
                         object:nil
@@ -188,10 +193,10 @@
 -(void)showMenuWithScore:(NSUInteger)score{
     _menuView.hidden = false;
     _scoreLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)score];
-    GKHelper *gkhelper = [GKHelper sharedInstance];
-    if (gkhelper.gcEnabled) {
-        [gkhelper reportScore:score];
-    }
+    //GKHelper *gkhelper = [GKHelper sharedInstance];
+    //if (gkhelper.gcEnabled) {
+    //[gkhelper reportScore:score];
+    //}
         //NSLog(@"_menuView: %@", _menuView);
         [UIView animateWithDuration:0.5
                          animations:^{
@@ -229,7 +234,7 @@
 }
 
 -(CGSize)choosePopupSizeForString:(NSString*)string{
-    NSUInteger length = string.length;
+    NSUInteger length = string.length * constants.PHYSICS_SCALAR_MULTIPLIER;
     float width = constants.DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO * length;
     float height = constants.DEFAULT_POPUP_HEIGHT_TO_CHAR_RATIO * length;
     if (width < constants.MIN_POPUP_SIZE.width) {
@@ -285,6 +290,7 @@
         SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
         
         [AnimationComponent sharedInstance];
+        [SoundManager sharedInstance];
         [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
         [Constants sharedInstance].BIOMES = parser.biomes;
         [Constants sharedInstance].OBSTACLE_POOL = spritePreloader.getObstaclePool;

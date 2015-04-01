@@ -287,14 +287,6 @@ typedef enum NodeTypes
 
 -(void)pourDecorationsIntoBucket:(NSMutableArray *)bucket{
     [bucket addObjectsFromArray:decorationArray];
-    //terrainPool = terrainPoolArray;
-    //NSLog(@"2. _terrainPool: %@", terrainPool);
-//    for (SKTexture* tex in terrainPoolArray) {
-//        if (![terrainPool containsObject:tex]) {
-//            [terrainPool addObject:tex];
-//        }
-//    }
-
 }
 
 @end

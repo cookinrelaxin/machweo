@@ -22,7 +22,7 @@
 
 -(instancetype)initWithImage:(UIImage*)image forSceneSize:(CGSize)size;
 -(void)closeLoopAndFillTerrainInView:(SKView*)view withCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY;
--(void)generateDecorationAtVertex:(CGPoint)v inNode:(SKNode*)node withZposition:(float)zPos andSlope:(float)slope andCurrentBiome:(Biome)biome;
+-(void)generateDecorationAtVertex:(CGPoint)v inNode:(SKNode*)node andSlope:(float)slope andCurrentBiome:(Biome)biome;
 -(void)changeDecorationPermissions:(CGPoint)currentPoint;
 -(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope;
 //-(void)removeLastSprite;

@@ -13,24 +13,16 @@
 @interface GKHelper : NSObject
 + (instancetype)sharedInstance;
 - (void)authenticateLocalPlayer;
-- (void) reportScore: (int64_t) score;
+- (void) reportScore;
 - (void) showGameCenter;
 - (NSArray*) retrieveTopTenGlobalScores;
 - (NSArray*) retrieveTopTenFriendScores;
-
-
-//- (void) loadLeaderboardInfo;
+-(void)setCurrentScore:(NSUInteger)score;
 
 
 @property (nonatomic, strong) MainMenuControllerViewController* presentingVC;
 @property (nonatomic) BOOL gcEnabled;
 @property (nonatomic) NSUInteger localHighScore;
 @property (nonatomic) NSString* playerName;
-
-
-//@property (nonatomic, strong) UIViewController* authenticationVC;
-//@property (nonatomic, strong) UIViewController* generalGKVC;
-
-
 
 @end
