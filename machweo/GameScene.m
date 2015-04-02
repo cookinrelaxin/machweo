@@ -25,6 +25,8 @@ int DIURNAL_PERIOD = 120; //seconds
 int LUNAR_PERIOD = 50; //seconds
 float MAX_AUDIO_VOLUME = .25f;
 int METERS_PER_PIXEL = 50;
+int MAX_BLUR_RADIUS = 8;
+
 
 @implementation GameScene{
     Player *player;
@@ -74,6 +76,10 @@ int METERS_PER_PIXEL = 50;
     SoundManager * soundManager;
     NSTimeInterval previousTime;
     NSString* greeting;
+    float currentBlurFilterRadius;
+    
+    //1 is blur. 2 is pixellate. 0 is nothing
+    int menuFilterDice;
 }
 
 -(void)dealloc{
@@ -499,7 +505,50 @@ int METERS_PER_PIXEL = 50;
     float maxB = .15;
     brightness = (brightness < minB) ? minB : brightness;
     brightness = (brightness > maxB) ? maxB : brightness;
-    {
+    if (menuFilterDice == 0) {
+        menuFilterDice = arc4random_uniform(2) + 1;
+    }
+    if (gameOver) {
+        NSLog(@"menuFilterDice: %d", menuFilterDice);
+        if (menuFilterDice == 1) {
+            CGColorRef filterColor = [UIColor colorWithHue:1 saturation:0 brightness:0 alpha:1].CGColor;
+            CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+            CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
+            [lighten setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+            [lighten setValue:@(brightness) forKey:@"inputBrightness"];
+            
+            CIFilter* blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+            [blurFilter setValue:[lighten outputImage] forKey:kCIInputImageKey];
+            [blurFilter setValue:@(currentBlurFilterRadius) forKey:@"inputRadius"];
+            self.filter = blurFilter;
+            currentBlurFilterRadius += .1;
+            if (currentBlurFilterRadius > MAX_BLUR_RADIUS) {
+                currentBlurFilterRadius = MAX_BLUR_RADIUS;
+            }
+        }
+        else{
+            //        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
+            //        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+            //        // CIColor *filterColor = [CIColor color]
+            //        CIFilter* pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
+            //        [pixellateFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+            //        [pixellateFilter setValue:@(20.00) forKey:@"inputScale"];
+            CGColorRef filterColor = [UIColor colorWithHue:1 saturation:0 brightness:0 alpha:1].CGColor;
+            CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+            CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
+            [lighten setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+            [lighten setValue:@(brightness) forKey:@"inputBrightness"];
+            
+            CIFilter* pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
+            [pixellateFilter setValue:[lighten outputImage] forKey:kCIInputImageKey];
+            [pixellateFilter setValue:@(20) forKey:@"inputScale"];
+            currentBlurFilterRadius += .1;
+            if (currentBlurFilterRadius > MAX_BLUR_RADIUS) {
+                currentBlurFilterRadius = MAX_BLUR_RADIUS;
+            }
+        }
+    }
+    else {
         CGColorRef filterColor = [UIColor colorWithHue:1 saturation:0 brightness:0 alpha:1].CGColor;
         CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
         CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
@@ -516,8 +565,8 @@ int METERS_PER_PIXEL = 50;
     }
     previousTime = currentTime;
     [soundManager adjustNatureVolumeToBiome:[worldStreamer getCurrentBiome]];
-    [self setDecoFilter];
     [self generateBackgrounds :false];
+    [self setDecoFilter];
     float dx = sunNode.position.x - previousSunPos.x;
     float dy = sunNode.position.y - previousSunPos.y;
     float r = sqrtf(powf(dx, 2) + powf(dy, 2));
@@ -621,13 +670,25 @@ int METERS_PER_PIXEL = 50;
         [self sendMessageNotificationWithText:@"Uh oh, you hit an obstacle. Try again!" andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:NO];
     }
     gameOver = true;
+    [player runAction:[SKAction fadeOutWithDuration:1]];
     pauseButton.hidden = true;
+    //[self blurScreen];
+    distanceLabel.hidden = true;
     GKHelper* gkhelper = [GKHelper sharedInstance];
     [gkhelper setCurrentScore:distance_traveled];
     [gkhelper reportScore];
     
     [[NSNotificationCenter defaultCenter] postNotificationName:@"lose game" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:distance_traveled] forKey:@"distance"]];
 }
+
+//-(void)blurScreen{
+//    CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
+//    CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+//    CIFilter* blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
+//    [blurFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+//    [blurFilter setValue:@(10.00) forKey:@"inputRadius"];
+//    self.filter = blurFilter;
+//}
 
 -(void)tellObstaclesToMove{
     for (Obstacle* obs in _obstacles.children) {
@@ -692,6 +753,7 @@ int METERS_PER_PIXEL = 50;
     {
         [player removeFromParent];
         player = [Player player];
+        player.hidden = false;
         player_created = false;
 
     }
@@ -707,6 +769,7 @@ int METERS_PER_PIXEL = 50;
     [worldStreamer resetWithFinalDistance:distance_traveled];
     distance_traveled = 0;
     [self reappearButtons];
+    menuFilterDice = 0;
 }
 
 -(void)resetCairns{
