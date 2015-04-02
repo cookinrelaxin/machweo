@@ -132,18 +132,10 @@ int METERS_PER_PIXEL = 50;
         [_hud addChild:distanceLabel];
         player = [Player player];
         [self createLogoLabel];
-        [self createMuteButton];
-        [self createPauseButton];
+        //[self createMuteButton];
+        //[self createPauseButton];
         [self createPausedLabel];
         paused = false;
-        
-        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
-        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-        CIFilter* pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
-        [pixellateFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-        [pixellateFilter setValue:@(8.00) forKey:@"inputScale"];
-        self.filter = pixellateFilter;
-        self.shouldEnableEffects = true;
     }
     return self;
 }
@@ -536,7 +528,7 @@ int METERS_PER_PIXEL = 50;
     }
     previousTime = currentTime;
     [soundManager adjustNatureVolumeToBiome:[worldStreamer getCurrentBiome]];
-    //[self setDecoFilter];
+    [self setDecoFilter];
     [self generateBackgrounds :false];
     float dx = sunNode.position.x - previousSunPos.x;
     float dy = sunNode.position.y - previousSunPos.y;
@@ -578,7 +570,7 @@ int METERS_PER_PIXEL = 50;
 
 -(void)checkForNewAnimationState{
     if ((player.roughlyOnLine || player.onGround) && [player actionForKey:@"midAirMaasai"]) {
-        [player removeAllActions];
+        [player removeActionForKey:@"midAirMaasai"];
         [player runAction:[SKAction repeatActionForever:
                            [SKAction animateWithTextures:animationComponent.runningFrames
                                             timePerFrame:0.04f
@@ -599,7 +591,7 @@ int METERS_PER_PIXEL = 50;
         [player runAction:[SKAction sequence:@[jumpAction, midAirAction]] withKey:@"jumpingMaasai"];
     }
     else if([player actionForKey:@"jumpingMaasai"]){
-        [player removeAllActions];
+        [player removeActionForKey:@"jumpingMaasai"];
         SKAction* midAirAction = [SKAction repeatActionForever:
         [SKAction animateWithTextures:animationComponent.midairFrames
                         timePerFrame:0.05f

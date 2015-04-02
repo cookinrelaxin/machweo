@@ -248,7 +248,17 @@ const float OFFLINE_ROTATION_SPEED = .02f;
         return;
     }
     if (player.endOfLine) {
-        [player runAction:[SKAction rotateToAngle:0 duration:.5 shortestUnitArc:YES]];
+        if (![player actionForKey:@"flip"]) {
+            int dice = arc4random_uniform(64);
+            if (dice == 0) {
+                int sign = (arc4random_uniform(2) == 0) ? -1 : 1;
+                [player runAction:[SKAction sequence:@[[SKAction rotateByAngle:(sign * 2 * M_PI) duration:.3], [SKAction rotateToAngle:0 duration:.5 shortestUnitArc:YES]]] withKey:@"flip"];
+                return;
+            }
+            if (player.zRotation > (M_PI / 4)) {
+                [player runAction:[SKAction rotateToAngle:0 duration:.5 shortestUnitArc:NO] withKey:@"flip"];
+            }
+        }
     }
 }
 

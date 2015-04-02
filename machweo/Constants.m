@@ -24,11 +24,11 @@ int midpoint(int n1, int n2)
 -(instancetype)initSingleton{
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     float scaleFactor = [[UIScreen mainScreen] nativeScale];
-    NSLog(@"screenSize: %f, %f", screenSize.width, screenSize.height);
+    //NSLog(@"screenSize: %f, %f", screenSize.width, screenSize.height);
    // NSLog(@"scaleFactor: %f", scaleFactor);
     _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 1024);
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
-    NSLog(@"_SCALE_COEFFICIENT: %f, %f", _SCALE_COEFFICIENT.dx, _SCALE_COEFFICIENT.dy);
+    //NSLog(@"_SCALE_COEFFICIENT: %f, %f", _SCALE_COEFFICIENT.dx, _SCALE_COEFFICIENT.dy);
     _PLAYER_SIZE = 100;
     _PLAYER_Z_POSITION = 100;
     _FOREGROUND_Z_POSITION = _PLAYER_Z_POSITION + 1;
