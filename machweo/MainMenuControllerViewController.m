@@ -69,22 +69,8 @@
 
 
 -(void)setUpMenu{
-    {
-//        _menuView.layer.shadowColor = [UIColor grayColor].CGColor;
-//        _menuView.layer.shadowRadius = 10.0f;
-//        _menuView.layer.shadowOpacity = 1;
-//        _menuView.layer.shadowOffset = CGSizeZero;
-//        _menuView.layer.masksToBounds = NO;
-        _menuView.layer.cornerRadius = 20;
-        _menuView.layer.borderColor = [UIColor darkGrayColor].CGColor;
-        _menuView.layer.borderWidth = 10.0f;
-    }
-    
+    _menuView.backgroundColor = [UIColor clearColor];
     _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - _menuView.frame.size.height, _menuView.frame.size.width, _menuView.frame.size.height);
-    UIColor *rawColor = constants.LOGO_LABEL_FONT_COLOR;
-    CGFloat r, g, b, a;
-    [rawColor getRed: &r green:&g blue:&b alpha:&a];
-    _menuView.backgroundColor = [UIColor colorWithRed:r green:g blue:b alpha:.9];
 }
 
 
@@ -98,7 +84,7 @@
      {
        // NSLog(@"lose game");
          NSUInteger score = ((NSNumber*)[[notification userInfo] valueForKey:@"distance"]).integerValue;
-        [self showMenuWithScore:score];
+         [self showMenuWithScore:score];
 
      }];
     

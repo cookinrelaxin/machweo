@@ -625,6 +625,7 @@ int METERS_PER_PIXEL = 50;
     GKHelper* gkhelper = [GKHelper sharedInstance];
     [gkhelper setCurrentScore:distance_traveled];
     [gkhelper reportScore];
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:@"lose game" object:nil userInfo:[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:distance_traveled] forKey:@"distance"]];
 }
 
