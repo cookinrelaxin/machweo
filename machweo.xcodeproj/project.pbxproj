@@ -17,7 +17,6 @@
 		6509D2D61A5E290300F1BBA6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2A01A5E290300F1BBA6 /* AppDelegate.m */; };
 		6509D2D91A5E290300F1BBA6 /* LevelParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2A61A5E290300F1BBA6 /* LevelParser.m */; };
 		6509D2DD1A5E290300F1BBA6 /* LoadingScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2AE1A5E290300F1BBA6 /* LoadingScene.m */; };
-		6509D2ED1A5E290300F1BBA6 /* Line.m in Sources */ = {isa = PBXBuildFile; fileRef = 6509D2CA1A5E290300F1BBA6 /* Line.m */; };
 		659B21D01A5E1C1300885C04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21CF1A5E1C1300885C04 /* main.m */; };
 		659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659B21DF1A5E1C1300885C04 /* Images.xcassets */; };
 		659B21EF1A5E1C1400885C04 /* machweoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21EE1A5E1C1400885C04 /* machweoTests.m */; };
@@ -146,7 +145,6 @@
 		787AEDAE1ABB57FA000429DE /* obstacleSet_6_h.xml in Resources */ = {isa = PBXBuildFile; fileRef = 787AED9E1ABB57FA000429DE /* obstacleSet_6_h.xml */; };
 		787BB5431A9D656400DF2D7C /* Amatic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 787BB5411A9D61F000DF2D7C /* Amatic-Bold.ttf */; };
 		787BB5441A9D656400DF2D7C /* AmaticSC-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 787BB5421A9D61F000DF2D7C /* AmaticSC-Regular.ttf */; };
-		788788041A7333A9002987B7 /* GameDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 788788031A7333A9002987B7 /* GameDataManager.m */; };
 		7892A1701A995E5A00CA64CE /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7892A16F1A995E5A00CA64CE /* PopupView.m */; };
 		78952A5E1AA2C01900A065C2 /* Decoration.m in Sources */ = {isa = PBXBuildFile; fileRef = 78952A5D1AA2C01900A065C2 /* Decoration.m */; };
 		78952A6F1AA2CB0000A065C2 /* decorationSet_savanna_day_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78952A671AA2CB0000A065C2 /* decorationSet_savanna_day_a.xml */; };
@@ -160,8 +158,6 @@
 		789DA2CB1AC24BC200DBD7F3 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 789DA2CA1AC24BC200DBD7F3 /* GameKit.framework */; };
 		78B566901A7C703E00011E86 /* Terrain.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B5668F1A7C703E00011E86 /* Terrain.m */; };
 		78B844161AC37D5B00B16E11 /* GKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B844151AC37D5B00B16E11 /* GKHelper.m */; };
-		78B986AF1A746CAF00C4EA18 /* Score.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986AE1A746CAF00C4EA18 /* Score.m */; };
-		78B986B21A74827B00C4EA18 /* Coin.m in Sources */ = {isa = PBXBuildFile; fileRef = 78B986B11A74827B00C4EA18 /* Coin.m */; };
 		78C0F8AC1A92D47500382159 /* Skranji-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */; };
 		78C0F8AD1A92D47500382159 /* Skranji-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */; };
 		78C77B241A9EBEAC000A5728 /* WorldStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C77B231A9EBEAC000A5728 /* WorldStreamer.m */; };
@@ -259,8 +255,6 @@
 		6509D2AE1A5E290300F1BBA6 /* LoadingScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingScene.m; sourceTree = "<group>"; };
 		6509D2AF1A5E290300F1BBA6 /* LoadingScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingScene.h; sourceTree = "<group>"; };
 		6509D2C31A5E290300F1BBA6 /* ChunkLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChunkLoader.h; sourceTree = "<group>"; };
-		6509D2C41A5E290300F1BBA6 /* Line.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Line.h; sourceTree = "<group>"; };
-		6509D2CA1A5E290300F1BBA6 /* Line.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Line.m; sourceTree = "<group>"; };
 		6509D2CB1A5E290300F1BBA6 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		659B21CA1A5E1C1300885C04 /* machweo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = machweo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		659B21CE1A5E1C1300885C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -397,8 +391,6 @@
 		787AED9E1ABB57FA000429DE /* obstacleSet_6_h.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_6_h.xml; sourceTree = "<group>"; };
 		787BB5411A9D61F000DF2D7C /* Amatic-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Amatic-Bold.ttf"; sourceTree = "<group>"; };
 		787BB5421A9D61F000DF2D7C /* AmaticSC-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "AmaticSC-Regular.ttf"; sourceTree = "<group>"; };
-		788788021A7333A9002987B7 /* GameDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameDataManager.h; sourceTree = "<group>"; };
-		788788031A7333A9002987B7 /* GameDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameDataManager.m; sourceTree = "<group>"; };
 		7892A16E1A995E5A00CA64CE /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
 		7892A16F1A995E5A00CA64CE /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
 		78952A5C1AA2C01900A065C2 /* Decoration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Decoration.h; sourceTree = "<group>"; };
@@ -416,10 +408,6 @@
 		78B5668F1A7C703E00011E86 /* Terrain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Terrain.m; sourceTree = "<group>"; };
 		78B844141AC37D5B00B16E11 /* GKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GKHelper.h; sourceTree = "<group>"; };
 		78B844151AC37D5B00B16E11 /* GKHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GKHelper.m; sourceTree = "<group>"; };
-		78B986AD1A746CAF00C4EA18 /* Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Score.h; sourceTree = "<group>"; };
-		78B986AE1A746CAF00C4EA18 /* Score.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Score.m; sourceTree = "<group>"; };
-		78B986B01A74827B00C4EA18 /* Coin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Coin.h; sourceTree = "<group>"; };
-		78B986B11A74827B00C4EA18 /* Coin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Coin.m; sourceTree = "<group>"; };
 		78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Bold.ttf"; sourceTree = "<group>"; };
 		78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Regular.ttf"; sourceTree = "<group>"; };
 		78C77B221A9EBEAC000A5728 /* WorldStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldStreamer.h; sourceTree = "<group>"; };
@@ -858,8 +846,6 @@
 				7877DCBA1AB131DE0050F132 /* AnimationComponent.m */,
 				6509D2A81A5E290300F1BBA6 /* LevelParser.h */,
 				6509D2A61A5E290300F1BBA6 /* LevelParser.m */,
-				788788021A7333A9002987B7 /* GameDataManager.h */,
-				788788031A7333A9002987B7 /* GameDataManager.m */,
 				6509D2C31A5E290300F1BBA6 /* ChunkLoader.h */,
 				6509D2991A5E290300F1BBA6 /* ChunkLoader.m */,
 				7813F6911AB5F7910092435D /* SpritePreloader.h */,
@@ -883,8 +869,6 @@
 				6509D2981A5E290300F1BBA6 /* Obstacle.m */,
 				78952A5C1AA2C01900A065C2 /* Decoration.h */,
 				78952A5D1AA2C01900A065C2 /* Decoration.m */,
-				6509D2C41A5E290300F1BBA6 /* Line.h */,
-				6509D2CA1A5E290300F1BBA6 /* Line.m */,
 			);
 			name = "game objects";
 			sourceTree = "<group>";
@@ -896,10 +880,6 @@
 				6509D2961A5E290300F1BBA6 /* ButsuLiKi.m */,
 				6509D29D1A5E290300F1BBA6 /* Constants.m */,
 				6509D29E1A5E290300F1BBA6 /* Constants.h */,
-				78B986AD1A746CAF00C4EA18 /* Score.h */,
-				78B986AE1A746CAF00C4EA18 /* Score.m */,
-				78B986B01A74827B00C4EA18 /* Coin.h */,
-				78B986B11A74827B00C4EA18 /* Coin.m */,
 			);
 			name = gameplay;
 			sourceTree = "<group>";
@@ -1355,10 +1335,8 @@
 				6509D2D61A5E290300F1BBA6 /* AppDelegate.m in Sources */,
 				6509D2D31A5E290300F1BBA6 /* ChunkLoader.m in Sources */,
 				78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */,
-				788788041A7333A9002987B7 /* GameDataManager.m in Sources */,
 				78B844161AC37D5B00B16E11 /* GKHelper.m in Sources */,
 				659B21D01A5E1C1300885C04 /* main.m in Sources */,
-				6509D2ED1A5E290300F1BBA6 /* Line.m in Sources */,
 				6509D2DD1A5E290300F1BBA6 /* LoadingScene.m in Sources */,
 				78F03B0E1AC8CADF00189EA4 /* SoundManager.m in Sources */,
 				6509D2D01A5E290300F1BBA6 /* GameScene.m in Sources */,
@@ -1369,12 +1347,10 @@
 				6509D2D21A5E290300F1BBA6 /* Obstacle.m in Sources */,
 				6509D2D11A5E290300F1BBA6 /* ButsuLiKi.m in Sources */,
 				6509D2D41A5E290300F1BBA6 /* Player.m in Sources */,
-				78B986AF1A746CAF00C4EA18 /* Score.m in Sources */,
 				78952A5E1AA2C01900A065C2 /* Decoration.m in Sources */,
 				6509D2D91A5E290300F1BBA6 /* LevelParser.m in Sources */,
 				7877DCBB1AB131DE0050F132 /* AnimationComponent.m in Sources */,
 				7892A1701A995E5A00CA64CE /* PopupView.m in Sources */,
-				78B986B21A74827B00C4EA18 /* Coin.m in Sources */,
 				78B566901A7C703E00011E86 /* Terrain.m in Sources */,
 				7813F6931AB5F7910092435D /* SpritePreloader.m in Sources */,
 			);
