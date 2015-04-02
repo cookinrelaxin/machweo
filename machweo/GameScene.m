@@ -26,6 +26,7 @@ int LUNAR_PERIOD = 50; //seconds
 float MAX_AUDIO_VOLUME = .25f;
 int METERS_PER_PIXEL = 50;
 int MAX_BLUR_RADIUS = 8;
+//int MAX_BLUR_RADIUS = 8;
 
 
 @implementation GameScene{
@@ -509,7 +510,6 @@ int MAX_BLUR_RADIUS = 8;
         menuFilterDice = arc4random_uniform(2) + 1;
     }
     if (gameOver) {
-        NSLog(@"menuFilterDice: %d", menuFilterDice);
         if (menuFilterDice == 1) {
             CGColorRef filterColor = [UIColor colorWithHue:1 saturation:0 brightness:0 alpha:1].CGColor;
             CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
@@ -527,12 +527,6 @@ int MAX_BLUR_RADIUS = 8;
             }
         }
         else{
-            //        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
-            //        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-            //        // CIColor *filterColor = [CIColor color]
-            //        CIFilter* pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
-            //        [pixellateFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-            //        [pixellateFilter setValue:@(20.00) forKey:@"inputScale"];
             CGColorRef filterColor = [UIColor colorWithHue:1 saturation:0 brightness:0 alpha:1].CGColor;
             CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
             CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
@@ -541,7 +535,8 @@ int MAX_BLUR_RADIUS = 8;
             
             CIFilter* pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
             [pixellateFilter setValue:[lighten outputImage] forKey:kCIInputImageKey];
-            [pixellateFilter setValue:@(20) forKey:@"inputScale"];
+            [pixellateFilter setValue:@(currentBlurFilterRadius) forKey:@"inputScale"];
+            self.filter = pixellateFilter;
             currentBlurFilterRadius += .1;
             if (currentBlurFilterRadius > MAX_BLUR_RADIUS) {
                 currentBlurFilterRadius = MAX_BLUR_RADIUS;
@@ -770,6 +765,7 @@ int MAX_BLUR_RADIUS = 8;
     distance_traveled = 0;
     [self reappearButtons];
     menuFilterDice = 0;
+    currentBlurFilterRadius = 0;
 }
 
 -(void)resetCairns{
