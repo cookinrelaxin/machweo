@@ -56,10 +56,4 @@
         <yPosition>433.736145</yPosition>
         <zPosition>18.000000</zPosition>
     </node>
-    <terrainPool>
-        <terrainPoolMember>tree_decoration</terrainPoolMember>
-        <terrainPoolMember>tree4_decoration</terrainPoolMember>
-        <terrainPoolMember>tree3_decoration</terrainPoolMember>
-        <terrainPoolMember>tree2_decoration</terrainPoolMember>
-    </terrainPool>
 </worldnodes>

@@ -28,6 +28,7 @@ int CLIFF_VERTEX_COUNT = 15;
     if (self = [super init]) {
         sceneSize = size;
         _decos = [NSMutableArray array];
+        _vertices = [NSMutableArray array];
         constants = [Constants sharedInstance];
         endCliff = [NSMutableArray array];
         beforeCliff = [NSMutableArray array];
@@ -49,23 +50,15 @@ int CLIFF_VERTEX_COUNT = 15;
             dx = arc4random_uniform(10);
 
         }
-        //int sign = (forwardLip == true) ? 1 :0;
         int sign = 1;
-        
-//        if ((i > (CLIFF_VERTEX_COUNT / 2)) && forwardLip) {
-//            sign = arc4random_uniform(2);
-//        }
         if (!forwardLip) {
             sign = arc4random_uniform(2);
         }
-        
         dx = (sign == 0) ? -dx : dx;
-        //int dx = 0;
         int dy = 0;
         CGVector v = CGVectorMake(dx, dy);
         [cliffArray addObject:[NSValue valueWithCGVector:v]];
     }
-    
 }
 -(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope{
     for (Decoration* deco in _decos) {
@@ -129,10 +122,7 @@ int CLIFF_VERTEX_COUNT = 15;
     return terCol;
 }
 
-
-
 -(void)shapeNodeWithVertices:(NSMutableArray*)vertexArray{
-    
     if (!_textureShapeNode) {
         _textureShapeNode = [SKShapeNode node];
     }

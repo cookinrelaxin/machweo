@@ -13,7 +13,6 @@
 #import "LoadingScene.h"
 #import "PopupView.h"
 #import "Constants.h"
-#import "GameDataManager.h"
 #import "LevelParser.h"
 #import "SpritePreloader.h"
 #import "AnimationComponent.h"

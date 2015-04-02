@@ -11,13 +11,8 @@
 #import "Player.h"
 
 @interface ButsuLiKi : NSObject
-//@property (nonatomic, strong) Constants *constants;
-
-//-(void)resolveCollisions:(Player*)player withPointArray:(NSMutableArray*)pointArray :(Constants*)constants;
 -(void)calculatePlayerVelocity:(Player*)player;
-
--(void)calculatePlayerPosition:(Player *)player withLineArray:(NSMutableArray*)pointArrayArray;
-//-(BOOL)resolveCollisionsAgainstObstacles:(Player*)player withObstacleArray:(NSArray*)obstacleArray;
+-(void)calculatePlayerPosition:(Player *)player withTerrainArray:(NSMutableArray*)terrainArray;
 -(void)reset;
 -(instancetype)initWithSceneSize:(CGSize)size;
 

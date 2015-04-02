@@ -8,14 +8,13 @@
 
 #import "ButsuLiKi.h"
 #import "Obstacle.h"
-#import "Line.h"
+#import "Terrain.h"
 const int PAST_SLOPES_COUNT = 10;
 const float ONLINE_ROTATION_SPEED = .005f;
 const float OFFLINE_ROTATION_SPEED = .02f;
 
 @implementation ButsuLiKi{
     float previousSlope;
-    NSMutableArray *pastSlopes;
     CGSize sceneSize;
     Constants *constants;
 }
@@ -26,90 +25,56 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     }
     return self;
 }
--(void)resolveCollisions:(Player*)player withLineArray:(NSMutableArray*)LineArray{
+-(void)resolveCollisions:(Player*)player withTerrainArray:(NSMutableArray*)terrainArray{
     
    __block float yMin = player.position.y;
     player.roughlyOnLine = false;
     player.endOfLine = false;
     previousSlope = player.currentSlope;
     player.currentSlope = 0.0f;
-    
-   // dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-   // dispatch_apply(LineArray.count, queue, ^(size_t i) {
-    //    Line* line = [LineArray objectAtIndex:i];
-    for (Line *line in LineArray){
-        NSMutableArray *pointArray = line.nodeArray;
+    for (Terrain *ter in terrainArray){
+        NSMutableArray *pointArray = ter.vertices;
         if (pointArray.count < 2) {
-            //continue;
             continue;
         }
-        
         int leftPointIndex = [self binarySearchForFlankingPoints:pointArray withPoint:player.position from:0 to:(int)pointArray.count - 1 forPlayerSize:player.size];
         int rightPointIndex = leftPointIndex + 1;
         if (!(rightPointIndex < pointArray.count)) {
             rightPointIndex = leftPointIndex;
         }
         for (int i = leftPointIndex; (i < leftPointIndex + 10) && (i < pointArray.count - 1); i ++) {
-
             NSValue *leftNode = [pointArray objectAtIndex:i];
             NSValue *rightNode = [pointArray objectAtIndex:i + 1];
-
             CGPoint leftPoint = leftNode.CGPointValue;
             CGPoint rightPoint = rightNode.CGPointValue;
-           // NSLog(@"player.position.x: %f", player.position.x);
-           // NSLog(@"rightPoint.x: %f", rightPoint.x);
-            
             BOOL playerIntersects = [self playerIntersectsLineSegment:player :leftPoint :rightPoint];
-
             if (playerIntersects) {
-                if (!line.belowPlayer) {
-                    if (!line.belowPlayer && ((leftPoint.y < player.yCoordinateOfBottomSide) && (rightPoint.y < player.yCoordinateOfBottomSide))) {
-                        line.belowPlayer = true;
-                        
+                if (!ter.belowPlayer) {
+                    if (!ter.belowPlayer && ((leftPoint.y < player.yCoordinateOfBottomSide) && (rightPoint.y < player.yCoordinateOfBottomSide))) {
+                        ter.belowPlayer = true;
                     }
-                    
                     break;
                 }
-                
                 CGPoint intersectionPoint = [self closestPtPointSegment:player.position :leftPoint :rightPoint];
-                
                 CGPoint newPlayerPosition = CGPointMake(intersectionPoint.x - (player.size.width / 2), intersectionPoint.y + (player.size.height / 2) - (player.size.height / 6));
-                
                 if (newPlayerPosition.y > yMin) {
                     yMin = newPlayerPosition.y;
                 }
-                
                 float slope = [ButsuLiKi calculateSlopeForTriangleBetween:leftPoint and:rightPoint];
                 player.currentSlope = slope;
                 player.roughlyOnLine = true;
-                [self addSlopeToSlopeArray:slope];
                 player.currentRotationSpeed = ONLINE_ROTATION_SPEED;
-
-                
                 CGPoint lastPoint = ((NSValue*)pointArray.lastObject).CGPointValue;
                 if (fabsf(lastPoint.x - rightNode.CGPointValue.x) < player.size.width) {
                     player.endOfLine = true;
                     player.roughlyOnLine = false;
-                    //NSLog(@"player.endOfLine = true");
                     player.currentRotationSpeed = OFFLINE_ROTATION_SPEED;
                 }
-        
             }
         }
-
     }
-
-        player.minYPosition = yMin;
+    player.minYPosition = yMin;
 }
-
--(void)addSlopeToSlopeArray:(float)slope{
-    if (!pastSlopes) {
-        pastSlopes = [NSMutableArray array];
-    }
-    [pastSlopes addObject:[NSNumber numberWithFloat:slope]];
-    if (pastSlopes.count > PAST_SLOPES_COUNT) {
-        [pastSlopes removeObjectAtIndex:0];
-    }}
 
 -(BOOL)playerIntersectsLineSegment:(Player*)player :(CGPoint)leftPoint :(CGPoint)rightPoint{
     float previousXCoordinateOfLeftSide = player.xCoordinateOfLeftSide;
@@ -152,20 +117,16 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     if (imax == imin){
         return imin;
     }
-    
     NSValue *imaxNode = [pointArray objectAtIndex:imax];
     CGPoint imaxPoint = imaxNode.CGPointValue;
-    
     NSValue *iminNode = [pointArray objectAtIndex:imin];
     CGPoint iminPoint = iminNode.CGPointValue;
-    
     if ((imaxPoint.x - iminPoint.x) < playerSize.width) {
         CGPoint closestPoint = iminPoint;
         int closestIndex = imin;
         for (int i = imin + 1; i <= imax; i ++) {
             NSValue *iNode = [pointArray objectAtIndex:i];
             CGPoint iPoint = iNode.CGPointValue;
-            
             float distanceToPlayer = [self distanceBetween:point and:iPoint];
             if (distanceToPlayer < [self distanceBetween:point and:closestPoint]) {
                 closestPoint = iPoint;
@@ -174,8 +135,6 @@ const float OFFLINE_ROTATION_SPEED = .02f;
         }
         return closestIndex;
     }
-    
-    
      {
         int imid = midpoint(imin, imax);
         NSValue *imidNode = [pointArray objectAtIndex:imid];
@@ -194,7 +153,6 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     return sqrt(pow(p2.x-p1.x,2)+pow(p2.y-p1.y,2));
 }
 
-
 + (float)calculateSlopeForTriangleBetween:(CGPoint)pt1 and:(CGPoint)pt2{
     float horizontalLength = pt2.x - pt1.x;
     if (horizontalLength == 0) {
@@ -209,17 +167,8 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     GLKVector2 aVector = GLKVector2Make(a.x, a.y);
     GLKVector2 bVector = GLKVector2Make(b.x, b.y);
     GLKVector2 cVector = GLKVector2Make(c.x, c.y);
-    
-    GLKVector2 ab = GLKVector2Subtract(bVector, aVector);
+        GLKVector2 ab = GLKVector2Subtract(bVector, aVector);
     float t = GLKVector2DotProduct(GLKVector2Subtract(cVector, aVector), ab) / GLKVector2DotProduct(ab, ab);
-//    if (t < 0.0f){
-//        t = 0.0f;
-//    }
-//    if (t > 0.0f) {
-        //t = 1.0f;
-//    }
-
-    //NSLog(@"t: %f", t);
     GLKVector2 d = GLKVector2Add(aVector, GLKVector2MultiplyScalar(ab, t));
     return CGPointMake(d.x, d.y);
 }
@@ -240,12 +189,9 @@ const float OFFLINE_ROTATION_SPEED = .02f;
    else{
         player.velocity = CGVectorMake(player.velocity.dx, player.velocity.dy - constants.GRAVITY);
     }
-    
     if ((player.velocity.dy < 0) && player.endOfLine) {
-        //player.endOfLine = false;
         player.velocity = CGVectorMake(player.velocity.dx, 0);
     }
-
     if (player.velocity.dy < constants.MIN_PLAYER_VELOCITY_DY) {
         player.velocity = CGVectorMake(player.velocity.dx, constants.MIN_PLAYER_VELOCITY_DY);
     }
@@ -258,38 +204,27 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     if (player.velocity.dx > constants.MAX_PLAYER_VELOCITY_DX) {
         player.velocity = CGVectorMake(constants.MAX_PLAYER_VELOCITY_DX, player.velocity.dy);
     }
-    //NSLog(@"player.velocity: %f, %f", player.velocity.dx, player.velocity.dy);
-
 }
 
 -(float)calculateXForceGivenSlope:(float)slope{
     if (fabsf(slope - previousSlope) < .001f) {
-        // NSLog(@"same slope. return 0");
         return 0;
     }
     return -slope * constants.GRAVITY;
 }
 
 -(float)calculateYForceGivenSlope:(float)slope{
-   // NSLog(@"slope: %f", slope);
     if (fabsf(slope - previousSlope) < .001f) {
-       // NSLog(@"same slope. return 0");
         return 0;
-
     }
     return slope;
 }
 
--(void)calculatePlayerPosition:(Player *)player withLineArray:(NSMutableArray*)lineArray{
-    
-    [self calculatePlayerRotation:player];
+-(void)calculatePlayerPosition:(Player *)player withTerrainArray:(NSMutableArray *)terrainArray{
     [self calculatePlayerVelocity:player];
     player.position = CGPointMake(player.position.x + player.velocity.dx * constants.PHYSICS_SCALAR_MULTIPLIER, player.position.y + player.velocity.dy * constants.PHYSICS_SCALAR_MULTIPLIER);
-    //player.position = CGPointMake(player.position.x + player.velocity.dx, player.position.y + player.velocity.dy);
-  //  NSLog(@"player.position.y: %f", player.position.y);
-   // NSLog(@"player.position.y scaled: %f", player.position.y * constants.PHYSICS_SCALAR_MULTIPLIER)
-    
-    [self resolveCollisions:player withLineArray:lineArray];
+    [self resolveCollisions:player withTerrainArray:terrainArray];
+    [self calculatePlayerRotation:player];
     if (player.roughlyOnLine || player.endOfLine) {
         if (player.position.y < player.minYPosition) {
             player.position = CGPointMake(player.position.x, player.minYPosition);
@@ -302,59 +237,23 @@ const float OFFLINE_ROTATION_SPEED = .02f;
     else{
         player.onGround = false;
     }
-   // [self verticalLoopPlayer:player];
-   
-    
-    
-}
--(float)averageSlope{
-    float sum = 0;
-    for (NSNumber* num in pastSlopes) {
-        float slope = [num floatValue];
-        sum += slope;
-    }
-    //to avoid div by zero
-    return sum / (pastSlopes.count + 1);
 }
 
 -(void)calculatePlayerRotation:(Player*)player{
     if (player.onGround) {
-        [pastSlopes removeAllObjects];
         player.zRotation = 0;
     }
-        
-        if (player.roughlyOnLine) {
-            float averageSlope = [self averageSlope];
-            
-            float expectedRotation = M_PI_4 * averageSlope;
-            if (expectedRotation > M_PI_2) {
-                expectedRotation = M_PI_2;
-            }
-            
-            
-            
-//            float differenceBetweenRotations = fabsf(player.zRotation - expectedRotation);
-//            if (differenceBetweenRotations > 0) {
-//            }
-    
-            player.zRotation = expectedRotation;
-            return;
-        }
-
-        [pastSlopes removeAllObjects];
-        if (fabsf(player.zRotation) <= (player.currentRotationSpeed * 2)){
-            player.zRotation = 0;
-        }
-        else{
-            player.zRotation -= player.currentRotationSpeed;
-        }
-    //}
-
+    if (player.roughlyOnLine) {
+        player.zRotation = M_PI_4 * player.currentSlope;
+        return;
+    }
+    if (player.endOfLine) {
+        [player runAction:[SKAction rotateToAngle:0 duration:.5 shortestUnitArc:YES]];
+    }
 }
 
 -(void)reset{
     previousSlope = 0;
-    [pastSlopes removeAllObjects];
 }
 
 @end

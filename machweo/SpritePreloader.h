@@ -12,5 +12,4 @@
 -(NSMutableDictionary*)getObstaclePool;
 -(NSMutableDictionary*)getSkyPool;
 
-
 @end

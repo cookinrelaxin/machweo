@@ -15,24 +15,9 @@
 @property (nonatomic) NSMutableArray* runningFrames;
 @property (nonatomic) NSMutableArray* jumpingFrames;
 @property (nonatomic) NSMutableArray* midairFrames;
-
-
-//@property (nonatomic) NSInteger currentIndexInAnimationArray;
-//@property (nonatomic) NSInteger frameCounter;
-//@property (nonatomic) NSInteger desiredCountToPresentNextSprite;
-
-
-//@property (nonatomic) BOOL animationInAction;
-//@property (nonatomic) BOOL stateTransitionOccuring;
-
-
-////////////
 @property (nonatomic) NSRange run;
-
 @property (nonatomic) NSRange jump;
-
 @property (nonatomic) NSRange land;
-
 @property (nonatomic) NSRange previousFrameRange;
 @property (nonatomic) NSRange currentFrameRange;
 

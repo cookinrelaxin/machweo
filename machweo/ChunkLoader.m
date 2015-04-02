@@ -10,7 +10,6 @@
 #import "Obstacle.h"
 #import "Decoration.h"
 #import "Terrain.h"
-#import "Line.h"
 
 typedef enum ElementVarieties
 {
@@ -22,11 +21,7 @@ typedef enum ElementVarieties
     zPosition,
     motionType,
     speedType,
-    terrainPool,
-    terrainPoolMember,
     uniqueID
-
-    
 } Element;
 
 typedef enum NodeTypes
@@ -39,19 +34,13 @@ typedef enum NodeTypes
     // as simple as possible for now. assume all nodes are obstacles
     NSMutableArray* obstacleArray;
     NSMutableArray* decorationArray;
-    NSMutableArray* terrainPoolArray;
-
-
     SKNode *currentNode;
     Element currentElement;
     Node currentNodeType;
     BOOL charactersFound;
     Constants* constants;
-    
     Biome currentBiome;
-    
     NSMutableDictionary* textureDict;
-    
 }
 
 -(instancetype)initWithFile:(NSString*)fileName{
@@ -65,39 +54,24 @@ typedef enum NodeTypes
     if ([fileName containsString:@"sahara"]) {
         currentBiome = sahara;
     }
-
     textureDict = constants.TEXTURE_DICT;
-    
     obstacleArray = [NSMutableArray array];
     decorationArray = [NSMutableArray array];
-    terrainPoolArray = [NSMutableArray array];
-
     NSXMLParser* chunkParser;
-    
     BOOL success;
-    //NSURL *xmlURL = [NSURL fileURLWithPath:fileName];
     NSURL *xmlURL = [[NSBundle mainBundle]
                     URLForResource: fileName withExtension:@"xml"];
-   // NSLog(@"xmlURL: %@", xmlURL);
     chunkParser = [[NSXMLParser alloc] initWithContentsOfURL:xmlURL];
-
     if (chunkParser){
-       // NSLog(@"parse chunk");
         [chunkParser setDelegate:self];
         [chunkParser setShouldResolveExternalEntities:YES];
         success = [chunkParser parse];
     }
-    
     return self;
 }
 
 -(void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError{
     NSLog(@"error:%@",parseError.localizedDescription);
-}
-
--(void)parserDidStartDocument:(NSXMLParser *)parser{
-    // These objects are created here so that if a document is not found they will not be created
-   // NSLog(@"did start document");
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {
@@ -134,14 +108,6 @@ typedef enum NodeTypes
         currentElement = speedType;
         return;
     }
-    if ([elementName isEqualToString:@"terrainPool"]) {
-        currentElement = terrainPool;
-        return;
-    }
-    if ([elementName isEqualToString:@"terrainPoolMember"]) {
-        currentElement = terrainPoolMember;
-        return;
-    }
     if ([elementName isEqualToString:@"uniqueID"]) {
         currentElement = uniqueID;
         return;
@@ -149,7 +115,6 @@ typedef enum NodeTypes
 }
 
 -(void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
-    
     if ([elementName isEqualToString:@"node"]) {
         if (currentNode != nil) {
             switch (currentNodeType) {
@@ -172,18 +137,15 @@ typedef enum NodeTypes
 
             if (currentNodeType == obstacle) {
                 NSMutableArray* obstacleTypeArray = [constants.OBSTACLE_POOL valueForKey:string];
-                //NSLog(@"obstacleTypeArray.count: %lu", obstacleTypeArray.count);
-
                 Obstacle* firstObstacle = obstacleTypeArray.firstObject;
                 if (firstObstacle) {
                     currentNode = firstObstacle;
                     [obstacleTypeArray removeObject:obstacleTypeArray.firstObject];
-                    //NSLog(@"remove %@ from obstacle pool", string);
                 }
-
-                //NSLog(@"obstacleTypeArray: %@", obstacleTypeArray);
+                else{
+                    currentNode = nil;
+                }
                 return;
-
             }
             else if (currentNodeType == decoration){
                 SKTexture *spriteTexture = [textureDict objectForKey:string];
@@ -196,22 +158,17 @@ typedef enum NodeTypes
             else{
                 currentNode = nil;
             }
-            //NSLog(@"name: %@", string);
-            //currentNode.name = string;
             return;
         }
         if (currentElement == xPosition) {
-            //NSLog(@"xPosition: %@", string);
             currentNode.position = CGPointMake([string floatValue], currentNode.position.y);
             return;
         }
         if (currentElement == yPosition) {
-            //NSLog(@"yPosition: %@", string);
             currentNode.position = CGPointMake(currentNode.position.x, [string floatValue]);
             return;
         }
         if (currentElement == zPosition) {
-            //NSLog(@"zPosition: %@", string);
             float zFloat = [string floatValue];
             if (currentNodeType == decoration) {
                 if (zFloat >= constants.OBSTACLE_Z_POSITION) {
@@ -221,12 +178,10 @@ typedef enum NodeTypes
                     return;
                 }
             }
-            
             currentNode.zPosition = zFloat;
             return;
         }
         if (currentElement == type) {
-            //NSLog(@"yPosition: %@", string);
             if ([string isEqualToString:@"ObstacleSignifier"]) {
                 currentNodeType = obstacle;
                 return;
@@ -250,19 +205,10 @@ typedef enum NodeTypes
                 return;
             }
         }
-        if (currentElement == terrainPoolMember) {
-            //NSLog(@"add terrainPoolMember");
-//            SKTexture *spriteTexture = [textureDict objectForKey:string];
-//            if (spriteTexture) {
-//                [terrainPoolArray addObject:spriteTexture];
-//            }
-            //NSLog(@"spriteTexture :%@", spriteTexture);
-        }
         if (currentElement == uniqueID) {
             if ([currentNode isKindOfClass:[Decoration class]]) {
                 Decoration* deco = (Decoration*)currentNode;
                 deco.uniqueID = string;
-                //NSLog(@"deco.uniqueID: %@", deco.uniqueID);
             }
             if ([currentNode isKindOfClass:[Obstacle class]]) {
                 Obstacle* obs = (Obstacle*)currentNode;

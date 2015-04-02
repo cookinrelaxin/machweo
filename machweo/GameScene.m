@@ -136,6 +136,14 @@ int METERS_PER_PIXEL = 50;
         [self createPauseButton];
         [self createPausedLabel];
         paused = false;
+        
+        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:1 brightness:1 alpha:1].CGColor;
+        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+        CIFilter* pixellateFilter = [CIFilter filterWithName:@"CIPixellate"];
+        [pixellateFilter setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+        [pixellateFilter setValue:@(8.00) forKey:@"inputScale"];
+        self.filter = pixellateFilter;
+        self.shouldEnableEffects = true;
     }
     return self;
 }
@@ -475,9 +483,7 @@ int METERS_PER_PIXEL = 50;
 
 -(void)drawLines{
     for (Terrain* ter in terrainArray) {
-        if (ter.shouldDraw) {
-            [ter closeLoopAndFillTerrainInView:self.view withCurrentSunYPosition:[self convertPoint:sunNode.position fromNode:sunNode.parent].y minY:sunMinY andMaxY:sunMaxY];
-        }
+        [ter closeLoopAndFillTerrainInView:self.view withCurrentSunYPosition:[self convertPoint:sunNode.position fromNode:sunNode.parent].y minY:sunMinY andMaxY:sunMaxY];
     }
 }
 
@@ -530,7 +536,7 @@ int METERS_PER_PIXEL = 50;
     }
     previousTime = currentTime;
     [soundManager adjustNatureVolumeToBiome:[worldStreamer getCurrentBiome]];
-    [self setDecoFilter];
+    //[self setDecoFilter];
     [self generateBackgrounds :false];
     float dx = sunNode.position.x - previousSunPos.x;
     float dy = sunNode.position.y - previousSunPos.y;
@@ -563,7 +569,7 @@ int METERS_PER_PIXEL = 50;
             [self checkForNewAnimationState];
             [player resetMinsAndMaxs];
             [player updateEdges];
-            [physicsComponent calculatePlayerPosition:player withLineArray:terrainArray];
+            [physicsComponent calculatePlayerPosition:player withTerrainArray:terrainArray];
             [self drawLines];
         }
         [self fadeMoon];

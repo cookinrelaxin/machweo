@@ -14,12 +14,10 @@
 }
 
 - (id)initAnimationDictionary {
-    //Constants* constants = [Constants sharedInstance];
-    {
+    if (self = [super init]) {
         _runningFrames = [[NSMutableArray alloc] init];
         _jumpingFrames = [[NSMutableArray alloc] init];
         _midairFrames = [[NSMutableArray alloc] init];
-
         SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"runningDude"];
         NSUInteger numImages = atlas.textureNames.count;
         for (int i=1; i <= numImages; i++) {
@@ -38,32 +36,11 @@
                 [_midairFrames addObject:tex];
                 continue;
             }
-           
         }
-        //NSLog(@"_runningFrames: %@", _runningFrames);
-        //NSLog(@"_jumpingFrames: %@", _jumpingFrames);
-        //NSLog(@"_midairFrames: %@", _midairFrames);
-
-
         [SKTexture preloadTextures:_runningFrames withCompletionHandler:^{}];
         [SKTexture preloadTextures:_jumpingFrames withCompletionHandler:^{}];
         [SKTexture preloadTextures:_midairFrames withCompletionHandler:^{}];
-
     }
-//    {
-//        _jumpingFrames = [[NSMutableArray alloc] init];
-//        SKTextureAtlas *runningAtlas = [SKTextureAtlas atlasNamed:@"jumpingDude"];
-//        NSUInteger numImages = runningAtlas.textureNames.count;
-//        for (int i=1; i <= numImages; i++) {
-//            NSString *textureName = [NSString stringWithFormat:@"cloakmanjump%d", i];
-//            SKTexture *tex = [runningAtlas textureNamed:textureName];
-//            tex.filteringMode = SKTextureFilteringNearest;
-//            [_jumpingFrames addObject:tex];
-//        }
-//        [SKTexture preloadTextures:_jumpingFrames withCompletionHandler:^{}];
-//
-//    }
-    
     return self;
 }
 

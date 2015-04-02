@@ -136,17 +136,4 @@
         <yPosition>134.340454</yPosition>
         <zPosition>114.000000</zPosition>
     </node>
-    <terrainPool>
-        <terrainPoolMember>junglebush5_decoration</terrainPoolMember>
-        <terrainPoolMember>junglebush6_decoration</terrainPoolMember>
-        <terrainPoolMember>junglebush7_decoration</terrainPoolMember>
-        <terrainPoolMember>junglebush8_decoration</terrainPoolMember>
-        <terrainPoolMember>jungleplant11_decoration</terrainPoolMember>
-        <terrainPoolMember>jungleplant1_decoration</terrainPoolMember>
-        <terrainPoolMember>jungleplant14_decoration</terrainPoolMember>
-        <terrainPoolMember>jungletree9_decoration</terrainPoolMember>
-        <terrainPoolMember>jungletree10_decoration</terrainPoolMember>
-        <terrainPoolMember>jungleplant8_decoration</terrainPoolMember>
-        <terrainPoolMember>jungleplant6_decoration</terrainPoolMember>
-    </terrainPool>
 </worldnodes>

@@ -11,26 +11,13 @@
 #import "Obstacle.h"
 #import "Decoration.h"
 
-const int SWITCH_BIOMES_DENOM = 10;
-const int THRESHOLD_FOR_PARSING_NEW_OBSTACLE_SET = 10;
-//const int THRESHOLD_FOR_PARSING_NEW_DECORATION_SET = 20;
 const int MAX_IN_USE_DECO_POOL_COUNT = 15;
 const int MAX_UNUSED_DECO_POOL_COUNT = 15;
-
-// get it as high as possible
 const int MAX_DIFFICULTY = 7;
-
 const int OBSTACLE_STADE_LENGTH = 100;
 const int DECORATION_STADE_LENGTH = 400;
-
-
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
-
-//const Biome INITIAL_BIOME = savanna;
-
-
-
 
 @implementation WorldStreamer{
     SKScene* _scene;
@@ -40,33 +27,19 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
     NSMutableArray* _lines;
     Biome currentBiome;
     Biome previousBiome;
-    
     Biome one_times_stade_biome;
     Biome two_times_stade_biome;
     Biome three_times_stade_biome;
-
     Constants* constants;
     BOOL chunkLoading;
     BOOL shouldLoadObstacles;
     BOOL cleaningUpOldDecos;
-    
     NSMutableDictionary* obstacle_pool;
     NSMutableArray* unused_deco_pool;
     NSMutableArray* in_use_deco_pool;
-    
     NSUInteger numberOfDecosToLoad;
-    
     NSMutableDictionary* IDDictionary;
     NSUInteger total_previous_distance;
-    
-    
-    
-   
-}
-
--(void)dealloc{
-   // NSLog(@"dealloc worldstreamer");
-    
 }
 
 -(Biome)getCurrentBiome{
@@ -76,21 +49,16 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 -(instancetype)initWithScene:(SKScene *)scene withObstacles:(SKNode *)obstacles andDecorations:(SKNode *)decorations withinView:(SKView *)view andLines:(NSMutableArray *)lines withXOffset:(float)xOffset{
     if (self = [super init]) {
         constants = [Constants sharedInstance];
-
         _scene = scene;
         _obstacles = obstacles;
         _decorations = decorations;
         _view = view;
         _lines = lines;
-        
         obstacle_pool = constants.OBSTACLE_POOL;
         unused_deco_pool = [NSMutableArray array];
         in_use_deco_pool = [NSMutableArray array];
         IDDictionary = [NSMutableDictionary dictionary];
-        
         currentBiome = savanna;
-        
-//        // for double the fun
         [self calculateInitialBiome];
         [self preloadDecorationChunkWithDistance:0 asynchronous:NO];
         [self loadNextDecoWithXOffset:0];
@@ -98,7 +66,6 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         [self loadNextDecoWithXOffset:0];
     }
     return  self;
-    
 }
 -(void)enableObstacles{
     shouldLoadObstacles = true;
@@ -107,13 +74,12 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 -(void)resetWithFinalDistance:(NSUInteger)finalDistance{
     total_previous_distance += finalDistance;
     for (Obstacle *obs in _obstacles.children) {
-        //NSLog(@"obs.name: %@", obs.name);
-                [obs runAction:[SKAction fadeAlphaTo:0 duration:.5] completion:^(void){
-                    obs.alpha = 1.0f;
-                    NSMutableArray* obstacleTypeArray = [obstacle_pool valueForKey:obs.name];
-                    [obstacleTypeArray addObject:obs];
-                    [obs removeFromParent];
-                }];
+        [obs runAction:[SKAction fadeAlphaTo:0 duration:.5] completion:^(void){
+            obs.alpha = 1.0f;
+            NSMutableArray* obstacleTypeArray = [obstacle_pool valueForKey:obs.name];
+            [obstacleTypeArray addObject:obs];
+            [obs removeFromParent];
+        }];
     }
     shouldLoadObstacles = false;
 }
@@ -131,7 +97,6 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         currentBiome = one_times_stade_biome;
     }
     return currentBiome;
-    return savanna;
 }
 
 -(Biome)calculateInitialBiome{
@@ -155,12 +120,10 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
     chunkLoading = true;
     Biome biome = [self calculateNextBiomeWithDistance:distance];
         if (previousBiome != currentBiome) {
-            //NSLog(@"clear old biome");
             [unused_deco_pool removeAllObjects];
             for (Decoration* deco in in_use_deco_pool) {
                 if ((deco.position.x - deco.size.width) > _view.bounds.size.width) {
                     [deco removeFromParent];
-                    //NSLog(@"((deco.position.x - deco.size.width) > _view.bounds.size.width)");
                 }
             }
         }
@@ -170,27 +133,18 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool];
         chunkLoading = false;
     });
-    //}
-    
-    
-
-    
 }
 
 -(void)loadNextDecoWithXOffset:(float)xOffset{
     chunkLoading = true;
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
         if (unused_deco_pool.count > 0) {
-            //NSMutableArray* trash = [NSMutableArray array];
-            
-            //for (Decoration* decoToLoad in unused_deco_pool) {
             Decoration* decoToLoad = [unused_deco_pool firstObject];
                 NSString* toLoadID = decoToLoad.uniqueID;
                 BOOL skip = NO;
                 if ((currentBiome == savanna) || (currentBiome == jungle)) {
                     if ([IDDictionary valueForKey:toLoadID]) {
                         skip = YES;
-
                     }
                 }
                 if (skip) {
@@ -200,18 +154,14 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
                 }
                 [in_use_deco_pool addObject:decoToLoad];
                 [unused_deco_pool removeObject:decoToLoad];
-                //decoToLoad.size = CGSizeMake(decoToLoad.size.width * constants.SCALE_COEFFICIENT.dy, decoToLoad.size.height * constants.SCALE_COEFFICIENT.dy);
                 decoToLoad.position = CGPointMake((decoToLoad.position.x * constants.SCALE_COEFFICIENT.dy), decoToLoad.position.y * constants.SCALE_COEFFICIENT.dy);
                 decoToLoad.position = [_decorations convertPoint:decoToLoad.position fromNode:_scene];
                 decoToLoad.position = CGPointMake(decoToLoad.position.x + xOffset, decoToLoad.position.y);
-            //NSLog(@"decoToLoad.zPosition: %f", decoToLoad.zPosition);
-            
                 [_decorations addChild:decoToLoad];
                 [IDDictionary setValue:@"lol" forKey:decoToLoad.uniqueID];
             }
         chunkLoading = false;
     });
-
 }
 
 -(void)cleanUpOldDecos{
@@ -219,75 +169,51 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
             cleaningUpOldDecos = true;
             NSMutableArray* trash = [NSMutableArray array];
-            
-            //for (Decoration* deco in in_use_deco_pool) {
             for (int i = 0; i < in_use_deco_pool.count; i++) {
                 Decoration* deco = [in_use_deco_pool objectAtIndex:i];
                 if (!deco){
                     continue;
                 }
-            
                 CGPoint decoPositionInWorld = [_scene convertPoint:deco.position fromNode:_decorations];
                 CGPoint decoPositionInView = [_view convertPoint:decoPositionInWorld fromScene:_scene];
-                
                 if (decoPositionInView.x < (0 - (deco.size.width / 2))){
-                    //NSLog(@"[trash addObject:deco];");
                     [trash addObject:deco];
                 }
             }
-
             dispatch_sync(dispatch_get_main_queue(), ^{
-                //numberOfDecosToLoad = 0;
                 for (Decoration* deco in trash) {
-                    //numberOfDecosToLoad ++;
                     [deco removeFromParent];
                     [in_use_deco_pool removeObject:deco];
                     [IDDictionary removeObjectForKey:deco.uniqueID];
                 }
                 cleaningUpOldDecos = false;
-                //trash = nil;
             });
         });
     }
-    
-    
 }
 
 -(BOOL)checkForOldObstacles{
     BOOL areThereAnyOldObstacles = false;
-    
     NSMutableArray* phoenices = [NSMutableArray array];
-
     for (Obstacle* obs in _obstacles.children) {
         CGPoint obsPositionInWorld = [_scene convertPoint:obs.position fromNode:_obstacles];
         CGPoint obsPositionInView = [_view convertPoint:obsPositionInWorld fromScene:_scene];
-        
         if (obsPositionInView.x < (0 - (obs.size.width / 2))){
             [phoenices addObject:obs];
         }
     }
-    
     for (Obstacle* obs in phoenices) {
         areThereAnyOldObstacles = true;
         [obs removeFromParent];
         NSMutableArray* obstacleTypeArray = [obstacle_pool valueForKey:obs.name];
         [obstacleTypeArray addObject:obs];
-        //NSLog(@"obstacleTypeArray: %@", obstacleTypeArray);
-        //NSLog(@"add %@ from obstacle pool", obs.name);
-
-        //[obs removeFromParent];
-        //[in_use_obstacle_pool removeObject:obs];
-        
     }
-
     phoenices = nil;
     return areThereAnyOldObstacles;
-
 }
 
 
 -(BOOL)shouldParseNewDecorationSet{
-
     if (((unused_deco_pool.count < MAX_UNUSED_DECO_POOL_COUNT) && (in_use_deco_pool.count < MAX_IN_USE_DECO_POOL_COUNT))) {
         return true;
     }
@@ -295,8 +221,6 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 }
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andDeltaTime:(NSTimeInterval)deltaTime{
-    //NSLog(@"deltaTime: %f", deltaTime);
-
     if (deltaTime < DELTA_TIME_THRESHOLD_FOR_UPDATE) {
         if (shouldLoadObstacles) {
             [self checkForOldObstacles];
@@ -304,14 +228,10 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
                 [self checkForLastObstacleWithDistance:playerDistance];
             }
         }
-        
         playerDistance += total_previous_distance;
-        
         if(!chunkLoading && [self shouldParseNewDecorationSet]){
             [self preloadDecorationChunkWithDistance:playerDistance asynchronous:YES];
         }
-        
-        
         float xOffset = _view.bounds.size.width;
         if (!chunkLoading) {
             [self cleanUpOldDecos];
@@ -329,80 +249,56 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
     NSMutableArray* difficultyArray = [constants.OBSTACLE_SETS valueForKey:[NSString stringWithFormat:@"%lu", (unsigned long)difficulty]];
     NSUInteger chance = arc4random_uniform((uint)difficultyArray.count);
     NSString* obstacleSet = [difficultyArray objectAtIndex:chance];
-    //NSLog(@"obstacleSet: %@", obstacleSet);
     return obstacleSet;
 }
 
 -(NSString*)calculateDecorationSetForBiome:(Biome)biome{
     NSMutableDictionary* biomeDict = [constants.BIOMES valueForKey:[self biomeToString:biome]];
-    //NSLog(@"biomeDict: %@", biomeDict);
     NSMutableArray* timeOfDayArray = [biomeDict valueForKey:@"day"];
-    //NSLog(@"timeOfDayArray: %@", timeOfDayArray);
     NSUInteger chance = arc4random_uniform((uint)timeOfDayArray.count);
     NSString* decorationSet = [timeOfDayArray objectAtIndex:chance];
-    //NSLog(@"decorationSet: %@", decorationSet);
-
     return decorationSet;
 }
 
 
 -(NSUInteger)calculateDifficultyFromDistance:(NSUInteger)distance{
-    
     NSUInteger roundedDistance = RoundDownTo(distance, OBSTACLE_STADE_LENGTH);
-    
-    NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
+        NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
     if (difficulty > MAX_DIFFICULTY) {
         NSLog(@"difficulty = MAX_DIFFICULTY");
-
         difficulty = MAX_DIFFICULTY;
     }
-    //NSLog(@"difficulty: %lu", difficulty);
-    
     return difficulty;
-   // return 1;
 }
 
 -(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{
     chunkLoading = true;
     NSUInteger difficulty = [self calculateDifficultyFromDistance:distance];
     NSString* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
-    
-    //NSLog(@"xOffset: %f", xOffset);
-    //dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
-     //   dispatch_sync(dispatch_get_main_queue(), ^{
+        dispatch_sync(dispatch_get_main_queue(), ^{
             [obstacleSetParser loadObstaclesInWorld:_scene withObstacles:_obstacles withinView:_view withXOffset:xOffset];
             chunkLoading = false;
-       // });
-    //});
-    
+        });
+    });
 }
 
 -(void)checkForLastObstacleWithDistance:(NSUInteger)distance{
-    
     Obstacle* lastObstacle = [_obstacles.children lastObject];
     if (!lastObstacle) {
-       // NSLog(@"load first obstacle chunk");
         [self loadObstacleChunkWithXOffset:_view.bounds.size.width * 3 andDistance:0];
         return;
     }
     CGPoint lastObstaclePosInSelf = [_scene convertPoint:lastObstacle.position fromNode:_obstacles];
     CGPoint lastObstaclePosInView = [_view convertPoint:lastObstaclePosInSelf fromScene:_scene];
-    NSLog(@"lastObstaclePosInView.x: %f", lastObstaclePosInView.x);
     if (lastObstaclePosInView.x < _view.bounds.size.width) {
-        //NSLog(@"load next chunk");
-        
         [self loadObstacleChunkWithXOffset:(lastObstaclePosInSelf.x + (lastObstacle.size.width / 2) + (_view.bounds.size.width * 3/4)) andDistance:distance];
    }
     else{
         [[NSNotificationCenter defaultCenter] postNotificationName:@"stopScrolling" object:nil];
-        
     }
-        
 }
-
-
-
 -(NSString*)timeOfDayToString:(TimeOfDay)timeOfDay :(BOOL)exact{
     switch (timeOfDay) {
         case AM_12:{
@@ -569,12 +465,5 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
     NSLog(@"unknown biome. cannot convert to string");
     return nil;
 }
-
-                                      
-                                      
-                                      
-                                      
-                                      
-                                    
 
 @end

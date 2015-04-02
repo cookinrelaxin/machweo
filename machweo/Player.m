@@ -9,12 +9,6 @@
 #import "Player.h"
 @implementation Player
 
-//-(void)initAtPoint:(CGPoint)point{
-//    self.physicsBody = [SKPhysicsBody body]
-//    self.position = point;
-//    self.minYPosition = -9999;
-//}
-
 +(instancetype)player{
     Constants* constants = [Constants sharedInstance];
     Player *player = [Player spriteNodeWithColor:[UIColor redColor] size:CGSizeMake(constants.PLAYER_SIZE * constants.SCALE_COEFFICIENT.dy * .8259, constants.PLAYER_SIZE * constants.SCALE_COEFFICIENT.dy)];
@@ -24,8 +18,6 @@
     player.physicsBody.contactTestBitMask = [Constants sharedInstance].OBSTACLE_HIT_CATEGORY;
     player.physicsBody.affectedByGravity = false;
     player.physicsBody.allowsRotation = false;
-
-    
     return player;
 }
 

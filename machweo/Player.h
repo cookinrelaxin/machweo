@@ -11,9 +11,7 @@
 #import "Constants.h"
 
 @interface Player : SKSpriteNode
-
 @property (nonatomic) CGVector velocity;
-
 @property (nonatomic) float yCoordinateOfBottomSide;
 @property (nonatomic) float yCoordinateOfTopSide;
 @property (nonatomic) float xCoordinateOfLeftSide;
@@ -27,7 +25,6 @@
 @property (nonatomic) float currentRotationSpeed;
 
 +(instancetype)player;
-//-(void)initAtPoint:(CGPoint)point;
 -(void)updateEdges;
 -(void)resetMinsAndMaxs;
 @end
