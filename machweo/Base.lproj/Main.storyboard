@@ -26,14 +26,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="doT-lc-8P7" userLabel="menu view">
                                 <rect key="frame" x="16" y="20" width="568" height="560"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X3j-pu-29F" userLabel="no ads">
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" verticalCompressionResistancePriority="749" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X3j-pu-29F" userLabel="no ads">
                                         <rect key="frame" x="232" y="455" width="120" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="4cw-7v-UeW">
                                                 <variation key="heightClass=compact-widthClass=compact" constant="100"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                                             </constraint>
                                             <constraint firstAttribute="width" constant="100" id="eg5-Cp-KLG">
                                                 <variation key="heightClass=compact-widthClass=compact" constant="100"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -51,19 +53,20 @@
                                         <variation key="widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         </variation>
-                                        <variation key="heightClass=compact-widthClass=compact"/>
                                         <variation key="heightClass=compact-widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         </variation>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="747" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZm-1o-77c" userLabel="leaderboards">
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="747" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZm-1o-77c" userLabel="leaderboards">
                                         <rect key="frame" x="50" y="455" width="120" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="YbW-Yp-jys">
                                                 <variation key="heightClass=compact-widthClass=compact" constant="100"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                                             </constraint>
                                             <constraint firstAttribute="height" constant="100" id="dDF-mB-djL">
                                                 <variation key="heightClass=compact-widthClass=compact" constant="100"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -81,7 +84,6 @@
                                         <variation key="widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         </variation>
-                                        <variation key="heightClass=compact-widthClass=compact"/>
                                         <variation key="heightClass=compact-widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         </variation>
@@ -125,14 +127,16 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         </variation>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugf-dT-SaV" userLabel="facebook">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugf-dT-SaV" userLabel="facebook">
                                         <rect key="frame" x="352" y="508" width="141" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="GP7-DQ-YUF">
                                                 <variation key="heightClass=compact-widthClass=compact" constant="100"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                                             </constraint>
                                             <constraint firstAttribute="width" constant="100" id="Vls-Ra-J60">
                                                 <variation key="heightClass=compact-widthClass=compact" constant="100"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -150,7 +154,6 @@
                                         <variation key="widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         </variation>
-                                        <variation key="heightClass=compact-widthClass=compact"/>
                                         <variation key="heightClass=compact-widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         </variation>
@@ -158,14 +161,16 @@
                                             <action selector="sharePressed:" destination="YbM-qg-g2k" eventType="touchUpInside" id="erv-Io-vVs"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FB1-7A-f2Y" userLabel="rate">
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FB1-7A-f2Y" userLabel="rate">
                                         <rect key="frame" x="75" y="508" width="141" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="aJx-Fs-191">
                                                 <variation key="heightClass=compact-widthClass=compact" constant="100"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                                             </constraint>
                                             <constraint firstAttribute="height" constant="100" id="hhA-YL-R3X">
                                                 <variation key="heightClass=compact-widthClass=compact" constant="100"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="140"/>
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -183,7 +188,6 @@
                                         <variation key="widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                         </variation>
-                                        <variation key="heightClass=compact-widthClass=compact"/>
                                         <variation key="heightClass=compact-widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         </variation>
@@ -196,9 +200,13 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="100" id="nkO-NX-uSv">
                                                 <variation key="heightClass=compact-widthClass=compact" constant="140"/>
+                                                <variation key="heightClass=compact-widthClass=regular" constant="160"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="160"/>
                                             </constraint>
                                             <constraint firstAttribute="height" constant="100" id="zWE-mJ-t18">
                                                 <variation key="heightClass=compact-widthClass=compact" constant="140"/>
+                                                <variation key="heightClass=compact-widthClass=regular" constant="160"/>
+                                                <variation key="heightClass=regular-widthClass=regular" constant="160"/>
                                             </constraint>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="60"/>
@@ -216,7 +224,6 @@
                                         <variation key="widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="100"/>
                                         </variation>
-                                        <variation key="heightClass=compact-widthClass=compact"/>
                                         <variation key="heightClass=compact-widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="80"/>
                                         </variation>
@@ -229,6 +236,7 @@
                                 <constraints>
                                     <constraint firstItem="FB1-7A-f2Y" firstAttribute="top" secondItem="ugf-dT-SaV" secondAttribute="bottom" constant="22" id="0wj-EE-2yQ">
                                         <variation key="heightClass=compact-widthClass=compact" constant="14"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                     </constraint>
                                     <constraint firstItem="X3j-pu-29F" firstAttribute="leading" secondItem="doT-lc-8P7" secondAttribute="leading" constant="8" id="2a1-Ju-gUO">
                                         <variation key="heightClass=compact-widthClass=compact" constant="16"/>
@@ -279,6 +287,7 @@
                                     </constraint>
                                     <constraint firstItem="X3j-pu-29F" firstAttribute="top" secondItem="EZm-1o-77c" secondAttribute="bottom" constant="22" id="niB-Uy-ios">
                                         <variation key="heightClass=compact-widthClass=compact" constant="14"/>
+                                        <variation key="heightClass=regular-widthClass=regular" constant="60"/>
                                     </constraint>
                                     <constraint firstAttribute="centerX" secondItem="kli-Os-4tw" secondAttribute="centerX" id="uEr-rJ-63j">
                                         <variation key="heightClass=compact-widthClass=compact" constant="0.0"/>
@@ -299,51 +308,51 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="ZA9-sS-ySV"/>
-                                        <exclude reference="zgX-r5-UFt"/>
                                         <exclude reference="Csg-8Z-26Z"/>
                                         <exclude reference="c6T-ml-DGf"/>
                                         <exclude reference="lXa-tO-9ZL"/>
                                         <exclude reference="ysT-2c-TWs"/>
+                                        <exclude reference="ZA9-sS-ySV"/>
+                                        <exclude reference="zgX-r5-UFt"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                     </mask>
                                 </variation>
                             </view>
