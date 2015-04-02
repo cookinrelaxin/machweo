@@ -44,18 +44,11 @@ int METERS_PER_PIXEL = 50;
     BOOL paused;
     //UI
         SKLabelNode* logoLabel;
-        SKLabelNode* muteLabelButton;
         SKLabelNode* pauseButton;
         SKLabelNode* returnToGameLabelButton;
     
         SKLabelNode* pauseLabel;
-
         SKLabelNode* scoreLabel;
-        SKLabelNode* highscoreLabel;
-        SKLabelNode* shareLabelButton;
-        SKLabelNode* leaderboardLabelButton;
-        SKLabelNode* retryLabelButton;
-    
     //
     SKSpriteNode* sunNode;
     SKSpriteNode* moonNode;
@@ -125,14 +118,13 @@ int METERS_PER_PIXEL = 50;
         distanceLabel = [SKLabelNode labelNodeWithFontNamed:_constants.DISTANCE_LABEL_FONT_NAME];
         distanceLabel.fontSize = _constants.DISTANCE_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dy;
         distanceLabel.fontColor = _constants.DISTANCE_LABEL_FONT_COLOR;
-        distanceLabel.position = CGPointMake(CGRectGetMidX(self.frame), distanceLabel.fontSize / 4);
+        distanceLabel.position = CGPointMake(CGRectGetMidX(self.frame), self.frame.size.height - distanceLabel.fontSize);
         distanceLabel.zPosition = _constants.HUD_Z_POSITION;
         distanceLabel.text = @"0";
         distanceLabel.hidden = true;
         [_hud addChild:distanceLabel];
         player = [Player player];
         [self createLogoLabel];
-        //[self createMuteButton];
         //[self createPauseButton];
         [self createPausedLabel];
         paused = false;
@@ -267,17 +259,17 @@ int METERS_PER_PIXEL = 50;
     NSDateComponents *components = [[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian] components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:[NSDate date]];
     float time = (float)components.hour + (((float)components.minute) / 60.0);
     if (!greeting) {
-        if ((time > 6) && (time <= 12)) {
-            greeting = @"good morning";
-        }
-        if ((time > 12) && (time <= 18)) {
-            greeting = @"good afternoon";
-        }
-        if ((time > 18) && (time <= 24)) {
+        if (time >= 18) {
             greeting = @"good evening";
         }
+        if (time >= 12) {
+            greeting = @"good afternoon";
+        }
+        if (time >= 6) {
+            greeting = @"good morning";
+        }
         else{
-            greeting = @"good night";
+            greeting = @"good evening";
         }
         NSLog(@"greeting: %@", greeting);
     }
@@ -347,10 +339,6 @@ int METERS_PER_PIXEL = 50;
     if (popup_engaged && _allowDismissPopup) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"remove message" object:nil];
         _allowDismissPopup = false;
-    }
-    if ([muteLabelButton containsPoint:positionInSelf]) {
-        [soundManager mute];
-        return;
     }
     if (paused) {
         [self unpauseAndReturnToGame];
@@ -634,7 +622,6 @@ int METERS_PER_PIXEL = 50;
     }
     gameOver = true;
     pauseButton.hidden = true;
-    muteLabelButton.hidden = true;
     GKHelper* gkhelper = [GKHelper sharedInstance];
     [gkhelper setCurrentScore:distance_traveled];
     [gkhelper reportScore];
@@ -735,7 +722,6 @@ int METERS_PER_PIXEL = 50;
 
 -(void)reappearButtons{
     pauseButton.hidden = false;
-    muteLabelButton.hidden = false;
 }
 
 -(void)resetLines{
@@ -791,17 +777,6 @@ int METERS_PER_PIXEL = 50;
     }];
 }
 
--(void)createMuteButton{
-    muteLabelButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-    muteLabelButton.fontSize = _constants.MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
-    muteLabelButton.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
-    muteLabelButton.zPosition = _constants.HUD_Z_POSITION;
-    muteLabelButton.text = @"mute";
-    CGPoint posInScene = CGPointMake(CGRectGetMaxX(self.frame) - (muteLabelButton.frame.size.width / 2) - (muteLabelButton.frame.size.width / 4), CGRectGetMaxY(self.frame) - muteLabelButton.frame.size.height);
-    muteLabelButton.position = [_hud convertPoint:posInScene fromNode:self];
-    [_hud addChild:muteLabelButton];
-}
-
 -(void)createPauseButton{
     pauseButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
     pauseButton.fontSize = _constants.MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
@@ -835,7 +810,7 @@ int METERS_PER_PIXEL = 50;
         float cairnZ = _constants.OBSTACLE_Z_POSITION;
         float labelSize = 45 * _constants.SCALE_COEFFICIENT.dx;
         for (GKScore* score in top10GlobalScores) {
-           // NSLog(@"score.value: %lld", score.value);
+            NSLog(@"score.value: %lld", score.value);
             SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
             cairn.physicsBody = nil;
             cairn.zPosition = cairnZ;

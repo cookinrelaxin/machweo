@@ -111,7 +111,10 @@ int CLIFF_VERTEX_COUNT = 15;
     terrainAlpha = .9;
     float brightness = sunY / maxY;
     float minB = .25;
+    float maxB = .90f;
     brightness = (brightness < minB) ? minB : brightness;
+    brightness = (brightness > maxB) ? maxB : brightness;
+
     float saturation = 1 - (sunY / maxY);
     float minSat = .25;
     saturation = (saturation < minSat) ? minSat : saturation;
