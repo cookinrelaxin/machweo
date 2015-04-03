@@ -669,7 +669,7 @@ int METERS_PER_PIXEL = 50;
             currentDesiredPlayerPositionInView = CGPointMake(currentDesiredPlayerPositionInView.x, [self convertPointToView:player.position].y);
         }
         player.position = [self convertPointFromView:currentDesiredPlayerPositionInView];
-        CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(player.velocity.dx * _constants.PHYSICS_SCALAR_MULTIPLIER, 0);
+        CGVector differenceInPreviousAndCurrentPlayerPositions = CGVectorMake(player.velocity.dx * _constants.PHYSICS_SCALAR_MULTIPLIER, player.velocity.dy * _constants.PHYSICS_SCALAR_MULTIPLIER);
         for (Terrain* ter in terrainArray) {
             for (int i = 0; i < ter.vertices.count; i ++) {
                 NSValue* pointNode = [ter.vertices objectAtIndex:i];
@@ -679,14 +679,18 @@ int METERS_PER_PIXEL = 50;
         }
         _obstacles.position = CGPointMake(_obstacles.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _obstacles.position.y);
         if (in_game) {
-            _cairns.position = CGPointMake(_cairns.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _cairns.position.y);
+            for (SKSpriteNode* cairn in _cairns.children) {
+                cairn.position = CGPointMake(cairn.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, cairn.position.y);
+            }
+            //_cairns.position = CGPointMake(_cairns.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _cairns.position.y);
         }
         for (SKSpriteNode* deco in _decorations.children) {
             float fractionalCoefficient = deco.zPosition / _constants.OBSTACLE_Z_POSITION;
-            CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dy * _constants.Y_PARALLAX_COEFFICIENT);
-            deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y - parallaxAdjustedDifference.dy);
+            CGVector parallaxAdjustedDifference = CGVectorMake(fractionalCoefficient * differenceInPreviousAndCurrentPlayerPositions.dx, 0);
+            deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y);
         }
     }
+    //NSLog(@"_cairns.position.x: %f", _cairns.position.x);
 }
 
 -(void)reset{
@@ -780,16 +784,16 @@ int METERS_PER_PIXEL = 50;
     }];
 }
 
--(void)createPauseButton{
-    pauseButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-    pauseButton.fontSize = _constants.MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
-    pauseButton.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
-    pauseButton.zPosition = _constants.HUD_Z_POSITION;
-    pauseButton.text = @"pause";
-    CGPoint posInScene = CGPointMake(pauseButton.frame.size.width / 2 + (pauseButton.frame.size.width / 4), CGRectGetMaxY(self.frame) - pauseButton.frame.size.height);
-    pauseButton.position = [_hud convertPoint:posInScene fromNode:self];
-    [_hud addChild:pauseButton];
-}
+//-(void)createPauseButton{
+//    pauseButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
+//    pauseButton.fontSize = _constants.MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
+//    pauseButton.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
+//    pauseButton.zPosition = _constants.HUD_Z_POSITION;
+//    pauseButton.text = @"pause";
+//    CGPoint posInScene = CGPointMake(pauseButton.frame.size.width / 2 + (pauseButton.frame.size.width / 4), CGRectGetMaxY(self.frame) - pauseButton.frame.size.height);
+//    pauseButton.position = [_hud convertPoint:posInScene fromNode:self];
+//    [_hud addChild:pauseButton];
+//}
 
 -(void)createPausedLabel{
     pauseLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
@@ -817,7 +821,7 @@ int METERS_PER_PIXEL = 50;
             SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
             cairn.physicsBody = nil;
             cairn.zPosition = cairnZ;
-            cairn.position = CGPointMake((score.value * METERS_PER_PIXEL) + (cairn.size.width / 2), cairn.size.height / 2);
+            cairn.position = CGPointMake((score.value * METERS_PER_PIXEL * _constants.PHYSICS_SCALAR_MULTIPLIER) + (cairn.size.width / 2), cairn.size.height / 2);
             [_cairns addChild:cairn];
             SKLabelNode* playerNameLabel = [SKLabelNode labelNodeWithText:score.player.alias];
             playerNameLabel.fontSize = labelSize;
