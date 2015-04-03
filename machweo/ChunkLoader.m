@@ -172,10 +172,10 @@ typedef enum NodeTypes
             float zFloat = [string floatValue];
             if (currentNodeType == decoration) {
                 if (zFloat >= constants.OBSTACLE_Z_POSITION) {
-                    NSUInteger dice = arc4random_uniform(5) + 1;
-                    currentNode.zPosition = constants.OBSTACLE_Z_POSITION - dice;
-                    currentNode.alpha = .75;
-                    return;
+                    //NSUInteger dice = arc4random_uniform(5) + 1;
+                    //currentNode.zPosition = constants.OBSTACLE_Z_POSITION - dice;
+                    currentNode.alpha = .50;
+                    //return;
                 }
             }
             currentNode.zPosition = zFloat;
@@ -206,13 +206,9 @@ typedef enum NodeTypes
             }
         }
         if (currentElement == uniqueID) {
-            if ([currentNode isKindOfClass:[Decoration class]]) {
+            if (currentNodeType == decoration) {
                 Decoration* deco = (Decoration*)currentNode;
                 deco.uniqueID = string;
-            }
-            if ([currentNode isKindOfClass:[Obstacle class]]) {
-                Obstacle* obs = (Obstacle*)currentNode;
-                obs.uniqueID = string;
             }
         }
     }
