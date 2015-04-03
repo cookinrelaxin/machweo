@@ -14,7 +14,7 @@
 const int MAX_IN_USE_DECO_POOL_COUNT = 15;
 const int MAX_UNUSED_DECO_POOL_COUNT = 15;
 const int MAX_DIFFICULTY = 7;
-const int OBSTACLE_STADE_LENGTH = 100;
+const int OBSTACLE_STADE_LENGTH = 150;
 const int DECORATION_STADE_LENGTH = 400;
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
@@ -222,12 +222,12 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 
 -(void)updateWithPlayerDistance:(NSUInteger)playerDistance andDeltaTime:(NSTimeInterval)deltaTime{
     if (deltaTime < DELTA_TIME_THRESHOLD_FOR_UPDATE) {
-//        if (shouldLoadObstacles) {
-//            [self checkForOldObstacles];
-//            if (!chunkLoading) {
-//                [self checkForLastObstacleWithDistance:playerDistance];
-//            }
-//        }
+        if (shouldLoadObstacles) {
+            [self checkForOldObstacles];
+            if (!chunkLoading) {
+                [self checkForLastObstacleWithDistance:playerDistance];
+            }
+        }
         playerDistance += total_previous_distance;
         if(!chunkLoading && [self shouldParseNewDecorationSet]){
             [self preloadDecorationChunkWithDistance:playerDistance asynchronous:YES];

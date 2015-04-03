@@ -51,12 +51,12 @@ int midpoint(int n1, int n2)
     _LOGO_LABEL_FONT_NAME = @"Skranji";
     _PHYSICS_SCALAR_MULTIPLIER =_SCALE_COEFFICIENT.dy * scaleFactor;
     _AMBIENT_X_FORCE = .06f;
-    _MAX_PLAYER_VELOCITY_DX = 20;
+    _MAX_PLAYER_VELOCITY_DX = 15;
     _MAX_PLAYER_VELOCITY_DY = 8;
     _MIN_PLAYER_VELOCITY_DX = -1;
     _MIN_PLAYER_VELOCITY_DY = -8;
-    _FRICTION_COEFFICIENT = .995f;
-    _GRAVITY = .30;
+    _FRICTION_COEFFICIENT = .996f;
+    _GRAVITY = .35;
     _TEXTURE_DICT = [NSMutableDictionary dictionary];
     _TERRAIN_ARRAY = [NSMutableArray array];
     _NUMBER_OF_BACKGROUND_SIMUL = 8;
