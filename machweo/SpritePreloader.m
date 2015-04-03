@@ -38,7 +38,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
                 if ([name hasSuffix:@"decoration"]) {
                     @autoreleasepool {
                         UIImage* img = [UIImage imageWithContentsOfFile:[url path]];
-                        img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
+                        img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:constants.enableHighResTextures];
                         SKTexture *tex = [SKTexture textureWithImage:img];
                         if ([name isEqualToString:@"tree_decoration"]) {
                             [constants.TERRAIN_ARRAY addObject:tex];
@@ -105,7 +105,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
 
 -(Obstacle*)obstaclePrototypeWithName:(NSString*)obsName andPath:(NSString*)path{
     UIImage* img = [UIImage imageWithContentsOfFile:path];
-    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:YES];
+    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:constants.enableHighResTextures];
     SKTexture* spriteTexture = [SKTexture textureWithImage:img];
     [texArray addObject:spriteTexture];
     Obstacle* obstacle = [Obstacle obstacleWithTexture:spriteTexture];

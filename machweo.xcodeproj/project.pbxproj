@@ -363,6 +363,7 @@
 		785CEACE1AC4CFF5006CE76C /* cairn_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cairn_decoration.png; sourceTree = "<group>"; };
 		786C054E1AC76B6200EFA83E /* PopupMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupMessage.h; sourceTree = "<group>"; };
 		786C054F1AC76B6200EFA83E /* PopupMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupMessage.m; sourceTree = "<group>"; };
+		786EA4621ACE553E00A7F6B4 /* Machweo.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = Machweo.profdata; sourceTree = "<group>"; };
 		7876980A1ABC97F600A2FF81 /* obstacleSet_7_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_a.xml; sourceTree = "<group>"; };
 		7876980B1ABC97F600A2FF81 /* obstacleSet_7_b.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_b.xml; sourceTree = "<group>"; };
 		7876980C1ABC97F600A2FF81 /* obstacleSet_7_c.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_7_c.xml; sourceTree = "<group>"; };
@@ -527,6 +528,7 @@
 				659B21CC1A5E1C1300885C04 /* machweo */,
 				659B21EB1A5E1C1400885C04 /* machweoTests */,
 				659B21CB1A5E1C1300885C04 /* Products */,
+				786EA4611ACE553E00A7F6B4 /* OptimizationProfiles */,
 			);
 			sourceTree = "<group>";
 		};
@@ -835,6 +837,14 @@
 				785CEACE1AC4CFF5006CE76C /* cairn_decoration.png */,
 			);
 			path = cairns;
+			sourceTree = "<group>";
+		};
+		786EA4611ACE553E00A7F6B4 /* OptimizationProfiles */ = {
+			isa = PBXGroup;
+			children = (
+				786EA4621ACE553E00A7F6B4 /* Machweo.profdata */,
+			);
+			path = OptimizationProfiles;
 			sourceTree = "<group>";
 		};
 		788563C21A96D95C00F49980 /* level files */ = {
@@ -1510,6 +1520,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_UNROLL_LOOPS = YES;
 				INFOPLIST_FILE = machweo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1521,8 +1532,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_USE_OPTIMIZATION_PROFILE = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_OPTIMIZATION_LEVEL = fast;
+				GCC_UNROLL_LOOPS = YES;
 				INFOPLIST_FILE = machweo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

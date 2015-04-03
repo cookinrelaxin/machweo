@@ -24,8 +24,10 @@ int midpoint(int n1, int n2)
 -(instancetype)initSingleton{
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     float scaleFactor = [[UIScreen mainScreen] nativeScale];
-    //NSLog(@"screenSize: %f, %f", screenSize.width, screenSize.height);
-   // NSLog(@"scaleFactor: %f", scaleFactor);
+    if (!CGSizeEqualToSize(screenSize, CGSizeMake(1024, 768))) {
+        _enableHighResTextures = true;
+    }
+    //}
     _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 1024);
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
     //NSLog(@"_SCALE_COEFFICIENT: %f, %f", _SCALE_COEFFICIENT.dx, _SCALE_COEFFICIENT.dy);
@@ -50,20 +52,20 @@ int midpoint(int n1, int n2)
     _LOGO_LABEL_FONT_COLOR = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
     _LOGO_LABEL_FONT_NAME = @"Skranji";
     _PHYSICS_SCALAR_MULTIPLIER =_SCALE_COEFFICIENT.dy * scaleFactor;
-//    _AMBIENT_X_FORCE = .06f;
-//    _MAX_PLAYER_VELOCITY_DX = 15;
-//    _MAX_PLAYER_VELOCITY_DY = 8;
-//    _MIN_PLAYER_VELOCITY_DX = -1;
-//    _MIN_PLAYER_VELOCITY_DY = -8;
-//    _FRICTION_COEFFICIENT = .996f;
-//    _GRAVITY = .35;
     _AMBIENT_X_FORCE = .06f;
-    _MAX_PLAYER_VELOCITY_DX = 9;
+    _MAX_PLAYER_VELOCITY_DX = 15;
     _MAX_PLAYER_VELOCITY_DY = 8;
     _MIN_PLAYER_VELOCITY_DX = -1;
     _MIN_PLAYER_VELOCITY_DY = -8;
-    _FRICTION_COEFFICIENT = .995f;
-    _GRAVITY = .30;
+    _FRICTION_COEFFICIENT = .996f;
+    _GRAVITY = .35;
+//    _AMBIENT_X_FORCE = .06f;
+//    _MAX_PLAYER_VELOCITY_DX = 9;
+//    _MAX_PLAYER_VELOCITY_DY = 8;
+//    _MIN_PLAYER_VELOCITY_DX = -1;
+//    _MIN_PLAYER_VELOCITY_DY = -8;
+//    _FRICTION_COEFFICIENT = .995f;
+//    _GRAVITY = .30;
     _TEXTURE_DICT = [NSMutableDictionary dictionary];
     _TERRAIN_ARRAY = [NSMutableArray array];
     _NUMBER_OF_BACKGROUND_SIMUL = 8;

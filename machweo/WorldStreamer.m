@@ -128,7 +128,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
             }
         }
         NSString* decorationSet = [self calculateDecorationSetForBiome:biome];
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
         ChunkLoader *decorationSetParser = [[ChunkLoader alloc] initWithFile:decorationSet];
         [decorationSetParser pourDecorationsIntoBucket:unused_deco_pool];
         chunkLoading = false;
@@ -137,7 +137,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 
 -(void)loadNextDecoWithXOffset:(float)xOffset{
     chunkLoading = true;
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^{
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
         if (unused_deco_pool.count > 0) {
             Decoration* decoToLoad = [unused_deco_pool firstObject];
                 NSString* toLoadID = decoToLoad.uniqueID;
@@ -275,7 +275,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
     chunkLoading = true;
     NSUInteger difficulty = [self calculateDifficultyFromDistance:distance];
     NSString* obstacleSet = [self calcuateObstacleSetForDifficulty:difficulty];
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
         ChunkLoader *obstacleSetParser = [[ChunkLoader alloc] initWithFile:obstacleSet];
         dispatch_sync(dispatch_get_main_queue(), ^{
             [obstacleSetParser loadObstaclesInWorld:_scene withObstacles:_obstacles withinView:_view withXOffset:xOffset];

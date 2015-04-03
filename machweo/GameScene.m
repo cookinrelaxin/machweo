@@ -44,7 +44,7 @@ int METERS_PER_PIXEL = 50;
     BOOL paused;
     //UI
         SKLabelNode* logoLabel;
-        SKLabelNode* pauseButton;
+        //SKLabelNode* pauseButton;
         SKLabelNode* returnToGameLabelButton;
     
         SKLabelNode* pauseLabel;
@@ -342,13 +342,10 @@ int METERS_PER_PIXEL = 50;
     if (popup_engaged && _allowDismissPopup) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"remove message" object:nil];
         _allowDismissPopup = false;
-    }
-    if (paused) {
-        [self unpauseAndReturnToGame];
         return;
     }
-    if ([pauseButton containsPoint:positionInSelf]) {
-        [self pauseWithVisibleLabel:YES];
+    if (paused && !popup_engaged) {
+        [self unpauseAndReturnToGame];
         return;
     }
     if (!in_game && !gameOver && !logoLabel) {
@@ -391,13 +388,13 @@ int METERS_PER_PIXEL = 50;
     if (labelIsVisible) {
         [pauseLabel runAction:[SKAction fadeAlphaTo:1 duration:.5]];
     }
-    pauseButton.hidden = true;
+    //pauseButton.hidden = true;
 }
              
 -(void)unpauseAndReturnToGame{
     [pauseLabel runAction:[SKAction fadeAlphaTo:0 duration:.5] completion:^{
         paused = false;
-        pauseButton.hidden = false;
+        //pauseButton.hidden = false;
         SKAction *currentAnimation = [player actionForKey:@"runningMaasai"];
         if (!currentAnimation) {
             currentAnimation = [player actionForKey:@"jumpingMaasai"];
@@ -420,10 +417,12 @@ int METERS_PER_PIXEL = 50;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    Terrain* lastTer = [terrainArray lastObject];
-    [lastTer correctSpriteZsBeforeVertex:currentPoint againstSlope:NO];
-    lastTer.complete = true;
-    player.touchesEnded = true;
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+        Terrain* lastTer = [terrainArray lastObject];
+        [lastTer correctSpriteZsBeforeVertex:currentPoint againstSlope:NO];
+        lastTer.complete = true;
+        player.touchesEnded = true;
+    });
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -620,7 +619,7 @@ int METERS_PER_PIXEL = 50;
 -(void)loseGame{
     gameOver = true;
     [player runAction:[SKAction fadeOutWithDuration:1]];
-    pauseButton.hidden = true;
+    //pauseButton.hidden = true;
     //[self blurScreen];
     distanceLabel.hidden = true;
     GKHelper* gkhelper = [GKHelper sharedInstance];
@@ -674,6 +673,10 @@ int METERS_PER_PIXEL = 50;
             for (int i = 0; i < ter.vertices.count; i ++) {
                 NSValue* pointNode = [ter.vertices objectAtIndex:i];
                 CGPoint pointNodePosition = pointNode.CGPointValue;
+//                if (pointNodePosition.x < 0) {
+//                    [ter.vertices removeObject:pointNode];
+//                    continue;
+//                }
                 [ter.vertices replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - differenceInPreviousAndCurrentPlayerPositions.dx, pointNodePosition.y)]];
             }
         }
@@ -696,7 +699,6 @@ int METERS_PER_PIXEL = 50;
         player = [Player player];
         player.hidden = false;
         player_created = false;
-
     }
     previousPoint = currentPoint = CGPointZero;
     [physicsComponent reset];
@@ -709,7 +711,7 @@ int METERS_PER_PIXEL = 50;
     distanceLabel.text = @"0";
     [worldStreamer resetWithFinalDistance:distance_traveled];
     distance_traveled = 0;
-    [self reappearButtons];
+    //[self reappearButtons];
 }
 
 -(void)resetCairns{
@@ -724,9 +726,9 @@ int METERS_PER_PIXEL = 50;
     _cairns.position = CGPointMake(_cairns.position.x + (distance_traveled * METERS_PER_PIXEL), _cairns.position.y);
 }
 
--(void)reappearButtons{
-    pauseButton.hidden = false;
-}
+//-(void)reappearButtons{
+//    pauseButton.hidden = false;
+//}
 
 -(void)resetLines{
     for (Terrain* ter in terrainArray) {
@@ -814,7 +816,6 @@ int METERS_PER_PIXEL = 50;
         float cairnZ = _constants.OBSTACLE_Z_POSITION;
         float labelSize = 45 * _constants.SCALE_COEFFICIENT.dx;
         for (GKScore* score in top10GlobalScores) {
-            NSLog(@"score.value: %lld", score.value);
             SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
             cairn.physicsBody = nil;
             cairn.zPosition = cairnZ;
