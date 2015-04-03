@@ -44,7 +44,7 @@ int midpoint(int n1, int n2)
     _PLAYER_HIT_CATEGORY = 1;
     _OBSTACLE_HIT_CATEGORY = 2;
     _DISTANCE_LABEL_FONT_SIZE = 100;
-    _DISTANCE_LABEL_FONT_COLOR = [UIColor blackColor];
+    _DISTANCE_LABEL_FONT_COLOR = [UIColor colorWithRed:243.0f/255.0f green:126.0f/255.0f blue:61.0f/255.0f alpha:1];
     _DISTANCE_LABEL_FONT_NAME = @"Skranji";
     _LOADING_LABEL_FONT_SIZE = 100;
     _LOADING_LABEL_FONT_COLOR = [UIColor whiteColor];

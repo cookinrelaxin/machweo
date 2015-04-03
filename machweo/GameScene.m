@@ -25,7 +25,6 @@ int DIURNAL_PERIOD = 120; //seconds
 int LUNAR_PERIOD = 50; //seconds
 float MAX_AUDIO_VOLUME = .25f;
 int METERS_PER_PIXEL = 50;
-int MAX_BLUR_RADIUS = 8;
 
 @implementation GameScene{
     Player *player;
@@ -75,7 +74,6 @@ int MAX_BLUR_RADIUS = 8;
     SoundManager * soundManager;
     NSTimeInterval previousTime;
     NSString* greeting;
-    float currentBlurFilterRadius;
 }
 
 -(void)dealloc{
@@ -171,7 +169,9 @@ int MAX_BLUR_RADIUS = 8;
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
-         [weakSelf pauseWithVisibleLabel:YES];
+         if (!gameOver) {
+             [weakSelf pauseWithVisibleLabel:YES];
+         }
      }];
 }
 
@@ -260,20 +260,21 @@ int MAX_BLUR_RADIUS = 8;
 -(float)getCurrentActualTime{
     NSDateComponents *components = [[[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian] components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:[NSDate date]];
     float time = (float)components.hour + (((float)components.minute) / 60.0);
+    //NSLog(@"time: %f", time);
     if (!greeting) {
         if (time >= 18) {
             greeting = @"good evening";
         }
-        if (time >= 12) {
+        else if (time >= 12) {
             greeting = @"good afternoon";
         }
-        if (time >= 6) {
+        else if (time >= 6) {
             greeting = @"good morning";
         }
         else{
             greeting = @"good evening";
         }
-        NSLog(@"greeting: %@", greeting);
+        //NSLog(@"greeting: %@", greeting);
     }
     return time;
 }
@@ -501,31 +502,12 @@ int MAX_BLUR_RADIUS = 8;
     float maxB = .15;
     brightness = (brightness < minB) ? minB : brightness;
     brightness = (brightness > maxB) ? maxB : brightness;
-//    if (gameOver) {
-//        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:0 brightness:0 alpha:1].CGColor;
-//        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-//        CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
-//        [lighten setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-//        [lighten setValue:@(brightness) forKey:@"inputBrightness"];
-//        CIFilter* blurFilter = [CIFilter filterWithName:@"CIGaussianBlur"];
-//        [blurFilter setValue:[lighten outputImage] forKey:kCIInputImageKey];
-//        [blurFilter setValue:@(currentBlurFilterRadius) forKey:@"inputRadius"];
-//        self.filter = blurFilter;
-//        CGColorRelease(filterColor);
-//        currentBlurFilterRadius += .1;
-//        if (currentBlurFilterRadius > MAX_BLUR_RADIUS) {
-//            currentBlurFilterRadius = MAX_BLUR_RADIUS;
-//        }
-//    }
-//    else {
-        CGColorRef filterColor = [UIColor colorWithHue:1 saturation:0 brightness:0 alpha:1].CGColor;
-        CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
-        CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
-        [lighten setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
-        [lighten setValue:@(brightness) forKey:@"inputBrightness"];
-        self.filter = lighten;
-        CGColorRelease(filterColor);
-//    }
+    CGColorRef filterColor = [UIColor colorWithHue:1 saturation:0 brightness:0 alpha:1].CGColor;
+    CIColor *convertedColor = [CIColor colorWithCGColor:filterColor];
+    CIFilter *lighten = [CIFilter filterWithName:@"CIColorControls"];
+    [lighten setValue:[CIImage imageWithColor:convertedColor] forKey:kCIInputImageKey];
+    [lighten setValue:@(brightness) forKey:@"inputBrightness"];
+    self.filter = lighten;
 }
 
 -(void)update:(CFTimeInterval)currentTime {
@@ -636,9 +618,6 @@ int MAX_BLUR_RADIUS = 8;
 }
 
 -(void)loseGame{
-    if (tutorial_mode_on) {
-        [self sendMessageNotificationWithText:@"Uh oh, you hit an obstacle. Try again!" andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:NO];
-    }
     gameOver = true;
     [player runAction:[SKAction fadeOutWithDuration:1]];
     pauseButton.hidden = true;
@@ -730,7 +709,6 @@ int MAX_BLUR_RADIUS = 8;
     [worldStreamer resetWithFinalDistance:distance_traveled];
     distance_traveled = 0;
     [self reappearButtons];
-    currentBlurFilterRadius = 0;
 }
 
 -(void)resetCairns{
