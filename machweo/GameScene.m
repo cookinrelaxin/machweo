@@ -679,10 +679,7 @@ int METERS_PER_PIXEL = 50;
         }
         _obstacles.position = CGPointMake(_obstacles.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _obstacles.position.y);
         if (in_game) {
-            for (SKSpriteNode* cairn in _cairns.children) {
-                cairn.position = CGPointMake(cairn.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, cairn.position.y);
-            }
-            //_cairns.position = CGPointMake(_cairns.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _cairns.position.y);
+            _cairns.position = CGPointMake(_cairns.position.x - differenceInPreviousAndCurrentPlayerPositions.dx, _cairns.position.y);
         }
         for (SKSpriteNode* deco in _decorations.children) {
             float fractionalCoefficient = deco.zPosition / _constants.OBSTACLE_Z_POSITION;
