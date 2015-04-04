@@ -2,20 +2,100 @@
 <worldnodes>
     <node>
         <type>ObstacleSignifier</type>
-        <name>totem2_obstacle</name>
-        <uniqueID>587203</uniqueID>
-        <xPosition>90.500000</xPosition>
-        <yPosition>1160.500000</yPosition>
+        <name>obstacle2_obstacle</name>
+        <uniqueID>155488</uniqueID>
+        <xPosition>42.500000</xPosition>
+        <yPosition>729.970215</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>totem_obstacle</name>
-        <uniqueID>814388</uniqueID>
-        <xPosition>90.500000</xPosition>
-        <yPosition>427.044495</yPosition>
+        <name>obstacle2_obstacle</name>
+        <uniqueID>569568</uniqueID>
+        <xPosition>119.976074</xPosition>
+        <yPosition>608.757996</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle2_obstacle</name>
+        <uniqueID>996092</uniqueID>
+        <xPosition>204.976074</xPosition>
+        <yPosition>488.993591</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle2_obstacle</name>
+        <uniqueID>227244</uniqueID>
+        <xPosition>289.976074</xPosition>
+        <yPosition>375.424561</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle2_obstacle</name>
+        <uniqueID>940195</uniqueID>
+        <xPosition>374.976074</xPosition>
+        <yPosition>285.102448</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle1_obstacle</name>
+        <uniqueID>26526</uniqueID>
+        <xPosition>821.280945</xPosition>
+        <yPosition>989.113647</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle1_obstacle</name>
+        <uniqueID>307688</uniqueID>
+        <xPosition>898.280945</xPosition>
+        <yPosition>897.701843</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle1_obstacle</name>
+        <uniqueID>813256</uniqueID>
+        <xPosition>975.280945</xPosition>
+        <yPosition>814.588074</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle1_obstacle</name>
+        <uniqueID>20884</uniqueID>
+        <xPosition>1052.281006</xPosition>
+        <yPosition>730.087891</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle1_obstacle</name>
+        <uniqueID>698058</uniqueID>
+        <xPosition>1129.281006</xPosition>
+        <yPosition>642.487488</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>

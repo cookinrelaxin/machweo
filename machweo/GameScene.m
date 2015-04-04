@@ -44,11 +44,11 @@ int METERS_PER_PIXEL = 50;
     BOOL paused;
     //UI
         SKLabelNode* logoLabel;
-        //SKLabelNode* pauseButton;
         SKLabelNode* returnToGameLabelButton;
     
         SKLabelNode* pauseLabel;
         SKLabelNode* scoreLabel;
+    
     //
     SKSpriteNode* sunNode;
     SKSpriteNode* moonNode;
@@ -128,7 +128,10 @@ int METERS_PER_PIXEL = 50;
         //[self createPauseButton];
         [self createPausedLabel];
         paused = false;
+        
+        
     }
+    
     return self;
 }
 

@@ -3,7 +3,7 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>obstacle2_obstacle</name>
-        <uniqueID>376512</uniqueID>
+        <uniqueID>786266</uniqueID>
         <xPosition>42.500000</xPosition>
         <yPosition>947.809021</yPosition>
         <zPosition>100.000000</zPosition>
@@ -13,7 +13,7 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>obstacle2_obstacle</name>
-        <uniqueID>970868</uniqueID>
+        <uniqueID>771148</uniqueID>
         <xPosition>42.500000</xPosition>
         <yPosition>70.031250</yPosition>
         <zPosition>100.000000</zPosition>
@@ -23,11 +23,41 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>obstacle1_obstacle</name>
-        <uniqueID>581112</uniqueID>
+        <uniqueID>510766</uniqueID>
         <xPosition>43.129272</xPosition>
         <yPosition>526.252991</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>3</motionType>
         <speedType>5</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle1_obstacle</name>
+        <uniqueID>482453</uniqueID>
+        <xPosition>789.299255</xPosition>
+        <yPosition>771.670349</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle1_obstacle</name>
+        <uniqueID>992872</uniqueID>
+        <xPosition>793.478943</xPosition>
+        <yPosition>296.613312</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle2_obstacle</name>
+        <uniqueID>405681</uniqueID>
+        <xPosition>1346.896973</xPosition>
+        <yPosition>539.431763</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
     </node>
 </worldnodes>

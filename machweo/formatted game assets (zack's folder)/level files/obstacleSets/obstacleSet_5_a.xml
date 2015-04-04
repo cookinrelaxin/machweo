@@ -3,19 +3,59 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>rotate_obstacle</name>
-        <uniqueID>581907</uniqueID>
+        <uniqueID>68982</uniqueID>
         <xPosition>214.000000</xPosition>
-        <yPosition>959.476990</yPosition>
+        <yPosition>35.080715</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>4</motionType>
-        <speedType>1</speedType>
+        <motionType>3</motionType>
+        <speedType>2</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>totem2_obstacle</name>
+        <uniqueID>679935</uniqueID>
+        <xPosition>418.852783</xPosition>
+        <yPosition>795.014465</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
         <name>rotate_obstacle</name>
-        <uniqueID>252303</uniqueID>
-        <xPosition>1166.861328</xPosition>
-        <yPosition>33.003677</yPosition>
+        <uniqueID>395098</uniqueID>
+        <xPosition>706.993530</xPosition>
+        <yPosition>17.527920</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>4</motionType>
+        <speedType>3</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>rotate_obstacle</name>
+        <uniqueID>783686</uniqueID>
+        <xPosition>1208.019775</xPosition>
+        <yPosition>-3.421745</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>3</motionType>
+        <speedType>2</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>totem_obstacle</name>
+        <uniqueID>251515</uniqueID>
+        <xPosition>1276.501221</xPosition>
+        <yPosition>795.014404</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>rotate_obstacle</name>
+        <uniqueID>790975</uniqueID>
+        <xPosition>1800.430908</xPosition>
+        <yPosition>6.835608</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>4</motionType>
         <speedType>3</speedType>

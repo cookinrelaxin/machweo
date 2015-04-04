@@ -13,7 +13,7 @@
 
 const int MAX_IN_USE_DECO_POOL_COUNT = 15;
 const int MAX_UNUSED_DECO_POOL_COUNT = 15;
-const int MAX_DIFFICULTY = 7;
+const int MAX_DIFFICULTY = 16;
 const int OBSTACLE_STADE_LENGTH = 150;
 const int DECORATION_STADE_LENGTH = 400;
 const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
@@ -269,6 +269,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         difficulty = MAX_DIFFICULTY;
     }
     return difficulty;
+    //return 9;
 }
 
 -(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{
