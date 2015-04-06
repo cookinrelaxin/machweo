@@ -124,6 +124,18 @@
 		78198D2E1ACF8B6B00EFC0CA /* rosemary_obstacle.png in Resources */ = {isa = PBXBuildFile; fileRef = 78198D261ACF8B6B00EFC0CA /* rosemary_obstacle.png */; };
 		78198D2F1ACF8B6B00EFC0CA /* spear_obstacle.png in Resources */ = {isa = PBXBuildFile; fileRef = 78198D271ACF8B6B00EFC0CA /* spear_obstacle.png */; };
 		78198D301ACF8B6B00EFC0CA /* spearsmall_obstacle.png in Resources */ = {isa = PBXBuildFile; fileRef = 78198D281ACF8B6B00EFC0CA /* spearsmall_obstacle.png */; };
+		782060CC1AD2339600B93536 /* 154794__felix-blume__a-flag-flapping-in-the-wind-at-the-small-village-of-assem-souk-in-the-high-atlas-morocco.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060C01AD2339600B93536 /* 154794__felix-blume__a-flag-flapping-in-the-wind-at-the-small-village-of-assem-souk-in-the-high-atlas-morocco.mp3 */; };
+		782060CD1AD2339600B93536 /* button.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060C11AD2339600B93536 /* button.mp3 */; };
+		782060CE1AD2339600B93536 /* button2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060C21AD2339600B93536 /* button2.mp3 */; };
+		782060CF1AD2339600B93536 /* Desert Howling Wind.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060C31AD2339600B93536 /* Desert Howling Wind.mp3 */; };
+		782060D01AD2339600B93536 /* jump_backflip.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060C41AD2339600B93536 /* jump_backflip.mp3 */; };
+		782060D11AD2339600B93536 /* linesound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060C51AD2339600B93536 /* linesound.mp3 */; };
+		782060D21AD2339600B93536 /* opening.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060C61AD2339600B93536 /* opening.mp3 */; };
+		782060D31AD2339600B93536 /* projectordowntest-1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060C71AD2339600B93536 /* projectordowntest-1.mp3 */; };
+		782060D41AD2339600B93536 /* projectoruptest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060C81AD2339600B93536 /* projectoruptest.mp3 */; };
+		782060D51AD2339600B93536 /* Swoosh 1-SoundBible.com-231145780.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060C91AD2339600B93536 /* Swoosh 1-SoundBible.com-231145780.mp3 */; };
+		782060D61AD2339600B93536 /* treegrow.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060CA1AD2339600B93536 /* treegrow.mp3 */; };
+		782060D71AD2339600B93536 /* treegrow2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 782060CB1AD2339600B93536 /* treegrow2.mp3 */; };
 		782AE7781A74B89900FF4225 /* cloud2opaque_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6E71A74B89900FF4225 /* cloud2opaque_decoration.png */; };
 		782AE7861A74B89900FF4225 /* cloudopaque3_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6F51A74B89900FF4225 /* cloudopaque3_decoration.png */; };
 		782AE7881A74B89900FF4225 /* cloudopaque4_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AE6F71A74B89900FF4225 /* cloudopaque4_decoration.png */; };
@@ -183,6 +195,7 @@
 		78344E511A97E9F700F9A5DF /* kilimanjaro_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 78344E501A97E9F700F9A5DF /* kilimanjaro_decoration.png */; };
 		78395C901ACA416E00FB63D2 /* supertrack3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 78395C8F1ACA416E00FB63D2 /* supertrack3.mp3 */; };
 		784329421AC79D470099401C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 784329411AC79D470099401C /* StoreKit.framework */; };
+		784CDC371AD2074E0066750B /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 784CDC361AD2074E0066750B /* iAd.framework */; };
 		7852BC6D1A71FF6D0038447B /* gameModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7852BC6B1A71FF6D0038447B /* gameModel.xcdatamodeld */; };
 		785A53E31A9597A400ED2E37 /* rock1_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DD1A9597A400ED2E37 /* rock1_decoration.png */; };
 		785A53E51A9597A400ED2E37 /* rock2_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 785A53DF1A9597A400ED2E37 /* rock2_decoration.png */; };
@@ -426,6 +439,18 @@
 		78198D261ACF8B6B00EFC0CA /* rosemary_obstacle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rosemary_obstacle.png; sourceTree = "<group>"; };
 		78198D271ACF8B6B00EFC0CA /* spear_obstacle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spear_obstacle.png; sourceTree = "<group>"; };
 		78198D281ACF8B6B00EFC0CA /* spearsmall_obstacle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spearsmall_obstacle.png; sourceTree = "<group>"; };
+		782060C01AD2339600B93536 /* 154794__felix-blume__a-flag-flapping-in-the-wind-at-the-small-village-of-assem-souk-in-the-high-atlas-morocco.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "154794__felix-blume__a-flag-flapping-in-the-wind-at-the-small-village-of-assem-souk-in-the-high-atlas-morocco.mp3"; sourceTree = "<group>"; };
+		782060C11AD2339600B93536 /* button.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = button.mp3; sourceTree = "<group>"; };
+		782060C21AD2339600B93536 /* button2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = button2.mp3; sourceTree = "<group>"; };
+		782060C31AD2339600B93536 /* Desert Howling Wind.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Desert Howling Wind.mp3"; sourceTree = "<group>"; };
+		782060C41AD2339600B93536 /* jump_backflip.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = jump_backflip.mp3; sourceTree = "<group>"; };
+		782060C51AD2339600B93536 /* linesound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = linesound.mp3; sourceTree = "<group>"; };
+		782060C61AD2339600B93536 /* opening.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = opening.mp3; sourceTree = "<group>"; };
+		782060C71AD2339600B93536 /* projectordowntest-1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "projectordowntest-1.mp3"; sourceTree = "<group>"; };
+		782060C81AD2339600B93536 /* projectoruptest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = projectoruptest.mp3; sourceTree = "<group>"; };
+		782060C91AD2339600B93536 /* Swoosh 1-SoundBible.com-231145780.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Swoosh 1-SoundBible.com-231145780.mp3"; sourceTree = "<group>"; };
+		782060CA1AD2339600B93536 /* treegrow.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = treegrow.mp3; sourceTree = "<group>"; };
+		782060CB1AD2339600B93536 /* treegrow2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = treegrow2.mp3; sourceTree = "<group>"; };
 		782AE6E71A74B89900FF4225 /* cloud2opaque_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloud2opaque_decoration.png; sourceTree = "<group>"; };
 		782AE6F51A74B89900FF4225 /* cloudopaque3_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudopaque3_decoration.png; sourceTree = "<group>"; };
 		782AE6F71A74B89900FF4225 /* cloudopaque4_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cloudopaque4_decoration.png; sourceTree = "<group>"; };
@@ -485,6 +510,7 @@
 		78344E501A97E9F700F9A5DF /* kilimanjaro_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = kilimanjaro_decoration.png; sourceTree = "<group>"; };
 		78395C8F1ACA416E00FB63D2 /* supertrack3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = supertrack3.mp3; sourceTree = "<group>"; };
 		784329411AC79D470099401C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		784CDC361AD2074E0066750B /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		7852BC6C1A71FF6D0038447B /* gameModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = gameModel.xcdatamodel; sourceTree = "<group>"; };
 		785A53DD1A9597A400ED2E37 /* rock1_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock1_decoration.png; sourceTree = "<group>"; };
 		785A53DF1A9597A400ED2E37 /* rock2_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rock2_decoration.png; sourceTree = "<group>"; };
@@ -601,6 +627,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				784CDC371AD2074E0066750B /* iAd.framework in Frameworks */,
 				789DA2CB1AC24BC200DBD7F3 /* GameKit.framework in Frameworks */,
 				784329421AC79D470099401C /* StoreKit.framework in Frameworks */,
 			);
@@ -619,6 +646,7 @@
 		659B21C11A5E1C1300885C04 = {
 			isa = PBXGroup;
 			children = (
+				784CDC361AD2074E0066750B /* iAd.framework */,
 				784329411AC79D470099401C /* StoreKit.framework */,
 				789DA2CA1AC24BC200DBD7F3 /* GameKit.framework */,
 				659B21CC1A5E1C1300885C04 /* machweo */,
@@ -682,6 +710,25 @@
 				659B21ED1A5E1C1400885C04 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		782060BF1AD2339600B93536 /* soundtrackmp3 */ = {
+			isa = PBXGroup;
+			children = (
+				782060C01AD2339600B93536 /* 154794__felix-blume__a-flag-flapping-in-the-wind-at-the-small-village-of-assem-souk-in-the-high-atlas-morocco.mp3 */,
+				782060C11AD2339600B93536 /* button.mp3 */,
+				782060C21AD2339600B93536 /* button2.mp3 */,
+				782060C31AD2339600B93536 /* Desert Howling Wind.mp3 */,
+				782060C41AD2339600B93536 /* jump_backflip.mp3 */,
+				782060C51AD2339600B93536 /* linesound.mp3 */,
+				782060C61AD2339600B93536 /* opening.mp3 */,
+				782060C71AD2339600B93536 /* projectordowntest-1.mp3 */,
+				782060C81AD2339600B93536 /* projectoruptest.mp3 */,
+				782060C91AD2339600B93536 /* Swoosh 1-SoundBible.com-231145780.mp3 */,
+				782060CA1AD2339600B93536 /* treegrow.mp3 */,
+				782060CB1AD2339600B93536 /* treegrow2.mp3 */,
+			);
+			path = soundtrackmp3;
 			sourceTree = "<group>";
 		};
 		782AE6C71A74B89900FF4225 /* formatted game assets (zack's folder) */ = {
@@ -1166,18 +1213,11 @@
 		78F03B0F1AC8CE4A00189EA4 /* sounds */ = {
 			isa = PBXGroup;
 			children = (
-				78F03B101AC8CE4A00189EA4 /* button sounds */,
+				782060BF1AD2339600B93536 /* soundtrackmp3 */,
 				78F03B111AC8CE4A00189EA4 /* music */,
 				78F03B131AC8CE4A00189EA4 /* nature sounds */,
 			);
 			path = sounds;
-			sourceTree = "<group>";
-		};
-		78F03B101AC8CE4A00189EA4 /* button sounds */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "button sounds";
 			sourceTree = "<group>";
 		};
 		78F03B111AC8CE4A00189EA4 /* music */ = {
@@ -1328,6 +1368,7 @@
 				78D7246D1AAD3F2A008C559E /* tenggriPS_04.png in Resources */,
 				78952A701AA2CB0000A065C2 /* decorationSet_savanna_day_b.xml in Resources */,
 				78198D061ACF8AB200EFC0CA /* obstacleSet_10_e.xml in Resources */,
+				782060D31AD2339600B93536 /* projectordowntest-1.mp3 in Resources */,
 				78952A751AA2CB0000A065C2 /* decorationSet_savanna_day_g.xml in Resources */,
 				78D7246C1AAD3F2A008C559E /* tenggriPS_03.png in Resources */,
 				782AE7B41A74B89900FF4225 /* totem2_obstacle.png in Resources */,
@@ -1391,6 +1432,7 @@
 				78395C901ACA416E00FB63D2 /* supertrack3.mp3 in Resources */,
 				78198CFD1ACF8AB200EFC0CA /* obstacleSet_9_a.xml in Resources */,
 				78198D1E1ACF8AB200EFC0CA /* obstacleSet_16_b.xml in Resources */,
+				782060CE1AD2339600B93536 /* button2.mp3 in Resources */,
 				78952A6F1AA2CB0000A065C2 /* decorationSet_savanna_day_a.xml in Resources */,
 				78198CCA1ACF8AB200EFC0CA /* obstacleSet_2_a.xml in Resources */,
 				78198D141ACF8AB200EFC0CA /* obstacleSet_13_a.xml in Resources */,
@@ -1420,6 +1462,7 @@
 				78198CD01ACF8AB200EFC0CA /* obstacleSet_3_a.xml in Resources */,
 				78E9590A1AAE81E700FA51EE /* junglebush7_decoration.png in Resources */,
 				78198CD11ACF8AB200EFC0CA /* obstacleSet_3_b.xml in Resources */,
+				782060D21AD2339600B93536 /* opening.mp3 in Resources */,
 				78198CD31ACF8AB200EFC0CA /* obstacleSet_3_d.xml in Resources */,
 				782AE7E51A74B89900FF4225 /* tree3_decoration.png in Resources */,
 				782AE7A91A74B89900FF4225 /* obstacle2_obstacle.png in Resources */,
@@ -1431,10 +1474,12 @@
 				782AE7A71A74B89900FF4225 /* obstacle1_obstacle.png in Resources */,
 				78198CCC1ACF8AB200EFC0CA /* obstacleSet_2_c.xml in Resources */,
 				78BD8DE21ACD05A600088E97 /* retrybuttonpushed.png in Resources */,
+				782060CF1AD2339600B93536 /* Desert Howling Wind.mp3 in Resources */,
 				78198CE51ACF8AB200EFC0CA /* obstacleSet_5_f.xml in Resources */,
 				78198CE11ACF8AB200EFC0CA /* obstacleSet_5_b.xml in Resources */,
 				78337A4B1AA3F727008756CB /* dune9_decoration.png in Resources */,
 				782AE7DD1A74B89900FF4225 /* redtree3_decoration.png in Resources */,
+				782060D61AD2339600B93536 /* treegrow.mp3 in Resources */,
 				78198CE41ACF8AB200EFC0CA /* obstacleSet_5_e.xml in Resources */,
 				785A53E51A9597A400ED2E37 /* rock2_decoration.png in Resources */,
 				78198CE71ACF8AB200EFC0CA /* obstacleSet_5_h.xml in Resources */,
@@ -1470,17 +1515,20 @@
 				7877DCD81AB13AB00050F132 /* runningDude.atlas in Resources */,
 				78337A511AA3F727008756CB /* shrub3_decoration.png in Resources */,
 				78198CFF1ACF8AB200EFC0CA /* obstacleSet_9_c.xml in Resources */,
+				782060D01AD2339600B93536 /* jump_backflip.mp3 in Resources */,
 				78198CEF1ACF8AB200EFC0CA /* obstacleSet_6_h.xml in Resources */,
 				78198D2E1ACF8B6B00EFC0CA /* rosemary_obstacle.png in Resources */,
 				78198D1C1ACF8AB200EFC0CA /* obstacleSet_14_e.xml in Resources */,
 				78198CE01ACF8AB200EFC0CA /* obstacleSet_5_a.xml in Resources */,
 				78E959241AAE81E700FA51EE /* jungletree14_decoration.png in Resources */,
+				782060D41AD2339600B93536 /* projectoruptest.mp3 in Resources */,
 				782AE7E81A74B89900FF4225 /* tree_decoration.png in Resources */,
 				78198D001ACF8AB200EFC0CA /* obstacleSet_9_d.xml in Resources */,
 				78198CDE1ACF8AB200EFC0CA /* obstacleSet_4_g.xml in Resources */,
 				782AE7941A74B89900FF4225 /* blackgrass_decoration.png in Resources */,
 				780EFEF51AC90D250041BFDC /* jungle.mp3 in Resources */,
 				78198D1B1ACF8AB200EFC0CA /* obstacleSet_14_d.xml in Resources */,
+				782060D11AD2339600B93536 /* linesound.mp3 in Resources */,
 				782AE7781A74B89900FF4225 /* cloud2opaque_decoration.png in Resources */,
 				782E52301AA7F9A3004FE1F7 /* decorationSet_jungle_day_d.xml in Resources */,
 				78BD8DD91ACD05A600088E97 /* adbutton.png in Resources */,
@@ -1496,6 +1544,7 @@
 				78198CE81ACF8AB200EFC0CA /* obstacleSet_6_a.xml in Resources */,
 				78E959261AAE81E700FA51EE /* jungletree2_decoration.png in Resources */,
 				78E959071AAE81E700FA51EE /* junglebush4_decoration.png in Resources */,
+				782060CD1AD2339600B93536 /* button.mp3 in Resources */,
 				78198CE91ACF8AB200EFC0CA /* obstacleSet_6_b.xml in Resources */,
 				78198D021ACF8AB200EFC0CA /* obstacleSet_10_a.xml in Resources */,
 				78344E511A97E9F700F9A5DF /* kilimanjaro_decoration.png in Resources */,
@@ -1529,6 +1578,7 @@
 				78198CC91ACF8AB200EFC0CA /* obstacleSet_1_c.xml in Resources */,
 				78D7246A1AAD3F2A008C559E /* tenggriPS_01.png in Resources */,
 				78198CEC1ACF8AB200EFC0CA /* obstacleSet_6_e.xml in Resources */,
+				782060D51AD2339600B93536 /* Swoosh 1-SoundBible.com-231145780.mp3 in Resources */,
 				78198CFA1ACF8AB200EFC0CA /* obstacleSet_8_c.xml in Resources */,
 				78337A571AA3F727008756CB /* shrub6_decoration.png in Resources */,
 				78C0F8AC1A92D47500382159 /* Skranji-Bold.ttf in Resources */,
@@ -1546,6 +1596,7 @@
 				782E522E1AA7F9A3004FE1F7 /* decorationSet_jungle_day_b.xml in Resources */,
 				78337A5B1AA3F727008756CB /* shrub8_decoration.png in Resources */,
 				78198CCF1ACF8AB200EFC0CA /* obstacleSet_2_f.xml in Resources */,
+				782060CC1AD2339600B93536 /* 154794__felix-blume__a-flag-flapping-in-the-wind-at-the-small-village-of-assem-souk-in-the-high-atlas-morocco.mp3 in Resources */,
 				782AE7891A74B89900FF4225 /* cloudopaque_decoration.png in Resources */,
 				78198D031ACF8AB200EFC0CA /* obstacleSet_10_b.xml in Resources */,
 				78E9590F1AAE81E700FA51EE /* junglegrass4_decoration.png in Resources */,
@@ -1553,6 +1604,7 @@
 				782E522D1AA7F9A3004FE1F7 /* decorationSet_jungle_day_a.xml in Resources */,
 				783379E01AA3F6A0008756CB /* decorationSet_sahara_day_b.xml in Resources */,
 				78198D0B1ACF8AB200EFC0CA /* obstacleSet_11_c.xml in Resources */,
+				782060D71AD2339600B93536 /* treegrow2.mp3 in Resources */,
 				78198D121ACF8AB200EFC0CA /* obstacleSet_12_e.xml in Resources */,
 				78198D0C1ACF8AB200EFC0CA /* obstacleSet_11_d.xml in Resources */,
 				78E959091AAE81E700FA51EE /* junglebush6_decoration.png in Resources */,

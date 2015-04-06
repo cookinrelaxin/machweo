@@ -56,6 +56,9 @@
                                         <variation key="heightClass=compact-widthClass=regular">
                                             <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                         </variation>
+                                        <connections>
+                                            <action selector="removeAds:" destination="YbM-qg-g2k" eventType="touchUpInside" id="lEh-44-lrG"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" verticalCompressionResistancePriority="747" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZm-1o-77c" userLabel="leaderboards">
                                         <rect key="frame" x="50" y="455" width="120" height="30"/>

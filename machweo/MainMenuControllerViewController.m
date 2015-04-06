@@ -19,6 +19,9 @@
 #import "PopupMessage.h"
 #import "SoundManager.h"
 
+@implementation MainMenuControllerViewController (iAdAdditions)
+@end
+
 @implementation MainMenuControllerViewController{
     BOOL gameLoaded;
     BOOL observersLoaded;
@@ -28,10 +31,11 @@
     BOOL messageBeingPresented;
     BOOL menuSetUp;
     Constants* constants;
+    ADInterstitialAd* interstitial;
+    BOOL diedFirstTime;
 }
 - (BOOL)prefersStatusBarHidden
 {
-
     return YES;
 }
 - (void)viewDidLoad
@@ -40,16 +44,40 @@
     if (!gameLoaded) {
         constants = [Constants sharedInstance];
         popupQueue = [NSMutableArray array];
-      //  NSLog(@"gameLoaded = true");
         gameLoaded = true;
         _gameSceneView.ignoresSiblingOrder = YES;
-       // _gameSceneView.asynchronous = NO;
-       // _gameSceneView.shouldCullNonVisibleNodes = NO;
-       // _gameSceneView.showsFPS = YES;
         _menuView.hidden = true;
         [self setUpObservers];
         [self initGame];
+        interstitial = [[ADInterstitialAd alloc] init];
+        interstitial.delegate = self;
     }
+}
+
+-(void)interstitialAd:(ADInterstitialAd *)interstitialAd didFailWithError:(NSError *)error{
+    NSLog(@"interstitialAd failed");
+    interstitial = [[ADInterstitialAd alloc] init];
+    interstitial.delegate = self;
+}
+
+-(void)interstitialAdActionDidFinish:(ADInterstitialAd *)interstitialAd{
+    NSLog(@"interstitialAd finished");
+    interstitial = [[ADInterstitialAd alloc] init];
+    interstitial.delegate = self;
+
+}
+
+-(void)interstitialAdDidLoad:(ADInterstitialAd *)interstitialAd{
+    NSLog(@"interstitialAd loaded");
+}
+
+-(void)interstitialAdDidUnload:(ADInterstitialAd *)interstitialAd{
+    NSLog(@"interstitialAd unloaded");
+}
+
+-(void)interstitialAdWillLoad:(ADInterstitialAd *)interstitialAd{
+    NSLog(@"interstitialAd will load");
+
 }
 
 -(void)viewDidLayoutSubviews{
@@ -57,14 +85,10 @@
     for (UIButton* button in _buttons) {
         UIFont *currentFont = button.titleLabel.font;
         button.titleLabel.font = [UIFont fontWithName:fontName size:currentFont.pointSize];
-        //NSLog(@"button.titleLabel.font: %@", button.titleLabel.font);
     }
     for (UILabel* label in _labels) {
         label.font = [UIFont fontWithName:fontName size:label.font.pointSize];
-        //NSLog(@"label.font.pointsize: %f", label.font.pointSize);
     }
-    //_scoreTitleLabel.text = @"New highscore:";
-    
 }
 
 
@@ -84,20 +108,9 @@
      {
        // NSLog(@"lose game");
          NSUInteger score = ((NSNumber*)[[notification userInfo] valueForKey:@"distance"]).integerValue;
-         [self showMenuWithScore:score];
+         [self showMenuWithScore:score withAd:true];
 
      }];
-    
-//    [center addObserverForName:@"pause"
-//                        object:nil
-//                         queue:nil
-//                    usingBlock:^(NSNotification *notification)
-//     {
-//         
-//       // NSLog(@"pause and go to menu");
-//         //NSUInteger score = ((NSNumber*)[[notification userInfo] valueForKey:@"distance"]).integerValue;
-//         [self showMenuWithScore:0];
-//     }];
 
     [center addObserverForName:@"add popup"
                         object:nil
@@ -155,9 +168,7 @@
 -(void)removeCurrentMessage{
     [UIView animateWithDuration:0.5
          animations:^{
-             //[popupView.textLabel hi];
              popupView.textLabel.hidden = true;
-             //[popupQueue removeObject:<#(id)#>]
              popupView.frame = CGRectMake(popupView.frame.origin.x, popupView.frame.origin.y, popupView.frame.size.width, 0);
          }
          completion:^(BOOL finished){
@@ -171,29 +182,34 @@
                  messageBeingPresented = false;
                  [[NSNotificationCenter defaultCenter] postNotificationName:@"unpause" object:nil];
              }
-             
     }];
 }
 
--(void)showMenuWithScore:(NSUInteger)score{
+-(void)showMenuWithScore:(NSUInteger)score withAd:(BOOL)withAds{
+    if (diedFirstTime) {
+        if (arc4random_uniform(2) == 0) {
+            if (interstitial.loaded) {
+                [interstitial presentFromViewController:self];
+            }
+        }
+    }
+    else{
+        diedFirstTime = true;
+    }
+
     _menuView.hidden = false;
     _scoreLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)score];
-    //GKHelper *gkhelper = [GKHelper sharedInstance];
-    //if (gkhelper.gcEnabled) {
-    //[gkhelper reportScore:score];
-    //}
-        //NSLog(@"_menuView: %@", _menuView);
-        [UIView animateWithDuration:0.5
-                         animations:^{
-                             _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y + _menuView.frame.size.height + 10, _menuView.frame.size.width, _menuView.frame.size.height);
-                         }
-                         completion:^(BOOL finished){
-                             [UIView animateWithDuration:0.1
-                                              animations:^{
-                                                  _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - 10, _menuView.frame.size.width, _menuView.frame.size.height);
-                                              }];
-                         }
-         ];
+    [UIView animateWithDuration:0.5
+                     animations:^{
+                         _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y + _menuView.frame.size.height + 10, _menuView.frame.size.width, _menuView.frame.size.height);
+                     }
+                     completion:^(BOOL finished){
+                         [UIView animateWithDuration:0.1
+                                          animations:^{
+                                              _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - 10, _menuView.frame.size.width, _menuView.frame.size.height);
+                                          }];
+                     }
+     ];
 }
 
 -(void)closeMenu{
@@ -238,30 +254,36 @@
     //NSLog(@"popup height: %f", height);
 
     return CGSizeMake(width, height);
-
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    
 }
 - (IBAction)closeMenuPressed:(id)sender {
    // NSLog(@"closeMenuPressed");
+    [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"button2.mp3" waitForCompletion:NO]];
     [self closeMenu];
 }
 - (IBAction)leaderboardsPressed:(id)sender {
    // NSLog(@"leaderboardsPressed");
+    [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"button2.mp3" waitForCompletion:NO]];
     [[GKHelper sharedInstance] showGameCenter];
 
 }
 - (IBAction)sharePressed:(id)sender {
    // NSLog(@"facebookPressed");
+    [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"button2.mp3" waitForCompletion:NO]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/machweogame"]];
 }
 - (IBAction)ratePressed:(id)sender {
+    // NSLog(@"ratePressed");
+    [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"button2.mp3" waitForCompletion:NO]];
     //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=<YOURAPPID>&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id956041188"]];
+}
+- (IBAction)removeAds:(id)sender {
+    [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"button2.mp3" waitForCompletion:NO]];
 }
 
 
