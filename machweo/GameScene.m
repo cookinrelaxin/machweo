@@ -364,6 +364,7 @@ int METERS_PER_PIXEL = 50;
         previousPoint = currentPoint = positionInSelf;
     }
     Terrain *terrain = [[Terrain alloc] initWithSceneSize:self.size];
+    //[terrain runAction:[SKAction repeatActionForever:[_constants.SOUND_ACTIONS valueForKey:@"line.mp3"]] withKey:@"lineSound"];
     [terrainArray addObject:terrain];
     [_terrain addChild:terrain];
     if (terrainArray.count > 2) {
@@ -422,6 +423,7 @@ int METERS_PER_PIXEL = 50;
 {
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
         Terrain* lastTer = [terrainArray lastObject];
+        //[lastTer removeActionForKey:@"lineSound"];
         [lastTer correctSpriteZsBeforeVertex:currentPoint againstSlope:NO];
         lastTer.complete = true;
         player.touchesEnded = true;
@@ -544,6 +546,7 @@ int METERS_PER_PIXEL = 50;
         }
         if (player_created && !gameOver) {
             if (in_game) {
+                [self checkForCloseCall];
                 [self updateDistance];
                 [self checkForLostGame];
             }
@@ -562,6 +565,10 @@ int METERS_PER_PIXEL = 50;
 -(void)checkForNewAnimationState{
     if ((player.roughlyOnLine || player.onGround) && [player actionForKey:@"midAirMaasai"]) {
         [player removeActionForKey:@"midAirMaasai"];
+//        NSLog(@"[player actionForKey:flagFlap]: %@", [player actionForKey:@"flagFlap"]);
+        //SKAction* flagFlap = [player actionForKey:@"flagFlap"];
+        
+        [player removeActionForKey:@"flagFlap"];
         [player runAction:[SKAction repeatActionForever:
                            [SKAction animateWithTextures:animationComponent.runningFrames
                                             timePerFrame:0.04f
@@ -580,8 +587,10 @@ int METERS_PER_PIXEL = 50;
                                                          resize:NO
                                                         restore:YES]];
         [player runAction:[SKAction sequence:@[jumpAction, midAirAction]] withKey:@"jumpingMaasai"];
+        //[player runAction:[_constants.SOUND_ACTIONS valueForKey:@"jump.mp3"]];
     }
     else if([player actionForKey:@"jumpingMaasai"]){
+        
         [player removeActionForKey:@"jumpingMaasai"];
         SKAction* midAirAction = [SKAction repeatActionForever:
         [SKAction animateWithTextures:animationComponent.midairFrames
@@ -589,6 +598,9 @@ int METERS_PER_PIXEL = 50;
                               resize:NO
                              restore:YES]];
         [player runAction:midAirAction withKey:@"midAirMaasai"];
+        //[player runAction:[_constants.SOUND_ACTIONS valueForKey:@"flagFlap.mp3"] withKey:@"flagFlap"];
+        //NSLog(@"[player actionForKey:flagFlap]: %@", [player actionForKey:@"flagFlap"]);
+
     }
 }
 
@@ -604,6 +616,34 @@ int METERS_PER_PIXEL = 50;
 -(void)checkForLostGame{
     if (player.physicsBody.allContactedBodies.count > 0) {
         [self loseGame];
+    }
+    else{
+        if (player.shouldWoosh && !player.wooshing) {
+            player.wooshing = true;
+            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^(void){
+                [player runAction:[_constants.SOUND_ACTIONS valueForKey:@"swoosh.mp3"]];
+            });
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                player.wooshing = false;
+                player.shouldWoosh = false;
+            });
+            
+        }
+    }
+}
+
+-(void)checkForCloseCall{
+    if (!player.wooshing) {
+        CGPoint playerPositionInObstacles = [_obstacles convertPoint:player.position fromNode:self];
+        float leftSideOfPlayerInObstacles = playerPositionInObstacles.x - (player.size.width / 2);
+        CGPoint playerOriginInObstacles = [_obstacles convertPoint:player.frame.origin fromNode:self];
+        CGRect playerFrameInObstacles = CGRectMake(playerOriginInObstacles.x, playerOriginInObstacles.y, player.size.width, player.size.height);
+        for (Obstacle* obs in _obstacles.children) {
+            if ((leftSideOfPlayerInObstacles > obs.position.x) && CGRectIntersectsRect(obs.frame, playerFrameInObstacles)) {
+                player.shouldWoosh = true;
+                return;
+            }
+        }
     }
 }
 
@@ -622,6 +662,8 @@ int METERS_PER_PIXEL = 50;
 -(void)loseGame{
     gameOver = true;
     [player runAction:[SKAction fadeOutWithDuration:1]];
+    [player runAction:[_constants.SOUND_ACTIONS valueForKey:@"treegrow2.mp3"]];
+    [soundManager stopMusic];
     //pauseButton.hidden = true;
     //[self blurScreen];
     distanceLabel.hidden = true;
@@ -713,7 +755,8 @@ int METERS_PER_PIXEL = 50;
     distanceLabel.text = @"0";
     [worldStreamer resetWithFinalDistance:distance_traveled];
     distance_traveled = 0;
-    //[self reappearButtons];
+    [soundManager startMusic];
+
 }
 
 -(void)resetCairns{

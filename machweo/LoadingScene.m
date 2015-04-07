@@ -17,36 +17,42 @@
     CALayer *_logoAnimationLayer;
     Constants* constants;
     Player* player;
+    
+    SKSpriteNode* logo;
 }
 
 -(instancetype)initWithSize:(CGSize)size{
     if (self = [super initWithSize:size]){
         constants = [Constants sharedInstance];
-        player = [Player player];
-        [self addChild:player];
-        player.position = CGPointMake(0, (player.size.height / 2) - (player.size.height / 6));
-        [player runAction:[SKAction repeatActionForever:
-                           [SKAction animateWithTextures:[AnimationComponent sharedInstance].runningFrames
-                                            timePerFrame:0.04f
-                                                  resize:NO
-                                                 restore:YES]] withKey:@"runningMaasai"];
-        self.backgroundColor = constants.LOGO_LABEL_FONT_COLOR;
+//        player = [Player player];
+//        [self addChild:player];
+//        player.position = CGPointMake(0, (player.size.height / 2) - (player.size.height / 6));
+//        [player runAction:[SKAction repeatActionForever:
+//                           [SKAction animateWithTextures:[AnimationComponent sharedInstance].runningFrames
+//                                            timePerFrame:0.04f
+//                                                  resize:NO
+//                                                 restore:YES]] withKey:@"runningMaasai"];
+        self.backgroundColor = constants.LOADING_SCREEN_BACKGROUND_COLOR;
+        logo = [SKSpriteNode spriteNodeWithImageNamed:@"logo"];
+        logo.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        logo.size = CGSizeMake(logo.size.width * constants.SCALE_COEFFICIENT.dx, logo.size.height * constants.SCALE_COEFFICIENT.dx);
+        [self addChild:logo];
     }
     return self;
 }
 -(void)update:(NSTimeInterval)currentTime{
-    player.position = CGPointMake(player.position.x + 3, player.position.y);
-    if ((player.position.x + (player.size.width / 2)) > self.size.width) {
-        player.position = CGPointMake(-player.size.width / 2, player.position.y);
-    }
+//    player.position = CGPointMake(player.position.x + 3, player.position.y);
+//    if ((player.position.x + (player.size.width / 2)) > self.size.width) {
+//        player.position = CGPointMake(-player.size.width / 2, player.position.y);
+//    }
 }
 
 -(void)didMoveToView:(SKView *)view{
     //self.view.layer.zPosition = 10;
     //player.zPosition = 100;
 
-    [self setupLogo];
-    [self drawPath];
+    //[self setupLogo];
+    //[self drawPath];
    // NSLog(@"self.view.layer.zPosition: %f", self.view.layer.zPosition);
    // NSLog(@"_logoAnimationLayer.zPosition: %f", _logoAnimationLayer.zPosition);
 

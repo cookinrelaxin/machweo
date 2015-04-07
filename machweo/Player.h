@@ -23,6 +23,8 @@
 @property (nonatomic) BOOL endOfLine;
 @property (nonatomic) BOOL onGround;
 @property (nonatomic) float currentRotationSpeed;
+@property (nonatomic) BOOL shouldWoosh;
+@property (nonatomic) BOOL wooshing;
 
 +(instancetype)player;
 -(void)updateEdges;

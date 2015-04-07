@@ -7,6 +7,7 @@
 //
 
 #import "SoundManager.h"
+#import <SpriteKit/SpriteKit.h>
 
 float maxVol_day_savanna = .05;
 float maxVol_day_sahara = .025;
@@ -14,15 +15,17 @@ float maxVol_day_jungle = .08;
 float maxVol_night_savanna = .05;
 float maxVol_night_sahara = .025;
 float maxVol_night_jungle = .08;
-
-float maxVol_music = .8;
+float maxVol_music = .6;
 
 @implementation SoundManager{
     Constants* constants;
     Biome currentBiome;
+    
     BOOL firstNaturePlayed;
     BOOL isDay;
     BOOL muted;
+    
+    BOOL musicStopped;
 }
 
 -(instancetype)initTracks{
@@ -44,12 +47,49 @@ float maxVol_music = .8;
         _savannaTrack.volume = maxVol_music;
         [_savannaTrack prepareToPlay];
         [_savannaTrack play];
+        
+        [self preloadSounds];
+
     }
     return self;
 }
+
+-(void)preloadSounds{
+    [constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"button2" andVolume:1] forKey:@"button2.mp3"];
+    //[constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"jump" andVolume:.5] forKey:@"jump.mp3"];
+    [constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"swoosh" andVolume:1] forKey:@"swoosh.mp3"];
+    [constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"projectorDown" andVolume:1] forKey:@"projectorDown.mp3"];
+    [constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"projectorUp" andVolume:1] forKey:@"projectorUp.mp3"];
+    [constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"treegrow2" andVolume:.5] forKey:@"treegrow2.mp3"];
+
+    //[constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"flagFlap" andVolume:1] forKey:@"flagFlap.mp3"];
+    //[constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"line" andVolume:.1] forKey:@"line.mp3"];
+}
+
+-(SKAction*)getSoundActionForName:(NSString*)name andVolume:(float)volume{
+    NSError *error;
+    NSURL *soundURL = [[NSBundle mainBundle] URLForResource:name withExtension:@"mp3"];
+    AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithContentsOfURL:soundURL error:&error];
+    [player setVolume:volume];
+    [player prepareToPlay];
+    SKAction* playAction = [SKAction runBlock:^{
+        [player play];
+    }];
+    return playAction;
+}
+
 -(void)startSounds{
-    [_dayTrack play];
+    [self startMusic];
+    [self startNatureSounds];
+}
+
+-(void)startNatureSounds{
     [_nightTrack play];
+    [_dayTrack play];
+}
+
+-(void)startMusic{
+    musicStopped = false;
     [_savannaTrack play];
 }
 
@@ -202,18 +242,27 @@ float maxVol_music = .8;
         muted = false;
         [_dayTrack play];
         [_nightTrack play];
-        [_savannaTrack play];
+        if (!musicStopped) {
+            [_savannaTrack play];
+        }
     }
     else{
         muted = true;
         [_dayTrack pause];
         [_nightTrack pause];
-        [_savannaTrack pause];
+        if (!musicStopped) {
+            [_savannaTrack pause];
+        }
     }
 }
 
 -(void)restoreSounds{
     [self mute];
+}
+-(void)stopMusic{
+    musicStopped = true;
+    [_savannaTrack pause];
+    _savannaTrack.currentTime = 0;
 }
 
 + (instancetype)sharedInstance

@@ -24,5 +24,7 @@
 -(void)adjustNatureVolumeToBiome:(Biome)biome;
 -(void)mute;
 -(void)restoreSounds;
+-(void)startMusic;
+-(void)stopMusic;
 
 @end

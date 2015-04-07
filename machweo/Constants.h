@@ -80,6 +80,7 @@ typedef enum Biomes
 @property (readonly, nonatomic) NSString* DISTANCE_LABEL_FONT_NAME;
 @property (readonly, nonatomic) float LOADING_LABEL_FONT_SIZE;
 @property (readonly, nonatomic) UIColor* LOADING_LABEL_FONT_COLOR;
+@property (readonly, nonatomic) UIColor* LOADING_SCREEN_BACKGROUND_COLOR;
 @property (readonly, nonatomic) NSString* LOADING_LABEL_FONT_NAME;
 @property (readonly, nonatomic) float PAUSED_LABEL_FONT_SIZE;
 @property (readonly, nonatomic) float LOGO_LABEL_FONT_SIZE;
@@ -92,6 +93,7 @@ typedef enum Biomes
 @property(nonatomic) NSMutableDictionary* TEXTURE_DICT;
 @property(nonatomic) NSMutableDictionary* SKY_DICT;
 @property(nonatomic) NSMutableDictionary* OBSTACLE_POOL;
+@property(nonatomic) NSMutableDictionary* SOUND_ACTIONS;
 @property(nonatomic) NSMutableArray* TERRAIN_ARRAY;
 @property(nonatomic) BOOL jungle_textures_loaded;
 @property(nonatomic) BOOL savanna_textures_loaded;

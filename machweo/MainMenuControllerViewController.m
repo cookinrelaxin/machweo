@@ -187,14 +187,16 @@
 
 -(void)showMenuWithScore:(NSUInteger)score withAd:(BOOL)withAds{
     if (diedFirstTime) {
-        if (arc4random_uniform(2) == 0) {
-            if (interstitial.loaded) {
-                [interstitial presentFromViewController:self];
-            }
+        if (interstitial.loaded) {
+            [interstitial presentFromViewController:self];
+        }
+        else{
+            [_gameSceneView.scene runAction:[constants.SOUND_ACTIONS valueForKey:@"projectorDown.mp3"]];
         }
     }
     else{
         diedFirstTime = true;
+        [_gameSceneView.scene runAction:[constants.SOUND_ACTIONS valueForKey:@"projectorDown.mp3"]];
     }
 
     _menuView.hidden = false;
@@ -213,6 +215,7 @@
 }
 
 -(void)closeMenu{
+    [_gameSceneView.scene runAction:[constants.SOUND_ACTIONS valueForKey:@"projectorUp.mp3"]];
     [UIView animateWithDuration:0.1
                      animations:^{
                          _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y + 15, _menuView.frame.size.width, _menuView.frame.size.height);
@@ -231,7 +234,6 @@
                          ];
     }];
 
-    
 }
 
 -(CGSize)choosePopupSizeForString:(NSString*)string{
@@ -250,9 +252,6 @@
     if (height > constants.MAX_POPUP_SIZE.height) {
         height = constants.MAX_POPUP_SIZE.height;
     }
-    //NSLog(@"popup width: %f", width);
-    //NSLog(@"popup height: %f", height);
-
     return CGSizeMake(width, height);
 }
 
@@ -262,33 +261,34 @@
 }
 - (IBAction)closeMenuPressed:(id)sender {
    // NSLog(@"closeMenuPressed");
-    [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"button2.mp3" waitForCompletion:NO]];
+    SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
+    [_gameSceneView.scene runAction:buttonAction];
     [self closeMenu];
 }
 - (IBAction)leaderboardsPressed:(id)sender {
    // NSLog(@"leaderboardsPressed");
-    [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"button2.mp3" waitForCompletion:NO]];
+    SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
+    [_gameSceneView.scene runAction:buttonAction];
     [[GKHelper sharedInstance] showGameCenter];
 
 }
 - (IBAction)sharePressed:(id)sender {
    // NSLog(@"facebookPressed");
-    [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"button2.mp3" waitForCompletion:NO]];
+    SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
+    [_gameSceneView.scene runAction:buttonAction];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/machweogame"]];
 }
 - (IBAction)ratePressed:(id)sender {
     // NSLog(@"ratePressed");
-    [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"button2.mp3" waitForCompletion:NO]];
+    SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
+    [_gameSceneView.scene runAction:buttonAction];
     //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=<YOURAPPID>&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id956041188"]];
 }
 - (IBAction)removeAds:(id)sender {
-    [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"button2.mp3" waitForCompletion:NO]];
+    SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
+    [_gameSceneView.scene runAction:buttonAction];
 }
-
-
-
-
 
 -(void)initGame{
    __block LoadingScene* loadingScene;
@@ -303,12 +303,7 @@
         [Constants sharedInstance].OBSTACLE_POOL = spritePreloader.getObstaclePool;
         [Constants sharedInstance].SKY_DICT = spritePreloader.getSkyPool;
         GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
-//
-        //dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC);
         dispatch_sync(dispatch_get_main_queue(), ^(void){
-        //dispatch_after(time, dispatch_get_main_queue(), ^(void){
-//            GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
-       //     NSLog(@"present gameplay scene");
             GKHelper* gkhelper = [GKHelper sharedInstance];
             [gkhelper authenticateLocalPlayer];
             gkhelper.presentingVC = self;
@@ -324,8 +319,6 @@
     
     loadingScene = [[LoadingScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
     [_gameSceneView presentScene:loadingScene];
-        
-   
 }
 
 

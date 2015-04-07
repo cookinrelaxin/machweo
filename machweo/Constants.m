@@ -46,6 +46,7 @@ int midpoint(int n1, int n2)
     _DISTANCE_LABEL_FONT_NAME = @"Skranji";
     _LOADING_LABEL_FONT_SIZE = 100;
     _LOADING_LABEL_FONT_COLOR = [UIColor whiteColor];
+    _LOADING_SCREEN_BACKGROUND_COLOR = [UIColor colorWithRed:221.0f/255.0f green:240.0f/255.0f blue:239.0f/255.0f alpha:1];
     _LOADING_LABEL_FONT_NAME = @"Skranji";
     _PAUSED_LABEL_FONT_SIZE = 150;
     _LOGO_LABEL_FONT_SIZE = 120;
@@ -59,14 +60,8 @@ int midpoint(int n1, int n2)
     _MIN_PLAYER_VELOCITY_DY = -8;
     _FRICTION_COEFFICIENT = .996f;
     _GRAVITY = .35;
-//    _AMBIENT_X_FORCE = .06f;
-//    _MAX_PLAYER_VELOCITY_DX = 9;
-//    _MAX_PLAYER_VELOCITY_DY = 8;
-//    _MIN_PLAYER_VELOCITY_DX = -1;
-//    _MIN_PLAYER_VELOCITY_DY = -8;
-//    _FRICTION_COEFFICIENT = .995f;
-//    _GRAVITY = .30;
     _TEXTURE_DICT = [NSMutableDictionary dictionary];
+    _SOUND_ACTIONS = [NSMutableDictionary dictionary];
     _TERRAIN_ARRAY = [NSMutableArray array];
     _NUMBER_OF_BACKGROUND_SIMUL = 8;
     _DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO = 250 / 20;
