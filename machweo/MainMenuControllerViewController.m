@@ -151,7 +151,7 @@
         popupView = [[PopupView alloc] initWithFrame:CGRectMake(thisMessage.position.x - (popupSize.width / 2), thisMessage.position.y, popupSize.width, popupSize.height) andIsMenu:NO];
         [self.view addSubview:popupView];
     }
-    [UIView animateWithDuration:0.5
+    [UIView animateWithDuration:0.25
          animations:^{
              popupView.frame = CGRectMake(popupView.frame.origin.x, popupView.frame.origin.y, popupView.desiredFrameSize.width, popupView.desiredFrameSize.height + 2);
          }
@@ -166,7 +166,8 @@
 }
 
 -(void)removeCurrentMessage{
-    [UIView animateWithDuration:0.5
+    [_gameSceneView.scene runAction:[constants.SOUND_ACTIONS valueForKey:@"treegrow.mp3"]];
+    [UIView animateWithDuration:0.25
          animations:^{
              popupView.textLabel.hidden = true;
              popupView.frame = CGRectMake(popupView.frame.origin.x, popupView.frame.origin.y, popupView.frame.size.width, 0);
@@ -186,21 +187,9 @@
 }
 
 -(void)showMenuWithScore:(NSUInteger)score withAd:(BOOL)withAds{
-    if (diedFirstTime) {
-        if (interstitial.loaded) {
-            [interstitial presentFromViewController:self];
-        }
-        else{
-            [_gameSceneView.scene runAction:[constants.SOUND_ACTIONS valueForKey:@"projectorDown.mp3"]];
-        }
-    }
-    else{
-        diedFirstTime = true;
-        [_gameSceneView.scene runAction:[constants.SOUND_ACTIONS valueForKey:@"projectorDown.mp3"]];
-    }
-
     _menuView.hidden = false;
     _scoreLabel.text = [NSString stringWithFormat:@"%lu", (unsigned long)score];
+    [_gameSceneView.scene runAction:[constants.SOUND_ACTIONS valueForKey:@"projectorDown.mp3"]];
     [UIView animateWithDuration:0.5
                      animations:^{
                          _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y + _menuView.frame.size.height + 10, _menuView.frame.size.width, _menuView.frame.size.height);
@@ -209,7 +198,19 @@
                          [UIView animateWithDuration:0.1
                                           animations:^{
                                               _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - 10, _menuView.frame.size.width, _menuView.frame.size.height);
+                                          }
+                                          completion:^(BOOL finished){
+                                              if (diedFirstTime) {
+                                                  if (interstitial.loaded) {
+                                                      [interstitial presentFromViewController:self];
+                                                  }
+                                              }
+                                              else{
+                                                  diedFirstTime = true;
+                                              }
+
                                           }];
+                        
                      }
      ];
 }
@@ -228,7 +229,7 @@
                              }
                                   completion:^(BOOL finished){
                                     _menuView.hidden = true;
-                                      [self removeCurrentMessage];
+                                      //[self removeCurrentMessage];
                                     [[NSNotificationCenter defaultCenter] postNotificationName:@"restart" object:nil];
                                   }
                          ];
@@ -289,13 +290,11 @@
     SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
     [_gameSceneView.scene runAction:buttonAction];
 }
-
 -(void)initGame{
    __block LoadingScene* loadingScene;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         LevelParser* parser = [[LevelParser alloc] init];
         SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
-        
         [AnimationComponent sharedInstance];
         [SoundManager sharedInstance];
         [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
@@ -311,8 +310,11 @@
             dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC);
             dispatch_after(time, dispatch_get_main_queue(), ^(void){
                 [loadingScene fadeOut];
-                [_gameSceneView presentScene: newScene transition:[SKTransition fadeWithDuration:1]];
-                loadingScene = nil;
+                [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"Loading_6.mp3" waitForCompletion:YES] completion:^(void){
+                    [_gameSceneView presentScene: newScene transition:[SKTransition fadeWithDuration:1]];
+                    [[SoundManager sharedInstance] startSounds];
+                    loadingScene = nil;
+                }];
             });
         });
     });

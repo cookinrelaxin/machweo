@@ -41,24 +41,10 @@
     return self;
 }
 -(void)update:(NSTimeInterval)currentTime{
-//    player.position = CGPointMake(player.position.x + 3, player.position.y);
-//    if ((player.position.x + (player.size.width / 2)) > self.size.width) {
-//        player.position = CGPointMake(-player.size.width / 2, player.position.y);
-//    }
 }
 
 -(void)didMoveToView:(SKView *)view{
-    //self.view.layer.zPosition = 10;
-    //player.zPosition = 100;
-
-    //[self setupLogo];
-    //[self drawPath];
-   // NSLog(@"self.view.layer.zPosition: %f", self.view.layer.zPosition);
-   // NSLog(@"_logoAnimationLayer.zPosition: %f", _logoAnimationLayer.zPosition);
-
-    
-    
-
+//    [self runAction:[SKAction playSoundFileNamed:@"Loading_6.mp3" waitForCompletion:NO]];
 }
 
 - (void) setupLogo

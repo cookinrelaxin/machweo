@@ -190,6 +190,17 @@ int CLIFF_VERTEX_COUNT = 15;
     }
 }
 
+-(void)fadeOutAndDelete{
+    for (Decoration *deco in _decos) {
+        [deco runAction:[SKAction fadeAlphaTo:0 duration:.5] completion:^(void){
+            [deco removeFromParent];
+        }];
+    }
+    [self runAction:[SKAction fadeAlphaTo:0 duration:.5] completion:^(void){
+        [self removeFromParent];
+    }];
+}
+
 -(void)generateDecorationAtVertex:(CGPoint)v inNode:(SKNode*)node andSlope:(float)slope andCurrentBiome:(Biome)biome{
     if(_permitDecorations && (biome == savanna)){
         int probability1 = constants.TERRAIN_VERTEX_DECORATION_CHANCE_DENOM;

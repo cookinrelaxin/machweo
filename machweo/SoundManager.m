@@ -46,7 +46,7 @@ float maxVol_music = .6;
         _savannaTrack.numberOfLoops = -1;
         _savannaTrack.volume = maxVol_music;
         [_savannaTrack prepareToPlay];
-        [_savannaTrack play];
+        //[_savannaTrack play];
         
         [self preloadSounds];
 
@@ -60,7 +60,8 @@ float maxVol_music = .6;
     [constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"swoosh" andVolume:1] forKey:@"swoosh.mp3"];
     [constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"projectorDown" andVolume:1] forKey:@"projectorDown.mp3"];
     [constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"projectorUp" andVolume:1] forKey:@"projectorUp.mp3"];
-    [constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"treegrow2" andVolume:.5] forKey:@"treegrow2.mp3"];
+    [constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"treegrow2" andVolume:.4] forKey:@"treegrow2.mp3"];
+    [constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"treegrow" andVolume:.6] forKey:@"treegrow.mp3"];
 
     //[constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"flagFlap" andVolume:1] forKey:@"flagFlap.mp3"];
     //[constants.SOUND_ACTIONS setValue:[self getSoundActionForName:@"line" andVolume:.1] forKey:@"line.mp3"];

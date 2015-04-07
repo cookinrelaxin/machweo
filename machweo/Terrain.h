@@ -27,4 +27,5 @@
 -(void)generateDecorationAtVertex:(CGPoint)v inNode:(SKNode*)node andSlope:(float)slope andCurrentBiome:(Biome)biome;
 -(void)changeDecorationPermissions:(CGPoint)currentPoint;
 -(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope;
+-(void)fadeOutAndDelete;
 @end

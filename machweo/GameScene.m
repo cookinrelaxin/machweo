@@ -112,6 +112,9 @@ int METERS_PER_PIXEL = 50;
         skyPool = [NSMutableArray array];
         worldStreamer = [[WorldStreamer alloc] initWithScene:self withObstacles:_obstacles andDecorations:_decorations withinView:view andLines:terrainArray withXOffset:0];
         soundManager = [SoundManager sharedInstance];
+//        [self runAction:[SKAction playSoundFileNamed:@"Loading_6.mp3" waitForCompletion:YES] completion:^(void){
+//            [soundManager startSounds];
+//        }];
         [self generateBackgrounds :false];
         [self organizeTheHeavens];
         [self setupObservers];
@@ -546,17 +549,20 @@ int METERS_PER_PIXEL = 50;
         }
         if (player_created && !gameOver) {
             if (in_game) {
-                [self checkForCloseCall];
+                //[self checkForCloseCall];
                 [self updateDistance];
                 [self checkForLostGame];
             }
-            [worldStreamer updateWithPlayerDistance:distance_traveled andDeltaTime:deltaTime];
-            [self centerCameraOnPlayer];
-            [self checkForNewAnimationState];
-            [player resetMinsAndMaxs];
-            [player updateEdges];
-            [physicsComponent calculatePlayerPosition:player withTerrainArray:terrainArray];
-            [self drawLines];
+            if (!gameOver) {
+                [worldStreamer updateWithPlayerDistance:distance_traveled andDeltaTime:deltaTime];
+                [self centerCameraOnPlayer];
+                [self checkForNewAnimationState];
+                [player resetMinsAndMaxs];
+                [player updateEdges];
+                [physicsComponent calculatePlayerPosition:player withTerrainArray:terrainArray];
+                [self drawLines];
+            }
+            
         }
         [self fadeMoon];
     }
@@ -617,35 +623,35 @@ int METERS_PER_PIXEL = 50;
     if (player.physicsBody.allContactedBodies.count > 0) {
         [self loseGame];
     }
-    else{
-        if (player.shouldWoosh && !player.wooshing) {
-            player.wooshing = true;
-            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^(void){
-                [player runAction:[_constants.SOUND_ACTIONS valueForKey:@"swoosh.mp3"]];
-            });
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                player.wooshing = false;
-                player.shouldWoosh = false;
-            });
-            
-        }
-    }
+//    else{
+//        if (player.shouldWoosh && !player.wooshing) {
+//            player.wooshing = true;
+//            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^(void){
+//                [player runAction:[_constants.SOUND_ACTIONS valueForKey:@"swoosh.mp3"]];
+//            });
+//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//                player.wooshing = false;
+//                player.shouldWoosh = false;
+//            });
+//            
+//        }
+//    }
 }
 
--(void)checkForCloseCall{
-    if (!player.wooshing) {
-        CGPoint playerPositionInObstacles = [_obstacles convertPoint:player.position fromNode:self];
-        float leftSideOfPlayerInObstacles = playerPositionInObstacles.x - (player.size.width / 2);
-        CGPoint playerOriginInObstacles = [_obstacles convertPoint:player.frame.origin fromNode:self];
-        CGRect playerFrameInObstacles = CGRectMake(playerOriginInObstacles.x, playerOriginInObstacles.y, player.size.width, player.size.height);
-        for (Obstacle* obs in _obstacles.children) {
-            if ((leftSideOfPlayerInObstacles > obs.position.x) && CGRectIntersectsRect(obs.frame, playerFrameInObstacles)) {
-                player.shouldWoosh = true;
-                return;
-            }
-        }
-    }
-}
+//-(void)checkForCloseCall{
+//    if (!player.wooshing) {
+//        CGPoint playerPositionInObstacles = [_obstacles convertPoint:player.position fromNode:self];
+//        float leftSideOfPlayerInObstacles = playerPositionInObstacles.x - (player.size.width / 2);
+//        CGPoint playerOriginInObstacles = [_obstacles convertPoint:player.frame.origin fromNode:self];
+//        CGRect playerFrameInObstacles = CGRectMake(playerOriginInObstacles.x, playerOriginInObstacles.y, player.size.width, player.size.height);
+//        for (Obstacle* obs in _obstacles.children) {
+//            if ((leftSideOfPlayerInObstacles > obs.position.x) && CGRectIntersectsRect(obs.frame, playerFrameInObstacles)) {
+//                player.shouldWoosh = true;
+//                return;
+//            }
+//        }
+//    }
+//}
 
 -(void)sendMessageNotificationWithText:(NSString*)text andPosition:(CGPoint)position andShouldPause:(BOOL)shouldPause{
     NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
@@ -771,13 +777,9 @@ int METERS_PER_PIXEL = 50;
     _cairns.position = CGPointMake(_cairns.position.x + (distance_traveled * METERS_PER_PIXEL), _cairns.position.y);
 }
 
-//-(void)reappearButtons{
-//    pauseButton.hidden = false;
-//}
-
 -(void)resetLines{
     for (Terrain* ter in terrainArray) {
-        [ter removeFromParent];
+        [ter fadeOutAndDelete];
     }
     [terrainArray removeAllObjects];
 }
@@ -897,7 +899,7 @@ int METERS_PER_PIXEL = 50;
 
 -(void)didMoveToView:(SKView *)view{
     [self setupCairns];
-    [soundManager startSounds];
+    //[soundManager startSounds];
 }
 
 @end
