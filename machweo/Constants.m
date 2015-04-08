@@ -73,6 +73,8 @@ int midpoint(int n1, int n2)
     _dayTrackURL = [[NSBundle mainBundle] URLForResource:@"Tropical_Birds_and_Insects" withExtension:@"mp3"];
     _nightTrackURL = [[NSBundle mainBundle] URLForResource:@"Insects_Tropical" withExtension:@"mp3"];
     _savannaTrackURL = [[NSBundle mainBundle] URLForResource:@"supertrack3" withExtension:@"mp3"];
+    
+    _enableAds = true;
     return self;
 }
 

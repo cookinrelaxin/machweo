@@ -20,6 +20,7 @@
 		659B21D01A5E1C1300885C04 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21CF1A5E1C1300885C04 /* main.m */; };
 		659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 659B21DF1A5E1C1300885C04 /* Images.xcassets */; };
 		659B21EF1A5E1C1400885C04 /* machweoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 659B21EE1A5E1C1400885C04 /* machweoTests.m */; };
+		780649341AD4A9690073D6FA /* StoreHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 780649331AD4A9690073D6FA /* StoreHelper.m */; };
 		780C555C1AD37A4C002AE810 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 780C555B1AD37A4C002AE810 /* logo.png */; };
 		780C555F1AD38760002AE810 /* Loading_1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780C555D1AD38760002AE810 /* Loading_1.mp3 */; };
 		780C55601AD38760002AE810 /* Loading_6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780C555E1AD38760002AE810 /* Loading_6.mp3 */; };
@@ -337,6 +338,8 @@
 		659B21E81A5E1C1400885C04 /* machweoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = machweoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		659B21ED1A5E1C1400885C04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		659B21EE1A5E1C1400885C04 /* machweoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = machweoTests.m; sourceTree = "<group>"; };
+		780649321AD4A9690073D6FA /* StoreHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreHelper.h; sourceTree = "<group>"; };
+		780649331AD4A9690073D6FA /* StoreHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreHelper.m; sourceTree = "<group>"; };
 		780C555B1AD37A4C002AE810 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		780C555D1AD38760002AE810 /* Loading_1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Loading_1.mp3; sourceTree = "<group>"; };
 		780C555E1AD38760002AE810 /* Loading_6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Loading_6.mp3; sourceTree = "<group>"; };
@@ -1060,6 +1063,8 @@
 			children = (
 				78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */,
 				78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */,
+				780649321AD4A9690073D6FA /* StoreHelper.h */,
+				780649331AD4A9690073D6FA /* StoreHelper.m */,
 				7892A16E1A995E5A00CA64CE /* PopupView.h */,
 				7892A16F1A995E5A00CA64CE /* PopupView.m */,
 				786C054E1AC76B6200EFA83E /* PopupMessage.h */,
@@ -1645,6 +1650,7 @@
 				659B21D01A5E1C1300885C04 /* main.m in Sources */,
 				6509D2DD1A5E290300F1BBA6 /* LoadingScene.m in Sources */,
 				78F03B0E1AC8CADF00189EA4 /* SoundManager.m in Sources */,
+				780649341AD4A9690073D6FA /* StoreHelper.m in Sources */,
 				6509D2D01A5E290300F1BBA6 /* GameScene.m in Sources */,
 				78C77B241A9EBEAC000A5728 /* WorldStreamer.m in Sources */,
 				786C05501AC76B6200EFA83E /* PopupMessage.m in Sources */,

@@ -108,6 +108,8 @@ typedef enum Biomes
 @property (nonatomic) NSURL *nightTrackURL;
 @property (nonatomic) NSURL *savannaTrackURL;
 @property (nonatomic) BOOL enableHighResTextures;
+@property (nonatomic) BOOL enableAds;
+
 
 
 + (instancetype)sharedInstance;
