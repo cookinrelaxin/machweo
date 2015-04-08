@@ -91,7 +91,7 @@
             }];
         }
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setInteger:(u_int64_t)currentScore forKey:@"Highscore"];
+        [defaults setInteger:(NSInteger)currentScore forKey:@"Highscore"];
         [defaults synchronize];
     }
 }

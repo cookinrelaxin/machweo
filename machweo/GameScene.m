@@ -45,10 +45,8 @@ int METERS_PER_PIXEL = 50;
     //UI
         SKLabelNode* logoLabel;
         SKLabelNode* returnToGameLabelButton;
-    
         SKLabelNode* pauseLabel;
         SKLabelNode* scoreLabel;
-    
     //
     SKSpriteNode* sunNode;
     SKSpriteNode* moonNode;
@@ -819,27 +817,16 @@ int METERS_PER_PIXEL = 50;
             }
             else{
                 if (nameString) {
-                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@, %@!", nameString, greeting] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@, %@! Can you beat your high score of %lu?", nameString, greeting, (unsigned long)gkhelper.localHighScore] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
                 }
                 else{
-                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@!", greeting] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+                    [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@! Can you beat your high score of %lu?", greeting, (unsigned long)gkhelper.localHighScore] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
                 }
-                [self sendMessageNotificationWithText:[NSString stringWithFormat:@"Can you beat your high score of %lu?", (unsigned long)gkhelper.localHighScore] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
+                //[self sendMessageNotificationWithText:[NSString stringWithFormat:@"Can you beat your high score of %lu?", (unsigned long)gkhelper.localHighScore] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
             }
         }];
     }];
 }
-
-//-(void)createPauseButton{
-//    pauseButton = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];
-//    pauseButton.fontSize = _constants.MENU_LABEL_FONT_SIZE * _constants.SCALE_COEFFICIENT.dx;
-//    pauseButton.fontColor = _constants.LOGO_LABEL_FONT_COLOR;
-//    pauseButton.zPosition = _constants.HUD_Z_POSITION;
-//    pauseButton.text = @"pause";
-//    CGPoint posInScene = CGPointMake(pauseButton.frame.size.width / 2 + (pauseButton.frame.size.width / 4), CGRectGetMaxY(self.frame) - pauseButton.frame.size.height);
-//    pauseButton.position = [_hud convertPoint:posInScene fromNode:self];
-//    [_hud addChild:pauseButton];
-//}
 
 -(void)createPausedLabel{
     pauseLabel = [SKLabelNode labelNodeWithFontNamed:_constants.LOGO_LABEL_FONT_NAME];

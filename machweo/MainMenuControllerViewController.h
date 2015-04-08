@@ -18,4 +18,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *labels;
 @property (weak, nonatomic) IBOutlet UILabel *scoreTitleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *processingLabel;
 @end

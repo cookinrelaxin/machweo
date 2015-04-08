@@ -7,7 +7,7 @@
 //
 
 #import "LoadingScene.h"
-#import "Player.h"
+//#import "Player.h"
 #import "AnimationComponent.h"
 #import <CoreText/CoreText.h>
 
@@ -16,27 +16,35 @@
     CAShapeLayer *_pathSubLayer;
     CALayer *_logoAnimationLayer;
     Constants* constants;
-    Player* player;
-    
+    SKSpriteNode* lightning;
     SKSpriteNode* logo;
 }
 
 -(instancetype)initWithSize:(CGSize)size{
     if (self = [super initWithSize:size]){
         constants = [Constants sharedInstance];
-//        player = [Player player];
-//        [self addChild:player];
-//        player.position = CGPointMake(0, (player.size.height / 2) - (player.size.height / 6));
-//        [player runAction:[SKAction repeatActionForever:
-//                           [SKAction animateWithTextures:[AnimationComponent sharedInstance].runningFrames
-//                                            timePerFrame:0.04f
-//                                                  resize:NO
-//                                                 restore:YES]] withKey:@"runningMaasai"];
         self.backgroundColor = constants.LOADING_SCREEN_BACKGROUND_COLOR;
         logo = [SKSpriteNode spriteNodeWithImageNamed:@"logo"];
         logo.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         logo.size = CGSizeMake(logo.size.width * constants.SCALE_COEFFICIENT.dx, logo.size.height * constants.SCALE_COEFFICIENT.dx);
         [self addChild:logo];
+        
+        lightning = [SKSpriteNode spriteNodeWithImageNamed:@"lightningbolt1"];
+        lightning.position = CGPointMake(CGRectGetMidX(self.frame), self.size.height / 3);
+        lightning.size = CGSizeMake(lightning.size.width * constants.SCALE_COEFFICIENT.dx, lightning.size.height * constants.SCALE_COEFFICIENT.dx);
+        [self addChild:lightning];
+        
+        NSMutableArray* lightningFrames = [[NSMutableArray alloc] init];
+        SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"lightning"];
+        NSUInteger numImages = atlas.textureNames.count;
+        for (int i=1; i <= numImages; i++) {
+            NSString *textureName = [NSString stringWithFormat:@"lightningbolt%d", i];
+            SKTexture *tex = [atlas textureNamed:textureName];
+            tex.filteringMode = SKTextureFilteringNearest;
+            [lightningFrames addObject:tex];
+        }
+        [lightning runAction:[SKAction repeatActionForever:[SKAction animateWithTextures:lightningFrames timePerFrame:.05]]];
+
     }
     return self;
 }
@@ -44,7 +52,6 @@
 }
 
 -(void)didMoveToView:(SKView *)view{
-//    [self runAction:[SKAction playSoundFileNamed:@"Loading_6.mp3" waitForCompletion:NO]];
 }
 
 - (void) setupLogo

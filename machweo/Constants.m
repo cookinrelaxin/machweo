@@ -74,7 +74,13 @@ int midpoint(int n1, int n2)
     _nightTrackURL = [[NSBundle mainBundle] URLForResource:@"Insects_Tropical" withExtension:@"mp3"];
     _savannaTrackURL = [[NSBundle mainBundle] URLForResource:@"supertrack3" withExtension:@"mp3"];
     
-    _enableAds = true;
+    _enableAds = ![[NSUserDefaults standardUserDefaults] boolForKey:@"areAdsRemoved"];
+    NSLog(@"_enableAds: %d", _enableAds);
+//    if (theHighScore == 0) {
+//        [defaults setInteger:1 forKey:@"Highscore"];
+//        [defaults synchronize];
+//    }
+    //_enableAds = true;
     return self;
 }
 

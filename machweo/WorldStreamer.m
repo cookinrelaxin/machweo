@@ -60,8 +60,8 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         IDDictionary = [NSMutableDictionary dictionary];
         currentBiome = savanna;
         [self calculateInitialBiome];
-        [self preloadDecorationChunkWithDistance:0 asynchronous:NO];
-        [self loadNextDecoWithXOffset:0];
+        //[self preloadDecorationChunkWithDistance:0 asynchronous:NO];
+        //[self loadNextDecoWithXOffset:0];
 //        [self preloadDecorationChunkWithDistance:0 asynchronous:NO];
 //        [self loadNextDecoWithXOffset:0];
     }

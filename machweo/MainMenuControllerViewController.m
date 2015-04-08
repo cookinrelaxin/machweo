@@ -18,6 +18,7 @@
 #import "AnimationComponent.h"
 #import "PopupMessage.h"
 #import "SoundManager.h"
+#import "StoreHelper.h"
 
 @implementation MainMenuControllerViewController (iAdAdditions)
 @end
@@ -31,6 +32,7 @@
     BOOL messageBeingPresented;
     BOOL menuSetUp;
     Constants* constants;
+    StoreHelper* storeHelper;
     ADInterstitialAd* interstitial;
     BOOL diedFirstTime;
 }
@@ -51,6 +53,8 @@
         [self initGame];
         interstitial = [[ADInterstitialAd alloc] init];
         interstitial.delegate = self;
+        
+        storeHelper = [[StoreHelper alloc] init];
     }
 }
 
@@ -131,6 +135,28 @@
       //   NSLog(@"remove message");
          [self removeCurrentMessage];
      }];
+    
+    [center addObserverForName:@"processing initialized"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         //   NSLog(@"remove message");
+         //[self removeCurrentMessage];
+         _processingLabel.hidden = false;
+     }];
+    
+    [center addObserverForName:@"processing over"
+                        object:nil
+                         queue:nil
+                    usingBlock:^(NSNotification *notification)
+     {
+         //   NSLog(@"remove message");
+         //[self removeCurrentMessage];
+         _processingLabel.hidden = true;
+     }];
+    
+    
 }
 
 -(void)addPopupMessageWithText:(NSString*)text andPosition:(CGPoint)position{
@@ -200,13 +226,15 @@
                                               _menuView.frame = CGRectMake(_menuView.frame.origin.x, _menuView.frame.origin.y - 10, _menuView.frame.size.width, _menuView.frame.size.height);
                                           }
                                           completion:^(BOOL finished){
-                                              if (diedFirstTime) {
-                                                  if (interstitial.loaded) {
-                                                      [interstitial presentFromViewController:self];
+                                              if (constants.enableAds) {
+                                                  if (diedFirstTime) {
+                                                      if (interstitial.loaded) {
+                                                          [interstitial presentFromViewController:self];
+                                                      }
                                                   }
-                                              }
-                                              else{
-                                                  diedFirstTime = true;
+                                                  else{
+                                                      diedFirstTime = true;
+                                                  }
                                               }
 
                                           }];
@@ -273,12 +301,21 @@
     [[GKHelper sharedInstance] showGameCenter];
 
 }
+
+- (IBAction)restorePressed:(id)sender {
+    // NSLog(@"facebookPressed");
+    SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
+    [_gameSceneView.scene runAction:buttonAction];
+    [storeHelper restore];
+}
+
 - (IBAction)sharePressed:(id)sender {
-   // NSLog(@"facebookPressed");
+    // NSLog(@"facebookPressed");
     SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
     [_gameSceneView.scene runAction:buttonAction];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/machweogame"]];
 }
+
 - (IBAction)ratePressed:(id)sender {
     // NSLog(@"ratePressed");
     SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
@@ -289,6 +326,8 @@
 - (IBAction)removeAds:(id)sender {
     SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
     [_gameSceneView.scene runAction:buttonAction];
+    
+    [storeHelper tapsRemoveAds];
 }
 -(void)initGame{
    __block LoadingScene* loadingScene;

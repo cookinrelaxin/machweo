@@ -13,8 +13,7 @@
 
 @property (nonatomic) BOOL areAdsRemoved;
 
-- (IBAction)purchase;
-- (IBAction)restore;
-- (IBAction)tapsRemoveAdsButton;
+- (void)restore;
+- (void)tapsRemoveAds;
 
 @end
