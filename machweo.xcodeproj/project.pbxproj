@@ -33,12 +33,30 @@
 		780EFEF91AC90D350041BFDC /* Insects_Tropical.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780EFEF71AC90D350041BFDC /* Insects_Tropical.mp3 */; };
 		780EFEFA1AC90D350041BFDC /* Tropical_Birds_and_Insects.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780EFEF81AC90D350041BFDC /* Tropical_Birds_and_Insects.mp3 */; };
 		7810FA0C1AD5F47E00429FB9 /* cairn_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA051AD5F47E00429FB9 /* cairn_decoration.png */; };
-		7810FA0D1AD5F47E00429FB9 /* clouds.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA061AD5F47E00429FB9 /* clouds.atlas */; };
-		7810FA0E1AD5F47E00429FB9 /* Desert.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA071AD5F47E00429FB9 /* Desert.atlas */; };
-		7810FA0F1AD5F47E00429FB9 /* Jungle.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA081AD5F47E00429FB9 /* Jungle.atlas */; };
-		7810FA101AD5F47E00429FB9 /* obstacles.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA091AD5F47E00429FB9 /* obstacles.atlas */; };
-		7810FA111AD5F47E00429FB9 /* savanna.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA0A1AD5F47E00429FB9 /* savanna.atlas */; };
-		7810FA121AD5F47E00429FB9 /* skys.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA0B1AD5F47E00429FB9 /* skys.atlas */; };
+		7810FA311AD60BA700429FB9 /* clouds_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA141AD60BA600429FB9 /* clouds_ipad.atlas */; };
+		7810FA321AD60BA700429FB9 /* clouds_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA151AD60BA600429FB9 /* clouds_iphone4_iphone5.atlas */; };
+		7810FA331AD60BA700429FB9 /* clouds_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA161AD60BA600429FB9 /* clouds_iphone6.atlas */; };
+		7810FA341AD60BA700429FB9 /* clouds_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA171AD60BA600429FB9 /* clouds_iphone6_plus.atlas */; };
+		7810FA351AD60BA700429FB9 /* Desert_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA191AD60BA600429FB9 /* Desert_ipad.atlas */; };
+		7810FA361AD60BA700429FB9 /* Desert_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA1A1AD60BA600429FB9 /* Desert_iphone4_iphone5.atlas */; };
+		7810FA371AD60BA700429FB9 /* Desert_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA1B1AD60BA600429FB9 /* Desert_iphone6.atlas */; };
+		7810FA381AD60BA700429FB9 /* Desert_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA1C1AD60BA600429FB9 /* Desert_iphone6_plus.atlas */; };
+		7810FA391AD60BA700429FB9 /* Jungle_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA1E1AD60BA600429FB9 /* Jungle_ipad.atlas */; };
+		7810FA3A1AD60BA700429FB9 /* Jungle_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA1F1AD60BA600429FB9 /* Jungle_iphone4_iphone5.atlas */; };
+		7810FA3B1AD60BA700429FB9 /* Jungle_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA201AD60BA600429FB9 /* Jungle_iphone6.atlas */; };
+		7810FA3C1AD60BA700429FB9 /* Jungle_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA211AD60BA600429FB9 /* Jungle_iphone6_plus.atlas */; };
+		7810FA3D1AD60BA700429FB9 /* obstacles_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA231AD60BA600429FB9 /* obstacles_ipad.atlas */; };
+		7810FA3E1AD60BA700429FB9 /* obstacles_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA241AD60BA600429FB9 /* obstacles_iphone4_iphone5.atlas */; };
+		7810FA3F1AD60BA700429FB9 /* obstacles_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA251AD60BA600429FB9 /* obstacles_iphone6.atlas */; };
+		7810FA401AD60BA700429FB9 /* obstacles_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA261AD60BA600429FB9 /* obstacles_iphone6_plus.atlas */; };
+		7810FA411AD60BA700429FB9 /* savanna_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA281AD60BA700429FB9 /* savanna_ipad.atlas */; };
+		7810FA421AD60BA700429FB9 /* savanna_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA291AD60BA700429FB9 /* savanna_iphone4_iphone5.atlas */; };
+		7810FA431AD60BA700429FB9 /* savanna_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA2A1AD60BA700429FB9 /* savanna_iphone6.atlas */; };
+		7810FA441AD60BA700429FB9 /* savanna_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA2B1AD60BA700429FB9 /* savanna_iphone6_plus.atlas */; };
+		7810FA451AD60BA700429FB9 /* skys_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA2D1AD60BA700429FB9 /* skys_ipad.atlas */; };
+		7810FA471AD60BA700429FB9 /* skys_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA2F1AD60BA700429FB9 /* skys_iphone6.atlas */; };
+		7810FA481AD60BA700429FB9 /* skys_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA301AD60BA700429FB9 /* skys_iphone6_plus.atlas */; };
+		7810FA4A1AD6196E00429FB9 /* skys_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA491AD6196E00429FB9 /* skys_iphone4_iphone5.atlas */; };
 		7813F6931AB5F7910092435D /* SpritePreloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 7813F6921AB5F7910092435D /* SpritePreloader.m */; };
 		78198CC71ACF8AB200EFC0CA /* obstacleSet_1_a.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78198C6D1ACF8AB200EFC0CA /* obstacleSet_1_a.xml */; };
 		78198CC81ACF8AB200EFC0CA /* obstacleSet_1_b.xml in Resources */ = {isa = PBXBuildFile; fileRef = 78198C6E1ACF8AB200EFC0CA /* obstacleSet_1_b.xml */; };
@@ -244,12 +262,30 @@
 		780EFEF71AC90D350041BFDC /* Insects_Tropical.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Insects_Tropical.mp3; sourceTree = "<group>"; };
 		780EFEF81AC90D350041BFDC /* Tropical_Birds_and_Insects.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Tropical_Birds_and_Insects.mp3; sourceTree = "<group>"; };
 		7810FA051AD5F47E00429FB9 /* cairn_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cairn_decoration.png; sourceTree = "<group>"; };
-		7810FA061AD5F47E00429FB9 /* clouds.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = clouds.atlas; sourceTree = "<group>"; };
-		7810FA071AD5F47E00429FB9 /* Desert.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Desert.atlas; sourceTree = "<group>"; };
-		7810FA081AD5F47E00429FB9 /* Jungle.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Jungle.atlas; sourceTree = "<group>"; };
-		7810FA091AD5F47E00429FB9 /* obstacles.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacles.atlas; sourceTree = "<group>"; };
-		7810FA0A1AD5F47E00429FB9 /* savanna.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = savanna.atlas; sourceTree = "<group>"; };
-		7810FA0B1AD5F47E00429FB9 /* skys.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = skys.atlas; sourceTree = "<group>"; };
+		7810FA141AD60BA600429FB9 /* clouds_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = clouds_ipad.atlas; sourceTree = "<group>"; };
+		7810FA151AD60BA600429FB9 /* clouds_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = clouds_iphone4_iphone5.atlas; sourceTree = "<group>"; };
+		7810FA161AD60BA600429FB9 /* clouds_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = clouds_iphone6.atlas; sourceTree = "<group>"; };
+		7810FA171AD60BA600429FB9 /* clouds_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = clouds_iphone6_plus.atlas; sourceTree = "<group>"; };
+		7810FA191AD60BA600429FB9 /* Desert_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Desert_ipad.atlas; sourceTree = "<group>"; };
+		7810FA1A1AD60BA600429FB9 /* Desert_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Desert_iphone4_iphone5.atlas; sourceTree = "<group>"; };
+		7810FA1B1AD60BA600429FB9 /* Desert_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Desert_iphone6.atlas; sourceTree = "<group>"; };
+		7810FA1C1AD60BA600429FB9 /* Desert_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Desert_iphone6_plus.atlas; sourceTree = "<group>"; };
+		7810FA1E1AD60BA600429FB9 /* Jungle_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Jungle_ipad.atlas; sourceTree = "<group>"; };
+		7810FA1F1AD60BA600429FB9 /* Jungle_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Jungle_iphone4_iphone5.atlas; sourceTree = "<group>"; };
+		7810FA201AD60BA600429FB9 /* Jungle_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Jungle_iphone6.atlas; sourceTree = "<group>"; };
+		7810FA211AD60BA600429FB9 /* Jungle_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Jungle_iphone6_plus.atlas; sourceTree = "<group>"; };
+		7810FA231AD60BA600429FB9 /* obstacles_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacles_ipad.atlas; sourceTree = "<group>"; };
+		7810FA241AD60BA600429FB9 /* obstacles_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacles_iphone4_iphone5.atlas; sourceTree = "<group>"; };
+		7810FA251AD60BA600429FB9 /* obstacles_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacles_iphone6.atlas; sourceTree = "<group>"; };
+		7810FA261AD60BA600429FB9 /* obstacles_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacles_iphone6_plus.atlas; sourceTree = "<group>"; };
+		7810FA281AD60BA700429FB9 /* savanna_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = savanna_ipad.atlas; sourceTree = "<group>"; };
+		7810FA291AD60BA700429FB9 /* savanna_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = savanna_iphone4_iphone5.atlas; sourceTree = "<group>"; };
+		7810FA2A1AD60BA700429FB9 /* savanna_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = savanna_iphone6.atlas; sourceTree = "<group>"; };
+		7810FA2B1AD60BA700429FB9 /* savanna_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = savanna_iphone6_plus.atlas; sourceTree = "<group>"; };
+		7810FA2D1AD60BA700429FB9 /* skys_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = skys_ipad.atlas; sourceTree = "<group>"; };
+		7810FA2F1AD60BA700429FB9 /* skys_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = skys_iphone6.atlas; sourceTree = "<group>"; };
+		7810FA301AD60BA700429FB9 /* skys_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = skys_iphone6_plus.atlas; sourceTree = "<group>"; };
+		7810FA491AD6196E00429FB9 /* skys_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = skys_iphone4_iphone5.atlas; sourceTree = "<group>"; };
 		7813F6911AB5F7910092435D /* SpritePreloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpritePreloader.h; sourceTree = "<group>"; };
 		7813F6921AB5F7910092435D /* SpritePreloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpritePreloader.m; sourceTree = "<group>"; };
 		78198C6D1ACF8AB200EFC0CA /* obstacleSet_1_a.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_1_a.xml; sourceTree = "<group>"; };
@@ -513,6 +549,72 @@
 			path = cairns;
 			sourceTree = "<group>";
 		};
+		7810FA131AD60BA600429FB9 /* clouds */ = {
+			isa = PBXGroup;
+			children = (
+				7810FA141AD60BA600429FB9 /* clouds_ipad.atlas */,
+				7810FA151AD60BA600429FB9 /* clouds_iphone4_iphone5.atlas */,
+				7810FA161AD60BA600429FB9 /* clouds_iphone6.atlas */,
+				7810FA171AD60BA600429FB9 /* clouds_iphone6_plus.atlas */,
+			);
+			path = clouds;
+			sourceTree = "<group>";
+		};
+		7810FA181AD60BA600429FB9 /* desert */ = {
+			isa = PBXGroup;
+			children = (
+				7810FA191AD60BA600429FB9 /* Desert_ipad.atlas */,
+				7810FA1A1AD60BA600429FB9 /* Desert_iphone4_iphone5.atlas */,
+				7810FA1B1AD60BA600429FB9 /* Desert_iphone6.atlas */,
+				7810FA1C1AD60BA600429FB9 /* Desert_iphone6_plus.atlas */,
+			);
+			path = desert;
+			sourceTree = "<group>";
+		};
+		7810FA1D1AD60BA600429FB9 /* jungle */ = {
+			isa = PBXGroup;
+			children = (
+				7810FA1E1AD60BA600429FB9 /* Jungle_ipad.atlas */,
+				7810FA1F1AD60BA600429FB9 /* Jungle_iphone4_iphone5.atlas */,
+				7810FA201AD60BA600429FB9 /* Jungle_iphone6.atlas */,
+				7810FA211AD60BA600429FB9 /* Jungle_iphone6_plus.atlas */,
+			);
+			path = jungle;
+			sourceTree = "<group>";
+		};
+		7810FA221AD60BA600429FB9 /* obstacles */ = {
+			isa = PBXGroup;
+			children = (
+				7810FA231AD60BA600429FB9 /* obstacles_ipad.atlas */,
+				7810FA241AD60BA600429FB9 /* obstacles_iphone4_iphone5.atlas */,
+				7810FA251AD60BA600429FB9 /* obstacles_iphone6.atlas */,
+				7810FA261AD60BA600429FB9 /* obstacles_iphone6_plus.atlas */,
+			);
+			path = obstacles;
+			sourceTree = "<group>";
+		};
+		7810FA271AD60BA700429FB9 /* savanna */ = {
+			isa = PBXGroup;
+			children = (
+				7810FA281AD60BA700429FB9 /* savanna_ipad.atlas */,
+				7810FA291AD60BA700429FB9 /* savanna_iphone4_iphone5.atlas */,
+				7810FA2A1AD60BA700429FB9 /* savanna_iphone6.atlas */,
+				7810FA2B1AD60BA700429FB9 /* savanna_iphone6_plus.atlas */,
+			);
+			path = savanna;
+			sourceTree = "<group>";
+		};
+		7810FA2C1AD60BA700429FB9 /* skies */ = {
+			isa = PBXGroup;
+			children = (
+				7810FA491AD6196E00429FB9 /* skys_iphone4_iphone5.atlas */,
+				7810FA2D1AD60BA700429FB9 /* skys_ipad.atlas */,
+				7810FA2F1AD60BA700429FB9 /* skys_iphone6.atlas */,
+				7810FA301AD60BA700429FB9 /* skys_iphone6_plus.atlas */,
+			);
+			path = skies;
+			sourceTree = "<group>";
+		};
 		782060BF1AD2339600B93536 /* soundtrackmp3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -548,13 +650,13 @@
 		782AE6D81A74B89900FF4225 /* sprites */ = {
 			isa = PBXGroup;
 			children = (
+				7810FA131AD60BA600429FB9 /* clouds */,
+				7810FA181AD60BA600429FB9 /* desert */,
+				7810FA1D1AD60BA600429FB9 /* jungle */,
+				7810FA221AD60BA600429FB9 /* obstacles */,
+				7810FA271AD60BA700429FB9 /* savanna */,
+				7810FA2C1AD60BA700429FB9 /* skies */,
 				7810FA041AD5F47E00429FB9 /* cairns */,
-				7810FA061AD5F47E00429FB9 /* clouds.atlas */,
-				7810FA071AD5F47E00429FB9 /* Desert.atlas */,
-				7810FA081AD5F47E00429FB9 /* Jungle.atlas */,
-				7810FA091AD5F47E00429FB9 /* obstacles.atlas */,
-				7810FA0A1AD5F47E00429FB9 /* savanna.atlas */,
-				7810FA0B1AD5F47E00429FB9 /* skys.atlas */,
 				78FFBC691A8EAC9500996198 /* menus */,
 				782AE6D91A74B89900FF4225 /* animated shit */,
 			);
@@ -934,11 +1036,12 @@
 			files = (
 				78198CD21ACF8AB200EFC0CA /* obstacleSet_3_c.xml in Resources */,
 				787BB5431A9D656400DF2D7C /* Amatic-Bold.ttf in Resources */,
-				7810FA111AD5F47E00429FB9 /* savanna.atlas in Resources */,
 				78198CF71ACF8AB200EFC0CA /* obstacleSet_7_h.xml in Resources */,
 				787BB5441A9D656400DF2D7C /* AmaticSC-Regular.ttf in Resources */,
+				7810FA4A1AD6196E00429FB9 /* skys_iphone4_iphone5.atlas in Resources */,
 				782E52311AA7F9A3004FE1F7 /* decorationSet_jungle_day_e.xml in Resources */,
 				783379DF1AA3F6A0008756CB /* decorationSet_sahara_day_a.xml in Resources */,
+				7810FA451AD60BA700429FB9 /* skys_ipad.atlas in Resources */,
 				78198D0F1ACF8AB200EFC0CA /* obstacleSet_12_b.xml in Resources */,
 				78198D041ACF8AB200EFC0CA /* obstacleSet_10_c.xml in Resources */,
 				78952A711AA2CB0000A065C2 /* decorationSet_savanna_day_c.xml in Resources */,
@@ -947,6 +1050,7 @@
 				78198CF31ACF8AB200EFC0CA /* obstacleSet_7_d.xml in Resources */,
 				78952A701AA2CB0000A065C2 /* decorationSet_savanna_day_b.xml in Resources */,
 				78198D061ACF8AB200EFC0CA /* obstacleSet_10_e.xml in Resources */,
+				7810FA481AD60BA700429FB9 /* skys_iphone6_plus.atlas in Resources */,
 				782060D31AD2339600B93536 /* projectorDown.mp3 in Resources */,
 				78952A751AA2CB0000A065C2 /* decorationSet_savanna_day_g.xml in Resources */,
 				78198CD51ACF8AB200EFC0CA /* obstacleSet_3_f.xml in Resources */,
@@ -958,27 +1062,33 @@
 				78198CF41ACF8AB200EFC0CA /* obstacleSet_7_e.xml in Resources */,
 				78198CDB1ACF8AB200EFC0CA /* obstacleSet_4_d.xml in Resources */,
 				780C55601AD38760002AE810 /* Loading_6.mp3 in Resources */,
+				7810FA431AD60BA700429FB9 /* savanna_iphone6.atlas in Resources */,
 				78198CC81ACF8AB200EFC0CA /* obstacleSet_1_b.xml in Resources */,
 				78BD8DDE1ACD05A600088E97 /* leaderboardpushed.png in Resources */,
 				78198CF51ACF8AB200EFC0CA /* obstacleSet_7_f.xml in Resources */,
 				78198CCD1ACF8AB200EFC0CA /* obstacleSet_2_d.xml in Resources */,
 				659B21E01A5E1C1300885C04 /* Images.xcassets in Resources */,
 				78198D0D1ACF8AB200EFC0CA /* obstacleSet_11_e.xml in Resources */,
+				7810FA361AD60BA700429FB9 /* Desert_iphone4_iphone5.atlas in Resources */,
 				78198CDC1ACF8AB200EFC0CA /* obstacleSet_4_e.xml in Resources */,
 				78198CCE1ACF8AB200EFC0CA /* obstacleSet_2_e.xml in Resources */,
 				78198CCB1ACF8AB200EFC0CA /* obstacleSet_2_b.xml in Resources */,
 				780C555C1AD37A4C002AE810 /* logo.png in Resources */,
 				78198CDD1ACF8AB200EFC0CA /* obstacleSet_4_f.xml in Resources */,
+				7810FA3A1AD60BA700429FB9 /* Jungle_iphone4_iphone5.atlas in Resources */,
 				78952A721AA2CB0000A065C2 /* decorationSet_savanna_day_d.xml in Resources */,
 				780EFEF41AC90D250041BFDC /* desert.mp3 in Resources */,
 				783379E11AA3F6A0008756CB /* decorationSet_sahara_day_c.xml in Resources */,
 				78198D071ACF8AB200EFC0CA /* obstacleSet_10_f.xml in Resources */,
 				78952A731AA2CB0000A065C2 /* decorationSet_savanna_day_e.xml in Resources */,
+				7810FA341AD60BA700429FB9 /* clouds_iphone6_plus.atlas in Resources */,
 				78BD8DDA1ACD05A600088E97 /* adbuttonpushed.png in Resources */,
 				78198D151ACF8AB200EFC0CA /* obstacleSet_13_b.xml in Resources */,
 				7810FA0C1AD5F47E00429FB9 /* cairn_decoration.png in Resources */,
+				7810FA421AD60BA700429FB9 /* savanna_iphone4_iphone5.atlas in Resources */,
 				78198D091ACF8AB200EFC0CA /* obstacleSet_11_a.xml in Resources */,
 				78395C901ACA416E00FB63D2 /* supertrack3.mp3 in Resources */,
+				7810FA331AD60BA700429FB9 /* clouds_iphone6.atlas in Resources */,
 				78198CFD1ACF8AB200EFC0CA /* obstacleSet_9_a.xml in Resources */,
 				78198D1E1ACF8AB200EFC0CA /* obstacleSet_16_b.xml in Resources */,
 				782060CE1AD2339600B93536 /* button2.mp3 in Resources */,
@@ -989,12 +1099,12 @@
 				78198D161ACF8AB200EFC0CA /* obstacleSet_13_c.xml in Resources */,
 				78198D1A1ACF8AB200EFC0CA /* obstacleSet_14_c.xml in Resources */,
 				78198CF21ACF8AB200EFC0CA /* obstacleSet_7_c.xml in Resources */,
+				7810FA371AD60BA700429FB9 /* Desert_iphone6.atlas in Resources */,
 				78198CF81ACF8AB200EFC0CA /* obstacleSet_8_a.xml in Resources */,
 				78198D181ACF8AB200EFC0CA /* obstacleSet_14_a.xml in Resources */,
-				7810FA0F1AD5F47E00429FB9 /* Jungle.atlas in Resources */,
+				7810FA381AD60BA700429FB9 /* Desert_iphone6_plus.atlas in Resources */,
 				78BD8DE11ACD05A600088E97 /* retrybutton.png in Resources */,
 				78198D1D1ACF8AB200EFC0CA /* obstacleSet_16_a.xml in Resources */,
-				7810FA0E1AD5F47E00429FB9 /* Desert.atlas in Resources */,
 				78198CF01ACF8AB200EFC0CA /* obstacleSet_7_a.xml in Resources */,
 				78198CD01ACF8AB200EFC0CA /* obstacleSet_3_a.xml in Resources */,
 				78198CD11ACF8AB200EFC0CA /* obstacleSet_3_b.xml in Resources */,
@@ -1006,14 +1116,20 @@
 				78BD8DE21ACD05A600088E97 /* retrybuttonpushed.png in Resources */,
 				782060CF1AD2339600B93536 /* desertWind.mp3 in Resources */,
 				78198CE51ACF8AB200EFC0CA /* obstacleSet_5_f.xml in Resources */,
+				7810FA391AD60BA700429FB9 /* Jungle_ipad.atlas in Resources */,
 				78198CE11ACF8AB200EFC0CA /* obstacleSet_5_b.xml in Resources */,
 				782060D61AD2339600B93536 /* treegrow.mp3 in Resources */,
+				7810FA3C1AD60BA700429FB9 /* Jungle_iphone6_plus.atlas in Resources */,
 				78198CE41ACF8AB200EFC0CA /* obstacleSet_5_e.xml in Resources */,
 				78198CE71ACF8AB200EFC0CA /* obstacleSet_5_h.xml in Resources */,
 				78198D051ACF8AB200EFC0CA /* obstacleSet_10_d.xml in Resources */,
 				780EFEF91AC90D350041BFDC /* Insects_Tropical.mp3 in Resources */,
 				78198CE21ACF8AB200EFC0CA /* obstacleSet_5_c.xml in Resources */,
+				7810FA441AD60BA700429FB9 /* savanna_iphone6_plus.atlas in Resources */,
+				7810FA351AD60BA700429FB9 /* Desert_ipad.atlas in Resources */,
+				7810FA321AD60BA700429FB9 /* clouds_iphone4_iphone5.atlas in Resources */,
 				78198CFC1ACF8AB200EFC0CA /* obstacleSet_8_e.xml in Resources */,
+				7810FA3F1AD60BA700429FB9 /* obstacles_iphone6.atlas in Resources */,
 				6509D2CC1A5E290300F1BBA6 /* Main.storyboard in Resources */,
 				780C555F1AD38760002AE810 /* Loading_1.mp3 in Resources */,
 				78952A741AA2CB0000A065C2 /* decorationSet_savanna_day_f.xml in Resources */,
@@ -1022,15 +1138,19 @@
 				78C0F8AD1A92D47500382159 /* Skranji-Regular.ttf in Resources */,
 				78952A761AA2CB0000A065C2 /* decorationSet_savanna_day_h.xml in Resources */,
 				78337A5E1AA404A3008756CB /* decorationSet_sahara_day_e.xml in Resources */,
+				7810FA401AD60BA700429FB9 /* obstacles_iphone6_plus.atlas in Resources */,
 				78198CEE1ACF8AB200EFC0CA /* obstacleSet_6_g.xml in Resources */,
 				7877DCD81AB13AB00050F132 /* runningDude.atlas in Resources */,
 				78198CFF1ACF8AB200EFC0CA /* obstacleSet_9_c.xml in Resources */,
 				782060D01AD2339600B93536 /* jump.mp3 in Resources */,
 				78198CEF1ACF8AB200EFC0CA /* obstacleSet_6_h.xml in Resources */,
 				78198D1C1ACF8AB200EFC0CA /* obstacleSet_14_e.xml in Resources */,
+				7810FA471AD60BA700429FB9 /* skys_iphone6.atlas in Resources */,
 				78198CE01ACF8AB200EFC0CA /* obstacleSet_5_a.xml in Resources */,
+				7810FA311AD60BA700429FB9 /* clouds_ipad.atlas in Resources */,
 				782060D41AD2339600B93536 /* projectorUp.mp3 in Resources */,
 				78198D001ACF8AB200EFC0CA /* obstacleSet_9_d.xml in Resources */,
+				7810FA3D1AD60BA700429FB9 /* obstacles_ipad.atlas in Resources */,
 				78198CDE1ACF8AB200EFC0CA /* obstacleSet_4_g.xml in Resources */,
 				780EFEF51AC90D250041BFDC /* jungle.mp3 in Resources */,
 				78198D1B1ACF8AB200EFC0CA /* obstacleSet_14_d.xml in Resources */,
@@ -1062,6 +1182,7 @@
 				78198CE61ACF8AB200EFC0CA /* obstacleSet_5_g.xml in Resources */,
 				78198CED1ACF8AB200EFC0CA /* obstacleSet_6_f.xml in Resources */,
 				78198CF61ACF8AB200EFC0CA /* obstacleSet_7_g.xml in Resources */,
+				7810FA3E1AD60BA700429FB9 /* obstacles_iphone4_iphone5.atlas in Resources */,
 				78198CFB1ACF8AB200EFC0CA /* obstacleSet_8_d.xml in Resources */,
 				78198CD41ACF8AB200EFC0CA /* obstacleSet_3_e.xml in Resources */,
 				78198CC91ACF8AB200EFC0CA /* obstacleSet_1_c.xml in Resources */,
@@ -1069,25 +1190,24 @@
 				782060D51AD2339600B93536 /* swoosh.mp3 in Resources */,
 				78198CFA1ACF8AB200EFC0CA /* obstacleSet_8_c.xml in Resources */,
 				78C0F8AC1A92D47500382159 /* Skranji-Bold.ttf in Resources */,
-				7810FA0D1AD5F47E00429FB9 /* clouds.atlas in Resources */,
 				782E52321AA7F9A3004FE1F7 /* decorationSet_jungle_day_f.xml in Resources */,
 				78198D101ACF8AB200EFC0CA /* obstacleSet_12_c.xml in Resources */,
 				78198CD91ACF8AB200EFC0CA /* obstacleSet_4_b.xml in Resources */,
 				78BD8DE01ACD05A600088E97 /* ratebuttonpushed.png in Resources */,
 				78198CD71ACF8AB200EFC0CA /* obstacleSet_3_h.xml in Resources */,
-				7810FA101AD5F47E00429FB9 /* obstacles.atlas in Resources */,
 				78198CFE1ACF8AB200EFC0CA /* obstacleSet_9_b.xml in Resources */,
+				7810FA3B1AD60BA700429FB9 /* Jungle_iphone6.atlas in Resources */,
 				782E522E1AA7F9A3004FE1F7 /* decorationSet_jungle_day_b.xml in Resources */,
 				78198CCF1ACF8AB200EFC0CA /* obstacleSet_2_f.xml in Resources */,
 				782060CC1AD2339600B93536 /* flagFlap.mp3 in Resources */,
 				78198D031ACF8AB200EFC0CA /* obstacleSet_10_b.xml in Resources */,
 				783379E21AA3F6A0008756CB /* decorationSet_sahara_day_d.xml in Resources */,
 				782E522D1AA7F9A3004FE1F7 /* decorationSet_jungle_day_a.xml in Resources */,
-				7810FA121AD5F47E00429FB9 /* skys.atlas in Resources */,
 				783379E01AA3F6A0008756CB /* decorationSet_sahara_day_b.xml in Resources */,
 				78198D0B1ACF8AB200EFC0CA /* obstacleSet_11_c.xml in Resources */,
 				782060D71AD2339600B93536 /* treegrow2.mp3 in Resources */,
 				78198D121ACF8AB200EFC0CA /* obstacleSet_12_e.xml in Resources */,
+				7810FA411AD60BA700429FB9 /* savanna_ipad.atlas in Resources */,
 				78198D0C1ACF8AB200EFC0CA /* obstacleSet_11_d.xml in Resources */,
 				78198D011ACF8AB200EFC0CA /* obstacleSet_9_e.xml in Resources */,
 			);

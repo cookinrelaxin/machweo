@@ -339,8 +339,6 @@
         [SoundManager sharedInstance];
         [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
         [Constants sharedInstance].BIOMES = parser.biomes;
-        [Constants sharedInstance].OBSTACLE_POOL = spritePreloader.getObstaclePool;
-        [Constants sharedInstance].SKY_DICT = spritePreloader.getSkyPool;
         GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
         dispatch_sync(dispatch_get_main_queue(), ^(void){
             GKHelper* gkhelper = [GKHelper sharedInstance];

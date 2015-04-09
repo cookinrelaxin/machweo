@@ -51,6 +51,14 @@ typedef enum Biomes
     
 } Biome;
 
+typedef enum Devices
+{
+    iphone_4_5,
+    iphone_6,
+    iphone_6_plus,
+    ipad
+} Device;
+
 
 
 
@@ -107,8 +115,10 @@ typedef enum Biomes
 @property (nonatomic) NSURL *dayTrackURL;
 @property (nonatomic) NSURL *nightTrackURL;
 @property (nonatomic) NSURL *savannaTrackURL;
-@property (nonatomic) BOOL enableHighResTextures;
+//@property (nonatomic) BOOL enableHighResTextures;
 @property (nonatomic) BOOL enableAds;
+@property (nonatomic) Device deviceType;
+
 
 
 

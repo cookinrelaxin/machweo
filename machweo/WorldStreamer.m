@@ -60,10 +60,6 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         IDDictionary = [NSMutableDictionary dictionary];
         currentBiome = savanna;
         [self calculateInitialBiome];
-        //[self preloadDecorationChunkWithDistance:0 asynchronous:NO];
-        //[self loadNextDecoWithXOffset:0];
-//        [self preloadDecorationChunkWithDistance:0 asynchronous:NO];
-//        [self loadNextDecoWithXOffset:0];
     }
     return  self;
 }
@@ -137,7 +133,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 
 -(void)loadNextDecoWithXOffset:(float)xOffset{
     chunkLoading = true;
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+    //dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
         if (unused_deco_pool.count > 0) {
             Decoration* decoToLoad = [unused_deco_pool firstObject];
                 NSString* toLoadID = decoToLoad.uniqueID;
@@ -161,12 +157,12 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
                 [IDDictionary setValue:@"lol" forKey:decoToLoad.uniqueID];
             }
         chunkLoading = false;
-    });
+    //});
 }
 
 -(void)cleanUpOldDecos{
     if (!cleaningUpOldDecos) {
-        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+        //dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
             cleaningUpOldDecos = true;
             NSMutableArray* trash = [NSMutableArray array];
             for (int i = 0; i < in_use_deco_pool.count; i++) {
@@ -180,15 +176,15 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
                     [trash addObject:deco];
                 }
             }
-            dispatch_sync(dispatch_get_main_queue(), ^{
+            //dispatch_sync(dispatch_get_main_queue(), ^{
                 for (Decoration* deco in trash) {
                     [deco removeFromParent];
                     [in_use_deco_pool removeObject:deco];
                     [IDDictionary removeObjectForKey:deco.uniqueID];
                 }
                 cleaningUpOldDecos = false;
-            });
-        });
+            //});
+        //});
     }
 }
 

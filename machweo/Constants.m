@@ -11,7 +11,6 @@
 float RoundDownTo(float number, float to)
 {
     return to * floorf(number / to);
-
 }
 
 int midpoint(int n1, int n2)
@@ -24,10 +23,22 @@ int midpoint(int n1, int n2)
 -(instancetype)initSingleton{
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     float scaleFactor = [[UIScreen mainScreen] nativeScale];
-    if (!CGSizeEqualToSize(screenSize, CGSizeMake(1024, 768))) {
-        _enableHighResTextures = true;
+    if (screenSize.height == 320) {
+        NSLog(@"_deviceType = iphone_4_5");
+        _deviceType = iphone_4_5;
     }
-    //}
+    else if (screenSize.height == 375) {
+        NSLog(@"_deviceType = iphone_6");
+        _deviceType = iphone_6;
+    }
+    else if (screenSize.height == 414){
+        NSLog(@"_deviceType = iphone_6_plus");
+        _deviceType = iphone_6_plus;
+    }
+    else if (screenSize.height == 768){
+        NSLog(@"_deviceType = ipad");
+        _deviceType = ipad;
+    }
     _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 1024);
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
     //NSLog(@"_SCALE_COEFFICIENT: %f, %f", _SCALE_COEFFICIENT.dx, _SCALE_COEFFICIENT.dy);
@@ -62,6 +73,8 @@ int midpoint(int n1, int n2)
     _GRAVITY = .35;
     _TEXTURE_DICT = [NSMutableDictionary dictionary];
     _SOUND_ACTIONS = [NSMutableDictionary dictionary];
+    _SKY_DICT = [NSMutableDictionary dictionary];
+    _OBSTACLE_POOL = [NSMutableDictionary dictionary];
     _TERRAIN_ARRAY = [NSMutableArray array];
     _NUMBER_OF_BACKGROUND_SIMUL = 8;
     _DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO = 250 / 20;

@@ -14,7 +14,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
 
 @implementation SpritePreloader{
     NSMutableDictionary* obstaclePool;
-    NSMutableDictionary* skyPool;
+    NSMutableDictionary* skyDict;
     NSMutableDictionary* textureDict;
     NSMutableArray* texArray;
     Constants* constants;
@@ -22,53 +22,56 @@ const int NUM_SPRITES_PER_TYPE= 12;
 -(instancetype)init{
     if (self = [super init]) {
         constants = [Constants sharedInstance];
-        obstaclePool = [NSMutableDictionary dictionary];
-        skyPool = [NSMutableDictionary dictionary];
+        obstaclePool = [constants OBSTACLE_POOL];
+        skyDict = [constants SKY_DICT];
         texArray = [NSMutableArray array];
         textureDict = constants.TEXTURE_DICT;
-        NSArray* atlases = @[[SKTextureAtlas atlasNamed:@"clouds"], [SKTextureAtlas atlasNamed:@"Desert"], [SKTextureAtlas atlasNamed:@"Jungle"], [SKTextureAtlas atlasNamed:@"obstacles"], [SKTextureAtlas atlasNamed:@"savanna"], [SKTextureAtlas atlasNamed:@"skys"]];
+        NSArray* atlases;
+        switch (constants.deviceType) {
+            case iphone_4_5:
+                atlases = @[[SKTextureAtlas atlasNamed:@"clouds_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"Desert_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"Jungle_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"obstacles_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"savanna_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"skys_iphone4_iphone5"]];
+                break;
+            case iphone_6:
+                atlases = @[[SKTextureAtlas atlasNamed:@"clouds_iphone6"], [SKTextureAtlas atlasNamed:@"Desert_iphone6"], [SKTextureAtlas atlasNamed:@"Jungle_iphone6"], [SKTextureAtlas atlasNamed:@"obstacles_iphone6"], [SKTextureAtlas atlasNamed:@"savanna_iphone6"], [SKTextureAtlas atlasNamed:@"skys_iphone6"]];
+                break;
+            case iphone_6_plus:
+                atlases = @[[SKTextureAtlas atlasNamed:@"clouds_iphone6_plus"], [SKTextureAtlas atlasNamed:@"Desert_iphone6_plus"], [SKTextureAtlas atlasNamed:@"Jungle_iphone6_plus"], [SKTextureAtlas atlasNamed:@"obstacles_iphone6_plus"], [SKTextureAtlas atlasNamed:@"savanna_iphone6_plus"], [SKTextureAtlas atlasNamed:@"skys_iphone6_plus"]];
+                break;
+            case ipad:
+                atlases = @[[SKTextureAtlas atlasNamed:@"clouds_ipad"], [SKTextureAtlas atlasNamed:@"Desert_ipad"], [SKTextureAtlas atlasNamed:@"Jungle_ipad"], [SKTextureAtlas atlasNamed:@"obstacles_ipad"], [SKTextureAtlas atlasNamed:@"savanna_ipad"], [SKTextureAtlas atlasNamed:@"skys_ipad"]];
+                break;
+        }
         for (SKTextureAtlas* atlas in atlases) {
             for (NSString* name in atlas.textureNames) {
-                if ([name hasSuffix:@"obstacle"]) {
-                    @autoreleasepool {
-                        [self populateObstacleSpritePoolWithName:name andAtlas:atlas];
-                    }
+                NSString* correctedName = [name stringByDeletingPathExtension];
+                if ([correctedName hasSuffix:@"obstacle"]) {
+                    [self populateObstacleSpritePoolWithName:correctedName andAtlas:atlas];
                     continue;
                 }
-                if ([name hasSuffix:@"decoration"]) {
-                    @autoreleasepool {
-                        //UIImage* img = [UIImage imageWithContentsOfFile:[url path]];
-                        //img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:constants.enableHighResTextures];
-                        //SKTexture *tex = [SKTexture textureWithImage:img];
-                        SKTexture *tex = [atlas textureNamed:name];
-                        tex.size = CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy);
-                        if ([name isEqualToString:@"tree_decoration"]) {
+                if ([correctedName hasSuffix:@"decoration"]) {
+                        SKTexture *tex = [atlas textureNamed:correctedName];
+                        if ([correctedName isEqualToString:@"tree_decoration"]) {
                             [constants.TERRAIN_ARRAY addObject:tex];
                         }
-                        if ([name isEqualToString:@"tree_decoration2"]) {
+                        if ([correctedName isEqualToString:@"tree_decoration2"]) {
                             [constants.TERRAIN_ARRAY addObject:tex];
                         }
-                        if ([name isEqualToString:@"tree_decoration3"]) {
+                        if ([correctedName isEqualToString:@"tree_decoration3"]) {
                             [constants.TERRAIN_ARRAY addObject:tex];
                         }
-                        if ([name isEqualToString:@"tree_decoration4"]) {
+                        if ([correctedName isEqualToString:@"tree_decoration4"]) {
                             [constants.TERRAIN_ARRAY addObject:tex];
                         }
-                       // img = nil;
-                        [textureDict setValue:tex forKey:name];
+                        [textureDict setValue:tex forKey:correctedName];
                         [texArray addObject:tex];
-                    }
                     continue;
                 }
-                if ([name hasPrefix:@"tenggriPS"]) {
-                    @autoreleasepool {
-                        [self preprocessSkyImage:name withAtlas:atlas];
-                    }
+                if ([correctedName hasPrefix:@"tenggriPS"]) {
+                    [self preprocessSkyImage:correctedName withAtlas:atlas];
                     continue;
                 }
             }
         }
-
         [SKTexture preloadTextures:texArray withCompletionHandler:^{
         }];
     }
@@ -77,25 +80,16 @@ const int NUM_SPRITES_PER_TYPE= 12;
 
 -(void)preprocessSkyImage:(NSString*)skyName withAtlas:(SKTextureAtlas*)atlas{
     SKTexture* skyTex = [atlas textureNamed:skyName];
-    skyTex.size = CGSizeMake(skyTex.size.width * constants.SCALE_COEFFICIENT.dy, skyTex.size.height * constants.SCALE_COEFFICIENT.dy);
     [texArray addObject:skyTex];
     SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];
     sky.physicsBody = nil;
     sky.zPosition = constants.BACKGROUND_Z_POSITION;
     sky.name = skyName;
-    [skyPool setValue:sky forKey:sky.name];
-}
-
--(NSMutableDictionary*)getObstaclePool{
-    return obstaclePool;
-}
-
--(NSMutableDictionary*)getSkyPool{
-    return skyPool;
+    [skyDict setValue:sky forKey:sky.name];
 }
 
 -(void)populateObstacleSpritePoolWithName:(NSString*)spriteName andAtlas:(SKTextureAtlas*)atlas{
-    Obstacle* prototype = [self obstaclePrototypeWithName:spriteName];
+    Obstacle* prototype = [self obstaclePrototypeWithName:spriteName andAtlas:atlas];
     NSMutableArray* typeArray = [NSMutableArray array];
     for (int i = 0; i < NUM_SPRITES_PER_TYPE; i ++) {
         Obstacle* obsCopy = [prototype copy];
@@ -106,12 +100,9 @@ const int NUM_SPRITES_PER_TYPE= 12;
  }
 
 -(Obstacle*)obstaclePrototypeWithName:(NSString*)obsName andAtlas:(SKTextureAtlas*)atlas{
-    UIImage* img = [UIImage imageWithContentsOfFile:path];
-    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:constants.enableHighResTextures];
-    SKTexture* spriteTexture = [SKTexture textureWithImage:img];
+    SKTexture* spriteTexture = [atlas textureNamed:obsName];
     [texArray addObject:spriteTexture];
     Obstacle* obstacle = [Obstacle obstacleWithTexture:spriteTexture];
-    img = nil;
     obstacle.name = obsName;
     obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:obstacle.size];
     obstacle.physicsBody.categoryBitMask = constants.OBSTACLE_HIT_CATEGORY;
@@ -120,22 +111,5 @@ const int NUM_SPRITES_PER_TYPE= 12;
     obstacle.zPosition = constants.OBSTACLE_Z_POSITION;
     return obstacle;
 }
-
-//-(UIImage *)imageResize :(UIImage*)img andResizeTo:(CGSize)newSize shouldUseHighRes:(BOOL)highRes
-//{
-//    CGFloat scale = [[UIScreen mainScreen]scale];
-//    if (highRes) {
-//        UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
-//    }
-//    else{
-//        UIGraphicsBeginImageContext(newSize);
-//    }
-//    //CGContextRef cgr = UIGraphicsGetCurrentContext();
-//    //CGContextSetInterpolationQuality(cgr, kCGInterpolationNone);
-//    [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-//    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    return newImage;
-//}
 
 @end
