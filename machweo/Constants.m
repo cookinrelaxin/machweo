@@ -24,19 +24,19 @@ int midpoint(int n1, int n2)
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     float scaleFactor = [[UIScreen mainScreen] nativeScale];
     if (screenSize.height == 320) {
-        NSLog(@"_deviceType = iphone_4_5");
+       // NSLog(@"_deviceType = iphone_4_5");
         _deviceType = iphone_4_5;
     }
     else if (screenSize.height == 375) {
-        NSLog(@"_deviceType = iphone_6");
+       // NSLog(@"_deviceType = iphone_6");
         _deviceType = iphone_6;
     }
     else if (screenSize.height == 414){
-        NSLog(@"_deviceType = iphone_6_plus");
+       // NSLog(@"_deviceType = iphone_6_plus");
         _deviceType = iphone_6_plus;
     }
     else if (screenSize.height == 768){
-        NSLog(@"_deviceType = ipad");
+        //NSLog(@"_deviceType = ipad");
         _deviceType = ipad;
     }
     _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 1024);

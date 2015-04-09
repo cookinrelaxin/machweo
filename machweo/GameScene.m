@@ -83,6 +83,7 @@ int METERS_PER_PIXEL = 50;
         _constants = [Constants sharedInstance];
         skyWidth = RAW_SKY_WIDTH;
         _world = [[SKNode alloc] init];
+        //_world.xScale = _world.yScale = .5;
         self.shouldEnableEffects = true;
         [self addChild:_world];
         _hud = [SKNode node];
@@ -92,6 +93,7 @@ int METERS_PER_PIXEL = 50;
         _terrain = [SKNode node];
         _terrain.physicsBody = nil;
         _decorations = [[SKNode alloc] init];
+        //_decorations.xScale = _decorations.yScale = .5;
         _decorations.physicsBody = nil;
         _skies = [SKNode node];
         _skies.physicsBody = nil;
@@ -295,6 +297,7 @@ int METERS_PER_PIXEL = 50;
         if (spriteTexture) {
             sunNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
             sunNode.physicsBody = nil;
+            sunNode.xScale = sunNode.yScale = .5;
         }
         sunPanel = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(self.size.width, self.size.height)];
         sunPanel.physicsBody = nil;
@@ -320,6 +323,8 @@ int METERS_PER_PIXEL = 50;
         if (spriteTexture) {
             moonNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
             moonNode.physicsBody = nil;
+            moonNode.xScale = moonNode.yScale = .5;
+
         }
         [_world addChild:moonNode];
         moonNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;

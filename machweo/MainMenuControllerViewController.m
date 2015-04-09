@@ -335,6 +335,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         LevelParser* parser = [[LevelParser alloc] init];
         SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
+        [spritePreloader load];
         [AnimationComponent sharedInstance];
         [SoundManager sharedInstance];
         [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
@@ -345,15 +346,12 @@
             [gkhelper authenticateLocalPlayer];
             gkhelper.presentingVC = self;
             [self setUpMenu];
-            dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC);
-            dispatch_after(time, dispatch_get_main_queue(), ^(void){
-                [loadingScene fadeOut];
-                [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"Loading_6.mp3" waitForCompletion:YES] completion:^(void){
-                    [_gameSceneView presentScene: newScene transition:[SKTransition fadeWithDuration:1]];
-                    [[SoundManager sharedInstance] startSounds];
-                    loadingScene = nil;
-                }];
-            });
+            [loadingScene fadeOut];
+            [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"Loading_6.mp3" waitForCompletion:YES] completion:^(void){
+                [_gameSceneView presentScene: newScene transition:[SKTransition fadeWithDuration:1]];
+                [[SoundManager sharedInstance] startSounds];
+                loadingScene = nil;
+            }];
         });
     });
     

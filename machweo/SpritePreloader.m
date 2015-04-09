@@ -26,56 +26,59 @@ const int NUM_SPRITES_PER_TYPE= 12;
         skyDict = [constants SKY_DICT];
         texArray = [NSMutableArray array];
         textureDict = constants.TEXTURE_DICT;
-        NSArray* atlases;
-        switch (constants.deviceType) {
-            case iphone_4_5:
-                atlases = @[[SKTextureAtlas atlasNamed:@"clouds_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"Desert_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"Jungle_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"obstacles_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"savanna_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"skys_iphone4_iphone5"]];
-                break;
-            case iphone_6:
-                atlases = @[[SKTextureAtlas atlasNamed:@"clouds_iphone6"], [SKTextureAtlas atlasNamed:@"Desert_iphone6"], [SKTextureAtlas atlasNamed:@"Jungle_iphone6"], [SKTextureAtlas atlasNamed:@"obstacles_iphone6"], [SKTextureAtlas atlasNamed:@"savanna_iphone6"], [SKTextureAtlas atlasNamed:@"skys_iphone6"]];
-                break;
-            case iphone_6_plus:
-                atlases = @[[SKTextureAtlas atlasNamed:@"clouds_iphone6_plus"], [SKTextureAtlas atlasNamed:@"Desert_iphone6_plus"], [SKTextureAtlas atlasNamed:@"Jungle_iphone6_plus"], [SKTextureAtlas atlasNamed:@"obstacles_iphone6_plus"], [SKTextureAtlas atlasNamed:@"savanna_iphone6_plus"], [SKTextureAtlas atlasNamed:@"skys_iphone6_plus"]];
-                break;
-            case ipad:
-                atlases = @[[SKTextureAtlas atlasNamed:@"clouds_ipad"], [SKTextureAtlas atlasNamed:@"Desert_ipad"], [SKTextureAtlas atlasNamed:@"Jungle_ipad"], [SKTextureAtlas atlasNamed:@"obstacles_ipad"], [SKTextureAtlas atlasNamed:@"savanna_ipad"], [SKTextureAtlas atlasNamed:@"skys_ipad"]];
-                break;
-        }
-        for (SKTextureAtlas* atlas in atlases) {
-            for (NSString* name in atlas.textureNames) {
-                NSString* correctedName = [name stringByDeletingPathExtension];
-                if ([correctedName hasSuffix:@"obstacle"]) {
-                    [self populateObstacleSpritePoolWithName:correctedName andAtlas:atlas];
-                    continue;
-                }
-                if ([correctedName hasSuffix:@"decoration"]) {
-                        SKTexture *tex = [atlas textureNamed:correctedName];
-                        if ([correctedName isEqualToString:@"tree_decoration"]) {
-                            [constants.TERRAIN_ARRAY addObject:tex];
-                        }
-                        if ([correctedName isEqualToString:@"tree_decoration2"]) {
-                            [constants.TERRAIN_ARRAY addObject:tex];
-                        }
-                        if ([correctedName isEqualToString:@"tree_decoration3"]) {
-                            [constants.TERRAIN_ARRAY addObject:tex];
-                        }
-                        if ([correctedName isEqualToString:@"tree_decoration4"]) {
-                            [constants.TERRAIN_ARRAY addObject:tex];
-                        }
-                        [textureDict setValue:tex forKey:correctedName];
-                        [texArray addObject:tex];
-                    continue;
-                }
-                if ([correctedName hasPrefix:@"tenggriPS"]) {
-                    [self preprocessSkyImage:correctedName withAtlas:atlas];
-                    continue;
-                }
-            }
-        }
-        [SKTexture preloadTextures:texArray withCompletionHandler:^{
-        }];
     }
     return self;
+}
+
+-(void)load{
+    NSArray* atlases;
+    switch (constants.deviceType) {
+        case iphone_4_5:
+            atlases = @[[SKTextureAtlas atlasNamed:@"clouds_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"Desert_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"Jungle_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"obstacles_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"savanna_iphone4_iphone5"], [SKTextureAtlas atlasNamed:@"skys_iphone4_iphone5"]];
+            break;
+        case iphone_6:
+            atlases = @[[SKTextureAtlas atlasNamed:@"clouds_iphone6"], [SKTextureAtlas atlasNamed:@"Desert_iphone6"], [SKTextureAtlas atlasNamed:@"Jungle_iphone6"], [SKTextureAtlas atlasNamed:@"obstacles_iphone6"], [SKTextureAtlas atlasNamed:@"savanna_iphone6"], [SKTextureAtlas atlasNamed:@"skys_iphone6"]];
+            break;
+        case iphone_6_plus:
+            atlases = @[[SKTextureAtlas atlasNamed:@"clouds_iphone6_plus"], [SKTextureAtlas atlasNamed:@"Desert_iphone6_plus"], [SKTextureAtlas atlasNamed:@"Jungle_iphone6_plus"], [SKTextureAtlas atlasNamed:@"obstacles_iphone6_plus"], [SKTextureAtlas atlasNamed:@"savanna_iphone6_plus"], [SKTextureAtlas atlasNamed:@"skys_iphone6_plus"]];
+            break;
+        case ipad:
+            atlases = @[[SKTextureAtlas atlasNamed:@"clouds_ipad"], [SKTextureAtlas atlasNamed:@"Desert_ipad"], [SKTextureAtlas atlasNamed:@"Jungle_ipad"], [SKTextureAtlas atlasNamed:@"obstacles_ipad"], [SKTextureAtlas atlasNamed:@"savanna_ipad"], [SKTextureAtlas atlasNamed:@"skys_ipad"]];
+            break;
+    }
+    for (SKTextureAtlas* atlas in atlases) {
+        for (NSString* name in atlas.textureNames) {
+            NSString* correctedName = [name stringByDeletingPathExtension];
+            if ([correctedName hasSuffix:@"obstacle"]) {
+                [self populateObstacleSpritePoolWithName:correctedName andAtlas:atlas];
+                continue;
+            }
+            if ([correctedName hasSuffix:@"decoration"]) {
+                SKTexture *tex = [atlas textureNamed:correctedName];
+                if ([correctedName isEqualToString:@"tree_decoration"]) {
+                    [constants.TERRAIN_ARRAY addObject:tex];
+                }
+                if ([correctedName isEqualToString:@"tree_decoration2"]) {
+                    [constants.TERRAIN_ARRAY addObject:tex];
+                }
+                if ([correctedName isEqualToString:@"tree_decoration3"]) {
+                    [constants.TERRAIN_ARRAY addObject:tex];
+                }
+                if ([correctedName isEqualToString:@"tree_decoration4"]) {
+                    [constants.TERRAIN_ARRAY addObject:tex];
+                }
+                [textureDict setValue:tex forKey:correctedName];
+                [texArray addObject:tex];
+                continue;
+            }
+            if ([correctedName hasPrefix:@"tenggriPS"]) {
+                [self preprocessSkyImage:correctedName withAtlas:atlas];
+                continue;
+            }
+        }
+    }
+    [SKTexture preloadTextures:texArray withCompletionHandler:^{
+    }];
 }
 
 -(void)preprocessSkyImage:(NSString*)skyName withAtlas:(SKTextureAtlas*)atlas{
@@ -90,6 +93,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
 
 -(void)populateObstacleSpritePoolWithName:(NSString*)spriteName andAtlas:(SKTextureAtlas*)atlas{
     Obstacle* prototype = [self obstaclePrototypeWithName:spriteName andAtlas:atlas];
+    prototype.xScale = prototype.yScale = .5;
     NSMutableArray* typeArray = [NSMutableArray array];
     for (int i = 0; i < NUM_SPRITES_PER_TYPE; i ++) {
         Obstacle* obsCopy = [prototype copy];
@@ -104,7 +108,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
     [texArray addObject:spriteTexture];
     Obstacle* obstacle = [Obstacle obstacleWithTexture:spriteTexture];
     obstacle.name = obsName;
-    obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:obstacle.size];
+    obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:CGSizeMake(obstacle.size.width / 2, obstacle.size.height / 2)];
     obstacle.physicsBody.categoryBitMask = constants.OBSTACLE_HIT_CATEGORY;
     obstacle.physicsBody.contactTestBitMask = constants.PLAYER_HIT_CATEGORY;
     obstacle.physicsBody.dynamic = false;

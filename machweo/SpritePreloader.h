@@ -9,4 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface SpritePreloader : NSObject
+-(void)load;
 @end
