@@ -48,6 +48,7 @@
         popupQueue = [NSMutableArray array];
         gameLoaded = true;
         _gameSceneView.ignoresSiblingOrder = YES;
+        _gameSceneView.showsDrawCount = true;
         _menuView.hidden = true;
         [self setUpObservers];
         [self initGame];

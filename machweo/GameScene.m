@@ -822,7 +822,6 @@ int METERS_PER_PIXEL = 50;
                 else{
                     [self sendMessageNotificationWithText:[NSString stringWithFormat:@"%@! Can you beat your high score of %lu?", greeting, (unsigned long)gkhelper.localHighScore] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
                 }
-                //[self sendMessageNotificationWithText:[NSString stringWithFormat:@"Can you beat your high score of %lu?", (unsigned long)gkhelper.localHighScore] andPosition:CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame)) andShouldPause:YES];
             }
         }];
     }];

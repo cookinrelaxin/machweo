@@ -26,20 +26,22 @@ const int NUM_SPRITES_PER_TYPE= 12;
         skyPool = [NSMutableDictionary dictionary];
         texArray = [NSMutableArray array];
         textureDict = constants.TEXTURE_DICT;
-        NSArray* urls = [self findPNGURLs];
-            for (NSURL* url in urls) {
-                NSString* name = [[url lastPathComponent] stringByDeletingPathExtension];
+        NSArray* atlases = @[[SKTextureAtlas atlasNamed:@"clouds"], [SKTextureAtlas atlasNamed:@"Desert"], [SKTextureAtlas atlasNamed:@"Jungle"], [SKTextureAtlas atlasNamed:@"obstacles"], [SKTextureAtlas atlasNamed:@"savanna"], [SKTextureAtlas atlasNamed:@"skys"]];
+        for (SKTextureAtlas* atlas in atlases) {
+            for (NSString* name in atlas.textureNames) {
                 if ([name hasSuffix:@"obstacle"]) {
                     @autoreleasepool {
-                        [self populateObstacleSpritePoolWithName:name andPath:[url path]];
+                        [self populateObstacleSpritePoolWithName:name andAtlas:atlas];
                     }
                     continue;
                 }
                 if ([name hasSuffix:@"decoration"]) {
                     @autoreleasepool {
-                        UIImage* img = [UIImage imageWithContentsOfFile:[url path]];
-                        img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:constants.enableHighResTextures];
-                        SKTexture *tex = [SKTexture textureWithImage:img];
+                        //UIImage* img = [UIImage imageWithContentsOfFile:[url path]];
+                        //img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:constants.enableHighResTextures];
+                        //SKTexture *tex = [SKTexture textureWithImage:img];
+                        SKTexture *tex = [atlas textureNamed:name];
+                        tex.size = CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy);
                         if ([name isEqualToString:@"tree_decoration"]) {
                             [constants.TERRAIN_ARRAY addObject:tex];
                         }
@@ -52,7 +54,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
                         if ([name isEqualToString:@"tree_decoration4"]) {
                             [constants.TERRAIN_ARRAY addObject:tex];
                         }
-                        img = nil;
+                       // img = nil;
                         [textureDict setValue:tex forKey:name];
                         [texArray addObject:tex];
                     }
@@ -60,23 +62,23 @@ const int NUM_SPRITES_PER_TYPE= 12;
                 }
                 if ([name hasPrefix:@"tenggriPS"]) {
                     @autoreleasepool {
-                        [self preprocessSkyImage:name withPath:[url path]];
+                        [self preprocessSkyImage:name withAtlas:atlas];
                     }
                     continue;
                 }
             }
         }
+
         [SKTexture preloadTextures:texArray withCompletionHandler:^{
         }];
+    }
     return self;
 }
 
--(void)preprocessSkyImage:(NSString*)skyName withPath:(NSString*)path{
-    UIImage* img = [UIImage imageWithContentsOfFile:path];
-    img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:NO];
-    SKTexture* skyTex = [SKTexture textureWithImage:img];
+-(void)preprocessSkyImage:(NSString*)skyName withAtlas:(SKTextureAtlas*)atlas{
+    SKTexture* skyTex = [atlas textureNamed:skyName];
+    skyTex.size = CGSizeMake(skyTex.size.width * constants.SCALE_COEFFICIENT.dy, skyTex.size.height * constants.SCALE_COEFFICIENT.dy);
     [texArray addObject:skyTex];
-    img = nil;
     SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];
     sky.physicsBody = nil;
     sky.zPosition = constants.BACKGROUND_Z_POSITION;
@@ -92,8 +94,8 @@ const int NUM_SPRITES_PER_TYPE= 12;
     return skyPool;
 }
 
--(void)populateObstacleSpritePoolWithName:(NSString*)spriteName andPath:(NSString*)path{
-    Obstacle* prototype = [self obstaclePrototypeWithName:spriteName andPath:path];
+-(void)populateObstacleSpritePoolWithName:(NSString*)spriteName andAtlas:(SKTextureAtlas*)atlas{
+    Obstacle* prototype = [self obstaclePrototypeWithName:spriteName];
     NSMutableArray* typeArray = [NSMutableArray array];
     for (int i = 0; i < NUM_SPRITES_PER_TYPE; i ++) {
         Obstacle* obsCopy = [prototype copy];
@@ -103,7 +105,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
     [obstaclePool setValue:typeArray forKey:spriteName];
  }
 
--(Obstacle*)obstaclePrototypeWithName:(NSString*)obsName andPath:(NSString*)path{
+-(Obstacle*)obstaclePrototypeWithName:(NSString*)obsName andAtlas:(SKTextureAtlas*)atlas{
     UIImage* img = [UIImage imageWithContentsOfFile:path];
     img = [self imageResize:img andResizeTo:CGSizeMake(img.size.width * constants.SCALE_COEFFICIENT.dy, img.size.height * constants.SCALE_COEFFICIENT.dy) shouldUseHighRes:constants.enableHighResTextures];
     SKTexture* spriteTexture = [SKTexture textureWithImage:img];
@@ -119,34 +121,21 @@ const int NUM_SPRITES_PER_TYPE= 12;
     return obstacle;
 }
 
--(NSArray*)findPNGURLs{
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSURL *bundleRoot = [[NSBundle mainBundle] bundleURL];
-    NSArray * dirContents =
-    [fm contentsOfDirectoryAtURL:bundleRoot
-      includingPropertiesForKeys:@[]
-                         options:NSDirectoryEnumerationSkipsHiddenFiles
-                           error:nil];
-    NSPredicate * fltr = [NSPredicate predicateWithFormat:@"pathExtension='png'"];
-    NSArray * onlyXMLS = [dirContents filteredArrayUsingPredicate:fltr];
-    return onlyXMLS;
-}
-
--(UIImage *)imageResize :(UIImage*)img andResizeTo:(CGSize)newSize shouldUseHighRes:(BOOL)highRes
-{
-    CGFloat scale = [[UIScreen mainScreen]scale];
-    if (highRes) {
-        UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
-    }
-    else{
-        UIGraphicsBeginImageContext(newSize);
-    }
-    //CGContextRef cgr = UIGraphicsGetCurrentContext();
-    //CGContextSetInterpolationQuality(cgr, kCGInterpolationNone);
-    [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
-    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return newImage;
-}
+//-(UIImage *)imageResize :(UIImage*)img andResizeTo:(CGSize)newSize shouldUseHighRes:(BOOL)highRes
+//{
+//    CGFloat scale = [[UIScreen mainScreen]scale];
+//    if (highRes) {
+//        UIGraphicsBeginImageContextWithOptions(newSize, NO, scale);
+//    }
+//    else{
+//        UIGraphicsBeginImageContext(newSize);
+//    }
+//    //CGContextRef cgr = UIGraphicsGetCurrentContext();
+//    //CGContextSetInterpolationQuality(cgr, kCGInterpolationNone);
+//    [img drawInRect:CGRectMake(0,0,newSize.width,newSize.height)];
+//    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    return newImage;
+//}
 
 @end
