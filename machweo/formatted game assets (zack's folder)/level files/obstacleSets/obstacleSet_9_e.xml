@@ -3,7 +3,7 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>rotate_obstacle</name>
-        <uniqueID>5157</uniqueID>
+        <uniqueID>231386</uniqueID>
         <xPosition>214.000000</xPosition>
         <yPosition>826.421265</yPosition>
         <zPosition>100.000000</zPosition>
@@ -12,8 +12,18 @@
     </node>
     <node>
         <type>ObstacleSignifier</type>
+        <name>spear_obstacle</name>
+        <uniqueID>35441</uniqueID>
+        <xPosition>633.502930</xPosition>
+        <yPosition>517.520020</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>3</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
         <name>rotate_obstacle</name>
-        <uniqueID>62682</uniqueID>
+        <uniqueID>687985</uniqueID>
         <xPosition>685.257080</xPosition>
         <yPosition>22.633682</yPosition>
         <zPosition>100.000000</zPosition>
@@ -23,7 +33,7 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>rotate_obstacle</name>
-        <uniqueID>568520</uniqueID>
+        <uniqueID>241897</uniqueID>
         <xPosition>1059.473877</xPosition>
         <yPosition>844.608398</yPosition>
         <zPosition>100.000000</zPosition>

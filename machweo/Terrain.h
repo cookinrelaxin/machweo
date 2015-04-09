@@ -12,7 +12,6 @@
 
 @interface Terrain : SKNode
 @property(nonatomic, strong) NSMutableArray* vertices;
-@property(nonatomic, strong) SKShapeNode* textureShapeNode;
 @property(nonatomic) BOOL isClosed;
 @property(nonatomic) BOOL permitDecorations;
 @property(nonatomic) NSMutableArray* decos;
@@ -20,12 +19,12 @@
 @property (nonatomic) BOOL belowPlayer;
 @property (nonatomic) BOOL shouldDeallocNodeArray;
 @property (nonatomic) BOOL allowIntersections;
-@property (nonatomic) Terrain* terrain;
-@property (nonatomic) CGPoint origin;
+@property (nonatomic) CGPoint lastVertex;
 -(instancetype)initWithSceneSize:(CGSize)size;
 -(void)closeLoopAndFillTerrainInView:(SKView*)view withCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY;
 -(void)generateDecorationAtVertex:(CGPoint)v inNode:(SKNode*)node andSlope:(float)slope andCurrentBiome:(Biome)biome;
 -(void)changeDecorationPermissions:(CGPoint)currentPoint;
 -(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope;
 -(void)fadeOutAndDelete;
+-(void)killShapeNode;
 @end

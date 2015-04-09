@@ -10,5 +10,4 @@
 #import "Constants.h"
 
 @interface LoadingScene : SKScene
--(void)fadeOut;
 @end

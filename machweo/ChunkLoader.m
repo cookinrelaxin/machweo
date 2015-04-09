@@ -173,10 +173,7 @@ typedef enum NodeTypes
             float zFloat = [string floatValue];
             if (currentNodeType == decoration) {
                 if (zFloat >= constants.OBSTACLE_Z_POSITION) {
-                    //NSUInteger dice = arc4random_uniform(5) + 1;
-                    //currentNode.zPosition = constants.OBSTACLE_Z_POSITION - dice;
                     currentNode.alpha = .50;
-                    //return;
                 }
             }
             currentNode.zPosition = zFloat;

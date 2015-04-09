@@ -22,6 +22,7 @@ int CLIFF_VERTEX_COUNT = 15;
     float previousSunY;
     CGSize sceneSize;
     NSMutableArray* terrainPool;
+    SKShapeNode* textureShapeNode;
 }
 
 -(instancetype)initWithSceneSize:(CGSize)size{
@@ -101,9 +102,9 @@ int CLIFF_VERTEX_COUNT = 15;
 
 -(void)generate:(SKView*)view withCurrentSunYPosition:(float)sunY minY:(float)minY andMaxY:(float)maxY{
     [self shapeNodeWithVertices:_vertices];
-    _textureShapeNode.fillColor = [self findTimeSpecificTerrainColorWithCurrentSunYPosition:sunY minY:minY andMaxY:maxY];
-    if (!_textureShapeNode.parent) {
-        [self addChild:_textureShapeNode];
+    textureShapeNode.fillColor = [self findTimeSpecificTerrainColorWithCurrentSunYPosition:sunY minY:minY andMaxY:maxY];
+    if (!textureShapeNode.parent) {
+        [self addChild:textureShapeNode];
     }
 }
 
@@ -126,10 +127,10 @@ int CLIFF_VERTEX_COUNT = 15;
 }
 
 -(void)shapeNodeWithVertices:(NSMutableArray*)vertexArray{
-    if (!_textureShapeNode) {
-        _textureShapeNode = [SKShapeNode node];
+    if (!textureShapeNode) {
+        textureShapeNode = [SKShapeNode node];
     }
-    SKShapeNode* node = _textureShapeNode;
+    SKShapeNode* node = textureShapeNode;
     node.position = CGPointZero;
     node.antialiased = false;
     node.strokeColor = nil;
@@ -171,6 +172,7 @@ int CLIFF_VERTEX_COUNT = 15;
                 y -= yInterval;
             }
             CGPoint bottomRightAreaVertex = CGPointMake(x, 0);
+            _lastVertex = bottomRightAreaVertex;
             CGPoint bottomLeftAreaVertex = CGPointMake(firstVertex.x, 0);
             CGPoint upperLeftAreaVertex = firstVertex;
             CGPathAddLineToPoint(pathToDraw, NULL, bottomRightAreaVertex.x, bottomRightAreaVertex.y - vertexOffset.dy);
@@ -231,8 +233,6 @@ int CLIFF_VERTEX_COUNT = 15;
             }
         }
     }
-    
-
 }
 
 

@@ -76,6 +76,7 @@ int midpoint(int n1, int n2)
     _SKY_DICT = [NSMutableDictionary dictionary];
     _OBSTACLE_POOL = [NSMutableDictionary dictionary];
     _TERRAIN_ARRAY = [NSMutableArray array];
+    _ATLASES = [NSArray array];
     _NUMBER_OF_BACKGROUND_SIMUL = 8;
     _DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO = 250 / 20;
     _DEFAULT_POPUP_HEIGHT_TO_CHAR_RATIO = 100 / 20;
@@ -88,12 +89,7 @@ int midpoint(int n1, int n2)
     _savannaTrackURL = [[NSBundle mainBundle] URLForResource:@"supertrack3" withExtension:@"mp3"];
     
     _enableAds = ![[NSUserDefaults standardUserDefaults] boolForKey:@"areAdsRemoved"];
-    NSLog(@"_enableAds: %d", _enableAds);
-//    if (theHighScore == 0) {
-//        [defaults setInteger:1 forKey:@"Highscore"];
-//        [defaults synchronize];
-//    }
-    //_enableAds = true;
+    //NSLog(@"_enableAds: %d", _enableAds);
     return self;
 }
 

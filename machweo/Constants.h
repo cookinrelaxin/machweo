@@ -103,6 +103,7 @@ typedef enum Devices
 @property(nonatomic) NSMutableDictionary* OBSTACLE_POOL;
 @property(nonatomic) NSMutableDictionary* SOUND_ACTIONS;
 @property(nonatomic) NSMutableArray* TERRAIN_ARRAY;
+@property(nonatomic, strong) NSArray* ATLASES;
 @property(nonatomic) BOOL jungle_textures_loaded;
 @property(nonatomic) BOOL savanna_textures_loaded;
 @property(nonatomic) BOOL sahara_textures_loaded;

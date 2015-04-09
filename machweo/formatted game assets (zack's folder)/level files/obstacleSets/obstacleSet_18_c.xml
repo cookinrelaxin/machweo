@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldnodes>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>spearsmall_obstacle </name>
+        <uniqueID>41739</uniqueID>
+        <xPosition>16.000000</xPosition>
+        <yPosition>665.740723</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>1</motionType>
+        <speedType>2</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>rotate_obstacle</name>
+        <uniqueID>978330</uniqueID>
+        <xPosition>449.106232</xPosition>
+        <yPosition>610.528137</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>4</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>spearsmall_obstacle </name>
+        <uniqueID>709931</uniqueID>
+        <xPosition>935.863525</xPosition>
+        <yPosition>353.772400</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>1</motionType>
+        <speedType>2</speedType>
+    </node>
+</worldnodes>

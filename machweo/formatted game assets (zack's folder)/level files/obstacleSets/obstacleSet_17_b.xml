@@ -2,10 +2,30 @@
 <worldnodes>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>74393</uniqueID>
-        <xPosition>27.000000</xPosition>
-        <yPosition>243.161880</yPosition>
+        <name>totem_obstacle</name>
+        <uniqueID>51244</uniqueID>
+        <xPosition>90.500000</xPosition>
+        <yPosition>515.396973</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>totem2_obstacle</name>
+        <uniqueID>471986</uniqueID>
+        <xPosition>90.500000</xPosition>
+        <yPosition>-136.500000</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>totem2_obstacle</name>
+        <uniqueID>397099</uniqueID>
+        <xPosition>95.518738</xPosition>
+        <yPosition>1160.500000</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
@@ -13,31 +33,11 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>spear_obstacle</name>
-        <uniqueID>113329</uniqueID>
-        <xPosition>231.304901</xPosition>
-        <yPosition>631.738892</yPosition>
+        <uniqueID>141250</uniqueID>
+        <xPosition>673.416626</xPosition>
+        <yPosition>734.730835</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>2</motionType>
-        <speedType>3</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>215372</uniqueID>
-        <xPosition>727.951904</xPosition>
-        <yPosition>1148.822998</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>2528</uniqueID>
-        <xPosition>1212.217773</xPosition>
-        <yPosition>240.184387</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>1</motionType>
         <speedType>0</speedType>
     </node>
 </worldnodes>

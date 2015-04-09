@@ -80,6 +80,7 @@ int METERS_PER_PIXEL = 50;
 
 -(instancetype)initWithSize:(CGSize)size withinView:(SKView*)view{
     if (self = [super initWithSize:size]){
+        
         _constants = [Constants sharedInstance];
         skyWidth = RAW_SKY_WIDTH;
         _world = [[SKNode alloc] init];
@@ -370,19 +371,22 @@ int METERS_PER_PIXEL = 50;
         previousPoint = currentPoint = positionInSelf;
     }
     Terrain *terrain = [[Terrain alloc] initWithSceneSize:self.size];
-    //[terrain runAction:[SKAction repeatActionForever:[_constants.SOUND_ACTIONS valueForKey:@"line.mp3"]] withKey:@"lineSound"];
     [terrainArray addObject:terrain];
     [_terrain addChild:terrain];
-    if (terrainArray.count > 2) {
-        Terrain* firstTer = [terrainArray firstObject];
-        for (Decoration *deco in firstTer.decos) {
-            [deco runAction:[SKAction fadeOutWithDuration:1]];
+    if (terrainArray.count >= 1) {
+        for (int i = 0; i < (terrainArray.count - 1); i ++){
+            Terrain* ter = [terrainArray objectAtIndex:i];
+            if (!ter.shouldDeallocNodeArray) {
+                ter.shouldDeallocNodeArray = true;
+                for (Decoration *deco in ter.decos) {
+                    [deco runAction:[SKAction fadeOutWithDuration:1]];
+                }
+                [ter runAction:[SKAction fadeOutWithDuration:1] completion:^{
+                    [ter removeFromParent];
+                    [terrainArray removeObject:ter];
+                }];
+            }
         }
-        firstTer.shouldDeallocNodeArray = true;
-        [firstTer runAction:[SKAction fadeOutWithDuration:1] completion:^{
-            [firstTer removeFromParent];
-            [terrainArray removeObject:firstTer];
-        }];
     }
 }
 
@@ -398,7 +402,6 @@ int METERS_PER_PIXEL = 50;
     if (labelIsVisible) {
         [pauseLabel runAction:[SKAction fadeAlphaTo:1 duration:.5]];
     }
-    //pauseButton.hidden = true;
 }
              
 -(void)unpauseAndReturnToGame{
@@ -552,7 +555,6 @@ int METERS_PER_PIXEL = 50;
         }
         if (player_created && !gameOver) {
             if (in_game) {
-                //[self checkForCloseCall];
                 [self updateDistance];
                 [self checkForLostGame];
             }
@@ -569,14 +571,29 @@ int METERS_PER_PIXEL = 50;
         }
         [self fadeMoon];
     }
+    [self cleanupOldTerrain];
+}
+
+-(void)cleanupOldTerrain{
+    NSMutableArray* trash = [NSMutableArray array];
+    for (Terrain* ter in terrainArray) {
+        if (ter.shouldDeallocNodeArray) {
+            continue;
+        }
+        if (ter.lastVertex.x < 0) {
+            ter.shouldDeallocNodeArray = true;
+            [trash addObject:ter];
+            [ter removeFromParent];
+        }
+    }
+    for (Terrain* ter in trash) {
+        [terrainArray removeObject:ter];
+    }
 }
 
 -(void)checkForNewAnimationState{
     if ((player.roughlyOnLine || player.onGround) && [player actionForKey:@"midAirMaasai"]) {
         [player removeActionForKey:@"midAirMaasai"];
-//        NSLog(@"[player actionForKey:flagFlap]: %@", [player actionForKey:@"flagFlap"]);
-        //SKAction* flagFlap = [player actionForKey:@"flagFlap"];
-        
         [player removeActionForKey:@"flagFlap"];
         [player runAction:[SKAction repeatActionForever:
                            [SKAction animateWithTextures:animationComponent.runningFrames
@@ -596,7 +613,6 @@ int METERS_PER_PIXEL = 50;
                                                          resize:NO
                                                         restore:YES]];
         [player runAction:[SKAction sequence:@[jumpAction, midAirAction]] withKey:@"jumpingMaasai"];
-        //[player runAction:[_constants.SOUND_ACTIONS valueForKey:@"jump.mp3"]];
     }
     else if([player actionForKey:@"jumpingMaasai"]){
         
@@ -607,8 +623,6 @@ int METERS_PER_PIXEL = 50;
                               resize:NO
                              restore:YES]];
         [player runAction:midAirAction withKey:@"midAirMaasai"];
-        //[player runAction:[_constants.SOUND_ACTIONS valueForKey:@"flagFlap.mp3"] withKey:@"flagFlap"];
-        //NSLog(@"[player actionForKey:flagFlap]: %@", [player actionForKey:@"flagFlap"]);
 
     }
 }
@@ -626,35 +640,7 @@ int METERS_PER_PIXEL = 50;
     if (player.physicsBody.allContactedBodies.count > 0) {
         [self loseGame];
     }
-//    else{
-//        if (player.shouldWoosh && !player.wooshing) {
-//            player.wooshing = true;
-//            dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INTERACTIVE, 0), ^(void){
-//                [player runAction:[_constants.SOUND_ACTIONS valueForKey:@"swoosh.mp3"]];
-//            });
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                player.wooshing = false;
-//                player.shouldWoosh = false;
-//            });
-//            
-//        }
-//    }
 }
-
-//-(void)checkForCloseCall{
-//    if (!player.wooshing) {
-//        CGPoint playerPositionInObstacles = [_obstacles convertPoint:player.position fromNode:self];
-//        float leftSideOfPlayerInObstacles = playerPositionInObstacles.x - (player.size.width / 2);
-//        CGPoint playerOriginInObstacles = [_obstacles convertPoint:player.frame.origin fromNode:self];
-//        CGRect playerFrameInObstacles = CGRectMake(playerOriginInObstacles.x, playerOriginInObstacles.y, player.size.width, player.size.height);
-//        for (Obstacle* obs in _obstacles.children) {
-//            if ((leftSideOfPlayerInObstacles > obs.position.x) && CGRectIntersectsRect(obs.frame, playerFrameInObstacles)) {
-//                player.shouldWoosh = true;
-//                return;
-//            }
-//        }
-//    }
-//}
 
 -(void)sendMessageNotificationWithText:(NSString*)text andPosition:(CGPoint)position andShouldPause:(BOOL)shouldPause{
     NSMutableDictionary* popupDict = [NSMutableDictionary dictionary];
@@ -726,10 +712,6 @@ int METERS_PER_PIXEL = 50;
             for (int i = 0; i < ter.vertices.count; i ++) {
                 NSValue* pointNode = [ter.vertices objectAtIndex:i];
                 CGPoint pointNodePosition = pointNode.CGPointValue;
-//                if (pointNodePosition.x < 0) {
-//                    [ter.vertices removeObject:pointNode];
-//                    continue;
-//                }
                 [ter.vertices replaceObjectAtIndex:i withObject:[NSValue valueWithCGPoint:CGPointMake(pointNodePosition.x - differenceInPreviousAndCurrentPlayerPositions.dx, pointNodePosition.y)]];
             }
         }
@@ -743,7 +725,6 @@ int METERS_PER_PIXEL = 50;
             deco.position = CGPointMake(deco.position.x - parallaxAdjustedDifference.dx, deco.position.y);
         }
     }
-    //NSLog(@"_cairns.position.x: %f", _cairns.position.x);
 }
 
 -(void)reset{

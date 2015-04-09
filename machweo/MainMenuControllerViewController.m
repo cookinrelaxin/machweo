@@ -111,7 +111,6 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
-       // NSLog(@"lose game");
          NSUInteger score = ((NSNumber*)[[notification userInfo] valueForKey:@"distance"]).integerValue;
          [self showMenuWithScore:score withAd:true];
 
@@ -122,7 +121,6 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
-       //  NSLog(@"add popup");
          NSString* text = [notification.userInfo objectForKey:@"popup text"];
          CGPoint position = ((NSValue*)[notification.userInfo objectForKey:@"popup position"]).CGPointValue;
          [self addPopupMessageWithText:text andPosition:position];
@@ -133,7 +131,6 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
-      //   NSLog(@"remove message");
          [self removeCurrentMessage];
      }];
     
@@ -142,8 +139,6 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
-         //   NSLog(@"remove message");
-         //[self removeCurrentMessage];
          _processingLabel.hidden = false;
      }];
     
@@ -152,11 +147,8 @@
                          queue:nil
                     usingBlock:^(NSNotification *notification)
      {
-         //   NSLog(@"remove message");
-         //[self removeCurrentMessage];
          _processingLabel.hidden = true;
      }];
-    
     
 }
 
@@ -330,35 +322,35 @@
     
     [storeHelper tapsRemoveAds];
 }
+
 -(void)initGame{
-   __block LoadingScene* loadingScene;
+    __block LoadingScene* loadingScene;
+    loadingScene = [[LoadingScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
+    [_gameSceneView presentScene:loadingScene];
+    SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
+    [spritePreloader load];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
         LevelParser* parser = [[LevelParser alloc] init];
-        SpritePreloader* spritePreloader = [[SpritePreloader alloc] init];
-        [spritePreloader load];
         [AnimationComponent sharedInstance];
         [SoundManager sharedInstance];
         [Constants sharedInstance].OBSTACLE_SETS = parser.obstacleSets;
         [Constants sharedInstance].BIOMES = parser.biomes;
         GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
         dispatch_sync(dispatch_get_main_queue(), ^(void){
-            GKHelper* gkhelper = [GKHelper sharedInstance];
-            [gkhelper authenticateLocalPlayer];
-            gkhelper.presentingVC = self;
-            [self setUpMenu];
-            [loadingScene fadeOut];
-            [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"Loading_6.mp3" waitForCompletion:YES] completion:^(void){
+            [SKTextureAtlas preloadTextureAtlases:constants.ATLASES withCompletionHandler:^(void){
+                GKHelper* gkhelper = [GKHelper sharedInstance];
+                [gkhelper authenticateLocalPlayer];
+                gkhelper.presentingVC = self;
+                [self setUpMenu];
+                [_gameSceneView.scene runAction:[SKAction playSoundFileNamed:@"Loading_6.mp3" waitForCompletion:YES] completion:^(void){
                 [_gameSceneView presentScene: newScene transition:[SKTransition fadeWithDuration:1]];
                 [[SoundManager sharedInstance] startSounds];
                 loadingScene = nil;
+                }];
             }];
         });
     });
-    
-    loadingScene = [[LoadingScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height)];
-    [_gameSceneView presentScene:loadingScene];
 }
-
 
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
 {

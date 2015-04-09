@@ -57,6 +57,7 @@
 
 - (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
 {
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"processing over" object:nil];
     NSLog(@"received restored transactions: %lu", (unsigned long)queue.transactions.count);
     for(SKPaymentTransaction *transaction in queue.transactions){
         if(transaction.transactionState == SKPaymentTransactionStateRestored){
@@ -69,14 +70,22 @@
     }
 }
 
--(void)doRemoveAds{
+-(void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error{
     [[NSNotificationCenter defaultCenter] postNotificationName:@"processing over" object:nil];
+}
+
+-(void)paymentQueue:(SKPaymentQueue *)queue removedTransactions:(NSArray *)transactions{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"processing over" object:nil];
+}
+
+-(void)doRemoveAds{
     [Constants sharedInstance].enableAds = false;
     [[NSUserDefaults standardUserDefaults] setBool:true forKey:@"areAdsRemoved"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions{
+    
     for(SKPaymentTransaction *transaction in transactions){
         switch(transaction.transactionState){
             case SKPaymentTransactionStatePurchasing: NSLog(@"Transaction state -> Purchasing");
@@ -91,12 +100,14 @@
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
             case SKPaymentTransactionStateFailed:
+                
                 if(transaction.error.code != SKErrorPaymentCancelled){
                     NSLog(@"SKPaymentTransactionStateFailed");
                 }
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
             break;
             case SKPaymentTransactionStateDeferred:
+                
             break;
         }
     }

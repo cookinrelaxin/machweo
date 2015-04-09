@@ -16,7 +16,6 @@ const int NUM_SPRITES_PER_TYPE= 12;
     NSMutableDictionary* obstaclePool;
     NSMutableDictionary* skyDict;
     NSMutableDictionary* textureDict;
-    NSMutableArray* texArray;
     Constants* constants;
 }
 -(instancetype)init{
@@ -24,7 +23,6 @@ const int NUM_SPRITES_PER_TYPE= 12;
         constants = [Constants sharedInstance];
         obstaclePool = [constants OBSTACLE_POOL];
         skyDict = [constants SKY_DICT];
-        texArray = [NSMutableArray array];
         textureDict = constants.TEXTURE_DICT;
     }
     return self;
@@ -68,7 +66,6 @@ const int NUM_SPRITES_PER_TYPE= 12;
                     [constants.TERRAIN_ARRAY addObject:tex];
                 }
                 [textureDict setValue:tex forKey:correctedName];
-                [texArray addObject:tex];
                 continue;
             }
             if ([correctedName hasPrefix:@"tenggriPS"]) {
@@ -77,13 +74,11 @@ const int NUM_SPRITES_PER_TYPE= 12;
             }
         }
     }
-    [SKTexture preloadTextures:texArray withCompletionHandler:^{
-    }];
+    constants.ATLASES = atlases;
 }
 
 -(void)preprocessSkyImage:(NSString*)skyName withAtlas:(SKTextureAtlas*)atlas{
     SKTexture* skyTex = [atlas textureNamed:skyName];
-    [texArray addObject:skyTex];
     SKSpriteNode* sky = [SKSpriteNode spriteNodeWithTexture:skyTex];
     sky.physicsBody = nil;
     sky.zPosition = constants.BACKGROUND_Z_POSITION;
@@ -105,7 +100,6 @@ const int NUM_SPRITES_PER_TYPE= 12;
 
 -(Obstacle*)obstaclePrototypeWithName:(NSString*)obsName andAtlas:(SKTextureAtlas*)atlas{
     SKTexture* spriteTexture = [atlas textureNamed:obsName];
-    [texArray addObject:spriteTexture];
     Obstacle* obstacle = [Obstacle obstacleWithTexture:spriteTexture];
     obstacle.name = obsName;
     obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:CGSizeMake(obstacle.size.width / 2, obstacle.size.height / 2)];
