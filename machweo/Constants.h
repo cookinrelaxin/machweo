@@ -98,12 +98,11 @@ typedef enum Devices
 @property(readonly, nonatomic) int OBSTACLE_HIT_CATEGORY;
 @property(nonatomic) NSMutableDictionary* BIOMES;
 @property(nonatomic) NSMutableDictionary* OBSTACLE_SETS;
-@property(nonatomic) NSMutableDictionary* TEXTURE_DICT;
 @property(nonatomic) NSMutableDictionary* SKY_DICT;
 @property(nonatomic) NSMutableDictionary* OBSTACLE_POOL;
 @property(nonatomic) NSMutableDictionary* SOUND_ACTIONS;
 @property(nonatomic) NSMutableArray* TERRAIN_ARRAY;
-@property(nonatomic, strong) NSArray* ATLASES;
+@property(nonatomic, strong) NSMutableDictionary* ATLAS_FOR_DECO_NAME;
 @property(nonatomic) BOOL jungle_textures_loaded;
 @property(nonatomic) BOOL savanna_textures_loaded;
 @property(nonatomic) BOOL sahara_textures_loaded;

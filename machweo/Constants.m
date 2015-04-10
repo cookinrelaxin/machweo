@@ -71,12 +71,12 @@ int midpoint(int n1, int n2)
     _MIN_PLAYER_VELOCITY_DY = -8;
     _FRICTION_COEFFICIENT = .996f;
     _GRAVITY = .35;
-    _TEXTURE_DICT = [NSMutableDictionary dictionary];
     _SOUND_ACTIONS = [NSMutableDictionary dictionary];
     _SKY_DICT = [NSMutableDictionary dictionary];
     _OBSTACLE_POOL = [NSMutableDictionary dictionary];
     _TERRAIN_ARRAY = [NSMutableArray array];
-    _ATLASES = [NSArray array];
+    //_ATLASES = [NSArray array];
+    _ATLAS_FOR_DECO_NAME = [NSMutableDictionary dictionary];
     _NUMBER_OF_BACKGROUND_SIMUL = 8;
     _DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO = 250 / 20;
     _DEFAULT_POPUP_HEIGHT_TO_CHAR_RATIO = 100 / 20;

@@ -40,7 +40,7 @@ typedef enum NodeTypes
     BOOL charactersFound;
     Constants* constants;
     Biome currentBiome;
-    NSMutableDictionary* textureDict;
+    NSMutableDictionary* atlas_for_deco_name;
 }
 
 -(instancetype)initWithFile:(NSString*)fileName{
@@ -54,9 +54,9 @@ typedef enum NodeTypes
     if ([fileName containsString:@"sahara"]) {
         currentBiome = sahara;
     }
-    textureDict = constants.TEXTURE_DICT;
     obstacleArray = [NSMutableArray array];
     decorationArray = [NSMutableArray array];
+    atlas_for_deco_name = constants.ATLAS_FOR_DECO_NAME;
     NSXMLParser* chunkParser;
     BOOL success;
     NSURL *xmlURL = [[NSBundle mainBundle]
@@ -148,13 +148,13 @@ typedef enum NodeTypes
                 return;
             }
             else if (currentNodeType == decoration){
-                SKTexture *spriteTexture = [textureDict objectForKey:string];
-                if (spriteTexture) {
-                    currentNode = [Decoration spriteNodeWithTexture:spriteTexture];
-                    currentNode.xScale = currentNode.yScale = .5;
-                    currentNode.physicsBody = nil;
-                }
-                return;
+                SKTextureAtlas* atlas = [atlas_for_deco_name valueForKey:string];
+                SKTexture* tex = [atlas textureNamed:string];
+                //NSLog(@"tex: %@", tex);
+                //NSLog(@"atlas: %@", atlas);
+                currentNode = [Decoration spriteNodeWithTexture:tex];
+                currentNode.xScale = currentNode.yScale = .5;
+                currentNode.physicsBody = nil;
             }
             else{
                 currentNode = nil;

@@ -293,39 +293,41 @@ int METERS_PER_PIXEL = 50;
 }
 
 -(void)organizeTheHeavens{
-    {
-        SKTexture *spriteTexture = [_constants.TEXTURE_DICT objectForKey:@"sun2_decoration"];
-        if (spriteTexture) {
-            sunNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
+        {
+            NSString* sunName = @"sun2_decoration";
+            SKTextureAtlas* atlas = [_constants.ATLAS_FOR_DECO_NAME valueForKey:sunName];
+            SKTexture* tex = [atlas textureNamed:sunName];
+            sunNode = [SKSpriteNode spriteNodeWithTexture:tex];
             sunNode.physicsBody = nil;
             sunNode.xScale = sunNode.yScale = .5;
-        }
-        sunPanel = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(self.size.width, self.size.height)];
-        sunPanel.physicsBody = nil;
-        CGPoint centerOfSolarOrbit = CGPointMake(self.size.width / 2, (sunNode.size.height / 2));
-        sunPanel.position = centerOfSolarOrbit;
-        sunPanel.zRotation =  [self calculateInitialSolarRotation];
-        sunPanel.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
-        [_world addChild:sunPanel];
-        float radiusOfSolarOrbit = self.size.height * .6;
-        UIBezierPath *sunPath = [UIBezierPath bezierPathWithArcCenter:CGPointZero radius:radiusOfSolarOrbit startAngle:0 endAngle:2 * M_PI clockwise:NO];
-        [sunPath closePath];
-        SKAction* sunriseAction = [SKAction followPath:sunPath.CGPath asOffset:NO orientToPath:NO duration:DIURNAL_PERIOD];
-        [sunNode runAction:[SKAction repeatActionForever:sunriseAction] completion:^{
-        }];
-        [sunPanel addChild:sunNode];
-        sunMaxY = centerOfSolarOrbit.y + radiusOfSolarOrbit;
-        sunMinY = centerOfSolarOrbit.y - radiusOfSolarOrbit;
-        sky_displacement_coefficient = skyWidth / (2 * M_PI * radiusOfSolarOrbit);
+            
+            sunPanel = [SKSpriteNode spriteNodeWithColor:[UIColor clearColor] size:CGSizeMake(self.size.width, self.size.height)];
+            sunPanel.physicsBody = nil;
+            CGPoint centerOfSolarOrbit = CGPointMake(self.size.width / 2, (sunNode.size.height / 2));
+            sunPanel.position = centerOfSolarOrbit;
+            sunPanel.zRotation =  [self calculateInitialSolarRotation];
+            sunPanel.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
+            [_world addChild:sunPanel];
+            float radiusOfSolarOrbit = self.size.height * .6;
+            UIBezierPath *sunPath = [UIBezierPath bezierPathWithArcCenter:CGPointZero radius:radiusOfSolarOrbit startAngle:0 endAngle:2 * M_PI clockwise:NO];
+            [sunPath closePath];
+            SKAction* sunriseAction = [SKAction followPath:sunPath.CGPath asOffset:NO orientToPath:NO duration:DIURNAL_PERIOD];
+            [sunNode runAction:[SKAction repeatActionForever:sunriseAction] completion:^{
+            }];
+            [sunPanel addChild:sunNode];
+            sunMaxY = centerOfSolarOrbit.y + radiusOfSolarOrbit;
+            sunMinY = centerOfSolarOrbit.y - radiusOfSolarOrbit;
+            sky_displacement_coefficient = skyWidth / (2 * M_PI * radiusOfSolarOrbit);
     }
     
     {
-        SKTexture *spriteTexture = [_constants.TEXTURE_DICT objectForKey:@"moon_decoration"];
-        if (spriteTexture) {
-            moonNode = [SKSpriteNode spriteNodeWithTexture:spriteTexture];
+        {
+            NSString* moonName = @"moon_decoration";
+            SKTextureAtlas* atlas = [_constants.ATLAS_FOR_DECO_NAME valueForKey:moonName];
+            SKTexture* tex = [atlas textureNamed:moonName];
+            moonNode = [SKSpriteNode spriteNodeWithTexture:tex];
             moonNode.physicsBody = nil;
             moonNode.xScale = moonNode.yScale = .5;
-
         }
         [_world addChild:moonNode];
         moonNode.zPosition = _constants.SUN_AND_MOON_Z_POSITION;
@@ -828,7 +830,11 @@ int METERS_PER_PIXEL = 50;
 -(void)setupCairns{
     GKHelper* gkhelper = [GKHelper sharedInstance];
     if (gkhelper.gcEnabled) {
-        SKTexture *cairnTexture = [_constants.TEXTURE_DICT objectForKey:@"cairn_decoration"];
+        
+        NSString* cairnName = @"cairn_decoration";
+        SKTextureAtlas* atlas = [_constants.ATLAS_FOR_DECO_NAME valueForKey:cairnName];
+        SKTexture* cairnTexture = [atlas textureNamed:cairnName];
+        
         NSArray* top10GlobalScores = [gkhelper retrieveTopTenGlobalScores];
         NSArray* top10FriendScores = [gkhelper retrieveTopTenFriendScores];
         UIColor* labelColor = [UIColor blackColor];

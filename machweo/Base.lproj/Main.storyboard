@@ -337,11 +337,6 @@
                                         <variation key="heightClass=compact-widthClass=regular" constant="39"/>
                                         <variation key="heightClass=regular-widthClass=regular" constant="103"/>
                                     </constraint>
-                                    <constraint firstAttribute="bottom" secondItem="iOM-JI-b82" secondAttribute="bottom" constant="242" id="mUm-Y0-XbP">
-                                        <variation key="heightClass=compact-widthClass=compact" constant="242"/>
-                                        <variation key="heightClass=compact-widthClass=regular" constant="254"/>
-                                        <variation key="heightClass=regular-widthClass=regular" constant="530"/>
-                                    </constraint>
                                     <constraint firstItem="X3j-pu-29F" firstAttribute="top" secondItem="EZm-1o-77c" secondAttribute="bottom" constant="22" id="niB-Uy-ios">
                                         <variation key="heightClass=compact-widthClass=compact" constant="14"/>
                                         <variation key="heightClass=regular-widthClass=regular" constant="60"/>

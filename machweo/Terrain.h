@@ -26,5 +26,4 @@
 -(void)changeDecorationPermissions:(CGPoint)currentPoint;
 -(void)correctSpriteZsBeforeVertex:(CGPoint)vertex againstSlope:(BOOL)againstSlope;
 -(void)fadeOutAndDelete;
--(void)killShapeNode;
 @end

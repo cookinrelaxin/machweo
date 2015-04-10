@@ -15,7 +15,9 @@ const int NUM_SPRITES_PER_TYPE= 12;
 @implementation SpritePreloader{
     NSMutableDictionary* obstaclePool;
     NSMutableDictionary* skyDict;
-    NSMutableDictionary* textureDict;
+    NSMutableDictionary* atlas_for_deco_name;
+
+
     Constants* constants;
 }
 -(instancetype)init{
@@ -23,7 +25,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
         constants = [Constants sharedInstance];
         obstaclePool = [constants OBSTACLE_POOL];
         skyDict = [constants SKY_DICT];
-        textureDict = constants.TEXTURE_DICT;
+        atlas_for_deco_name = constants.ATLAS_FOR_DECO_NAME;
     }
     return self;
 }
@@ -44,15 +46,19 @@ const int NUM_SPRITES_PER_TYPE= 12;
             atlases = @[[SKTextureAtlas atlasNamed:@"clouds_ipad"], [SKTextureAtlas atlasNamed:@"Desert_ipad"], [SKTextureAtlas atlasNamed:@"Jungle_ipad"], [SKTextureAtlas atlasNamed:@"obstacles_ipad"], [SKTextureAtlas atlasNamed:@"savanna_ipad"], [SKTextureAtlas atlasNamed:@"skys_ipad"]];
             break;
     }
+    
     for (SKTextureAtlas* atlas in atlases) {
         for (NSString* name in atlas.textureNames) {
+//            NSLog(@"name: %@", name);
             NSString* correctedName = [name stringByDeletingPathExtension];
             if ([correctedName hasSuffix:@"obstacle"]) {
                 [self populateObstacleSpritePoolWithName:correctedName andAtlas:atlas];
                 continue;
             }
             if ([correctedName hasSuffix:@"decoration"]) {
+                [atlas_for_deco_name setValue:atlas forKey:correctedName];
                 SKTexture *tex = [atlas textureNamed:correctedName];
+                
                 if ([correctedName isEqualToString:@"tree_decoration"]) {
                     [constants.TERRAIN_ARRAY addObject:tex];
                 }
@@ -65,7 +71,6 @@ const int NUM_SPRITES_PER_TYPE= 12;
                 if ([correctedName isEqualToString:@"tree_decoration4"]) {
                     [constants.TERRAIN_ARRAY addObject:tex];
                 }
-                [textureDict setValue:tex forKey:correctedName];
                 continue;
             }
             if ([correctedName hasPrefix:@"tenggriPS"]) {
@@ -74,7 +79,6 @@ const int NUM_SPRITES_PER_TYPE= 12;
             }
         }
     }
-    constants.ATLASES = atlases;
 }
 
 -(void)preprocessSkyImage:(NSString*)skyName withAtlas:(SKTextureAtlas*)atlas{

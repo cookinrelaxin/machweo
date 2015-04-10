@@ -48,13 +48,12 @@
         popupQueue = [NSMutableArray array];
         gameLoaded = true;
         _gameSceneView.ignoresSiblingOrder = YES;
-        _gameSceneView.showsDrawCount = true;
+        //_gameSceneView.showsDrawCount = true;
         _menuView.hidden = true;
         [self setUpObservers];
         [self initGame];
         interstitial = [[ADInterstitialAd alloc] init];
         interstitial.delegate = self;
-        
         storeHelper = [[StoreHelper alloc] init];
     }
 }
@@ -304,22 +303,21 @@
 
 - (IBAction)sharePressed:(id)sender {
     // NSLog(@"facebookPressed");
-    SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
-    [_gameSceneView.scene runAction:buttonAction];
+    //SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
+    //[_gameSceneView.scene runAction:buttonAction];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/machweogame"]];
 }
 
 - (IBAction)ratePressed:(id)sender {
     // NSLog(@"ratePressed");
-    SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
-    [_gameSceneView.scene runAction:buttonAction];
+    //SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
+    //[_gameSceneView.scene runAction:buttonAction];
     //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=<YOURAPPID>&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id956041188"]];
 }
 - (IBAction)removeAds:(id)sender {
     SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
     [_gameSceneView.scene runAction:buttonAction];
-    
     [storeHelper tapsRemoveAds];
 }
 
@@ -337,7 +335,7 @@
         [Constants sharedInstance].BIOMES = parser.biomes;
         GameScene *newScene = [[GameScene alloc] initWithSize:CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height) withinView:_gameSceneView];
         dispatch_sync(dispatch_get_main_queue(), ^(void){
-            [SKTextureAtlas preloadTextureAtlases:constants.ATLASES withCompletionHandler:^(void){
+            [SKTextureAtlas preloadTextureAtlases:[constants.ATLAS_FOR_DECO_NAME allValues] withCompletionHandler:^(void){
                 GKHelper* gkhelper = [GKHelper sharedInstance];
                 [gkhelper authenticateLocalPlayer];
                 gkhelper.presentingVC = self;

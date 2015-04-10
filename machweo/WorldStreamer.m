@@ -133,7 +133,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 
 -(void)loadNextDecoWithXOffset:(float)xOffset{
     chunkLoading = true;
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+    //dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
         if (unused_deco_pool.count > 0) {
             Decoration* decoToLoad = [unused_deco_pool firstObject];
                 NSString* toLoadID = decoToLoad.uniqueID;
@@ -157,7 +157,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
                 [IDDictionary setValue:@"lol" forKey:decoToLoad.uniqueID];
             }
         chunkLoading = false;
-    });
+    //});
 }
 
 -(void)cleanUpOldDecos{
