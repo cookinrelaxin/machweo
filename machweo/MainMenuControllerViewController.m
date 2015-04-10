@@ -20,6 +20,8 @@
 #import "SoundManager.h"
 #import "StoreHelper.h"
 
+int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
+
 @implementation MainMenuControllerViewController (iAdAdditions)
 @end
 
@@ -35,6 +37,7 @@
     StoreHelper* storeHelper;
     ADInterstitialAd* interstitial;
     BOOL diedFirstTime;
+    NSUInteger ad_load_attempt_count;
 }
 - (BOOL)prefersStatusBarHidden
 {
@@ -60,19 +63,31 @@
 
 -(void)interstitialAd:(ADInterstitialAd *)interstitialAd didFailWithError:(NSError *)error{
     NSLog(@"interstitialAd failed");
-    interstitial = [[ADInterstitialAd alloc] init];
-    interstitial.delegate = self;
+    if (ad_load_attempt_count < MAX_AD_LOAD_ATTEMPT_COUNT) {
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+            ad_load_attempt_count ++;
+            interstitial = [[ADInterstitialAd alloc] init];
+            interstitial.delegate = self;
+        });
+    }
+    else{
+        ad_load_attempt_count = 0;
+        return;
+    }
 }
 
 -(void)interstitialAdActionDidFinish:(ADInterstitialAd *)interstitialAd{
     NSLog(@"interstitialAd finished");
-    interstitial = [[ADInterstitialAd alloc] init];
-    interstitial.delegate = self;
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+        interstitial = [[ADInterstitialAd alloc] init];
+        interstitial.delegate = self;
+    });
 
 }
 
 -(void)interstitialAdDidLoad:(ADInterstitialAd *)interstitialAd{
     NSLog(@"interstitialAd loaded");
+    ad_load_attempt_count = 0;
 }
 
 -(void)interstitialAdDidUnload:(ADInterstitialAd *)interstitialAd{

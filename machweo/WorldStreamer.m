@@ -11,12 +11,11 @@
 #import "Obstacle.h"
 #import "Decoration.h"
 
-const int MAX_IN_USE_DECO_POOL_COUNT = 15;
-const int MAX_UNUSED_DECO_POOL_COUNT = 15;
+int MAX_IN_USE_DECO_POOL_COUNT = 50;
+int MAX_UNUSED_DECO_POOL_COUNT = 50;
 const int MAX_DIFFICULTY = 18;
 const int OBSTACLE_STADE_LENGTH = 150;
 const int DECORATION_STADE_LENGTH = 400;
-const int MAX_NUM_DECOS_TO_LOAD = MAX_IN_USE_DECO_POOL_COUNT;
 const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 
 @implementation WorldStreamer{
@@ -59,9 +58,28 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         in_use_deco_pool = [NSMutableArray array];
         IDDictionary = [NSMutableDictionary dictionary];
         currentBiome = savanna;
+        [self setMaxDecos];
         [self calculateInitialBiome];
     }
     return  self;
+}
+
+-(void)setMaxDecos{
+    switch (constants.deviceType) {
+        case iphone_4_5:
+            MAX_IN_USE_DECO_POOL_COUNT = MAX_UNUSED_DECO_POOL_COUNT = 15;
+            break;
+        case iphone_6:
+            MAX_IN_USE_DECO_POOL_COUNT = MAX_UNUSED_DECO_POOL_COUNT = 20;
+            break;
+        case iphone_6_plus:
+            MAX_IN_USE_DECO_POOL_COUNT = MAX_UNUSED_DECO_POOL_COUNT = 30;
+            break;
+        case ipad:
+            MAX_IN_USE_DECO_POOL_COUNT = MAX_UNUSED_DECO_POOL_COUNT = 15;
+            break;
+    }
+    NSLog(@"MAX_IN_USE_DECO_POOL_COUNT: %d", MAX_IN_USE_DECO_POOL_COUNT);
 }
 -(void)enableObstacles{
     shouldLoadObstacles = true;
@@ -133,7 +151,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 
 -(void)loadNextDecoWithXOffset:(float)xOffset{
     chunkLoading = true;
-    //dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
         if (unused_deco_pool.count > 0) {
             Decoration* decoToLoad = [unused_deco_pool firstObject];
                 NSString* toLoadID = decoToLoad.uniqueID;
@@ -157,12 +175,12 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
                 [IDDictionary setValue:@"lol" forKey:decoToLoad.uniqueID];
             }
         chunkLoading = false;
-    //});
+    });
 }
 
 -(void)cleanUpOldDecos{
     if (!cleaningUpOldDecos) {
-        //dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
+        dispatch_async(dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0), ^{
             cleaningUpOldDecos = true;
             NSMutableArray* trash = [NSMutableArray array];
             for (int i = 0; i < in_use_deco_pool.count; i++) {
@@ -176,15 +194,15 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
                     [trash addObject:deco];
                 }
             }
-            //dispatch_sync(dispatch_get_main_queue(), ^{
+            dispatch_sync(dispatch_get_main_queue(), ^{
                 for (Decoration* deco in trash) {
                     [deco removeFromParent];
                     [in_use_deco_pool removeObject:deco];
                     [IDDictionary removeObjectForKey:deco.uniqueID];
                 }
                 cleaningUpOldDecos = false;
-            //});
-        //});
+            });
+        });
     }
 }
 
@@ -194,7 +212,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
     for (Obstacle* obs in _obstacles.children) {
         CGPoint obsPositionInWorld = [_scene convertPoint:obs.position fromNode:_obstacles];
         CGPoint obsPositionInView = [_view convertPoint:obsPositionInWorld fromScene:_scene];
-        if (obsPositionInView.x < (0 - (obs.size.width / 2))){
+        if (obsPositionInView.x < (0 - (obs.size.height / 2))){
             [phoenices addObject:obs];
         }
     }
