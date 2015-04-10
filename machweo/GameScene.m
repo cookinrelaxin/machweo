@@ -432,13 +432,10 @@ int METERS_PER_PIXEL = 50;
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
-        Terrain* lastTer = [terrainArray lastObject];
-        //[lastTer removeActionForKey:@"lineSound"];
-        [lastTer correctSpriteZsBeforeVertex:currentPoint againstSlope:NO];
-        lastTer.complete = true;
-        player.touchesEnded = true;
-    });
+    Terrain* lastTer = [terrainArray lastObject];
+    [lastTer correctSpriteZsBeforeVertex:currentPoint againstSlope:NO];
+    lastTer.complete = true;
+    player.touchesEnded = true;
 }
 
 -(void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
@@ -842,6 +839,7 @@ int METERS_PER_PIXEL = 50;
         float labelSize = 45 * _constants.SCALE_COEFFICIENT.dx;
         for (GKScore* score in top10GlobalScores) {
             SKSpriteNode* cairn = [SKSpriteNode spriteNodeWithTexture:cairnTexture];
+            cairn.size = CGSizeMake(cairn.size.width * _constants.SCALE_COEFFICIENT.dy , cairn.size.height * _constants.SCALE_COEFFICIENT.dy);
             cairn.physicsBody = nil;
             cairn.zPosition = cairnZ;
             cairn.position = CGPointMake((score.value * METERS_PER_PIXEL * _constants.PHYSICS_SCALAR_MULTIPLIER) + (cairn.size.width / 2), cairn.size.height / 2);
