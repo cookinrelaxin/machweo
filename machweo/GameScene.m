@@ -827,10 +827,7 @@ int METERS_PER_PIXEL = 50;
 -(void)setupCairns{
     GKHelper* gkhelper = [GKHelper sharedInstance];
     if (gkhelper.gcEnabled) {
-        
-        NSString* cairnName = @"cairn_decoration";
-        SKTextureAtlas* atlas = [_constants.ATLAS_FOR_DECO_NAME valueForKey:cairnName];
-        SKTexture* cairnTexture = [atlas textureNamed:cairnName];
+        SKTexture* cairnTexture = [SKTexture textureWithImageNamed:@"cairn_decoration"];
         
         NSArray* top10GlobalScores = [gkhelper retrieveTopTenGlobalScores];
         NSArray* top10FriendScores = [gkhelper retrieveTopTenFriendScores];
