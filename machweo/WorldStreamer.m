@@ -277,9 +277,10 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
 
 -(NSUInteger)calculateDifficultyFromDistance:(NSUInteger)distance{
     NSUInteger roundedDistance = RoundDownTo(distance, OBSTACLE_STADE_LENGTH);
-        NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
+    NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
     if (difficulty > MAX_DIFFICULTY) {
-        difficulty = MAX_DIFFICULTY;
+        //difficulty = MAX_DIFFICULTY;
+        difficulty = arc4random_uniform(20) + 1;
     }
     return difficulty;
 }
