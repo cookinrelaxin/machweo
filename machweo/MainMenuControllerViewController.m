@@ -38,6 +38,7 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
     ADInterstitialAd* interstitial;
     BOOL diedFirstTime;
     NSUInteger ad_load_attempt_count;
+    BOOL firstViewAppeared;
 }
 - (BOOL)prefersStatusBarHidden
 {
@@ -62,9 +63,16 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
 }
 -(void)viewDidAppear:(BOOL)animated{
     NSLog(@"viewDidAppear");
+    if (firstViewAppeared) {
+        [[SoundManager sharedInstance] mute];
+    }
+    else{
+        firstViewAppeared = true;
+    }
 }
 -(void)viewDidDisappear:(BOOL)animated{
     NSLog(@"viewDidDisappear");
+    [[SoundManager sharedInstance] mute];
 }
 
 -(BOOL)shouldAutorotate{
