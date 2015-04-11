@@ -7,6 +7,7 @@
 //
 
 #import "Obstacle.h"
+#import "Constants.h"
 
 @implementation Obstacle{
     BOOL isMovingUp;
@@ -20,26 +21,26 @@
 }
 
 -(void)moveWithScene:(SKScene *)scene{
+    Constants* constants = [Constants sharedInstance];
     float speed;
-    
     switch (_currentSpeedType) {
         case speedTypeSlowest:
-            speed = 1;
+            speed = 1 * constants.PHYSICS_SCALAR_MULTIPLIER;
             break;
         case speedTypeSlower:
-            speed = 2;
+            speed = 2 * constants.PHYSICS_SCALAR_MULTIPLIER;
             break;
         case speedTypeSlow:
-            speed = 3;
+            speed = 3 * constants.PHYSICS_SCALAR_MULTIPLIER;
             break;
         case speedTypeFast:
-            speed = 4;
+            speed = 4 * constants.PHYSICS_SCALAR_MULTIPLIER;
             break;
         case speedTypeFaster:
-            speed = 5;
+            speed = 5 * constants.PHYSICS_SCALAR_MULTIPLIER;
             break;
         case speedTypeFastest:
-            speed = 6;
+            speed = 6 * constants.PHYSICS_SCALAR_MULTIPLIER;
             break;
             
         default:
