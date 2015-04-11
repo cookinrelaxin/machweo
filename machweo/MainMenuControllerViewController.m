@@ -61,8 +61,12 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
     }
 }
 
+-(BOOL)shouldAutorotate{
+    return true;
+}
+
 -(void)interstitialAd:(ADInterstitialAd *)interstitialAd didFailWithError:(NSError *)error{
-    NSLog(@"interstitialAd failed");
+    //NSLog(@"interstitialAd failed");
     if (ad_load_attempt_count < MAX_AD_LOAD_ATTEMPT_COUNT) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
             ad_load_attempt_count ++;
@@ -77,7 +81,7 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
 }
 
 -(void)interstitialAdActionDidFinish:(ADInterstitialAd *)interstitialAd{
-    NSLog(@"interstitialAd finished");
+    //NSLog(@"interstitialAd finished");
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
         interstitial = [[ADInterstitialAd alloc] init];
         interstitial.delegate = self;
@@ -86,16 +90,16 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
 }
 
 -(void)interstitialAdDidLoad:(ADInterstitialAd *)interstitialAd{
-    NSLog(@"interstitialAd loaded");
+   // NSLog(@"interstitialAd loaded");
     ad_load_attempt_count = 0;
 }
 
 -(void)interstitialAdDidUnload:(ADInterstitialAd *)interstitialAd{
-    NSLog(@"interstitialAd unloaded");
+   // NSLog(@"interstitialAd unloaded");
 }
 
 -(void)interstitialAdWillLoad:(ADInterstitialAd *)interstitialAd{
-    NSLog(@"interstitialAd will load");
+    //NSLog(@"interstitialAd will load");
 
 }
 

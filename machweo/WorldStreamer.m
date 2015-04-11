@@ -79,7 +79,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
             MAX_IN_USE_DECO_POOL_COUNT = MAX_UNUSED_DECO_POOL_COUNT = 15;
             break;
     }
-    NSLog(@"MAX_IN_USE_DECO_POOL_COUNT: %d", MAX_IN_USE_DECO_POOL_COUNT);
+    //NSLog(@"MAX_IN_USE_DECO_POOL_COUNT: %d", MAX_IN_USE_DECO_POOL_COUNT);
 }
 -(void)enableObstacles{
     shouldLoadObstacles = true;
