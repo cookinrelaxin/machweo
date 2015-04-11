@@ -325,51 +325,51 @@
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="ZA9-sS-ySV"/>
-                                        <exclude reference="zgX-r5-UFt"/>
                                         <exclude reference="Csg-8Z-26Z"/>
                                         <exclude reference="c6T-ml-DGf"/>
                                         <exclude reference="lXa-tO-9ZL"/>
                                         <exclude reference="ysT-2c-TWs"/>
+                                        <exclude reference="ZA9-sS-ySV"/>
+                                        <exclude reference="zgX-r5-UFt"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                     </mask>
                                 </variation>
                                 <variation key="widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=compact">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="Csg-8Z-26Z"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=regular">
                                     <mask key="constraints">
-                                        <include reference="ZA9-sS-ySV"/>
-                                        <include reference="zgX-r5-UFt"/>
                                         <include reference="c6T-ml-DGf"/>
                                         <include reference="lXa-tO-9ZL"/>
                                         <include reference="ysT-2c-TWs"/>
+                                        <include reference="ZA9-sS-ySV"/>
+                                        <include reference="zgX-r5-UFt"/>
                                     </mask>
                                 </variation>
                             </view>

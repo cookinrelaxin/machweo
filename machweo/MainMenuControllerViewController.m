@@ -60,6 +60,12 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
         storeHelper = [[StoreHelper alloc] init];
     }
 }
+-(void)viewDidAppear:(BOOL)animated{
+    NSLog(@"viewDidAppear");
+}
+-(void)viewDidDisappear:(BOOL)animated{
+    NSLog(@"viewDidDisappear");
+}
 
 -(BOOL)shouldAutorotate{
     return true;

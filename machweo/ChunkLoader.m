@@ -173,7 +173,8 @@ typedef enum NodeTypes
             float zFloat = [string floatValue];
             if (currentNodeType == decoration) {
                 if (zFloat >= constants.OBSTACLE_Z_POSITION) {
-                    currentNode.alpha = .50;
+                    //currentNode.alpha = .50;
+                    zFloat -= 17;
                 }
             }
             currentNode.zPosition = zFloat;
