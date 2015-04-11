@@ -13,7 +13,7 @@
 
 int MAX_IN_USE_DECO_POOL_COUNT = 50;
 int MAX_UNUSED_DECO_POOL_COUNT = 50;
-const int MAX_DIFFICULTY = 18;
+const int MAX_DIFFICULTY = 20;
 const int OBSTACLE_STADE_LENGTH = 150;
 const int DECORATION_STADE_LENGTH = 400;
 const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
@@ -279,11 +279,9 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
     NSUInteger roundedDistance = RoundDownTo(distance, OBSTACLE_STADE_LENGTH);
         NSUInteger difficulty = (roundedDistance / OBSTACLE_STADE_LENGTH) + 1;
     if (difficulty > MAX_DIFFICULTY) {
-        NSLog(@"difficulty = MAX_DIFFICULTY");
         difficulty = MAX_DIFFICULTY;
     }
     return difficulty;
-    //return 9;
 }
 
 -(void)loadObstacleChunkWithXOffset:(float)xOffset andDistance:(NSUInteger)distance{
