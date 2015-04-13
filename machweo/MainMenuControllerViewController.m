@@ -334,13 +334,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
     [storeHelper restore];
 }
 
-- (IBAction)sharePressed:(id)sender {
-    // NSLog(@"facebookPressed");
-    //SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
-    //[_gameSceneView.scene runAction:buttonAction];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.facebook.com/machweogame"]];
-}
-
 - (IBAction)ratePressed:(id)sender {
     // NSLog(@"ratePressed");
     //SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];

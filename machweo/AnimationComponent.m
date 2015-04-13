@@ -23,7 +23,7 @@
         for (int i=1; i <= numImages; i++) {
             NSString *textureName = [NSString stringWithFormat:@"cloakman%d", i];
             SKTexture *tex = [atlas textureNamed:textureName];
-            tex.filteringMode = SKTextureFilteringNearest;
+            //tex.filteringMode = SKTextureFilteringNearest;
             if (i <= 13) {
                 [_runningFrames addObject:tex];
                 continue;
