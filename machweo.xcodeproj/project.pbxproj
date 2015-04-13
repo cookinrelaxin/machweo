@@ -220,6 +220,7 @@
 		78C0F8AC1A92D47500382159 /* Skranji-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8A91A92D47500382159 /* Skranji-Bold.ttf */; };
 		78C0F8AD1A92D47500382159 /* Skranji-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */; };
 		78C77B241A9EBEAC000A5728 /* WorldStreamer.m in Sources */ = {isa = PBXBuildFile; fileRef = 78C77B231A9EBEAC000A5728 /* WorldStreamer.m */; };
+		78CC24001ADB71500089A5F6 /* strings.strings in Resources */ = {isa = PBXBuildFile; fileRef = 78CC23FF1ADB71500089A5F6 /* strings.strings */; };
 		78CCA2FC1A8D93B60046C988 /* MainMenuControllerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */; };
 		78F03B0E1AC8CADF00189EA4 /* SoundManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 78F03B0D1AC8CADF00189EA4 /* SoundManager.m */; };
 /* End PBXBuildFile section */
@@ -434,7 +435,6 @@
 		786AFF071AD669DB007F14BA /* obstacleSet_18_c.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = obstacleSet_18_c.xml; sourceTree = "<group>"; };
 		786C054E1AC76B6200EFA83E /* PopupMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupMessage.h; sourceTree = "<group>"; };
 		786C054F1AC76B6200EFA83E /* PopupMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupMessage.m; sourceTree = "<group>"; };
-		786EA4621ACE553E00A7F6B4 /* Machweo.profdata */ = {isa = PBXFileReference; lastKnownFileType = file; path = Machweo.profdata; sourceTree = "<group>"; };
 		7877DCB91AB131DE0050F132 /* AnimationComponent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationComponent.h; sourceTree = "<group>"; };
 		7877DCBA1AB131DE0050F132 /* AnimationComponent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimationComponent.m; sourceTree = "<group>"; };
 		7877DCD71AB13AB00050F132 /* runningDude.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = runningDude.atlas; sourceTree = "<group>"; };
@@ -471,6 +471,7 @@
 		78C0F8AA1A92D47500382159 /* Skranji-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Skranji-Regular.ttf"; sourceTree = "<group>"; };
 		78C77B221A9EBEAC000A5728 /* WorldStreamer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldStreamer.h; sourceTree = "<group>"; };
 		78C77B231A9EBEAC000A5728 /* WorldStreamer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WorldStreamer.m; sourceTree = "<group>"; };
+		78CC23FF1ADB71500089A5F6 /* strings.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = strings.strings; sourceTree = "<group>"; };
 		78CCA2FA1A8D93B60046C988 /* MainMenuControllerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenuControllerViewController.h; sourceTree = "<group>"; };
 		78CCA2FB1A8D93B60046C988 /* MainMenuControllerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenuControllerViewController.m; sourceTree = "<group>"; };
 		78F03B0C1AC8CADF00189EA4 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
@@ -501,13 +502,13 @@
 		659B21C11A5E1C1300885C04 = {
 			isa = PBXGroup;
 			children = (
+				78CC23FF1ADB71500089A5F6 /* strings.strings */,
 				784CDC361AD2074E0066750B /* iAd.framework */,
 				784329411AC79D470099401C /* StoreKit.framework */,
 				789DA2CA1AC24BC200DBD7F3 /* GameKit.framework */,
 				659B21CC1A5E1C1300885C04 /* machweo */,
 				659B21EB1A5E1C1400885C04 /* machweoTests */,
 				659B21CB1A5E1C1300885C04 /* Products */,
-				786EA4611ACE553E00A7F6B4 /* OptimizationProfiles */,
 			);
 			sourceTree = "<group>";
 		};
@@ -833,14 +834,6 @@
 				786AFF071AD669DB007F14BA /* obstacleSet_18_c.xml */,
 			);
 			path = obstacleSets;
-			sourceTree = "<group>";
-		};
-		786EA4611ACE553E00A7F6B4 /* OptimizationProfiles */ = {
-			isa = PBXGroup;
-			children = (
-				786EA4621ACE553E00A7F6B4 /* Machweo.profdata */,
-			);
-			path = OptimizationProfiles;
 			sourceTree = "<group>";
 		};
 		788563C21A96D95C00F49980 /* level files */ = {
@@ -1255,6 +1248,7 @@
 				786AFF161AD669DB007F14BA /* obstacleSet_3_f.xml in Resources */,
 				783379E21AA3F6A0008756CB /* decorationSet_sahara_day_d.xml in Resources */,
 				782E522D1AA7F9A3004FE1F7 /* decorationSet_jungle_day_a.xml in Resources */,
+				78CC24001ADB71500089A5F6 /* strings.strings in Resources */,
 				786AFF2C1AD669DB007F14BA /* obstacleSet_6_d.xml in Resources */,
 				783379E01AA3F6A0008756CB /* decorationSet_sahara_day_b.xml in Resources */,
 				782060D71AD2339600B93536 /* treegrow2.mp3 in Resources */,
