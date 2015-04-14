@@ -26,21 +26,21 @@ int midpoint(int n1, int n2)
     //NSLog(@"screenSize:%f, %f", screenSize.width, screenSize.height);
     //NSLog(@"scaleFactor:%f", scaleFactor);
 
-    if (screenSize.height == 320) {
-       // NSLog(@"_deviceType = iphone_4_5");
-        _SPRITE_SCALE = .5;
-        _deviceType = iphone_4_5;
-    }
-    else if (screenSize.height == 375) {
-       // NSLog(@"_deviceType = iphone_6");
-        _SPRITE_SCALE = .5;
-        _deviceType = iphone_6;
-    }
-    else if (screenSize.height == 414){
-       // NSLog(@"_deviceType = iphone_6_plus");
+//    if (screenSize.height == 320) {
+//       // NSLog(@"_deviceType = iphone_4_5");
+//        _SPRITE_SCALE = .5;
+//        _deviceType = iphone_4_5;
+//    }
+//    else if (screenSize.height == 375) {
+//       // NSLog(@"_deviceType = iphone_6");
+//        _SPRITE_SCALE = .5;
+//        _deviceType = iphone_6;
+//    }
+//    else if (screenSize.height == 414){
+        NSLog(@"_deviceType = iphone_6_plus");
         _SPRITE_SCALE = .5;
         _deviceType = iphone_6_plus;
-    }
+    //}
     _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 1024);
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
     //NSLog(@"_SCALE_COEFFICIENT: %f, %f", _SCALE_COEFFICIENT.dx, _SCALE_COEFFICIENT.dy);
