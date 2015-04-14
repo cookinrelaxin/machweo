@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<worldnodes>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle2_obstacle</name>
+        <uniqueID>216963</uniqueID>
+        <xPosition>42.500000</xPosition>
+        <yPosition>547.960022</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>spear_obstacle</name>
+        <uniqueID>622827</uniqueID>
+        <xPosition>688.100525</xPosition>
+        <yPosition>249.843018</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>3</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>spear_obstacle</name>
+        <uniqueID>17054</uniqueID>
+        <xPosition>748.059509</xPosition>
+        <yPosition>1025.810425</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>3</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>spear_obstacle</name>
+        <uniqueID>803075</uniqueID>
+        <xPosition>1177.538574</xPosition>
+        <yPosition>605.084717</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>4</motionType>
+        <speedType>0</speedType>
+    </node>
+</worldnodes>

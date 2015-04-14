@@ -2,42 +2,62 @@
 <worldnodes>
     <node>
         <type>ObstacleSignifier</type>
-        <name>totem_obstacle</name>
-        <uniqueID>51244</uniqueID>
-        <xPosition>90.500000</xPosition>
-        <yPosition>515.396973</yPosition>
+        <name>herbert_obstacle</name>
+        <uniqueID>329367</uniqueID>
+        <xPosition>50.000000</xPosition>
+        <yPosition>68.477722</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>totem2_obstacle</name>
-        <uniqueID>471986</uniqueID>
-        <xPosition>90.500000</xPosition>
-        <yPosition>-136.500000</yPosition>
+        <name>herbert_obstacle</name>
+        <uniqueID>206546</uniqueID>
+        <xPosition>50.000000</xPosition>
+        <yPosition>955.010742</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>totem2_obstacle</name>
-        <uniqueID>397099</uniqueID>
-        <xPosition>95.518738</xPosition>
-        <yPosition>1160.500000</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>141250</uniqueID>
-        <xPosition>673.416626</xPosition>
-        <yPosition>734.730835</yPosition>
+        <name>spearsmall_obstacle </name>
+        <uniqueID>546550</uniqueID>
+        <xPosition>50.000000</xPosition>
+        <yPosition>716.952148</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>1</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>herbert_obstacle</name>
+        <uniqueID>63857</uniqueID>
+        <xPosition>297.492554</xPosition>
+        <yPosition>240.010468</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>herbert_obstacle</name>
+        <uniqueID>108638</uniqueID>
+        <xPosition>297.988831</xPosition>
+        <yPosition>844.311768</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>herbert_obstacle</name>
+        <uniqueID>74278</uniqueID>
+        <xPosition>529.767029</xPosition>
+        <yPosition>567.318787</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
 </worldnodes>

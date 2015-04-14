@@ -3,9 +3,9 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>spear_obstacle</name>
-        <uniqueID>74393</uniqueID>
+        <uniqueID>958791</uniqueID>
         <xPosition>27.000000</xPosition>
-        <yPosition>243.161880</yPosition>
+        <yPosition>449.713379</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
@@ -13,9 +13,9 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>spear_obstacle</name>
-        <uniqueID>113329</uniqueID>
-        <xPosition>231.304901</xPosition>
-        <yPosition>631.738892</yPosition>
+        <uniqueID>456239</uniqueID>
+        <xPosition>908.738281</xPosition>
+        <yPosition>818.527405</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>2</motionType>
         <speedType>3</speedType>
@@ -23,19 +23,9 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>spear_obstacle</name>
-        <uniqueID>215372</uniqueID>
-        <xPosition>727.951904</xPosition>
-        <yPosition>1148.822998</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>2528</uniqueID>
-        <xPosition>1212.217773</xPosition>
-        <yPosition>240.184387</yPosition>
+        <uniqueID>920603</uniqueID>
+        <xPosition>1194.767700</xPosition>
+        <yPosition>468.463257</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>

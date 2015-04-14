@@ -3,41 +3,41 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>totem2_obstacle</name>
-        <uniqueID>771757</uniqueID>
+        <uniqueID>65938</uniqueID>
         <xPosition>90.500000</xPosition>
-        <yPosition>205.559631</yPosition>
+        <yPosition>770.330017</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>3</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
         <name>totem_obstacle</name>
-        <uniqueID>179437</uniqueID>
-        <xPosition>90.500000</xPosition>
-        <yPosition>751.559631</yPosition>
+        <uniqueID>989223</uniqueID>
+        <xPosition>1193.303467</xPosition>
+        <yPosition>270.020599</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>4</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
         <name>totem2_obstacle</name>
-        <uniqueID>113516</uniqueID>
-        <xPosition>1233.191406</xPosition>
-        <yPosition>750.868958</yPosition>
+        <uniqueID>414087</uniqueID>
+        <xPosition>2521.717285</xPosition>
+        <yPosition>996.915466</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>4</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
         <name>totem_obstacle</name>
-        <uniqueID>432216</uniqueID>
-        <xPosition>1239.620605</xPosition>
-        <yPosition>204.868958</yPosition>
+        <uniqueID>577991</uniqueID>
+        <xPosition>3888.960693</xPosition>
+        <yPosition>569.303772</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>4</motionType>
         <speedType>0</speedType>
     </node>
 </worldnodes>

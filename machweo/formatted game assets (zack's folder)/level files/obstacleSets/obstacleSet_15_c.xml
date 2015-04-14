@@ -3,29 +3,9 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>batmaskmaskbat_obstacle</name>
-        <uniqueID>648505</uniqueID>
+        <uniqueID>909156</uniqueID>
         <xPosition>50.000000</xPosition>
-        <yPosition>882.747925</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>batmaskmaskbat_obstacle</name>
-        <uniqueID>232717</uniqueID>
-        <xPosition>255.889679</xPosition>
-        <yPosition>701.540894</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>batmaskmaskbat_obstacle</name>
-        <uniqueID>404074</uniqueID>
-        <xPosition>469.710876</xPosition>
-        <yPosition>543.396667</yPosition>
+        <yPosition>546.583862</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
@@ -33,59 +13,49 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>herbert_obstacle</name>
-        <uniqueID>921781</uniqueID>
-        <xPosition>469.710876</xPosition>
-        <yPosition>821.671570</yPosition>
+        <uniqueID>359496</uniqueID>
+        <xPosition>50.000000</xPosition>
+        <yPosition>186.982422</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>1</motionType>
-        <speedType>3</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>herbert_obstacle</name>
-        <uniqueID>46516</uniqueID>
-        <xPosition>469.710876</xPosition>
-        <yPosition>135.514130</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>1</motionType>
-        <speedType>3</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>batmaskmaskbat_obstacle</name>
-        <uniqueID>78346</uniqueID>
-        <xPosition>718.576355</xPosition>
-        <yPosition>350.709381</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>batmaskmaskbat_obstacle</name>
-        <uniqueID>446323</uniqueID>
-        <xPosition>939.309143</xPosition>
-        <yPosition>154.753098</yPosition>
+        <name>herbert_obstacle</name>
+        <uniqueID>255849</uniqueID>
+        <xPosition>58.211060</xPosition>
+        <yPosition>754.590820</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>1</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
         <name>rosemary_obstacle</name>
-        <uniqueID>792671</uniqueID>
-        <xPosition>958.355835</xPosition>
-        <yPosition>860.583435</yPosition>
+        <uniqueID>726093</uniqueID>
+        <xPosition>584.013306</xPosition>
+        <yPosition>332.994446</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>1</motionType>
         <speedType>3</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>batmaskmaskbat_obstacle</name>
-        <uniqueID>288646</uniqueID>
-        <xPosition>1166.779663</xPosition>
-        <yPosition>21.349545</yPosition>
+        <name>obstacle4_obstacle</name>
+        <uniqueID>968283</uniqueID>
+        <xPosition>585.901123</xPosition>
+        <yPosition>39.183807</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>obstacle4_obstacle</name>
+        <uniqueID>230535</uniqueID>
+        <xPosition>588.290161</xPosition>
+        <yPosition>1068.963379</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>

@@ -3,19 +3,9 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>totem_obstacle</name>
-        <uniqueID>728216</uniqueID>
+        <uniqueID>138811</uniqueID>
         <xPosition>90.500000</xPosition>
-        <yPosition>-40.446075</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>totem2_obstacle</name>
-        <uniqueID>154264</uniqueID>
-        <xPosition>90.500000</xPosition>
-        <yPosition>757.790833</yPosition>
+        <yPosition>566.326294</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
@@ -23,9 +13,9 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>totem_obstacle</name>
-        <uniqueID>377160</uniqueID>
-        <xPosition>577.458191</xPosition>
-        <yPosition>260.724915</yPosition>
+        <uniqueID>795703</uniqueID>
+        <xPosition>701.192322</xPosition>
+        <yPosition>249.643799</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
@@ -33,21 +23,21 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>totem2_obstacle</name>
-        <uniqueID>6412</uniqueID>
-        <xPosition>577.458191</xPosition>
-        <yPosition>1160.500000</yPosition>
+        <uniqueID>573485</uniqueID>
+        <xPosition>701.192322</xPosition>
+        <yPosition>1089.171387</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>155976</uniqueID>
-        <xPosition>1201.036377</xPosition>
-        <yPosition>1001.110596</yPosition>
+        <name>totem_obstacle</name>
+        <uniqueID>555260</uniqueID>
+        <xPosition>1329.149780</xPosition>
+        <yPosition>543.171387</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>4</motionType>
-        <speedType>1</speedType>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
     </node>
 </worldnodes>

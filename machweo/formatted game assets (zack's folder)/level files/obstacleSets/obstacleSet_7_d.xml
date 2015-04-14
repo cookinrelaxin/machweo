@@ -2,112 +2,82 @@
 <worldnodes>
     <node>
         <type>ObstacleSignifier</type>
-        <name>obstacle2_obstacle</name>
-        <uniqueID>295657</uniqueID>
-        <xPosition>42.500000</xPosition>
-        <yPosition>512.925964</yPosition>
+        <name>spearsmall_obstacle copy</name>
+        <uniqueID>502750</uniqueID>
+        <xPosition>16.000000</xPosition>
+        <yPosition>743.197083</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>1</motionType>
+        <speedType>4</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>doodlemask_obstacle</name>
+        <uniqueID>402355</uniqueID>
+        <xPosition>185.337952</xPosition>
+        <yPosition>562.637695</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>totem_obstacle</name>
-        <uniqueID>418661</uniqueID>
-        <xPosition>345.337891</xPosition>
-        <yPosition>-42.144539</yPosition>
+        <name>rotate_obstacle</name>
+        <uniqueID>749056</uniqueID>
+        <xPosition>650.766602</xPosition>
+        <yPosition>479.390900</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>4</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>doodlemask_obstacle</name>
+        <uniqueID>493711</uniqueID>
+        <xPosition>650.766602</xPosition>
+        <yPosition>932.751221</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>obstacle2_obstacle</name>
-        <uniqueID>753461</uniqueID>
-        <xPosition>644.999023</xPosition>
-        <yPosition>497.087036</yPosition>
+        <name>rosemary_obstacle</name>
+        <uniqueID>534738</uniqueID>
+        <xPosition>657.115540</xPosition>
+        <yPosition>492.400757</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>totem2_obstacle</name>
-        <uniqueID>30098</uniqueID>
-        <xPosition>995.570190</xPosition>
-        <yPosition>266.132507</yPosition>
+        <name>doodlemask_obstacle</name>
+        <uniqueID>113671</uniqueID>
+        <xPosition>671.680664</xPosition>
+        <yPosition>72.289078</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>obstacle2_obstacle</name>
-        <uniqueID>421745</uniqueID>
-        <xPosition>1323.685669</xPosition>
-        <yPosition>493.219360</yPosition>
+        <name>doodlemask_obstacle</name>
+        <uniqueID>528838</uniqueID>
+        <xPosition>1131.952026</xPosition>
+        <yPosition>553.756348</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>totem_obstacle</name>
-        <uniqueID>630842</uniqueID>
-        <xPosition>1696.639160</xPosition>
-        <yPosition>1059.202148</yPosition>
+        <name>spearsmall_obstacle copy</name>
+        <uniqueID>875420</uniqueID>
+        <xPosition>1300.097534</xPosition>
+        <yPosition>611.333313</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>obstacle2_obstacle</name>
-        <uniqueID>924127</uniqueID>
-        <xPosition>2038.685791</xPosition>
-        <yPosition>486.757874</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>totem2_obstacle</name>
-        <uniqueID>341615</uniqueID>
-        <xPosition>2457.579590</xPosition>
-        <yPosition>758.384277</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>obstacle2_obstacle</name>
-        <uniqueID>624080</uniqueID>
-        <xPosition>2867.972656</xPosition>
-        <yPosition>477.134827</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>totem_obstacle</name>
-        <uniqueID>577062</uniqueID>
-        <xPosition>3223.065918</xPosition>
-        <yPosition>266.562286</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>obstacle2_obstacle</name>
-        <uniqueID>780224</uniqueID>
-        <xPosition>3600.483887</xPosition>
-        <yPosition>469.205109</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
+        <motionType>1</motionType>
+        <speedType>4</speedType>
     </node>
 </worldnodes>

@@ -2,62 +2,32 @@
 <worldnodes>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>296789</uniqueID>
-        <xPosition>27.000000</xPosition>
-        <yPosition>999.393311</yPosition>
+        <name>totem2_obstacle</name>
+        <uniqueID>194510</uniqueID>
+        <xPosition>90.500000</xPosition>
+        <yPosition>799.347656</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>3</motionType>
+        <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>724651</uniqueID>
-        <xPosition>475.966736</xPosition>
-        <yPosition>801.754211</yPosition>
+        <name>totem_obstacle</name>
+        <uniqueID>869664</uniqueID>
+        <xPosition>271.500000</xPosition>
+        <yPosition>587.808105</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>4</motionType>
+        <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>325581</uniqueID>
-        <xPosition>846.817322</xPosition>
-        <yPosition>496.393311</yPosition>
+        <name>totem2_obstacle</name>
+        <uniqueID>718765</uniqueID>
+        <xPosition>809.737427</xPosition>
+        <yPosition>265.554382</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>3</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>137702</uniqueID>
-        <xPosition>1219.509399</xPosition>
-        <yPosition>182.967575</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>4</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>585050</uniqueID>
-        <xPosition>1608.735840</xPosition>
-        <yPosition>496.393311</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>3</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>265752</uniqueID>
-        <xPosition>1942.003906</xPosition>
-        <yPosition>874.603333</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>4</motionType>
+        <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
 </worldnodes>

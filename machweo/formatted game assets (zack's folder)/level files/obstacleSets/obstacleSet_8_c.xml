@@ -2,82 +2,72 @@
 <worldnodes>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>31517</uniqueID>
-        <xPosition>27.000000</xPosition>
-        <yPosition>612.231750</yPosition>
+        <name>totem_obstacle</name>
+        <uniqueID>863132</uniqueID>
+        <xPosition>90.500000</xPosition>
+        <yPosition>273.000000</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>4</motionType>
-        <speedType>4</speedType>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>139704</uniqueID>
-        <xPosition>27.000000</xPosition>
-        <yPosition>617.710876</yPosition>
+        <name>obstacle1_obstacle</name>
+        <uniqueID>838900</uniqueID>
+        <xPosition>751.500732</xPosition>
+        <yPosition>490.000000</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>4</motionType>
+        <motionType>2</motionType>
         <speedType>3</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>651037</uniqueID>
-        <xPosition>30.202515</xPosition>
-        <yPosition>612.231750</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>3</motionType>
-        <speedType>2</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>obstacle3_obstacle</name>
-        <uniqueID>225427</uniqueID>
-        <xPosition>598.283447</xPosition>
-        <yPosition>930.653625</yPosition>
+        <name>totem2_obstacle</name>
+        <uniqueID>279172</uniqueID>
+        <xPosition>1252.804565</xPosition>
+        <yPosition>267.600769</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>obstacle3_obstacle</name>
-        <uniqueID>429108</uniqueID>
-        <xPosition>601.480835</xPosition>
-        <yPosition>516.609436</yPosition>
+        <name>totem_obstacle</name>
+        <uniqueID>240144</uniqueID>
+        <xPosition>2009.817139</xPosition>
+        <yPosition>1160.500000</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>obstacle3_obstacle</name>
-        <uniqueID>774050</uniqueID>
-        <xPosition>603.813721</xPosition>
-        <yPosition>80.633194</yPosition>
+        <name>totem2_obstacle</name>
+        <uniqueID>133299</uniqueID>
+        <xPosition>2009.817139</xPosition>
+        <yPosition>855.817505</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spearsmall_obstacle copy</name>
-        <uniqueID>539507</uniqueID>
-        <xPosition>1073.463257</xPosition>
-        <yPosition>697.597717</yPosition>
+        <name>obstacle1_obstacle</name>
+        <uniqueID>319465</uniqueID>
+        <xPosition>2336.765137</xPosition>
+        <yPosition>653.159363</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>1</motionType>
-        <speedType>0</speedType>
+        <motionType>2</motionType>
+        <speedType>3</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spearsmall_obstacle copy</name>
-        <uniqueID>589556</uniqueID>
-        <xPosition>1073.463257</xPosition>
-        <yPosition>150.766754</yPosition>
+        <name>totem_obstacle</name>
+        <uniqueID>102741</uniqueID>
+        <xPosition>3075.416260</xPosition>
+        <yPosition>855.817505</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>1</motionType>
+        <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
 </worldnodes>

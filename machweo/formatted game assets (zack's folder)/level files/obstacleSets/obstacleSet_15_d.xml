@@ -2,82 +2,72 @@
 <worldnodes>
     <node>
         <type>ObstacleSignifier</type>
-        <name>herbert_obstacle</name>
-        <uniqueID>877569</uniqueID>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>457322</uniqueID>
         <xPosition>50.000000</xPosition>
-        <yPosition>243.893463</yPosition>
+        <yPosition>763.182678</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>4</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>herbert_obstacle</name>
-        <uniqueID>645676</uniqueID>
-        <xPosition>140.516541</xPosition>
-        <yPosition>517.791260</yPosition>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>120251</uniqueID>
+        <xPosition>150.615463</xPosition>
+        <yPosition>193.787140</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>4</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>herbert_obstacle</name>
-        <uniqueID>463449</uniqueID>
-        <xPosition>156.872223</xPosition>
-        <yPosition>331.012970</yPosition>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>46390</uniqueID>
+        <xPosition>163.763428</xPosition>
+        <yPosition>952.350403</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>3</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>herbert_obstacle</name>
-        <uniqueID>390540</uniqueID>
-        <xPosition>259.574951</xPosition>
-        <yPosition>649.895325</yPosition>
+        <name>spearsmall_obstacle</name>
+        <uniqueID>681080</uniqueID>
+        <xPosition>412.373077</xPosition>
+        <yPosition>317.462280</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>1</motionType>
+        <speedType>5</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>874230</uniqueID>
+        <xPosition>617.113525</xPosition>
+        <yPosition>933.375671</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>3</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>herbert_obstacle</name>
-        <uniqueID>546919</uniqueID>
-        <xPosition>265.120667</xPosition>
-        <yPosition>446.055359</yPosition>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>638164</uniqueID>
+        <xPosition>701.705566</xPosition>
+        <yPosition>195.839294</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>3</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>herbert_obstacle</name>
-        <uniqueID>319358</uniqueID>
-        <xPosition>374.924316</xPosition>
-        <yPosition>561.532654</yPosition>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>419791</uniqueID>
+        <xPosition>757.362183</xPosition>
+        <yPosition>768.375671</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>herbert_obstacle</name>
-        <uniqueID>355747</uniqueID>
-        <xPosition>382.726166</xPosition>
-        <yPosition>755.432312</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>herbert_obstacle</name>
-        <uniqueID>508881</uniqueID>
-        <xPosition>504.895111</xPosition>
-        <yPosition>842.853699</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
+        <motionType>4</motionType>
         <speedType>0</speedType>
     </node>
 </worldnodes>

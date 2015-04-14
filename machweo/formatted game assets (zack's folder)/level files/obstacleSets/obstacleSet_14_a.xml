@@ -3,7 +3,7 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>spear_obstacle</name>
-        <uniqueID>611007</uniqueID>
+        <uniqueID>538632</uniqueID>
         <xPosition>27.000000</xPosition>
         <yPosition>932.515869</yPosition>
         <zPosition>100.000000</zPosition>
@@ -13,48 +13,8 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>spear_obstacle</name>
-        <uniqueID>343007</uniqueID>
-        <xPosition>331.983154</xPosition>
-        <yPosition>251.500000</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>2</motionType>
-        <speedType>1</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>525538</uniqueID>
-        <xPosition>399.430359</xPosition>
-        <yPosition>251.500000</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>rosemary_obstacle</name>
-        <uniqueID>980530</uniqueID>
-        <xPosition>399.430359</xPosition>
-        <yPosition>552.500000</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>0</motionType>
-        <speedType>0</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>189386</uniqueID>
-        <xPosition>1233.450195</xPosition>
-        <yPosition>251.500000</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>2</motionType>
-        <speedType>1</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>653188</uniqueID>
-        <xPosition>1544.541992</xPosition>
+        <uniqueID>105384</uniqueID>
+        <xPosition>194.542175</xPosition>
         <yPosition>932.515869</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>2</motionType>
@@ -63,8 +23,48 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>spear_obstacle</name>
-        <uniqueID>435129</uniqueID>
-        <xPosition>1909.809570</xPosition>
+        <uniqueID>455750</uniqueID>
+        <xPosition>399.430359</xPosition>
+        <yPosition>251.500000</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>spear_obstacle</name>
+        <uniqueID>694762</uniqueID>
+        <xPosition>485.451111</xPosition>
+        <yPosition>251.500000</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>2</motionType>
+        <speedType>1</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>rosemary_obstacle</name>
+        <uniqueID>559398</uniqueID>
+        <xPosition>1260.048828</xPosition>
+        <yPosition>478.275635</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>spear_obstacle</name>
+        <uniqueID>611144</uniqueID>
+        <xPosition>1459.537720</xPosition>
+        <yPosition>256.227997</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>2</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>spear_obstacle</name>
+        <uniqueID>676813</uniqueID>
+        <xPosition>1909.805908</xPosition>
         <yPosition>940.952148</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>
@@ -73,8 +73,8 @@
     <node>
         <type>ObstacleSignifier</type>
         <name>spear_obstacle</name>
-        <uniqueID>703428</uniqueID>
-        <xPosition>2224.607178</xPosition>
+        <uniqueID>504182</uniqueID>
+        <xPosition>2224.603516</xPosition>
         <yPosition>245.969666</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>0</motionType>

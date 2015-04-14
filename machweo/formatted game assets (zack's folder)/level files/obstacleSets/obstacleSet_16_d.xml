@@ -2,62 +2,52 @@
 <worldnodes>
     <node>
         <type>ObstacleSignifier</type>
-        <name>rotate_obstacle</name>
-        <uniqueID>153743</uniqueID>
-        <xPosition>214.000000</xPosition>
-        <yPosition>238.000000</yPosition>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>707267</uniqueID>
+        <xPosition>50.000000</xPosition>
+        <yPosition>569.227051</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>4</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>herbert_obstacle</name>
+        <uniqueID>605438</uniqueID>
+        <xPosition>309.378723</xPosition>
+        <yPosition>543.580811</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>3</motionType>
-        <speedType>1</speedType>
+        <speedType>5</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>rotate_obstacle</name>
-        <uniqueID>227655</uniqueID>
-        <xPosition>217.623230</xPosition>
-        <yPosition>1017.312866</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>4</motionType>
-        <speedType>2</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>rotate_obstacle</name>
-        <uniqueID>108390</uniqueID>
-        <xPosition>716.555847</xPosition>
-        <yPosition>1017.312866</yPosition>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>197907</uniqueID>
+        <xPosition>309.378723</xPosition>
+        <yPosition>289.307739</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>3</motionType>
-        <speedType>1</speedType>
+        <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>rotate_obstacle</name>
-        <uniqueID>28878</uniqueID>
-        <xPosition>1189.030640</xPosition>
-        <yPosition>1017.312866</yPosition>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>569003</uniqueID>
+        <xPosition>313.829651</xPosition>
+        <yPosition>800.590820</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>4</motionType>
-        <speedType>2</speedType>
+        <motionType>3</motionType>
+        <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>rotate_obstacle</name>
-        <uniqueID>157589</uniqueID>
-        <xPosition>1359.843140</xPosition>
-        <yPosition>541.312866</yPosition>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>263354</uniqueID>
+        <xPosition>564.219666</xPosition>
+        <yPosition>552.702515</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>4</motionType>
-        <speedType>2</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>rotate_obstacle</name>
-        <uniqueID>474689</uniqueID>
-        <xPosition>1654.348511</xPosition>
-        <yPosition>1017.312866</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>4</motionType>
-        <speedType>1</speedType>
+        <speedType>0</speedType>
     </node>
 </worldnodes>

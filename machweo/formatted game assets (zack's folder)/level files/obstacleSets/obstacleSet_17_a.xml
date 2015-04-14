@@ -2,52 +2,62 @@
 <worldnodes>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spearsmall_obstacle </name>
-        <uniqueID>248843</uniqueID>
-        <xPosition>16.000000</xPosition>
-        <yPosition>459.465881</yPosition>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>468274</uniqueID>
+        <xPosition>50.000000</xPosition>
+        <yPosition>303.018524</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>1</motionType>
-        <speedType>2</speedType>
-    </node>
-    <node>
-        <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>833989</uniqueID>
-        <xPosition>154.197205</xPosition>
-        <yPosition>638.745911</yPosition>
-        <zPosition>100.000000</zPosition>
-        <motionType>1</motionType>
+        <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spearsmall_obstacle </name>
-        <uniqueID>971881</uniqueID>
-        <xPosition>295.489532</xPosition>
-        <yPosition>601.760925</yPosition>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>465482</uniqueID>
+        <xPosition>55.018738</xPosition>
+        <yPosition>769.322021</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>193927</uniqueID>
+        <xPosition>341.916199</xPosition>
+        <yPosition>421.761841</yPosition>
         <zPosition>100.000000</zPosition>
         <motionType>1</motionType>
         <speedType>2</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spearsmall_obstacle </name>
-        <uniqueID>108954</uniqueID>
-        <xPosition>624.527100</xPosition>
-        <yPosition>382.295349</yPosition>
+        <name>obstacle4_obstacle</name>
+        <uniqueID>361637</uniqueID>
+        <xPosition>341.916199</xPosition>
+        <yPosition>20.822594</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>1</motionType>
-        <speedType>2</speedType>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
     </node>
     <node>
         <type>ObstacleSignifier</type>
-        <name>spear_obstacle</name>
-        <uniqueID>85069</uniqueID>
-        <xPosition>811.156982</xPosition>
-        <yPosition>339.371033</yPosition>
+        <name>obstacle4_obstacle</name>
+        <uniqueID>69985</uniqueID>
+        <xPosition>341.916199</xPosition>
+        <yPosition>1068.538818</yPosition>
         <zPosition>100.000000</zPosition>
-        <motionType>1</motionType>
+        <motionType>0</motionType>
+        <speedType>0</speedType>
+    </node>
+    <node>
+        <type>ObstacleSignifier</type>
+        <name>batmaskmaskbat_obstacle</name>
+        <uniqueID>673963</uniqueID>
+        <xPosition>881.541626</xPosition>
+        <yPosition>540.546997</yPosition>
+        <zPosition>100.000000</zPosition>
+        <motionType>0</motionType>
         <speedType>0</speedType>
     </node>
 </worldnodes>
