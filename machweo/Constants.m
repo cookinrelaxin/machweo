@@ -33,8 +33,8 @@ int midpoint(int n1, int n2)
 -(instancetype)initSingleton{
     CGSize screenSize = [UIScreen mainScreen].bounds.size;
     float scaleFactor = [[UIScreen mainScreen] nativeScale];
-    NSLog(@"screenSize:%f, %f", screenSize.width, screenSize.height);
-    NSLog(@"scaleFactor:%f", scaleFactor);
+    //NSLog(@"screenSize:%f, %f", screenSize.width, screenSize.height);
+    //NSLog(@"scaleFactor:%f", scaleFactor);
 
     if (screenSize.height == 320) {
        // NSLog(@"_deviceType = iphone_4_5");
@@ -52,13 +52,13 @@ int midpoint(int n1, int n2)
         _deviceType = iphone_6_plus;
     }
     else if (screenSize.height == 768){
-        NSLog(@"_deviceType = ipad");
+        //NSLog(@"_deviceType = ipad");
         _SPRITE_SCALE = 1.0f;
         _deviceType = ipad;
     }
     _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 1024);
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);
-    NSLog(@"_SCALE_COEFFICIENT: %f, %f", _SCALE_COEFFICIENT.dx, _SCALE_COEFFICIENT.dy);
+    //NSLog(@"_SCALE_COEFFICIENT: %f, %f", _SCALE_COEFFICIENT.dx, _SCALE_COEFFICIENT.dy);
     _PLAYER_SIZE = 100;
     _PLAYER_Z_POSITION = 100;
     _FOREGROUND_Z_POSITION = _PLAYER_Z_POSITION + 1;

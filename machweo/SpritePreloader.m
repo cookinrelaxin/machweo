@@ -106,7 +106,12 @@ const int NUM_SPRITES_PER_TYPE= 12;
     SKTexture* spriteTexture = [atlas textureNamed:obsName];
     Obstacle* obstacle = [Obstacle obstacleWithTexture:spriteTexture];
     obstacle.name = obsName;
-    obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:CGSizeMake(obstacle.size.width / 2, obstacle.size.height / 2)];
+    if (constants.deviceType == ipad) {
+        obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:CGSizeMake(obstacle.size.width, obstacle.size.height)];
+    }
+    else{
+        obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:CGSizeMake(obstacle.size.width / 2 , obstacle.size.height / 2)];
+    }
     obstacle.physicsBody.categoryBitMask = constants.OBSTACLE_HIT_CATEGORY;
     obstacle.physicsBody.contactTestBitMask = constants.PLAYER_HIT_CATEGORY;
     obstacle.physicsBody.dynamic = false;
