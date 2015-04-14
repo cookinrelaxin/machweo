@@ -211,7 +211,7 @@ int CLIFF_VERTEX_COUNT = 15;
             int castedDie2 = arc4random_uniform((int)terrainPool.count);
             SKTexture* tex = [terrainPool objectAtIndex:castedDie2];
             Decoration* sprite = [Decoration spriteNodeWithTexture:tex];
-            sprite.xScale = sprite.yScale = .5;
+            sprite.xScale = sprite.yScale = constants.SPRITE_SCALE;
             sprite.physicsBody = nil;
             int zPositionDie = arc4random_uniform(30);
             sprite.zPosition = self.zPosition - 1 - zPositionDie;

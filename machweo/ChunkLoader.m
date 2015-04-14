@@ -153,7 +153,7 @@ typedef enum NodeTypes
                 //NSLog(@"tex: %@", tex);
                 //NSLog(@"atlas: %@", atlas);
                 currentNode = [Decoration spriteNodeWithTexture:tex];
-                currentNode.xScale = currentNode.yScale = .5;
+                currentNode.xScale = currentNode.yScale = constants.SPRITE_SCALE;
                 currentNode.physicsBody = nil;
             }
             else{

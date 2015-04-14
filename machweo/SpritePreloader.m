@@ -92,7 +92,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
 
 -(void)populateObstacleSpritePoolWithName:(NSString*)spriteName andAtlas:(SKTextureAtlas*)atlas{
     Obstacle* prototype = [self obstaclePrototypeWithName:spriteName andAtlas:atlas];
-    prototype.xScale = prototype.yScale = .5;
+    prototype.xScale = prototype.yScale = constants.SPRITE_SCALE;
     NSMutableArray* typeArray = [NSMutableArray array];
     for (int i = 0; i < NUM_SPRITES_PER_TYPE; i ++) {
         Obstacle* obsCopy = [prototype copy];

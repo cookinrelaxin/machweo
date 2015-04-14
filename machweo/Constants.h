@@ -109,6 +109,7 @@ typedef enum Devices
 @property(nonatomic) int NUMBER_OF_BACKGROUND_SIMUL;
 @property(nonatomic) float DEFAULT_POPUP_WIDTH_TO_CHAR_RATIO;
 @property(nonatomic) float DEFAULT_POPUP_HEIGHT_TO_CHAR_RATIO;
+@property(nonatomic) float SPRITE_SCALE;
 @property(nonatomic) CGSize MIN_POPUP_SIZE;
 @property(nonatomic) CGSize MAX_POPUP_SIZE;
 @property (nonatomic) NSString* POPUP_FONT_NAME;
