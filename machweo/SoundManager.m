@@ -241,7 +241,7 @@ float maxVol_music = .6;
 -(void)mute{
     if (muted) {
         muted = false;
-        NSLog(@"muted = false");
+        //NSLog(@"muted = false");
         [_dayTrack play];
         [_nightTrack play];
         if (!musicStopped) {
@@ -250,7 +250,7 @@ float maxVol_music = .6;
     }
     else{
         muted = true;
-        NSLog(@"muted = true");
+        //NSLog(@"muted = true");
         [_dayTrack pause];
         [_nightTrack pause];
         if (!musicStopped) {

@@ -42,9 +42,6 @@ const int NUM_SPRITES_PER_TYPE= 12;
         case iphone_6_plus:
             atlases = @[[SKTextureAtlas atlasNamed:@"clouds_iphone6_plus"], [SKTextureAtlas atlasNamed:@"Desert_iphone6_plus"], [SKTextureAtlas atlasNamed:@"Jungle_iphone6_plus"], [SKTextureAtlas atlasNamed:@"obstacles_iphone6_plus"], [SKTextureAtlas atlasNamed:@"savanna_iphone6_plus"], [SKTextureAtlas atlasNamed:@"skys_iphone6_plus"]];
             break;
-        case ipad:
-            atlases = @[[SKTextureAtlas atlasNamed:@"clouds_ipad"], [SKTextureAtlas atlasNamed:@"Desert_ipad"], [SKTextureAtlas atlasNamed:@"Jungle_ipad"], [SKTextureAtlas atlasNamed:@"obstacles_ipad"], [SKTextureAtlas atlasNamed:@"savanna_ipad"], [SKTextureAtlas atlasNamed:@"skys_ipad"]];
-            break;
     }
     
     for (SKTextureAtlas* atlas in atlases) {
@@ -106,12 +103,7 @@ const int NUM_SPRITES_PER_TYPE= 12;
     SKTexture* spriteTexture = [atlas textureNamed:obsName];
     Obstacle* obstacle = [Obstacle obstacleWithTexture:spriteTexture];
     obstacle.name = obsName;
-    if (constants.deviceType == ipad) {
-        obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:CGSizeMake(obstacle.size.width, obstacle.size.height)];
-    }
-    else{
-        obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:CGSizeMake(obstacle.size.width / 2 , obstacle.size.height / 2)];
-    }
+    obstacle.physicsBody = [SKPhysicsBody bodyWithTexture:spriteTexture size:CGSizeMake(obstacle.size.width / 2 , obstacle.size.height / 2)];
     obstacle.physicsBody.categoryBitMask = constants.OBSTACLE_HIT_CATEGORY;
     obstacle.physicsBody.contactTestBitMask = constants.PLAYER_HIT_CATEGORY;
     obstacle.physicsBody.dynamic = false;

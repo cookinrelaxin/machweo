@@ -75,9 +75,6 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         case iphone_6_plus:
             MAX_IN_USE_DECO_POOL_COUNT = MAX_UNUSED_DECO_POOL_COUNT = 30;
             break;
-        case ipad:
-            MAX_IN_USE_DECO_POOL_COUNT = MAX_UNUSED_DECO_POOL_COUNT = 15;
-            break;
     }
     //NSLog(@"MAX_IN_USE_DECO_POOL_COUNT: %d", MAX_IN_USE_DECO_POOL_COUNT);
 }
@@ -461,7 +458,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         }
             
     }
-    NSLog(@"unknown time of day. cannot convert to string");
+   // NSLog(@"unknown time of day. cannot convert to string");
     return nil;
 }
 
@@ -476,7 +473,7 @@ const float DELTA_TIME_THRESHOLD_FOR_UPDATE = 0.02f;
         case numBiomes:
             return @"error in biome to string!";
     }
-    NSLog(@"unknown biome. cannot convert to string");
+   // NSLog(@"unknown biome. cannot convert to string");
     return nil;
 }
 

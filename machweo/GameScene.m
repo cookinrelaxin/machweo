@@ -339,12 +339,6 @@ int METERS_PER_PIXEL = 50;
     }
 }
 
--(void)performSunset{
-    SKAction* sunsetAction = [SKAction moveToY:(0 - (sunNode.size.height / 2)) duration:2.0f];
-    [sunNode runAction:sunsetAction];
-}
-
-
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     UITouch* touch = [touches anyObject];
@@ -421,6 +415,7 @@ int METERS_PER_PIXEL = 50;
 -(void)restart{
     [self reset];
 }
+
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
 {
     UITouch* touch = [touches anyObject];
@@ -564,7 +559,6 @@ int METERS_PER_PIXEL = 50;
                 [physicsComponent calculatePlayerPosition:player withTerrainArray:terrainArray];
                 [self drawLines];
             }
-            
         }
         [self fadeMoon];
     }
@@ -870,7 +864,6 @@ int METERS_PER_PIXEL = 50;
 
 -(void)didMoveToView:(SKView *)view{
     [self setupCairns];
-    //[soundManager startSounds];
 }
 
 @end

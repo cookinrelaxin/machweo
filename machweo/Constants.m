@@ -17,16 +17,6 @@ int midpoint(int n1, int n2)
 {
     return (n1 + n2) / 2;
 }
-/*
-2015-04-13 21:48:24.013 machweo[1820:403698] screenSize:667.000000, 375.000000
-2015-04-13 21:48:24.014 machweo[1820:403698] scaleFactor:2.000000
-2015-04-13 21:48:24.014 machweo[1820:403698] _SCALE_COEFFICIENT: 0.488287, 0.366211
- 
-2015-04-13 21:50:00.747 machweo[574:226706] screenSize:1024.000000, 768.000000
-2015-04-13 21:50:00.750 machweo[574:226706] scaleFactor:2.000000
-2015-04-13 21:50:00.751 machweo[574:226706] _deviceType = ipad
-2015-04-13 21:50:00.751 machweo[574:226706] _SCALE_COEFFICIENT: 0.749634, 0.750000
- */
 
 @implementation Constants
 
@@ -50,11 +40,6 @@ int midpoint(int n1, int n2)
        // NSLog(@"_deviceType = iphone_6_plus");
         _SPRITE_SCALE = .5;
         _deviceType = iphone_6_plus;
-    }
-    else if (screenSize.height == 768){
-        //NSLog(@"_deviceType = ipad");
-        _SPRITE_SCALE = 1.0f;
-        _deviceType = ipad;
     }
     _IDEAL_SCREEN_SIZE = CGSizeMake(1366, 1024);
     _SCALE_COEFFICIENT = CGVectorMake(screenSize.width / _IDEAL_SCREEN_SIZE.width, screenSize.height / _IDEAL_SCREEN_SIZE.height);

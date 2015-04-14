@@ -60,9 +60,9 @@
         }
         [timeArray addObject:decorationSetName];
     }
-    else{
-        NSLog(@"error: time of day must be either day or night");
-    }
+//    else{
+//        NSLog(@"error: time of day must be either day or night");
+//    }
     return;
 }
 

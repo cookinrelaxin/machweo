@@ -253,6 +253,7 @@
                                         <variation key="heightClass=compact-widthClass=regular" constant="8"/>
                                     </constraint>
                                     <constraint firstItem="X3j-pu-29F" firstAttribute="top" secondItem="EZm-1o-77c" secondAttribute="bottom" constant="40" id="AKE-P9-EuJ">
+                                        <variation key="heightClass=compact-widthClass=compact" constant="20"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="40"/>
                                     </constraint>
                                     <constraint firstAttribute="trailing" secondItem="gcn-V4-xgn" secondAttribute="trailing" constant="20" id="Csg-8Z-26Z">
@@ -303,6 +304,7 @@
                                         <variation key="heightClass=regular-widthClass=regular" constant="103"/>
                                     </constraint>
                                     <constraint firstItem="f0n-i6-pSA" firstAttribute="top" secondItem="FB1-7A-f2Y" secondAttribute="bottom" constant="40" id="mTU-th-duL">
+                                        <variation key="heightClass=compact-widthClass=compact" constant="20"/>
                                         <variation key="heightClass=compact-widthClass=regular" constant="40"/>
                                     </constraint>
                                     <constraint firstAttribute="centerX" secondItem="kli-Os-4tw" secondAttribute="centerX" id="uEr-rJ-63j">

@@ -52,7 +52,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
         popupQueue = [NSMutableArray array];
         gameLoaded = true;
         _gameSceneView.ignoresSiblingOrder = YES;
-        //_gameSceneView.showsDrawCount = true;
         _menuView.hidden = true;
         [self setUpObservers];
         [self initGame];
@@ -62,7 +61,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
     }
 }
 -(void)viewDidAppear:(BOOL)animated{
-    NSLog(@"viewDidAppear");
     if (firstViewAppeared) {
         [[SoundManager sharedInstance] mute];
     }
@@ -71,7 +69,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
     }
 }
 -(void)viewDidDisappear:(BOOL)animated{
-    NSLog(@"viewDidDisappear");
     [[SoundManager sharedInstance] mute];
 }
 
@@ -80,7 +77,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
 }
 
 -(void)interstitialAd:(ADInterstitialAd *)interstitialAd didFailWithError:(NSError *)error{
-    //NSLog(@"interstitialAd failed");
     if (ad_load_attempt_count < MAX_AD_LOAD_ATTEMPT_COUNT) {
         dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
             ad_load_attempt_count ++;
@@ -95,26 +91,20 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
 }
 
 -(void)interstitialAdActionDidFinish:(ADInterstitialAd *)interstitialAd{
-    //NSLog(@"interstitialAd finished");
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0), ^{
         interstitial = [[ADInterstitialAd alloc] init];
         interstitial.delegate = self;
     });
-
 }
 
 -(void)interstitialAdDidLoad:(ADInterstitialAd *)interstitialAd{
-   // NSLog(@"interstitialAd loaded");
     ad_load_attempt_count = 0;
 }
 
 -(void)interstitialAdDidUnload:(ADInterstitialAd *)interstitialAd{
-   // NSLog(@"interstitialAd unloaded");
 }
 
 -(void)interstitialAdWillLoad:(ADInterstitialAd *)interstitialAd{
-    //NSLog(@"interstitialAd will load");
-
 }
 
 -(void)viewDidLayoutSubviews{
@@ -137,7 +127,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
 
 -(void)setUpObservers{
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    
     [center addObserverForName:@"lose game"
                         object:nil
                          queue:nil
@@ -147,7 +136,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
          [self showMenuWithScore:score withAd:true];
 
      }];
-
     [center addObserverForName:@"add popup"
                         object:nil
                          queue:nil
@@ -157,7 +145,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
          CGPoint position = ((NSValue*)[notification.userInfo objectForKey:@"popup position"]).CGPointValue;
          [self addPopupMessageWithText:text andPosition:position];
      }];
-    
     [center addObserverForName:@"remove message"
                         object:nil
                          queue:nil
@@ -165,7 +152,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
      {
          [self removeCurrentMessage];
      }];
-    
     [center addObserverForName:@"processing initialized"
                         object:nil
                          queue:nil
@@ -173,7 +159,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
      {
          _processingLabel.hidden = false;
      }];
-    
     [center addObserverForName:@"processing over"
                         object:nil
                          queue:nil
@@ -181,7 +166,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
      {
          _processingLabel.hidden = true;
      }];
-    
 }
 
 -(void)addPopupMessageWithText:(NSString*)text andPosition:(CGPoint)position{
@@ -195,8 +179,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
 
 -(void)presentMessage{
     PopupMessage *thisMessage = [popupQueue firstObject];
-    //NSLog(@"popupQueue: %@", popupQueue);
-    
     CGSize popupSize = [self choosePopupSizeForString:thisMessage.text];
     if (!popupView) {
         popupView = [[PopupView alloc] initWithFrame:CGRectMake(thisMessage.position.x - (popupSize.width / 2), thisMessage.position.y, popupSize.width, popupSize.height) andIsMenu:NO];
@@ -207,7 +189,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
              popupView.frame = CGRectMake(popupView.frame.origin.x, popupView.frame.origin.y, popupView.desiredFrameSize.width, popupView.desiredFrameSize.height + 2);
          }
          completion:^(BOOL finished){
-             
              popupView.frame = CGRectMake(popupView.frame.origin.x, popupView.frame.origin.y, popupView.desiredFrameSize.width, popupView.desiredFrameSize.height);
              popupView.textLabel.text = thisMessage.text;
              popupView.textLabel.numberOfLines = 3;
@@ -287,7 +268,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
                                   }
                          ];
     }];
-
 }
 
 -(CGSize)choosePopupSizeForString:(NSString*)string{
@@ -324,7 +304,6 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
     SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
     [_gameSceneView.scene runAction:buttonAction];
     [[GKHelper sharedInstance] showGameCenter];
-
 }
 
 - (IBAction)restorePressed:(id)sender {
@@ -335,12 +314,9 @@ int MAX_AD_LOAD_ATTEMPT_COUNT = 3;
 }
 
 - (IBAction)ratePressed:(id)sender {
-    // NSLog(@"ratePressed");
-    //SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
-    //[_gameSceneView.scene runAction:buttonAction];
-    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=<YOURAPPID>&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/app/id956041188"]];
 }
+
 - (IBAction)removeAds:(id)sender {
     SKAction* buttonAction = [constants.SOUND_ACTIONS valueForKey:@"button2.mp3"];
     [_gameSceneView.scene runAction:buttonAction];

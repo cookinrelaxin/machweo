@@ -14,16 +14,16 @@
 #define kRemoveAdsProductIdentifier @"remove_ads"
 
 - (void)tapsRemoveAds{
-    NSLog(@"User requests to remove ads");
+    //NSLog(@"User requests to remove ads");
     if([SKPaymentQueue canMakePayments]){
-        NSLog(@"User can make payments");
+        //NSLog(@"User can make payments");
         SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithObject:kRemoveAdsProductIdentifier]];
         productsRequest.delegate = self;
         [productsRequest start];
         [[NSNotificationCenter defaultCenter] postNotificationName:@"processing initialized" object:nil];
     }
     else{
-        NSLog(@"User cannot make payments due to parental controls");
+       // NSLog(@"User cannot make payments due to parental controls");
         //this is called the user cannot make payments, most likely due to parental controls
     }
 }
@@ -33,11 +33,11 @@
     NSUInteger count = [response.products count];
     if(count > 0){
         validProduct = [response.products objectAtIndex:0];
-        NSLog(@"Products Available!");
+       // NSLog(@"Products Available!");
         [self purchase:validProduct];
     }
     else if(!validProduct){
-        NSLog(@"No products available");
+        //NSLog(@"No products available");
         //this is called if your product id is not valid, this shouldn't be called unless that happens.
     }
 }
@@ -58,11 +58,11 @@
 - (void) paymentQueueRestoreCompletedTransactionsFinished:(SKPaymentQueue *)queue
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:@"processing over" object:nil];
-    NSLog(@"received restored transactions: %lu", (unsigned long)queue.transactions.count);
+   // NSLog(@"received restored transactions: %lu", (unsigned long)queue.transactions.count);
     for(SKPaymentTransaction *transaction in queue.transactions){
         if(transaction.transactionState == SKPaymentTransactionStateRestored){
             //called when the user successfully restores a purchase
-            NSLog(@"Transaction state -> Restored");
+        //    NSLog(@"Transaction state -> Restored");
             [self doRemoveAds];
             [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
             break;
@@ -91,18 +91,18 @@
             case SKPaymentTransactionStatePurchasing: NSLog(@"Transaction state -> Purchasing");
                 break;
             case SKPaymentTransactionStatePurchased:
-                NSLog(@"SKPaymentTransactionStatePurchased");
+               // NSLog(@"SKPaymentTransactionStatePurchased");
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 [self doRemoveAds];
                 break;
             case SKPaymentTransactionStateRestored:
-                NSLog(@"SKPaymentTransactionStateRestored");
+                //NSLog(@"SKPaymentTransactionStateRestored");
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
             case SKPaymentTransactionStateFailed:
                 
                 if(transaction.error.code != SKErrorPaymentCancelled){
-                    NSLog(@"SKPaymentTransactionStateFailed");
+                 //   NSLog(@"SKPaymentTransactionStateFailed");
                 }
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
             break;

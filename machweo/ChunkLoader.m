@@ -71,7 +71,7 @@ typedef enum NodeTypes
 }
 
 -(void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError{
-    NSLog(@"error:%@",parseError.localizedDescription);
+    //NSLog(@"error:%@",parseError.localizedDescription);
 }
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict {

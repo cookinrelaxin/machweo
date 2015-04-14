@@ -33,27 +33,21 @@
 		780EFEF91AC90D350041BFDC /* Insects_Tropical.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780EFEF71AC90D350041BFDC /* Insects_Tropical.mp3 */; };
 		780EFEFA1AC90D350041BFDC /* Tropical_Birds_and_Insects.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 780EFEF81AC90D350041BFDC /* Tropical_Birds_and_Insects.mp3 */; };
 		7810FA0C1AD5F47E00429FB9 /* cairn_decoration.png in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA051AD5F47E00429FB9 /* cairn_decoration.png */; };
-		7810FA311AD60BA700429FB9 /* clouds_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA141AD60BA600429FB9 /* clouds_ipad.atlas */; };
 		7810FA321AD60BA700429FB9 /* clouds_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA151AD60BA600429FB9 /* clouds_iphone4_iphone5.atlas */; };
 		7810FA331AD60BA700429FB9 /* clouds_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA161AD60BA600429FB9 /* clouds_iphone6.atlas */; };
 		7810FA341AD60BA700429FB9 /* clouds_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA171AD60BA600429FB9 /* clouds_iphone6_plus.atlas */; };
-		7810FA351AD60BA700429FB9 /* Desert_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA191AD60BA600429FB9 /* Desert_ipad.atlas */; };
 		7810FA361AD60BA700429FB9 /* Desert_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA1A1AD60BA600429FB9 /* Desert_iphone4_iphone5.atlas */; };
 		7810FA371AD60BA700429FB9 /* Desert_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA1B1AD60BA600429FB9 /* Desert_iphone6.atlas */; };
 		7810FA381AD60BA700429FB9 /* Desert_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA1C1AD60BA600429FB9 /* Desert_iphone6_plus.atlas */; };
-		7810FA391AD60BA700429FB9 /* Jungle_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA1E1AD60BA600429FB9 /* Jungle_ipad.atlas */; };
 		7810FA3A1AD60BA700429FB9 /* Jungle_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA1F1AD60BA600429FB9 /* Jungle_iphone4_iphone5.atlas */; };
 		7810FA3B1AD60BA700429FB9 /* Jungle_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA201AD60BA600429FB9 /* Jungle_iphone6.atlas */; };
 		7810FA3C1AD60BA700429FB9 /* Jungle_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA211AD60BA600429FB9 /* Jungle_iphone6_plus.atlas */; };
-		7810FA3D1AD60BA700429FB9 /* obstacles_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA231AD60BA600429FB9 /* obstacles_ipad.atlas */; };
 		7810FA3E1AD60BA700429FB9 /* obstacles_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA241AD60BA600429FB9 /* obstacles_iphone4_iphone5.atlas */; };
 		7810FA3F1AD60BA700429FB9 /* obstacles_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA251AD60BA600429FB9 /* obstacles_iphone6.atlas */; };
 		7810FA401AD60BA700429FB9 /* obstacles_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA261AD60BA600429FB9 /* obstacles_iphone6_plus.atlas */; };
-		7810FA411AD60BA700429FB9 /* savanna_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA281AD60BA700429FB9 /* savanna_ipad.atlas */; };
 		7810FA421AD60BA700429FB9 /* savanna_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA291AD60BA700429FB9 /* savanna_iphone4_iphone5.atlas */; };
 		7810FA431AD60BA700429FB9 /* savanna_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA2A1AD60BA700429FB9 /* savanna_iphone6.atlas */; };
 		7810FA441AD60BA700429FB9 /* savanna_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA2B1AD60BA700429FB9 /* savanna_iphone6_plus.atlas */; };
-		7810FA451AD60BA700429FB9 /* skys_ipad.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA2D1AD60BA700429FB9 /* skys_ipad.atlas */; };
 		7810FA471AD60BA700429FB9 /* skys_iphone6.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA2F1AD60BA700429FB9 /* skys_iphone6.atlas */; };
 		7810FA481AD60BA700429FB9 /* skys_iphone6_plus.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA301AD60BA700429FB9 /* skys_iphone6_plus.atlas */; };
 		7810FA4A1AD6196E00429FB9 /* skys_iphone4_iphone5.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 7810FA491AD6196E00429FB9 /* skys_iphone4_iphone5.atlas */; };
@@ -300,27 +294,21 @@
 		780EFEF71AC90D350041BFDC /* Insects_Tropical.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Insects_Tropical.mp3; sourceTree = "<group>"; };
 		780EFEF81AC90D350041BFDC /* Tropical_Birds_and_Insects.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Tropical_Birds_and_Insects.mp3; sourceTree = "<group>"; };
 		7810FA051AD5F47E00429FB9 /* cairn_decoration.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cairn_decoration.png; sourceTree = "<group>"; };
-		7810FA141AD60BA600429FB9 /* clouds_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = clouds_ipad.atlas; sourceTree = "<group>"; };
 		7810FA151AD60BA600429FB9 /* clouds_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = clouds_iphone4_iphone5.atlas; sourceTree = "<group>"; };
 		7810FA161AD60BA600429FB9 /* clouds_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = clouds_iphone6.atlas; sourceTree = "<group>"; };
 		7810FA171AD60BA600429FB9 /* clouds_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = clouds_iphone6_plus.atlas; sourceTree = "<group>"; };
-		7810FA191AD60BA600429FB9 /* Desert_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Desert_ipad.atlas; sourceTree = "<group>"; };
 		7810FA1A1AD60BA600429FB9 /* Desert_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Desert_iphone4_iphone5.atlas; sourceTree = "<group>"; };
 		7810FA1B1AD60BA600429FB9 /* Desert_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Desert_iphone6.atlas; sourceTree = "<group>"; };
 		7810FA1C1AD60BA600429FB9 /* Desert_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Desert_iphone6_plus.atlas; sourceTree = "<group>"; };
-		7810FA1E1AD60BA600429FB9 /* Jungle_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Jungle_ipad.atlas; sourceTree = "<group>"; };
 		7810FA1F1AD60BA600429FB9 /* Jungle_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Jungle_iphone4_iphone5.atlas; sourceTree = "<group>"; };
 		7810FA201AD60BA600429FB9 /* Jungle_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Jungle_iphone6.atlas; sourceTree = "<group>"; };
 		7810FA211AD60BA600429FB9 /* Jungle_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Jungle_iphone6_plus.atlas; sourceTree = "<group>"; };
-		7810FA231AD60BA600429FB9 /* obstacles_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacles_ipad.atlas; sourceTree = "<group>"; };
 		7810FA241AD60BA600429FB9 /* obstacles_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacles_iphone4_iphone5.atlas; sourceTree = "<group>"; };
 		7810FA251AD60BA600429FB9 /* obstacles_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacles_iphone6.atlas; sourceTree = "<group>"; };
 		7810FA261AD60BA600429FB9 /* obstacles_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = obstacles_iphone6_plus.atlas; sourceTree = "<group>"; };
-		7810FA281AD60BA700429FB9 /* savanna_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = savanna_ipad.atlas; sourceTree = "<group>"; };
 		7810FA291AD60BA700429FB9 /* savanna_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = savanna_iphone4_iphone5.atlas; sourceTree = "<group>"; };
 		7810FA2A1AD60BA700429FB9 /* savanna_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = savanna_iphone6.atlas; sourceTree = "<group>"; };
 		7810FA2B1AD60BA700429FB9 /* savanna_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = savanna_iphone6_plus.atlas; sourceTree = "<group>"; };
-		7810FA2D1AD60BA700429FB9 /* skys_ipad.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = skys_ipad.atlas; sourceTree = "<group>"; };
 		7810FA2F1AD60BA700429FB9 /* skys_iphone6.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = skys_iphone6.atlas; sourceTree = "<group>"; };
 		7810FA301AD60BA700429FB9 /* skys_iphone6_plus.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = skys_iphone6_plus.atlas; sourceTree = "<group>"; };
 		7810FA491AD6196E00429FB9 /* skys_iphone4_iphone5.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = skys_iphone4_iphone5.atlas; sourceTree = "<group>"; };
@@ -626,7 +614,6 @@
 		7810FA131AD60BA600429FB9 /* clouds */ = {
 			isa = PBXGroup;
 			children = (
-				7810FA141AD60BA600429FB9 /* clouds_ipad.atlas */,
 				7810FA151AD60BA600429FB9 /* clouds_iphone4_iphone5.atlas */,
 				7810FA161AD60BA600429FB9 /* clouds_iphone6.atlas */,
 				7810FA171AD60BA600429FB9 /* clouds_iphone6_plus.atlas */,
@@ -637,7 +624,6 @@
 		7810FA181AD60BA600429FB9 /* desert */ = {
 			isa = PBXGroup;
 			children = (
-				7810FA191AD60BA600429FB9 /* Desert_ipad.atlas */,
 				7810FA1A1AD60BA600429FB9 /* Desert_iphone4_iphone5.atlas */,
 				7810FA1B1AD60BA600429FB9 /* Desert_iphone6.atlas */,
 				7810FA1C1AD60BA600429FB9 /* Desert_iphone6_plus.atlas */,
@@ -648,7 +634,6 @@
 		7810FA1D1AD60BA600429FB9 /* jungle */ = {
 			isa = PBXGroup;
 			children = (
-				7810FA1E1AD60BA600429FB9 /* Jungle_ipad.atlas */,
 				7810FA1F1AD60BA600429FB9 /* Jungle_iphone4_iphone5.atlas */,
 				7810FA201AD60BA600429FB9 /* Jungle_iphone6.atlas */,
 				7810FA211AD60BA600429FB9 /* Jungle_iphone6_plus.atlas */,
@@ -659,7 +644,6 @@
 		7810FA221AD60BA600429FB9 /* obstacles */ = {
 			isa = PBXGroup;
 			children = (
-				7810FA231AD60BA600429FB9 /* obstacles_ipad.atlas */,
 				7810FA241AD60BA600429FB9 /* obstacles_iphone4_iphone5.atlas */,
 				7810FA251AD60BA600429FB9 /* obstacles_iphone6.atlas */,
 				7810FA261AD60BA600429FB9 /* obstacles_iphone6_plus.atlas */,
@@ -670,7 +654,6 @@
 		7810FA271AD60BA700429FB9 /* savanna */ = {
 			isa = PBXGroup;
 			children = (
-				7810FA281AD60BA700429FB9 /* savanna_ipad.atlas */,
 				7810FA291AD60BA700429FB9 /* savanna_iphone4_iphone5.atlas */,
 				7810FA2A1AD60BA700429FB9 /* savanna_iphone6.atlas */,
 				7810FA2B1AD60BA700429FB9 /* savanna_iphone6_plus.atlas */,
@@ -682,7 +665,6 @@
 			isa = PBXGroup;
 			children = (
 				7810FA491AD6196E00429FB9 /* skys_iphone4_iphone5.atlas */,
-				7810FA2D1AD60BA700429FB9 /* skys_ipad.atlas */,
 				7810FA2F1AD60BA700429FB9 /* skys_iphone6.atlas */,
 				7810FA301AD60BA700429FB9 /* skys_iphone6_plus.atlas */,
 			);
@@ -1152,7 +1134,6 @@
 				782E52311AA7F9A3004FE1F7 /* decorationSet_jungle_day_e.xml in Resources */,
 				781952E31ADCA47500A8D884 /* obstacleSet_3_h.xml in Resources */,
 				783379DF1AA3F6A0008756CB /* decorationSet_sahara_day_a.xml in Resources */,
-				7810FA451AD60BA700429FB9 /* skys_ipad.atlas in Resources */,
 				78952A711AA2CB0000A065C2 /* decorationSet_savanna_day_c.xml in Resources */,
 				7819530B1ADCA47500A8D884 /* obstacleSet_10_a.xml in Resources */,
 				781952FF1ADCA47500A8D884 /* obstacleSet_8_e.xml in Resources */,
@@ -1226,7 +1207,6 @@
 				78BD8DE21ACD05A600088E97 /* retrybuttonpushed.png in Resources */,
 				781953511ADCA47500A8D884 /* obstacleSet_20_f.xml in Resources */,
 				782060CF1AD2339600B93536 /* desertWind.mp3 in Resources */,
-				7810FA391AD60BA700429FB9 /* Jungle_ipad.atlas in Resources */,
 				781952E11ADCA47500A8D884 /* obstacleSet_3_f.xml in Resources */,
 				781952E01ADCA47500A8D884 /* obstacleSet_3_e.xml in Resources */,
 				782060D61AD2339600B93536 /* treegrow.mp3 in Resources */,
@@ -1236,7 +1216,6 @@
 				780EFEF91AC90D350041BFDC /* Insects_Tropical.mp3 in Resources */,
 				7810FA441AD60BA700429FB9 /* savanna_iphone6_plus.atlas in Resources */,
 				781953411ADCA47500A8D884 /* obstacleSet_18_a.xml in Resources */,
-				7810FA351AD60BA700429FB9 /* Desert_ipad.atlas in Resources */,
 				781953381ADCA47500A8D884 /* obstacleSet_16_g.xml in Resources */,
 				7810FA321AD60BA700429FB9 /* clouds_iphone4_iphone5.atlas in Resources */,
 				7810FA3F1AD60BA700429FB9 /* obstacles_iphone6.atlas in Resources */,
@@ -1278,10 +1257,8 @@
 				781953161ADCA47500A8D884 /* obstacleSet_11_d.xml in Resources */,
 				7810FA471AD60BA700429FB9 /* skys_iphone6.atlas in Resources */,
 				781952DA1ADCA47500A8D884 /* obstacleSet_2_e.xml in Resources */,
-				7810FA311AD60BA700429FB9 /* clouds_ipad.atlas in Resources */,
 				782060D41AD2339600B93536 /* projectorUp.mp3 in Resources */,
 				7819533F1ADCA47500A8D884 /* obstacleSet_17_e.xml in Resources */,
-				7810FA3D1AD60BA700429FB9 /* obstacles_ipad.atlas in Resources */,
 				781952DE1ADCA47500A8D884 /* obstacleSet_3_c.xml in Resources */,
 				781952D91ADCA47500A8D884 /* obstacleSet_2_d.xml in Resources */,
 				781952DB1ADCA47500A8D884 /* obstacleSet_2_f.xml in Resources */,
@@ -1349,7 +1326,6 @@
 				783379E01AA3F6A0008756CB /* decorationSet_sahara_day_b.xml in Resources */,
 				781953101ADCA47500A8D884 /* obstacleSet_10_f.xml in Resources */,
 				782060D71AD2339600B93536 /* treegrow2.mp3 in Resources */,
-				7810FA411AD60BA700429FB9 /* savanna_ipad.atlas in Resources */,
 				781953281ADCA47500A8D884 /* obstacleSet_14_d.xml in Resources */,
 				781953501ADCA47500A8D884 /* obstacleSet_20_e.xml in Resources */,
 				781953151ADCA47500A8D884 /* obstacleSet_11_c.xml in Resources */,
@@ -1513,6 +1489,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1529,6 +1506,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
